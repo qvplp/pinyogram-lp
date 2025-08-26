@@ -5,8 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="サマーフェスタ2024 - イベント詳細 | PhotoSession Connect">
     <title>サマーフェスタ2024 - イベント詳細 | PhotoSession Connect</title>
+
+    <!-- 予約ボタンセクション -->
+<section class="event-actions">
+    <div class="container">
+        <div class="action-buttons">
+            <a href="reservation.html?id=EVT001" class="btn-reserve-primary">
+                <i class="fas fa-calendar-check"></i>
+                このイベントを予約する
+            </a>
+            <button class="btn-share" onclick="shareEvent()">
+                <i class="fas fa-share-alt"></i>
+                シェア
+            </button>
+            <button class="btn-favorite" onclick="toggleFavorite(this)">
+                <i class="far fa-heart"></i>
+                お気に入り
+            </button>
+        </div>
     
+  <!-- 残席状況 -->
+        <div class="availability-info">
+            <span class="availability-label">残席状況:</span>
+            <span class="availability-count">残り<strong>5</strong>席</span>
+            <div class="availability-bar">
+                <div class="availability-progress" style="width: 70%;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
     <!-- CSS -->
+
     <link rel="stylesheet" href="css/style.css">
     
     <!-- Google Fonts -->
@@ -360,6 +394,8 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(255,110,199,0.3);
         }
+      
+        
         
         /* レスポンシブ */
         @media (max-width: 968px) {
@@ -898,6 +934,9 @@
                 });
             });
         });
+
+
+        
     </script>
 </body>
 </html>
