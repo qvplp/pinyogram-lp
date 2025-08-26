@@ -1132,6 +1132,139 @@ footer {
     animation: imageLoad 0.5s ease-out;
 }
 
+/* ===================================
+   イベントカード - 予約ボタン付き
+   これらのスタイルを style.css に追加
+   =================================== */
+
+/* カードアクション */
+.card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.btn-detail,
+.btn-reserve-small {
+    flex: 1;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-detail {
+    background: #f7fafc;
+    color: #4a5568;
+    border: 1px solid #e2e8f0;
+}
+
+.btn-detail:hover {
+    background: #e2e8f0;
+    transform: translateY(-1px);
+}
+
+.btn-reserve-small {
+    background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+    color: white;
+    border: none;
+}
+
+.btn-reserve-small:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(255, 110, 199, 0.3);
+}
+
+/* イベント価格表示 */
+.event-card .event-price {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price-label {
+    color: #718096;
+    font-size: 12px;
+}
+
+.price-amount {
+    color: #2d3748;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* バッジ */
+.event-card .badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    z-index: 10;
+}
+
+.badge-new {
+    background: #48bb78;
+    color: white;
+}
+
+.badge-popular {
+    background: #f56565;
+    color: white;
+}
+
+/* 画像がない場合のフォールバック */
+.event-image.no-image {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.event-image.no-image::after {
+    content: '📸';
+    font-size: 48px;
+}
+
+/* エラーメッセージ */
+.error-message {
+    text-align: center;
+    color: #718096;
+    padding: 40px;
+    font-size: 16px;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 640px) {
+    .card-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .btn-detail,
+    .btn-reserve-small {
+        width: 100%;
+        padding: 10px;
+    }
+    
+    .event-price {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}
+
 /* スケルトンローディング */
 .event-card-image.skeleton {
     background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
