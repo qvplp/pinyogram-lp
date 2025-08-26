@@ -356,6 +356,34 @@
             color: #666;
         }
         
+        /* カード内のボタン */
+        .card-actions {
+            display: flex;
+            gap: 8px;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .btn-detail {
+            flex: 1;
+            padding: 6px 12px;
+            background: white;
+            color: #666;
+            text-align: center;
+            text-decoration: none;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-detail:hover {
+            background: #f0f0f0;
+            border-color: #ff6ec7;
+            color: #ff6ec7;
+        }
+        
         /* レスポンシブ */
         @media (max-width: 1024px) {
             .main-container {
@@ -398,7 +426,7 @@
             <ul class="nav-links">
                 <li><a href="index.html">ホーム</a></li>
                 <li><a href="events.html">イベント一覧</a></li>
-                <li><a href="reservation.html">予約</a></li>
+                <li><a href="#about">サービス</a></li>
             </ul>
         </nav>
     </header>
@@ -407,113 +435,8 @@
         <!-- 左側：イベント一覧（2/3） -->
         <div class="events-section">
             <h2 class="section-title">📸 開催予定イベント</h2>
-            <div class="events-grid">
-                <!-- イベント1 -->
-                <div class="event-card" data-date="2024-08-10">
-                    <div class="event-card-image">
-                        サマーフェスタ2024
-                        <img src="images/events/event001.jpg" alt="" onerror="this.style.display='none'">
-                        <span class="event-badge badge-popular">人気</span>
-                    </div>
-                    <div class="event-content">
-                        <h3 class="event-title">サマーフェスタ2024</h3>
-                        <div class="event-info">📅 8月10日(土)</div>
-                        <div class="event-info">📍 Gスタジオ（秋葉原）</div>
-                    </div>
-                    <div class="event-footer">
-                        <span class="event-price">¥6,000〜</span>
-                        <span style="color: #666; font-size: 0.85rem;">残り3枠</span>
-                    </div>
-                </div>
-                
-                <!-- イベント2 -->
-                <div class="event-card" data-date="2024-08-12">
-                    <div class="event-card-image" style="background: linear-gradient(135deg, #3b82f6, #10b981);">
-                        田中愛理 個人撮影会
-                        <img src="images/events/event002.jpg" alt="" onerror="this.style.display='none'">
-                        <span class="event-badge badge-new">NEW</span>
-                    </div>
-                    <div class="event-content">
-                        <h3 class="event-title">田中愛理 個人撮影会</h3>
-                        <div class="event-info">📅 8月12日(月)</div>
-                        <div class="event-info">📍 渋谷スタジオ</div>
-                    </div>
-                    <div class="event-footer">
-                        <span class="event-price">¥15,000/30分</span>
-                        <span style="color: #666; font-size: 0.85rem;">空きあり</span>
-                    </div>
-                </div>
-                
-                <!-- イベント3 -->
-                <div class="event-card" data-date="2024-08-15">
-                    <div class="event-card-image" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">
-                        コスプレ撮影会SP
-                        <img src="images/events/event003.jpg" alt="" onerror="this.style.display='none'">
-                        <span class="event-badge badge-limited">限定</span>
-                    </div>
-                    <div class="event-content">
-                        <h3 class="event-title">コスプレ撮影会SP</h3>
-                        <div class="event-info">📅 8月15日(木)</div>
-                        <div class="event-info">📍 池袋スタジオ</div>
-                    </div>
-                    <div class="event-footer">
-                        <span class="event-price">¥8,000〜</span>
-                        <span style="color: #666; font-size: 0.85rem;">空きあり</span>
-                    </div>
-                </div>
-                
-                <!-- イベント4 -->
-                <div class="event-card" data-date="2024-08-18">
-                    <div class="event-card-image" style="background: linear-gradient(135deg, #10b981, #3b82f6);">
-                        山田花子 撮影会
-                        <img src="images/events/event004.jpg" alt="" onerror="this.style.display='none'">
-                    </div>
-                    <div class="event-content">
-                        <h3 class="event-title">山田花子 撮影会</h3>
-                        <div class="event-info">📅 8月18日(日)</div>
-                        <div class="event-info">📍 新宿スタジオ</div>
-                    </div>
-                    <div class="event-footer">
-                        <span class="event-price">¥12,000/30分</span>
-                        <span style="color: #666; font-size: 0.85rem;">空きあり</span>
-                    </div>
-                </div>
-                
-                <!-- イベント5 -->
-                <div class="event-card" data-date="2024-08-20">
-                    <div class="event-card-image" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">
-                        真夏の浴衣撮影会
-                        <img src="images/events/event005.jpg" alt="" onerror="this.style.display='none'">
-                        <span class="event-badge badge-popular">人気</span>
-                    </div>
-                    <div class="event-content">
-                        <h3 class="event-title">真夏の浴衣撮影会</h3>
-                        <div class="event-info">📅 8月20日(火)</div>
-                        <div class="event-info">📍 浅草スタジオ</div>
-                    </div>
-                    <div class="event-footer">
-                        <span class="event-price">¥7,000〜</span>
-                        <span style="color: #666; font-size: 0.85rem;">残り5枠</span>
-                    </div>
-                </div>
-                
-                <!-- イベント6 -->
-                <div class="event-card" data-date="2024-08-22">
-                    <div class="event-card-image" style="background: linear-gradient(135deg, #ec4899, #f59e0b);">
-                        佐藤美咲 個人撮影
-                        <img src="images/events/event006.jpg" alt="" onerror="this.style.display='none'">
-                        <span class="event-badge badge-new">NEW</span>
-                    </div>
-                    <div class="event-content">
-                        <h3 class="event-title">佐藤美咲 個人撮影</h3>
-                        <div class="event-info">📅 8月22日(木)</div>
-                        <div class="event-info">📍 横浜スタジオ</div>
-                    </div>
-                    <div class="event-footer">
-                        <span class="event-price">¥10,000/30分</span>
-                        <span style="color: #666; font-size: 0.85rem;">空きあり</span>
-                    </div>
-                </div>
+            <div class="events-grid" id="eventsGrid">
+                <!-- イベントカードは動的に生成されます -->
             </div>
         </div>
         
@@ -533,267 +456,171 @@
             </div>
             
             <!-- イベントリスト -->
-            <div class="event-list">
+            <div class="event-list" id="eventList">
                 <h4 class="event-list-title">🗓 今月のスケジュール</h4>
-                <div class="event-list-item">
-                    <div class="event-list-date">10</div>
-                    <div class="event-list-info">
-                        <div class="event-list-name">サマーフェスタ2024</div>
-                        <div class="event-list-type">団体撮影会</div>
-                    </div>
-                </div>
-                <div class="event-list-item">
-                    <div class="event-list-date">12</div>
-                    <div class="event-list-info">
-                        <div class="event-list-name">田中愛理 個人撮影会</div>
-                        <div class="event-list-type">個人撮影会</div>
-                    </div>
-                </div>
-                <div class="event-list-item">
-                    <div class="event-list-date">15</div>
-                    <div class="event-list-info">
-                        <div class="event-list-name">コスプレ撮影会SP</div>
-                        <div class="event-list-type">団体撮影会</div>
-                    </div>
-                </div>
-                <div class="event-list-item">
-                    <div class="event-list-date">18</div>
-                    <div class="event-list-info">
-                        <div class="event-list-name">山田花子 撮影会</div>
-                        <div class="event-list-type">個人撮影会</div>
-                    </div>
-                </div>
-                <div class="event-list-item">
-                    <div class="event-list-date">20</div>
-                    <div class="event-list-info">
-                        <div class="event-list-name">真夏の浴衣撮影会</div>
-                        <div class="event-list-type">団体撮影会</div>
-                    </div>
-                </div>
-                <div class="event-list-item">
-                    <div class="event-list-date">22</div>
-                    <div class="event-list-info">
-                        <div class="event-list-name">佐藤美咲 個人撮影</div>
-                        <div class="event-list-type">個人撮影会</div>
-                    </div>
-                </div>
+                <!-- イベントリストアイテムは動的に生成されます -->
             </div>
         </div>
     </div>
 
-    // js/events.js または js/main.js に追加/更新
-
-/**
- * イベントカードの生成（予約ボタン付き）
- */
-function createEventCard(event) {
-    const eventDate = new Date(event.event_date);
-    const formattedDate = `${eventDate.getMonth() + 1}/${eventDate.getDate()}`;
-    
-    // 画像のフォールバック処理
-    const imageUrl = event.thumbnail_image || 'images/events/default.jpg';
-    
-    return `
-        <div class="event-card" data-event-id="${event.event_id}">
-            <div class="event-image">
-                <img src="${imageUrl}" 
-                     alt="${event.event_name}"
-                     onerror="this.style.display='none'; this.parentElement.classList.add('no-image');">
-                ${event.is_new ? '<span class="badge badge-new">NEW</span>' : ''}
-                ${event.is_popular ? '<span class="badge badge-popular">人気</span>' : ''}
-            </div>
-            <div class="event-content">
-                <h3 class="event-title">${event.event_name}</h3>
-                <div class="event-info">
-                    <span class="event-date">
-                        <i class="far fa-calendar"></i> ${formattedDate}
-                    </span>
-                    <span class="event-venue">
-                        <i class="fas fa-map-marker-alt"></i> ${event.venue.venue_name}
-                    </span>
-                </div>
-                <div class="event-price">
-                    <span class="price-label">参加費</span>
-                    <span class="price-amount">¥${event.pricing.base_price.toLocaleString()}〜</span>
-                </div>
-                <div class="card-actions">
-                    <a href="event-detail.html?id=${event.event_id}" class="btn-detail">
-                        詳細を見る
-                    </a>
-                    <a href="reservation.html?id=${event.event_id}" class="btn-reserve-small">
-                        予約する
-                    </a>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-/**
- * イベント一覧の表示
- */
-async function displayEvents() {
-    try {
-        const response = await fetch('data/events.json');
-        const data = await response.json();
-        const events = data.events || data;
-        
-        const eventsContainer = document.querySelector('.events-grid');
-        if (!eventsContainer) return;
+    <script>
+        // イベントデータ
+        const eventData = [
+            {
+                id: 'EVT001',
+                name: 'サマーフェスタ2024',
+                date: '2024-08-10',
+                venue: 'Gスタジオ（秋葉原）',
+                price: 6000,
+                type: 'group',
+                badge: 'popular',
+                remaining: 3,
+                image: 'images/events/event001.jpg'
+            },
+            {
+                id: 'EVT002',
+                name: '田中愛理 個人撮影会',
+                date: '2024-08-12',
+                venue: '渋谷スタジオ',
+                price: 15000,
+                type: 'individual',
+                badge: 'new',
+                remaining: null,
+                image: 'images/events/event002.jpg'
+            },
+            {
+                id: 'EVT003',
+                name: 'コスプレ撮影会SP',
+                date: '2024-08-15',
+                venue: '池袋スタジオ',
+                price: 8000,
+                type: 'group',
+                badge: 'limited',
+                remaining: null,
+                image: 'images/events/event003.jpg'
+            },
+            {
+                id: 'EVT004',
+                name: '山田花子 撮影会',
+                date: '2024-08-18',
+                venue: '新宿スタジオ',
+                price: 12000,
+                type: 'individual',
+                badge: null,
+                remaining: null,
+                image: 'images/events/event004.jpg'
+            },
+            {
+                id: 'EVT005',
+                name: '真夏の浴衣撮影会',
+                date: '2024-08-20',
+                venue: '浅草スタジオ',
+                price: 7000,
+                type: 'group',
+                badge: 'popular',
+                remaining: 5,
+                image: 'images/events/event005.jpg'
+            },
+            {
+                id: 'EVT006',
+                name: '佐藤美咲 個人撮影',
+                date: '2024-08-22',
+                venue: '横浜スタジオ',
+                price: 10000,
+                type: 'individual',
+                badge: 'new',
+                remaining: null,
+                image: 'images/events/event006.jpg'
+            }
+        ];
         
         // イベントカードを生成
-        const eventCards = events.map(event => createEventCard(event)).join('');
-        eventsContainer.innerHTML = eventCards;
-        
-        // アニメーション適用
-        const cards = eventsContainer.querySelectorAll('.event-card');
-        cards.forEach((card, index) => {
-            setTimeout(() => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'all 0.5s ease';
+        function generateEventCards() {
+            const eventsGrid = document.getElementById('eventsGrid');
+            let html = '';
+            
+            eventData.forEach(event => {
+                const date = new Date(event.date);
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'][date.getDay()];
                 
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 50);
-            }, index * 100);
-        });
-        
-    } catch (error) {
-        console.error('イベントの読み込みエラー:', error);
-        const eventsContainer = document.querySelector('.events-grid');
-        if (eventsContainer) {
-            eventsContainer.innerHTML = '<p>イベントの読み込み中にエラーが発生しました。</p>';
+                let badgeHtml = '';
+                if (event.badge === 'new') {
+                    badgeHtml = '<span class="event-badge badge-new">NEW</span>';
+                } else if (event.badge === 'popular') {
+                    badgeHtml = '<span class="event-badge badge-popular">人気</span>';
+                } else if (event.badge === 'limited') {
+                    badgeHtml = '<span class="event-badge badge-limited">限定</span>';
+                }
+                
+                const gradient = event.type === 'individual' 
+                    ? 'linear-gradient(135deg, #10b981, #3b82f6)'
+                    : 'linear-gradient(135deg, #ff6ec7, #3b82f6)';
+                
+                html += `
+                    <div class="event-card" data-id="${event.id}">
+                        <div class="event-card-image" style="background: ${gradient};">
+                            ${event.name}
+                            <img src="${event.image}" alt="" onerror="this.style.display='none'">
+                            ${badgeHtml}
+                        </div>
+                        <div class="event-content">
+                            <h3 class="event-title">${event.name}</h3>
+                            <div class="event-info">📅 ${month}月${day}日(${dayOfWeek})</div>
+                            <div class="event-info">📍 ${event.venue}</div>
+                        </div>
+                        <div class="event-footer">
+                            <span class="event-price">¥${event.price.toLocaleString()}${event.type === 'individual' ? '/30分' : '〜'}</span>
+                            <span style="color: #666; font-size: 0.85rem;">
+                                ${event.remaining ? `残り${event.remaining}枠` : '空きあり'}
+                            </span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="event-detail.html?id=${event.id}" class="btn-detail">詳細を見る</a>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            eventsGrid.innerHTML = html;
         }
-    }
-}
-
-// ページ読み込み時に実行
-document.addEventListener('DOMContentLoaded', displayEvents);
-
-// イベントカード用のCSS（style.cssに追加）
-const cardStyles = `
-<style>
-.card-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid #e2e8f0;
-}
-
-.btn-detail,
-.btn-reserve-small {
-    flex: 1;
-    padding: 8px 16px;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.btn-detail {
-    background: #f7fafc;
-    color: #4a5568;
-    border: 1px solid #e2e8f0;
-}
-
-.btn-detail:hover {
-    background: #e2e8f0;
-}
-
-.btn-reserve-small {
-    background: linear-gradient(135deg, #ff6ec7, #3b82f6);
-    color: white;
-    border: none;
-}
-
-.btn-reserve-small:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 5px 15px rgba(255, 110, 199, 0.3);
-}
-
-.event-card .event-price {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.price-label {
-    color: #718096;
-    font-size: 12px;
-}
-
-.price-amount {
-    color: #2d3748;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.event-card .badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 11px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-.badge-new {
-    background: #48bb78;
-    color: white;
-}
-
-.badge-popular {
-    background: #f56565;
-    color: white;
-}
-
-.event-image.no-image {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.event-image.no-image::after {
-    content: '📸';
-    font-size: 48px;
-}
-
-@media (max-width: 640px) {
-    .card-actions {
-        flex-direction: column;
-    }
-    
-    .btn-detail,
-    .btn-reserve-small {
-        width: 100%;
-    }
-}
-</style>
-`;
-    
-    <script>
+        
+        // イベントリストを生成
+        function generateEventList() {
+            const eventList = document.getElementById('eventList');
+            let html = '<h4 class="event-list-title">🗓 今月のスケジュール</h4>';
+            
+            eventData.forEach(event => {
+                const date = new Date(event.date);
+                const day = date.getDate();
+                const typeText = event.type === 'individual' ? '個人撮影会' : '団体撮影会';
+                
+                html += `
+                    <div class="event-list-item" data-id="${event.id}">
+                        <div class="event-list-date">${day}</div>
+                        <div class="event-list-info">
+                            <div class="event-list-name">${event.name}</div>
+                            <div class="event-list-type">${typeText}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            eventList.innerHTML = html;
+            
+            // クリックイベントを追加
+            document.querySelectorAll('.event-list-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const eventId = item.dataset.id;
+                    location.href = `event-detail.html?id=${eventId}`;
+                });
+            });
+        }
+        
         // カレンダー生成
         let currentYear = 2024;
-        let currentMonth = 8; // 8月
-        
-        const events = {
-            '2024-08-10': { name: 'サマーフェスタ', type: 'group' },
-            '2024-08-12': { name: '田中愛理', type: 'individual' },
-            '2024-08-15': { name: 'コスプレSP', type: 'group' },
-            '2024-08-18': { name: '山田花子', type: 'individual' },
-            '2024-08-20': { name: '浴衣撮影会', type: 'group' },
-            '2024-08-22': { name: '佐藤美咲', type: 'individual' }
-        };
+        let currentMonth = 8;
         
         function generateCalendar(year, month) {
             const calendar = document.getElementById('calendar');
@@ -824,19 +651,20 @@ const cardStyles = `
             const today = new Date();
             for (let day = 1; day <= monthLength; day++) {
                 const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const event = events[dateStr];
+                const dayEvents = eventData.filter(e => e.date === dateStr);
                 const isToday = today.getFullYear() === year && today.getMonth() + 1 === month && today.getDate() === day;
                 
                 let dayClass = 'calendar-day';
                 if (isToday) dayClass += ' today';
-                if (event) dayClass += ' has-event';
+                if (dayEvents.length > 0) dayClass += ' has-event';
                 
                 html += `<div class="${dayClass}">
                     <div class="calendar-day-number">${day}</div>`;
                 
-                if (event) {
-                    html += `<div class="calendar-event ${event.type}">${event.name}</div>`;
-                }
+                dayEvents.forEach(event => {
+                    const shortName = event.name.length > 6 ? event.name.substring(0, 6) + '...' : event.name;
+                    html += `<div class="calendar-event ${event.type}">${shortName}</div>`;
+                });
                 
                 html += '</div>';
             }
@@ -869,23 +697,12 @@ const cardStyles = `
             generateCalendar(currentYear, currentMonth);
         }
         
-        // 初期表示
-        generateCalendar(currentYear, currentMonth);
-        
-        // イベントカードクリック時
-        document.querySelectorAll('.event-card').forEach(card => {
-            card.addEventListener('click', () => {
-                location.href = 'event-detail.html';
-            });
-        });
-        
-        // イベントリストアイテムクリック時
-        document.querySelectorAll('.event-list-item').forEach(item => {
-            item.addEventListener('click', () => {
-                location.href = 'event-detail.html';
-            });
+        // 初期化
+        document.addEventListener('DOMContentLoaded', () => {
+            generateEventCards();
+            generateEventList();
+            generateCalendar(currentYear, currentMonth);
         });
     </script>
-    <script src="js/events.js"></script>
 </body>
 </html>
