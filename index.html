@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhotoSession Connect - イベントスケジュール</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Noto Sans JP', -apple-system, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+        
+        /* ヘッダー */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #ff6ec7;
+        }
+        
+        /* メインコンテナ - 2:1レイアウト */
+        .main-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        
+        /* 左側：イベント一覧 */
+        .events-section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .event-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 110, 199, 0.2);
+            border-color: #ff6ec7;
+        }
+        
+        .event-card-image {
+            height: 150px;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .event-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .event-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            z-index: 1;
+        }
+        
+        .badge-new {
+            background: #10b981;
+            color: white;
+        }
+        
+        .badge-popular {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .badge-limited {
+            background: #f59e0b;
+            color: white;
+        }
+        
+        .event-content {
+            padding: 15px;
+        }
+        
+        .event-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .event-info {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .event-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .event-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #ff6ec7;
+        }
+        
+        /* 右側：月間カレンダー */
+        .calendar-section {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+        
+        .calendar-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .calendar-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        
+        .calendar-nav {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .calendar-nav button {
+            background: #f0f0f0;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .calendar-nav button:hover {
+            background: #e0e0e0;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            background: #e0e0e0;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .calendar-weekday {
+            background: #f8f9fa;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .calendar-day {
+            background: white;
+            min-height: 60px;
+            padding: 5px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .calendar-day:hover {
+            background: #f0f0ff;
+        }
+        
+        .calendar-day-number {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+        
+        .calendar-day.other-month {
+            color: #ccc;
+            background: #fafafa;
+        }
+        
+        .calendar-day.today {
+            background: #fff3cd;
+        }
+        
+        .calendar-day.has-event {
+            background: #e8f4ff;
+        }
+        
+        .calendar-event {
+            font-size: 0.65rem;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            color: white;
+            padding: 2px 4px;
+            border-radius: 3px;
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .calendar-event.individual {
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+        }
+        
+        .calendar-event.group {
+            background: linear-gradient(135deg, #ff6ec7, #f59e0b);
+        }
+        
+        /* イベントリスト（カレンダー下） */
+        .event-list {
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .event-list-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .event-list-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .event-list-item:hover {
+            background: #e8f4ff;
+            transform: translateX(5px);
+        }
+        
+        .event-list-date {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ff6ec7;
+            margin-right: 15px;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .event-list-info {
+            flex: 1;
+        }
+        
+        .event-list-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2px;
+        }
+        
+        .event-list-type {
+            font-size: 0.75rem;
+            color: #666;
+        }
+        
+        /* レスポンシブ */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar-section {
+                position: relative;
+                top: 0;
+            }
+            
+            .events-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar-grid {
+                font-size: 0.8rem;
+            }
+            
+            .calendar-day {
+                min-height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">PhotoSession Connect</div>
+            <ul class="nav-links">
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="events.html">イベント一覧</a></li>
+                <li><a href="reservation.html">予約</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="main-container">
+        <!-- 左側：イベント一覧（2/3） -->
+        <div class="events-section">
+            <h2 class="section-title">📸 開催予定イベント</h2>
+            <div class="events-grid">
+                <!-- イベント1 -->
+                <div class="event-card" data-date="2024-08-10">
+                    <div class="event-card-image">
+                        サマーフェスタ2024
+                        <img src="images/events/event001.jpg" alt="" onerror="this.style.display='none'">
+                        <span class="event-badge badge-popular">人気</span>
+                    </div>
+                    <div class="event-content">
+                        <h3 class="event-title">サマーフェスタ2024</h3>
+                        <div class="event-info">📅 8月10日(土)</div>
+                        <div class="event-info">📍 Gスタジオ（秋葉原）</div>
+                    </div>
+                    <div class="event-footer">
+                        <span class="event-price">¥6,000〜</span>
+                        <span style="color: #666; font-size: 0.85rem;">残り3枠</span>
+                    </div>
+                </div>
+                
+                <!-- イベント2 -->
+                <div class="event-card" data-date="2024-08-12">
+                    <div class="event-card-image" style="background: linear-gradient(135deg, #3b82f6, #10b981);">
+                        田中愛理 個人撮影会
+                        <img src="images/events/event002.jpg" alt="" onerror="this.style.display='none'">
+                        <span class="event-badge badge-new">NEW</span>
+                    </div>
+                    <div class="event-content">
+                        <h3 class="event-title">田中愛理 個人撮影会</h3>
+                        <div class="event-info">📅 8月12日(月)</div>
+                        <div class="event-info">📍 渋谷スタジオ</div>
+                    </div>
+                    <div class="event-footer">
+                        <span class="event-price">¥15,000/30分</span>
+                        <span style="color: #666; font-size: 0.85rem;">空きあり</span>
+                    </div>
+                </div>
+                
+                <!-- イベント3 -->
+                <div class="event-card" data-date="2024-08-15">
+                    <div class="event-card-image" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">
+                        コスプレ撮影会SP
+                        <img src="images/events/event003.jpg" alt="" onerror="this.style.display='none'">
+                        <span class="event-badge badge-limited">限定</span>
+                    </div>
+                    <div class="event-content">
+                        <h3 class="event-title">コスプレ撮影会SP</h3>
+                        <div class="event-info">📅 8月15日(木)</div>
+                        <div class="event-info">📍 池袋スタジオ</div>
+                    </div>
+                    <div class="event-footer">
+                        <span class="event-price">¥8,000〜</span>
+                        <span style="color: #666; font-size: 0.85rem;">空きあり</span>
+                    </div>
+                </div>
+                
+                <!-- イベント4 -->
+                <div class="event-card" data-date="2024-08-18">
+                    <div class="event-card-image" style="background: linear-gradient(135deg, #10b981, #3b82f6);">
+                        山田花子 撮影会
+                        <img src="images/events/event004.jpg" alt="" onerror="this.style.display='none'">
+                    </div>
+                    <div class="event-content">
+                        <h3 class="event-title">山田花子 撮影会</h3>
+                        <div class="event-info">📅 8月18日(日)</div>
+                        <div class="event-info">📍 新宿スタジオ</div>
+                    </div>
+                    <div class="event-footer">
+                        <span class="event-price">¥12,000/30分</span>
+                        <span style="color: #666; font-size: 0.85rem;">空きあり</span>
+                    </div>
+                </div>
+                
+                <!-- イベント5 -->
+                <div class="event-card" data-date="2024-08-20">
+                    <div class="event-card-image" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">
+                        真夏の浴衣撮影会
+                        <img src="images/events/event005.jpg" alt="" onerror="this.style.display='none'">
+                        <span class="event-badge badge-popular">人気</span>
+                    </div>
+                    <div class="event-content">
+                        <h3 class="event-title">真夏の浴衣撮影会</h3>
+                        <div class="event-info">📅 8月20日(火)</div>
+                        <div class="event-info">📍 浅草スタジオ</div>
+                    </div>
+                    <div class="event-footer">
+                        <span class="event-price">¥7,000〜</span>
+                        <span style="color: #666; font-size: 0.85rem;">残り5枠</span>
+                    </div>
+                </div>
+                
+                <!-- イベント6 -->
+                <div class="event-card" data-date="2024-08-22">
+                    <div class="event-card-image" style="background: linear-gradient(135deg, #ec4899, #f59e0b);">
+                        佐藤美咲 個人撮影
+                        <img src="images/events/event006.jpg" alt="" onerror="this.style.display='none'">
+                        <span class="event-badge badge-new">NEW</span>
+                    </div>
+                    <div class="event-content">
+                        <h3 class="event-title">佐藤美咲 個人撮影</h3>
+                        <div class="event-info">📅 8月22日(木)</div>
+                        <div class="event-info">📍 横浜スタジオ</div>
+                    </div>
+                    <div class="event-footer">
+                        <span class="event-price">¥10,000/30分</span>
+                        <span style="color: #666; font-size: 0.85rem;">空きあり</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 右側：月間カレンダー（1/3） -->
+        <div class="calendar-section">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <h3 class="calendar-title">2024年8月</h3>
+                    <div class="calendar-nav">
+                        <button onclick="changeMonth(-1)">‹</button>
+                        <button onclick="changeMonth(1)">›</button>
+                    </div>
+                </div>
+                <div class="calendar-grid" id="calendar">
+                    <!-- カレンダーは動的生成 -->
+                </div>
+            </div>
+            
+            <!-- イベントリスト -->
+            <div class="event-list">
+                <h4 class="event-list-title">🗓 今月のスケジュール</h4>
+                <div class="event-list-item">
+                    <div class="event-list-date">10</div>
+                    <div class="event-list-info">
+                        <div class="event-list-name">サマーフェスタ2024</div>
+                        <div class="event-list-type">団体撮影会</div>
+                    </div>
+                </div>
+                <div class="event-list-item">
+                    <div class="event-list-date">12</div>
+                    <div class="event-list-info">
+                        <div class="event-list-name">田中愛理 個人撮影会</div>
+                        <div class="event-list-type">個人撮影会</div>
+                    </div>
+                </div>
+                <div class="event-list-item">
+                    <div class="event-list-date">15</div>
+                    <div class="event-list-info">
+                        <div class="event-list-name">コスプレ撮影会SP</div>
+                        <div class="event-list-type">団体撮影会</div>
+                    </div>
+                </div>
+                <div class="event-list-item">
+                    <div class="event-list-date">18</div>
+                    <div class="event-list-info">
+                        <div class="event-list-name">山田花子 撮影会</div>
+                        <div class="event-list-type">個人撮影会</div>
+                    </div>
+                </div>
+                <div class="event-list-item">
+                    <div class="event-list-date">20</div>
+                    <div class="event-list-info">
+                        <div class="event-list-name">真夏の浴衣撮影会</div>
+                        <div class="event-list-type">団体撮影会</div>
+                    </div>
+                </div>
+                <div class="event-list-item">
+                    <div class="event-list-date">22</div>
+                    <div class="event-list-info">
+                        <div class="event-list-name">佐藤美咲 個人撮影</div>
+                        <div class="event-list-type">個人撮影会</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // カレンダー生成
+        let currentYear = 2024;
+        let currentMonth = 8; // 8月
+        
+        const events = {
+            '2024-08-10': { name: 'サマーフェスタ', type: 'group' },
+            '2024-08-12': { name: '田中愛理', type: 'individual' },
+            '2024-08-15': { name: 'コスプレSP', type: 'group' },
+            '2024-08-18': { name: '山田花子', type: 'individual' },
+            '2024-08-20': { name: '浴衣撮影会', type: 'group' },
+            '2024-08-22': { name: '佐藤美咲', type: 'individual' }
+        };
+        
+        function generateCalendar(year, month) {
+            const calendar = document.getElementById('calendar');
+            const firstDay = new Date(year, month - 1, 1);
+            const lastDay = new Date(year, month, 0);
+            const prevLastDay = new Date(year, month - 1, 0);
+            
+            const startingDayOfWeek = firstDay.getDay();
+            const monthLength = lastDay.getDate();
+            const prevMonthLength = prevLastDay.getDate();
+            
+            let html = '';
+            
+            // 曜日ヘッダー
+            const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+            weekdays.forEach(day => {
+                html += `<div class="calendar-weekday">${day}</div>`;
+            });
+            
+            // 前月の日付
+            for (let i = startingDayOfWeek - 1; i >= 0; i--) {
+                html += `<div class="calendar-day other-month">
+                    <div class="calendar-day-number">${prevMonthLength - i}</div>
+                </div>`;
+            }
+            
+            // 当月の日付
+            const today = new Date();
+            for (let day = 1; day <= monthLength; day++) {
+                const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const event = events[dateStr];
+                const isToday = today.getFullYear() === year && today.getMonth() + 1 === month && today.getDate() === day;
+                
+                let dayClass = 'calendar-day';
+                if (isToday) dayClass += ' today';
+                if (event) dayClass += ' has-event';
+                
+                html += `<div class="${dayClass}">
+                    <div class="calendar-day-number">${day}</div>`;
+                
+                if (event) {
+                    html += `<div class="calendar-event ${event.type}">${event.name}</div>`;
+                }
+                
+                html += '</div>';
+            }
+            
+            // 次月の日付
+            const totalCells = startingDayOfWeek + monthLength;
+            const nextMonthDays = (7 - totalCells % 7) % 7;
+            for (let day = 1; day <= nextMonthDays; day++) {
+                html += `<div class="calendar-day other-month">
+                    <div class="calendar-day-number">${day}</div>
+                </div>`;
+            }
+            
+            calendar.innerHTML = html;
+            
+            // カレンダータイトル更新
+            const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+            document.querySelector('.calendar-title').textContent = `${year}年${monthNames[month - 1]}`;
+        }
+        
+        function changeMonth(direction) {
+            currentMonth += direction;
+            if (currentMonth > 12) {
+                currentMonth = 1;
+                currentYear++;
+            } else if (currentMonth < 1) {
+                currentMonth = 12;
+                currentYear--;
+            }
+            generateCalendar(currentYear, currentMonth);
+        }
+        
+        // 初期表示
+        generateCalendar(currentYear, currentMonth);
+        
+        // イベントカードクリック時
+        document.querySelectorAll('.event-card').forEach(card => {
+            card.addEventListener('click', () => {
+                location.href = 'event-detail.html';
+            });
+        });
+        
+        // イベントリストアイテムクリック時
+        document.querySelectorAll('.event-list-item').forEach(item => {
+            item.addEventListener('click', () => {
+                location.href = 'event-detail.html';
+            });
+        });
+    </script>
+</body>
+</html>

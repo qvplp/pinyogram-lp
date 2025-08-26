@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>診断テスト - PhotoSession Connect</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .diagnostic-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .test-title {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .status {
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin: 5px 0;
+            font-size: 0.95rem;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .image-test {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15aside;
+            margin-top: 15px;
+        }
+        
+        .image-box {
+            aspect-ratio: 16/9;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #dee2e6;
+            background: #f8f9fa;
+            position: relative;
+        }
+        
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 20px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        #results {
+            margin-top: 20px;
+        }
+        
+        code {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+        }
+    </style>
+</head>
+<body>
+    <div class="diagnostic-container">
+        <h1>🔍 診断テスト - PhotoSession Connect</h1>
+        
+        <!-- JavaScript動作確認 -->
+        <div class="test-section">
+            <div class="test-title">1. JavaScript動作確認</div>
+            <div id="js-test" class="status warning">JavaScript確認中...</div>
+        </div>
+        
+        <!-- 現在時刻 -->
+        <div class="test-section">
+            <div class="test-title">2. ページ更新時刻</div>
+            <div id="time-test" class="status info">読み込み中...</div>
+        </div>
+        
+        <!-- バージョン情報 -->
+        <div class="test-section">
+            <div class="test-title">3. バージョン情報</div>
+            <div id="version-test" class="status info">バージョン: 2024.11.26.001</div>
+            <div class="status info">もしこのバージョンが古い場合は、キャッシュが残っています</div>
+        </div>
+        
+        <!-- DOM要素確認 -->
+        <div class="test-section">
+            <div class="test-title">4. DOM要素の存在確認</div>
+            <div id="dom-test">
+                <div class="status info">確認中...</div>
+            </div>
+        </div>
+        
+        <!-- 画像読み込みテスト -->
+        <div class="test-section">
+            <div class="test-title">5. 画像読み込みテスト</div>
+            <div class="image-test">
+                <!-- ローカル画像 -->
+                <div class="image-box">
+                    <img src="images/events/event001.jpg" 
+                         alt="ローカル画像"
+                         onerror="this.style.display='none'; this.parentElement.style.background='#ffcccc';"
+                         onload="this.parentElement.style.background='#ccffcc';">
+                    <div class="image-label">ローカル: event001.jpg</div>
+                </div>
+                
+                <!-- オンライン画像 -->
+                <div class="image-box">
+                    <img src="https://via.placeholder.com/400x225/667eea/ffffff?text=Online+Test" 
+                         alt="オンライン画像"
+                         onerror="this.style.display='none'; this.parentElement.style.background='#ffcccc';"
+                         onload="this.parentElement.style.background='#ccffcc';">
+                    <div class="image-label">オンライン: Placeholder</div>
+                </div>
+                
+                <!-- Data URI画像 -->
+                <div class="image-box">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 225'%3E%3Crect fill='%23764ba2' width='400' height='225'/%3E%3Ctext x='200' y='112' text-anchor='middle' fill='white' font-size='20'%3EData URI Test%3C/text%3E%3C/svg%3E" 
+                         alt="Data URI画像">
+                    <div class="image-label">Data URI: SVG</div>
+                </div>
+            </div>
+            <div id="image-results" style="margin-top: 15px;"></div>
+        </div>
+        
+        <!-- ファイルパス確認 -->
+        <div class="test-section">
+            <div class="test-title">6. 現在のファイルパス</div>
+            <div id="path-test" class="status info"></div>
+        </div>
+        
+        <!-- コンソールログ確認 -->
+        <div class="test-section">
+            <div class="test-title">7. コンソールログ</div>
+            <div class="status warning">F12キーでデベロッパーツールを開き、Consoleタブを確認してください</div>
+        </div>
+        
+        <!-- アクションボタン -->
+        <button onclick="runFullDiagnostic()">🔄 完全診断を実行</button>
+        <button onclick="clearCacheAndReload()">🗑️ キャッシュクリアして再読込</button>
+        
+        <div id="results"></div>
+    </div>
+    
+    <script>
+        // ページ読み込み時に自動実行
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('=== 診断開始 ===');
+            console.log('時刻:', new Date().toLocaleString());
+            
+            // 1. JavaScript動作確認
+            document.getElementById('js-test').className = 'status success';
+            document.getElementById('js-test').textContent = '✅ JavaScript正常動作中';
+            
+            // 2. 現在時刻表示
+            document.getElementById('time-test').textContent = 
+                '最終更新: ' + new Date().toLocaleString('ja-JP');
+            
+            // 3. パス情報
+            document.getElementById('path-test').innerHTML = 
+                `現在のURL: <code>${window.location.href}</code><br>` +
+                `プロトコル: <code>${window.location.protocol}</code>`;
+            
+            // 4. DOM要素確認
+            checkDOMElements();
+            
+            // 5. 画像状態確認
+            setTimeout(checkImages, 1000);
+            
+            // コンソールに詳細情報を出力
+            console.log('ブラウザ:', navigator.userAgent);
+            console.log('画面サイズ:', window.innerWidth + 'x' + window.innerHeight);
+            console.log('=== 診断終了 ===');
+        });
+        
+        function checkDOMElements() {
+            const tests = [
+                { selector: '.event-card', name: 'イベントカード' },
+                { selector: '.event-card-image', name: '画像コンテナ' },
+                { selector: '[data-event-id]', name: 'data-event-id属性' },
+                { selector: 'img', name: '画像要素' }
+            ];
+            
+            let html = '';
+            tests.forEach(test => {
+                const elements = document.querySelectorAll(test.selector);
+                const status = elements.length > 0 ? 'success' : 'error';
+                const icon = elements.length > 0 ? '✅' : '❌';
+                html += `<div class="status ${status}">${icon} ${test.name}: ${elements.length}個</div>`;
+            });
+            
+            document.getElementById('dom-test').innerHTML = html;
+        }
+        
+        function checkImages() {
+            const images = document.querySelectorAll('.image-box img');
+            let results = '';
+            
+            images.forEach((img, index) => {
+                const loaded = img.complete && img.naturalHeight !== 0;
+                const status = loaded ? 'success' : 'error';
+                const icon = loaded ? '✅' : '❌';
+                const label = img.parentElement.querySelector('.image-label').textContent;
+                results += `<div class="status ${status}">${icon} ${label}</div>`;
+            });
+            
+            document.getElementById('image-results').innerHTML = results;
+        }
+        
+        function runFullDiagnostic() {
+            console.clear();
+            console.log('🔄 完全診断実行中...');
+            
+            const results = document.getElementById('results');
+            results.innerHTML = '<div class="status info">診断実行中...</div>';
+            
+            setTimeout(() => {
+                checkDOMElements();
+                checkImages();
+                
+                const diagnosticData = {
+                    timestamp: new Date().toISOString(),
+                    url: window.location.href,
+                    userAgent: navigator.userAgent,
+                    screenSize: `${window.innerWidth}x${window.innerHeight}`,
+                    images: document.querySelectorAll('img').length,
+                    localStorage: typeof(Storage) !== "undefined",
+                    cookies: navigator.cookieEnabled
+                };
+                
+                console.table(diagnosticData);
+                results.innerHTML = '<div class="status success">✅ 診断完了！コンソールで詳細を確認してください。</div>';
+            }, 1000);
+        }
+        
+        function clearCacheAndReload() {
+            if (confirm('キャッシュをクリアしてページを再読み込みします。よろしいですか？')) {
+                // キャッシュバスティング用のパラメータを追加
+                const timestamp = new Date().getTime();
+                const separator = window.location.href.includes('?') ? '&' : '?';
+                window.location.href = window.location.href.split('?')[0] + separator + 'v=' + timestamp;
+            }
+        }
+    </script>
+</body>
+</html>

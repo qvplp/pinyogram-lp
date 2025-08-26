@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="サマーフェスタ2024 - イベント詳細 | PhotoSession Connect">
+    <title>サマーフェスタ2024 - イベント詳細 | PhotoSession Connect</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* イベント詳細ページ専用スタイル */
+        .event-detail-page {
+            background: linear-gradient(to bottom, #fef3fd, #e6f3ff);
+            min-height: 100vh;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: #718096;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: #ff6ec7;
+        }
+        
+        .breadcrumb span {
+            color: #cbd5e0;
+        }
+        
+        /* イベントヘッダー */
+        .event-header {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+        
+        .event-status-badges {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .event-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+        
+        .event-meta-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            color: #4a5568;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* メインビジュアル */
+        .event-visual {
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #ff6ec7 50%, #3b82f6 100%);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .event-visual-content {
+            text-align: center;
+            color: white;
+        }
+        
+        .event-visual-content h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin-bottom: 1rem;
+        }
+        
+        .event-visual-content p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+        
+        /* セッション情報 */
+        .session-item {
+            padding: 20px;
+            background: linear-gradient(135deg, #fef3fd, #e6f3ff);
+            border-radius: 15px;
+            border-left: 4px solid;
+            border-image: linear-gradient(180deg, #ff6ec7, #3b82f6) 1;
+            margin-bottom: 15px;
+        }
+        
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .session-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #2d3748;
+        }
+        
+        .session-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .status-available {
+            background: #10b981;
+            color: white;
+        }
+        
+        .status-limited {
+            background: #f59e0b;
+            color: white;
+        }
+        
+        .status-full {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .session-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .detail-label {
+            font-size: 0.85rem;
+            color: #718096;
+        }
+        
+        .detail-value {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        /* 出演者グリッド */
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        
+        .model-card {
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #fef3fd, #e6f3ff);
+            border-radius: 15px;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .model-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .model-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .model-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+        
+        .model-category {
+            font-size: 0.85rem;
+            color: #718096;
+        }
+        
+        /* オプション */
+        .options-grid {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .option-item {
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .option-name {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .option-price {
+            color: #ff6ec7;
+            font-weight: 700;
+        }
+        
+        /* 注意事項 */
+        .notes-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .notes-list li {
+            padding-left: 25px;
+            position: relative;
+            color: #4a5568;
+            line-height: 1.8;
+        }
+        
+        .notes-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+        
+        /* 価格表示 */
+        .price-display {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #fef3fd, #e6f3ff);
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .price-label {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-bottom: 5px;
+        }
+        
+        .price-amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .price-note {
+            font-size: 0.85rem;
+            color: #718096;
+            margin-top: 5px;
+        }
+        
+        /* 空き状況 */
+        .availability-info {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background: #f0fdf4;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .availability-info.limited {
+            background: #fef3c7;
+        }
+        
+        .availability-label {
+            font-weight: 600;
+            color: #16a34a;
+        }
+        
+        .availability-info.limited .availability-label {
+            color: #d97706;
+        }
+        
+        /* アクセス情報 */
+        .access-info {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .access-item {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .access-label {
+            font-weight: 600;
+            color: #4a5568;
+            min-width: 80px;
+        }
+        
+        .access-value {
+            color: #2d3748;
+        }
+        
+        .map-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .map-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255,110,199,0.3);
+        }
+        
+        /* レスポンシブ */
+        @media (max-width: 968px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .event-title {
+                font-size: 1.8rem;
+            }
+            
+            .event-visual {
+                height: 250px;
+            }
+            
+            .event-visual-content h2 {
+                font-size: 2rem;
+            }
+            
+            .session-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .models-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body class="event-detail-page">
+    <!-- データ属性でイベント情報を保持 -->
+    <div id="eventData" 
+         data-event-id="EVT20240810"
+         data-event-type="group_session"
+         data-venue-id="VENUE001"
+         style="display: none;"></div>
+
+    <!-- ヘッダー -->
+    <header>
+        <nav>
+            <div class="logo">PhotoSession Connect</div>
+            <ul class="nav-links">
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="events.html">イベント一覧</a></li>
+                <li><a href="#models">出演者</a></li>
+                <li><a href="#guide">ご利用案内</a></li>
+                <li><a href="#access">アクセス</a></li>
+                <li><a href="#contact">お問い合わせ</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- パンくずリスト -->
+        <div class="breadcrumb">
+            <a href="index.html">ホーム</a>
+            <span>›</span>
+            <a href="events.html">イベント一覧</a>
+            <span>›</span>
+            <span id="breadcrumbTitle">サマーフェスタ2024</span>
+        </div>
+
+        <!-- イベントヘッダー -->
+        <div class="event-header">
+            <div class="event-status-badges">
+                <span class="badge badge-new">NEW</span>
+                <span class="badge badge-popular">人気</span>
+                <span class="badge badge-limited">残りわずか</span>
+            </div>
+            
+            <h1 class="event-title" id="eventTitle">サマーフェスタ2024</h1>
+            
+            <div class="event-meta-info">
+                <div class="meta-item">
+                    <span>📅</span>
+                    <span id="eventDate">2024年8月10日（土）</span>
+                </div>
+                <div class="meta-item">
+                    <span>🕐</span>
+                    <span id="eventTime">10:00 - 16:00</span>
+                </div>
+                <div class="meta-item">
+                    <span>📍</span>
+                    <span id="eventLocation">Gスタジオ（秋葉原）</span>
+                </div>
+                <div class="meta-item">
+                    <span>👥</span>
+                    <span id="eventCapacity">各部20名限定</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- メインビジュアル -->
+        <div class="event-visual">
+            <div class="event-visual-content">
+                <h2>Summer Festa 2024</h2>
+                <p>真夏の特別撮影会</p>
+            </div>
+        </div>
+
+        <!-- コンテンツグリッド -->
+        <div class="content-grid">
+            <!-- メインコンテンツ -->
+            <div class="main-content">
+                <!-- イベント概要 -->
+                <div class="content-card">
+                    <h2>イベント概要</h2>
+                    <p id="eventDescription" style="line-height: 1.8; color: #4a5568;">
+                        真夏の特別企画！人気モデル・アイドル・コスプレイヤー10名が集結する大型撮影会イベントです。
+                        水着や浴衣など、夏らしい衣装での撮影をお楽しみいただけます。
+                        プロ仕様の撮影スタジオで、最高の1枚を撮影しましょう。
+                        初心者の方も大歓迎！スタッフが丁寧にサポートいたします。
+                    </p>
+                </div>
+
+                <!-- タイムスケジュール -->
+                <div class="content-card">
+                    <h2>タイムスケジュール</h2>
+                    <div class="sessions-container" id="sessionsContainer">
+                        <!-- 第1部 -->
+                        <div class="session-item" data-session-id="S1">
+                            <div class="session-header">
+                                <span class="session-title">第1部</span>
+                                <span class="session-status status-available">空きあり</span>
+                            </div>
+                            <div class="session-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">時間</span>
+                                    <span class="detail-value">10:00 - 11:00</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">衣装</span>
+                                    <span class="detail-value">制服・私服</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">残り枠</span>
+                                    <span class="detail-value">8/20名</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第2部 -->
+                        <div class="session-item" data-session-id="S2">
+                            <div class="session-header">
+                                <span class="session-title">第2部</span>
+                                <span class="session-status status-limited">残りわずか</span>
+                            </div>
+                            <div class="session-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">時間</span>
+                                    <span class="detail-value">11:20 - 12:20</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">衣装</span>
+                                    <span class="detail-value">水着</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">残り枠</span>
+                                    <span class="detail-value">3/20名</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第3部 -->
+                        <div class="session-item" data-session-id="S3">
+                            <div class="session-header">
+                                <span class="session-title">第3部</span>
+                                <span class="session-status status-available">空きあり</span>
+                            </div>
+                            <div class="session-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">時間</span>
+                                    <span class="detail-value">13:00 - 14:00</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">衣装</span>
+                                    <span class="detail-value">浴衣</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">残り枠</span>
+                                    <span class="detail-value">10/20名</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 第4部 -->
+                        <div class="session-item" data-session-id="S4">
+                            <div class="session-header">
+                                <span class="session-title">第4部</span>
+                                <span class="session-status status-full">満席</span>
+                            </div>
+                            <div class="session-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">時間</span>
+                                    <span class="detail-value">14:20 - 15:20</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">衣装</span>
+                                    <span class="detail-value">コスプレ</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">残り枠</span>
+                                    <span class="detail-value">0/20名</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 出演者情報 -->
+                <div class="content-card">
+                    <h2>出演者</h2>
+                    <div class="models-grid" id="modelsGrid">
+                        <div class="model-card" data-model-id="MDL001">
+                            <div class="model-avatar">👤</div>
+                            <div class="model-name">佐藤美咲</div>
+                            <div class="model-category">モデル</div>
+                        </div>
+                        <div class="model-card" data-model-id="MDL002">
+                            <div class="model-avatar">👤</div>
+                            <div class="model-name">田中愛理</div>
+                            <div class="model-category">アイドル</div>
+                        </div>
+                        <div class="model-card" data-model-id="MDL003">
+                            <div class="model-avatar">👤</div>
+                            <div class="model-name">山田花子</div>
+                            <div class="model-category">コスプレイヤー</div>
+                        </div>
+                        <div class="model-card" data-model-id="MDL004">
+                            <div class="model-avatar">👤</div>
+                            <div class="model-name">鈴木優奈</div>
+                            <div class="model-category">モデル</div>
+                        </div>
+                        <div class="model-card" data-model-id="MDL005">
+                            <div class="model-avatar">👤</div>
+                            <div class="model-name">伊藤さくら</div>
+                            <div class="model-category">アイドル</div>
+                        </div>
+                        <div class="model-card" data-model-id="MDL006">
+                            <div class="model-avatar">👤</div>
+                            <div class="model-name">渡辺真美</div>
+                            <div class="model-category">コスプレイヤー</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- オプション -->
+                <div class="content-card">
+                    <h2>オプション</h2>
+                    <div class="options-grid">
+                        <div class="option-item" data-option-id="OPT001">
+                            <span class="option-name">📸 2ショットチェキ</span>
+                            <span class="option-price">¥1,000/枚</span>
+                        </div>
+                        <div class="option-item" data-option-id="OPT002">
+                            <span class="option-name">📷 カメラレンタル（Canon EOS Kiss X10）</span>
+                            <span class="option-price">¥1,000</span>
+                        </div>
+                        <div class="option-item" data-option-id="OPT003">
+                            <span class="option-name">💾 SDカード（64GB）</span>
+                            <span class="option-price">¥1,500</span>
+                        </div>
+                        <div class="option-item" data-option-id="OPT004">
+                            <span class="option-name">✍️ サイン色紙</span>
+                            <span class="option-price">¥500</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 注意事項 -->
+                <div class="content-card">
+                    <h2>注意事項</h2>
+                    <ul class="notes-list">
+                        <li>撮影は順番制となります。譲り合ってお楽しみください。</li>
+                        <li>動画撮影は禁止とさせていただきます。</li>
+                        <li>過度なポーズ要求はご遠慮ください。</li>
+                        <li>SNS投稿の際は、必ず出演者の許可を得てください。</li>
+                        <li>キャンセルは3日前までにご連絡ください。</li>
+                        <li>当日は開始10分前までに受付をお済ませください。</li>
+                        <li>マスク着用は任意とさせていただきます。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- サイドバー -->
+            <div class="sidebar">
+                <!-- 予約カード -->
+                <div class="booking-card">
+                    <div class="price-display">
+                        <div class="price-label">参加費</div>
+                        <div class="price-amount" id="priceAmount">¥6,000〜</div>
+                        <div class="price-note">※1部あたり / 税込</div>
+                    </div>
+                    
+                    <div class="availability-info limited" id="availabilityInfo">
+                        <span class="availability-label">⚠️ 残りわずか</span>
+                        <span id="availabilityCount">空き枠: 21/80</span>
+                    </div>
+                    
+                    <button class="btn-booking" onclick="goToReservation()">
+                        予約する
+                    </button>
+                    
+                    <div style="margin-top: 20px; padding: 15px; background: #f8fafc; border-radius: 12px;">
+                        <p style="font-size: 0.85rem; color: #718096; line-height: 1.6;">
+                            <strong>全通し券特典</strong><br>
+                            4部全てご参加: ¥20,000<br>
+                            （通常¥24,000→¥4,000お得！）
+                        </p>
+                    </div>
+                </div>
+
+                <!-- アクセス情報 -->
+                <div class="booking-card">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 20px; font-weight: 700;">アクセス</h3>
+                    <div class="access-info">
+                        <div class="access-item">
+                            <span class="access-label">会場</span>
+                            <span class="access-value" id="venueName">Gスタジオ</span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-label">住所</span>
+                            <span class="access-value" id="venueAddress">
+                                〒111-0053<br>
+                                東京都台東区浅草橋5-3-2<br>
+                                秋葉原スクエアビル4F
+                            </span>
+                        </div>
+                        <div class="access-item">
+                            <span class="access-label">最寄り駅</span>
+                            <span class="access-value" id="venueAccess">
+                                JR秋葉原駅 徒歩10分<br>
+                                JR浅草橋駅 徒歩8分
+                            </span>
+                        </div>
+                    </div>
+                    <a href="https://maps.google.com/" target="_blank" class="map-link">
+                        Googleマップで見る
+                    </a>
+                </div>
+
+                <!-- お問い合わせ -->
+                <div class="booking-card">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 20px; font-weight: 700;">お問い合わせ</h3>
+                    <div style="display: flex; flex-direction: column; gap: 12px; color: #4a5568;">
+                        <div>
+                            <strong>電話番号</strong><br>
+                            03-1234-5678
+                        </div>
+                        <div>
+                            <strong>メールアドレス</strong><br>
+                            info@photosession.jp
+                        </div>
+                        <div>
+                            <strong>営業時間</strong><br>
+                            10:00 - 19:00（平日）
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- フッター -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>PhotoSession Connect</h3>
+                <p>
+                    アイドル・モデル・コスプレイヤーと<br>
+                    ファンを繋ぐ撮影会プラットフォーム
+                </p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>クイックリンク</h3>
+                <ul class="footer-links">
+                    <li><a href="events.html">イベント一覧</a></li>
+                    <li><a href="#models">出演者一覧</a></li>
+                    <li><a href="#guide">ご利用案内</a></li>
+                    <li><a href="#faq">よくある質問</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>お問い合わせ</h3>
+                <p>📧 info@photosession.jp</p>
+                <p>📞 03-1234-5678</p>
+                <p>営業時間: 10:00-19:00</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>アクセス</h3>
+                <p>
+                    〒111-0053<br>
+                    東京都台東区浅草橋5-3-2<br>
+                    秋葉原スクエアビル4F
+                </p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 PhotoSession Connect. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script>
+        // イベント詳細ページ用JavaScript
+        
+        /**
+         * 予約ページへの遷移
+         */
+        function goToReservation() {
+            const eventData = document.getElementById('eventData');
+            const eventId = eventData.dataset.eventId;
+            
+            // イベント情報をLocalStorageに保存
+            const eventInfo = {
+                event_id: eventId,
+                event_name: document.getElementById('eventTitle').textContent,
+                event_date: document.getElementById('eventDate').textContent,
+                venue_id: eventData.dataset.venueId,
+                sessions: getSessionsData()
+            };
+            
+            localStorage.setItem('psc_reservation_event', JSON.stringify(eventInfo));
+            
+            // 予約フォームページへ遷移
+            window.location.href = `reservation.html?event=${eventId}`;
+        }
+        
+        /**
+         * セッション情報取得
+         */
+        function getSessionsData() {
+            const sessions = [];
+            document.querySelectorAll('.session-item').forEach(item => {
+                const sessionId = item.dataset.sessionId;
+                const sessionTitle = item.querySelector('.session-title').textContent;
+                const timeSlot = item.querySelector('.detail-value').textContent;
+                const status = item.querySelector('.session-status').classList.contains('status-full') ? 'full' : 'available';
+                
+                sessions.push({
+                    session_id: sessionId,
+                    session_name: sessionTitle,
+                    time_slot: timeSlot,
+                    status: status,
+                    price: 6000
+                });
+            });
+            return sessions;
+        }
+        
+        /**
+         * URLパラメータからイベントID取得
+         */
+        function loadEventDetail() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const eventId = urlParams.get('id');
+            
+            if (eventId) {
+                // 実際の実装ではAPIからデータを取得
+                console.log('Loading event:', eventId);
+                
+                // デモ用：イベントIDに応じて表示を変更
+                updateEventDisplay(eventId);
+            }
+        }
+        
+        /**
+         * イベント表示更新
+         */
+        function updateEventDisplay(eventId) {
+            // イベントIDに応じて表示内容を変更
+            // 実際の実装ではAPIから取得したデータを使用
+            
+            const eventData = {
+                'EVT20240810': {
+                    title: 'サマーフェスタ2024',
+                    date: '2024年8月10日（土）',
+                    time: '10:00 - 16:00',
+                    location: 'Gスタジオ（秋葉原）',
+                    price: '¥6,000〜'
+                },
+                'EVT20240815': {
+                    title: '平日限定プレミアムセッション',
+                    date: '2024年8月15日（木）',
+                    time: '14:00 - 17:00',
+                    location: 'スタジオ渋谷',
+                    price: '¥5,000〜'
+                },
+                'EVT20240818': {
+                    title: 'アニメキャラクターフェス',
+                    date: '2024年8月18日（日）',
+                    time: '10:00 - 16:00',
+                    location: 'スタジオ池袋',
+                    price: '¥7,000〜'
+                }
+            };
+            
+            const event = eventData[eventId];
+            if (event) {
+                document.getElementById('eventTitle').textContent = event.title;
+                document.getElementById('breadcrumbTitle').textContent = event.title;
+                document.getElementById('eventDate').textContent = event.date;
+                document.getElementById('eventTime').textContent = event.time;
+                document.getElementById('eventLocation').textContent = event.location;
+                document.getElementById('priceAmount').textContent = event.price;
+                document.title = `${event.title} - イベント詳細 | PhotoSession Connect`;
+            }
+        }
+        
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadEventDetail();
+            
+            // モデルカードのクリックイベント
+            document.querySelectorAll('.model-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const modelId = this.dataset.modelId;
+                    console.log('Model clicked:', modelId);
+                    // モデル詳細ページへの遷移など
+                });
+            });
+        });
+    </script>
+</body>
+</html>

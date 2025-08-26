@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhotoSession Connect - イベント一覧</title>
+    <style>
+        /* リセット & 基本設定 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* CSS変数 */
+        :root {
+            --primary-pink: #ff6ec7;
+            --primary-blue: #3b82f6;
+            --gradient-main: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            --gradient-light: linear-gradient(135deg, #fef3fd, #e6f3ff);
+            --text-dark: #2d3748;
+            --text-gray: #718096;
+            --border-gray: #e2e8f0;
+            --shadow-sm: 0 5px 20px rgba(0,0,0,0.08);
+            --shadow-md: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', -apple-system, sans-serif;
+            background: var(--gradient-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ヘッダー */
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-pink);
+        }
+
+        /* メインコンテンツ */
+        main {
+            margin-top: 80px;
+            padding: 40px 5%;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ヒーローセクション */
+        .hero-section {
+            text-align: center;
+            padding: 50px 20px;
+            background: var(--gradient-main);
+            border-radius: 25px;
+            margin-bottom: 50px;
+            box-shadow: 0 20px 60px rgba(255, 110, 199, 0.25);
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* フィルターセクション */
+        .filter-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .event-type-tabs {
+            display: flex;
+            gap: 10px;
+            background: white;
+            padding: 8px;
+            border-radius: 25px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .type-tab {
+            padding: 10px 25px;
+            background: transparent;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-gray);
+            transition: all 0.3s;
+        }
+
+        .type-tab:hover {
+            color: var(--primary-pink);
+        }
+
+        .type-tab.active {
+            background: var(--gradient-main);
+            color: white;
+        }
+
+        /* 検索バー */
+        .search-bar {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-input {
+            padding: 10px 20px;
+            border: 2px solid var(--border-gray);
+            border-radius: 25px;
+            width: 300px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-pink);
+        }
+
+        /* イベントグリッド */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        /* イベントカード */
+        .event-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .event-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(255, 110, 199, 0.3);
+        }
+
+        /* 画像エリア - 重要：このクラス名をJavaScriptが探している */
+        .event-card-image {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+        }
+
+        .event-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+
+        .event-card:hover .event-card-image img {
+            transform: scale(1.1);
+        }
+
+        /* 画像が読み込めない場合のプレースホルダー */
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-main);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: center;
+            padding: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* バッジ */
+        .event-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+            z-index: 2;
+        }
+
+        .badge-new {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.95), rgba(16, 185, 129, 0.85));
+            color: white;
+        }
+
+        .badge-popular {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.95), rgba(59, 130, 246, 0.85));
+            color: white;
+        }
+
+        .badge-limited {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.95), rgba(245, 158, 11, 0.85));
+            color: white;
+        }
+
+        /* カードコンテンツ */
+        .event-card-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .event-info {
+            color: var(--text-gray);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .event-description {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 15px 0;
+            flex: 1;
+        }
+
+        /* カードフッター */
+        .event-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            background: linear-gradient(135deg, #fef3fd, #f8fafc);
+            border-top: 1px solid var(--border-gray);
+        }
+
+        .event-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .event-availability {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        .availability-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        .availability-dot.limited {
+            background: #f59e0b;
+        }
+
+        .availability-dot.full {
+            background: #ef4444;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* タイプ別ボーダー */
+        .event-card.individual {
+            border-left: 4px solid #10b981;
+        }
+
+        .event-card.group {
+            border-left: 4px solid #3b82f6;
+        }
+
+        /* モバイルメニュー */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-dark);
+            border-radius: 3px;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .filter-section {
+                flex-direction: column;
+            }
+
+            .search-bar {
+                width: 100%;
+            }
+
+            .search-input {
+                flex: 1;
+            }
+
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header>
+        <nav>
+            <div class="logo">PhotoSession Connect</div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">イベント一覧</a></li>
+                <li><a href="#">個人撮影会</a></li>
+                <li><a href="#">団体撮影会</a></li>
+                <li><a href="#">特別イベント</a></li>
+            </ul>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main>
+        <!-- ヒーローセクション -->
+        <div class="hero-section">
+            <h1 class="hero-title">開催予定イベント</h1>
+            <p class="hero-subtitle">プロのカメラマンによる撮影会イベント。人気モデル・アイドル・コスプレイヤーと素敵な思い出を作りましょう。</p>
+        </div>
+
+        <!-- フィルター -->
+        <div class="filter-section">
+            <div class="event-type-tabs">
+                <button class="type-tab active" data-filter="all">すべて</button>
+                <button class="type-tab" data-filter="individual">個人撮影会</button>
+                <button class="type-tab" data-filter="group">団体撮影会</button>
+                <button class="type-tab" data-filter="special">特別イベント</button>
+            </div>
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="イベントを検索...">
+            </div>
+        </div>
+
+        <!-- イベントグリッド -->
+        <div class="events-grid" id="eventsGrid">
+            <!-- イベント1: ローカル画像を優先 -->
+            <div class="event-card group" data-event-id="EVT001">
+                <div class="event-card-image">
+                    <!-- まずローカル画像を試し、エラーならオンライン画像、それでもダメならプレースホルダー -->
+                    <img src="images/events/event001.jpg" 
+                         alt="サマーフェスタ2024"
+                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=250&fit=crop';">
+                    <span class="event-badge badge-popular">人気</span>
+                </div>
+                <div class="event-card-content">
+                    <h3 class="event-title">サマーフェスタ2024</h3>
+                    <div class="event-info">📅 2024年8月10日(土)</div>
+                    <div class="event-info">📍 Gスタジオ（秋葉原）</div>
+                    <p class="event-description">
+                        夏をテーマにした特別撮影会。水着・浴衣での撮影も可能です。
+                    </p>
+                </div>
+                <div class="event-card-footer">
+                    <span class="event-price">¥6,000〜</span>
+                    <div class="event-availability">
+                        <span class="availability-dot limited"></span>
+                        <span>残り3枠</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- イベント2 -->
+            <div class="event-card individual" data-event-id="EVT002">
+                <div class="event-card-image">
+                    <img src="images/events/event002.jpg" 
+                         alt="田中愛理 個人撮影会"
+                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=250&fit=crop';">
+                    <span class="event-badge badge-new">NEW</span>
+                </div>
+                <div class="event-card-content">
+                    <h3 class="event-title">田中愛理 個人撮影会</h3>
+                    <div class="event-info">📅 2024年8月12日(月)</div>
+                    <div class="event-info">📍 渋谷スタジオ</div>
+                    <p class="event-description">
+                        人気アイドル田中愛理との個人撮影会。衣装リクエスト可能。
+                    </p>
+                </div>
+                <div class="event-card-footer">
+                    <span class="event-price">¥15,000/30分</span>
+                    <div class="event-availability">
+                        <span class="availability-dot"></span>
+                        <span>空きあり</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- イベント3 -->
+            <div class="event-card group" data-event-id="EVT003">
+                <div class="event-card-image">
+                    <img src="images/events/event003.jpg" 
+                         alt="コスプレ撮影会SP"
+                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1533488765986-dfa2a9939acd?w=400&h=250&fit=crop';">
+                    <span class="event-badge badge-limited">限定</span>
+                </div>
+                <div class="event-card-content">
+                    <h3 class="event-title">コスプレ撮影会SP</h3>
+                    <div class="event-info">📅 2024年8月15日(木)</div>
+                    <div class="event-info">📍 池袋スタジオ</div>
+                    <p class="event-description">
+                        人気コスプレイヤー5名が集結！様々なキャラクターで撮影。
+                    </p>
+                </div>
+                <div class="event-card-footer">
+                    <span class="event-price">¥8,000〜</span>
+                    <div class="event-availability">
+                        <span class="availability-dot"></span>
+                        <span>空きあり</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- イベント4 -->
+            <div class="event-card individual" data-event-id="EVT004">
+                <div class="event-card-image">
+                    <img src="images/events/event004.jpg" 
+                         alt="山田花子 撮影会"
+                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?w=400&h=250&fit=crop';">
+                </div>
+                <div class="event-card-content">
+                    <h3 class="event-title">山田花子 撮影会</h3>
+                    <div class="event-info">📅 2024年8月18日(日)</div>
+                    <div class="event-info">📍 新宿スタジオ</div>
+                    <p class="event-description">
+                        モデル山田花子との個人撮影会。ポートレート撮影に最適。
+                    </p>
+                </div>
+                <div class="event-card-footer">
+                    <span class="event-price">¥12,000/30分</span>
+                    <div class="event-availability">
+                        <span class="availability-dot"></span>
+                        <span>空きあり</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- イベント5 -->
+            <div class="event-card group" data-event-id="EVT005">
+                <div class="event-card-image">
+                    <img src="images/events/event005.jpg" 
+                         alt="真夏の浴衣撮影会"
+                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1490889573446-3cc8aa38647e?w=400&h=250&fit=crop';">
+                    <span class="event-badge badge-popular">人気</span>
+                </div>
+                <div class="event-card-content">
+                    <h3 class="event-title">真夏の浴衣撮影会</h3>
+                    <div class="event-info">📅 2024年8月20日(火)</div>
+                    <div class="event-info">📍 浅草スタジオ</div>
+                    <p class="event-description">
+                        和風スタジオで浴衣撮影。夏祭りの雰囲気を演出。
+                    </p>
+                </div>
+                <div class="event-card-footer">
+                    <span class="event-price">¥7,000〜</span>
+                    <div class="event-availability">
+                        <span class="availability-dot limited"></span>
+                        <span>残り5枠</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- イベント6 -->
+            <div class="event-card individual" data-event-id="EVT006">
+                <div class="event-card-image">
+                    <img src="images/events/event006.jpg" 
+                         alt="佐藤美咲 個人撮影"
+                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1502781252888-9143ba7f074e?w=400&h=250&fit=crop';">
+                    <span class="event-badge badge-new">NEW</span>
+                </div>
+                <div class="event-card-content">
+                    <h3 class="event-title">佐藤美咲 個人撮影</h3>
+                    <div class="event-info">📅 2024年8月22日(木)</div>
+                    <div class="event-info">📍 横浜スタジオ</div>
+                    <p class="event-description">
+                        新人モデル佐藤美咲のデビュー撮影会。フレッシュな魅力。
+                    </p>
+                </div>
+                <div class="event-card-footer">
+                    <span class="event-price">¥10,000/30分</span>
+                    <div class="event-availability">
+                        <span class="availability-dot"></span>
+                        <span>空きあり</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ページ読み込み完了後に実行
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('=== PhotoSession Connect 起動 ===');
+            
+            // 画像の読み込み状態を確認
+            const checkImages = () => {
+                const images = document.querySelectorAll('.event-card-image img');
+                let loadedCount = 0;
+                let errorCount = 0;
+                
+                images.forEach((img, index) => {
+                    if (img.complete) {
+                        if (img.naturalWidth === 0) {
+                            console.warn(`⚠️ 画像${index + 1}読み込みエラー: フォールバック画像を使用`);
+                            errorCount++;
+                        } else {
+                            console.log(`✅ 画像${index + 1}読み込み成功`);
+                            loadedCount++;
+                        }
+                    }
+                });
+                
+                console.log(`画像状態: ${loadedCount}個成功, ${errorCount}個フォールバック使用`);
+            };
+            
+            // 1秒後に画像状態を確認
+            setTimeout(checkImages, 1000);
+            
+            // イベントカードのクリックイベント
+            const cards = document.querySelectorAll('.event-card');
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const eventId = this.dataset.eventId;
+                    const eventTitle = this.querySelector('.event-title').textContent;
+                    console.log(`クリック: ${eventTitle} (ID: ${eventId})`);
+                });
+            });
+            
+            // フィルター機能
+            const filterTabs = document.querySelectorAll('.type-tab');
+            const eventCards = document.querySelectorAll('.event-card');
+            
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filter = this.dataset.filter;
+                    
+                    eventCards.forEach(card => {
+                        if (filter === 'all') {
+                            card.style.display = 'flex';
+                        } else if (filter === 'individual' && card.classList.contains('individual')) {
+                            card.style.display = 'flex';
+                        } else if (filter === 'group' && card.classList.contains('group')) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // 検索機能
+            const searchInput = document.querySelector('.search-input');
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    const searchTerm = e.target.value.toLowerCase();
+                    
+                    eventCards.forEach(card => {
+                        const title = card.querySelector('.event-title').textContent.toLowerCase();
+                        const description = card.querySelector('.event-description').textContent.toLowerCase();
+                        
+                        if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            }
+            
+            // 画像パスの一覧を表示（デバッグ用）
+            console.log('=== 期待される画像ファイル名 ===');
+            console.log('images/events/event001.jpg');
+            console.log('images/events/event002.jpg');
+            console.log('images/events/event003.jpg');
+            console.log('images/events/event004.jpg');
+            console.log('images/events/event005.jpg');
+            console.log('images/events/event006.jpg');
+            console.log('※ 画像ファイル名が異なる場合は、HTMLのsrc属性を変更してください');
+        });
+    </script>
+</body>
+</html>
