@@ -7,10 +7,80 @@
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/components/forms.css">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* 予約ボタンのスタイル */
+        .reservation-section {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .reservation-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .reservation-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .reservation-card h2 {
+            color: #2d3748;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        .reservation-card p {
+            color: #718096;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .btn-google-form {
+            display: inline-block;
+            padding: 20px 60px;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 110, 199, 0.3);
+        }
+        
+        .btn-google-form:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 110, 199, 0.5);
+        }
+        
+        .btn-google-form i {
+            margin-right: 10px;
+        }
+        
+        .availability-status {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .status-count strong {
+            font-size: 24px;
+            margin: 0 5px;
+        }
+    </style>
 </head>
 <body>
     <!-- ヘッダー -->
@@ -46,206 +116,78 @@
         </div>
     </section>
 
-    <!-- イベント情報と予約フォーム -->
+    <!-- イベント情報セクション -->
     <section class="event-content-section">
         <div class="container">
-            <div class="event-detail-layout">
+            <div class="event-info-column">
+                <!-- イベント画像 -->
+                <div class="event-gallery">
+                    <img id="eventImage" src="" alt="イベント画像" class="main-image">
+                </div>
                 
-                <!-- 左側：イベント情報 -->
-                <div class="event-info-column">
-                    <!-- イベント画像 -->
-                    <div class="event-gallery">
-                        <img id="eventImage" src="" alt="イベント画像" class="main-image">
+                <!-- イベント詳細説明 -->
+                <div class="event-description">
+                    <h2>イベント概要</h2>
+                    <p id="eventDescription">
+                        プロの撮影スタッフが、あなたの最高の瞬間を切り取ります。
+                        スタジオでの本格的な撮影から、屋外でのナチュラルな撮影まで、
+                        お客様のご要望に合わせて対応いたします。
+                    </p>
+                    
+                    <h3>会場情報</h3>
+                    <div class="venue-info">
+                        <p id="venueDetails">
+                            <strong>会場:</strong> <span id="venueName">-</span><br>
+                            <strong>住所:</strong> <span id="venueAddress">-</span><br>
+                            <strong>アクセス:</strong> 最寄り駅から徒歩5分
+                        </p>
                     </div>
                     
-                    <!-- イベント詳細説明 -->
-                    <div class="event-description">
-                        <h2>イベント概要</h2>
-                        <p id="eventDescription">
-                            プロの撮影スタッフが、あなたの最高の瞬間を切り取ります。
-                            スタジオでの本格的な撮影から、屋外でのナチュラルな撮影まで、
-                            お客様のご要望に合わせて対応いたします。
+                    <h3>料金</h3>
+                    <div class="pricing-info">
+                        <p>
+                            個人撮影: ¥6,000<br>
+                            グループ撮影: ¥4,800<br>
+                            VIP撮影: ¥12,000
                         </p>
-                        
-                        <h3>含まれるサービス</h3>
-                        <ul class="service-list">
-                            <li><i class="fas fa-check"></i> プロカメラマンによる撮影</li>
-                            <li><i class="fas fa-check"></i> 基本レタッチ済み写真データ</li>
-                            <li><i class="fas fa-check"></i> オンラインギャラリーでの閲覧</li>
-                            <li><i class="fas fa-check"></i> お気に入り写真の選択</li>
-                        </ul>
-                        
-                        <h3>会場情報</h3>
-                        <div class="venue-info">
-                            <p id="venueDetails">
-                                <strong>会場:</strong> <span id="venueName">-</span><br>
-                                <strong>住所:</strong> <span id="venueAddress">-</span><br>
-                                <strong>アクセス:</strong> 最寄り駅から徒歩5分
-                            </p>
-                        </div>
-                        
-                        <h3>注意事項</h3>
-                        <ul class="notice-list">
-                            <li>撮影の10分前までにお越しください</li>
-                            <li>キャンセルは3日前まで無料です</li>
-                            <li>天候により屋外撮影が中止になる場合があります</li>
-                        </ul>
                     </div>
+                    
+                    <h3>注意事項</h3>
+                    <ul class="notice-list">
+                        <li>撮影の10分前までにお越しください</li>
+                        <li>キャンセルは3日前まで無料です</li>
+                        <li>天候により屋外撮影が中止になる場合があります</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 予約セクション（シンプル版） -->
+    <section class="reservation-section">
+        <div class="reservation-container">
+            <div class="reservation-card">
+                <h2>このイベントに参加する</h2>
+                
+                <!-- 残席状況（オプション） -->
+                <div class="availability-status" id="availabilityStatus" style="display:none;">
+                    <span>残席状況: </span>
+                    <span class="status-count">残り<strong id="remainingSlots">-</strong>席</span>
                 </div>
                 
-                <!-- 右側：予約フォーム -->
-                <div class="reservation-column">
-                    <div class="reservation-card sticky-card">
-                        <h2>このイベントを予約</h2>
-                        
-                        <!-- 残席状況 -->
-                        <div class="availability-status">
-                            <span class="status-label">残席状況:</span>
-                            <span class="status-count">残り<strong>5</strong>席</span>
-                            <div class="status-bar">
-                                <div class="status-progress" style="width: 70%;"></div>
-                            </div>
-                        </div>
-                        
-                        <!-- 予約フォーム -->
-                        <form id="eventReservationForm" class="inline-reservation-form">
-                            
-                            <!-- 基本情報 -->
-                            <div class="form-section">
-                                <h3>お客様情報</h3>
-                                
-                                <div class="form-group">
-                                    <label for="name">お名前 <span class="required">*</span></label>
-                                    <input type="text" id="name" name="name" required placeholder="山田 太郎">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="email">メールアドレス <span class="required">*</span></label>
-                                    <input type="email" id="email" name="email" required placeholder="example@email.com">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="phone">電話番号 <span class="required">*</span></label>
-                                    <input type="tel" id="phone" name="phone" pattern="[0-9]{10,11}" required placeholder="09012345678">
-                                </div>
-                            </div>
-                            
-                            <!-- 予約内容 -->
-                            <div class="form-section">
-                                <h3>予約内容</h3>
-                                
-                                <div class="form-group">
-                                    <label>参加枠を選択 <span class="required">*</span></label>
-                                    <div class="session-options">
-                                        <label class="session-option">
-                                            <input type="radio" name="sessionType" value="individual" required>
-                                            <div class="option-content">
-                                                <span class="option-name">個人撮影</span>
-                                                <span class="option-duration">30分</span>
-                                                <span class="option-price">¥6,000</span>
-                                            </div>
-                                        </label>
-                                        <label class="session-option">
-                                            <input type="radio" name="sessionType" value="group" required>
-                                            <div class="option-content">
-                                                <span class="option-name">グループ撮影</span>
-                                                <span class="option-duration">60分</span>
-                                                <span class="option-price">¥4,800</span>
-                                            </div>
-                                        </label>
-                                        <label class="session-option">
-                                            <input type="radio" name="sessionType" value="vip" required>
-                                            <div class="option-content">
-                                                <span class="option-name">VIP撮影</span>
-                                                <span class="option-duration">90分</span>
-                                                <span class="option-price">¥12,000</span>
-                                            </div>
-                                        </label>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="participants">参加人数</label>
-                                    <select id="participants" name="participants">
-                                        <option value="1">1名</option>
-                                        <option value="2">2名</option>
-                                        <option value="3">3名</option>
-                                        <option value="4">4名</option>
-                                        <option value="5">5名以上</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <!-- オプション -->
-                            <div class="form-section">
-                                <h3>オプション（任意）</h3>
-                                <div class="option-checkboxes">
-                                    <label class="option-checkbox">
-                                        <input type="checkbox" name="options" value="costume">
-                                        <div class="checkbox-content">
-                                            <span>衣装レンタル</span>
-                                            <span class="option-add-price">+¥3,000</span>
-                                        </div>
-                                    </label>
-                                    <label class="option-checkbox">
-                                        <input type="checkbox" name="options" value="makeup">
-                                        <div class="checkbox-content">
-                                            <span>ヘアメイク</span>
-                                            <span class="option-add-price">+¥5,000</span>
-                                        </div>
-                                    </label>
-                                    <label class="option-checkbox">
-                                        <input type="checkbox" name="options" value="data">
-                                        <div class="checkbox-content">
-                                            <span>全データ渡し</span>
-                                            <span class="option-add-price">+¥10,000</span>
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
-                            
-                            <!-- 料金サマリー -->
-                            <div class="price-summary-inline">
-                                <div class="price-row">
-                                    <span>基本料金</span>
-                                    <span id="basePrice">¥0</span>
-                                </div>
-                                <div class="price-row" id="optionPriceRow" style="display:none;">
-                                    <span>オプション</span>
-                                    <span id="optionPrice">¥0</span>
-                                </div>
-                                <div class="price-row total">
-                                    <span>合計金額</span>
-                                    <span id="totalPrice">¥0</span>
-                                </div>
-                            </div>
-                            
-                            <!-- 備考 -->
-                            <div class="form-group">
-                                <label for="message">ご要望・備考</label>
-                                <textarea id="message" name="message" rows="3" placeholder="ご要望があればお書きください"></textarea>
-                            </div>
-                            
-                            <!-- 利用規約 -->
-                            <div class="terms-agreement">
-                                <label class="terms-label">
-                                    <input type="checkbox" id="terms" name="terms" required>
-                                    <span>
-                                        <a href="#" onclick="event.preventDefault(); alert('利用規約の内容');">利用規約</a>
-                                        に同意します
-                                    </span>
-                                </label>
-                            </div>
-                            
-                            <!-- 送信ボタン -->
-                            <button type="submit" class="btn-reserve-submit">
-                                <i class="fas fa-check"></i>
-                                予約を確定する
-                            </button>
-                        </form>
-                    </div>
-                </div>
+                <p>
+                    下記のボタンから予約フォームにアクセスし、<br>
+                    必要事項をご入力ください。
+                </p>
                 
+                <!-- Googleフォームへのリンクボタン -->
+                <a href="YOUR_GOOGLE_FORM_URL" 
+                   target="_blank" 
+                   class="btn-google-form"
+                   id="reservationButton">
+                    <i class="fas fa-external-link-alt"></i>
+                    参加予約はこちら
+                </a>
             </div>
         </div>
     </section>
@@ -267,22 +209,154 @@
         </div>
     </footer>
 
-    <!-- 確認モーダル（初期は非表示） -->
-    <div id="confirmationModal" class="modal" style="display:none;">
-        <div class="modal-content">
-            <div class="success-icon">✨</div>
-            <h2>予約が完了しました！</h2>
-            <p class="reservation-number" id="reservationNumber">-</p>
-            <p><strong id="customerName">-</strong>様</p>
-            <p>ご予約ありがとうございます。<br>
-               確認メールを<strong id="customerEmail">-</strong>に送信しました。</p>
-            <button onclick="location.href='index.html'" class="btn-home">
-                ホームへ戻る
-            </button>
-        </div>
-    </div>
-
     <!-- JavaScript -->
-    <script src="js/event-detail.js"></script>
+    <script>
+        // イベントデータ読み込みと表示（簡略版）
+        class EventDetailPage {
+            constructor() {
+                this.eventData = null;
+                this.init();
+            }
+            
+            async init() {
+                await this.loadEventData();
+                this.setupGoogleFormLink();
+                this.loadRelatedEvents();
+            }
+            
+            async loadEventData() {
+                try {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const eventId = urlParams.get('id') || 'EVT001';
+                    
+                    const response = await fetch('data/events.json');
+                    const data = await response.json();
+                    const events = data.events || data;
+                    
+                    this.eventData = events.find(event => event.event_id === eventId);
+                    
+                    if (this.eventData) {
+                        this.displayEventInfo();
+                    }
+                } catch (error) {
+                    console.error('データ読み込みエラー:', error);
+                }
+            }
+            
+            displayEventInfo() {
+                // イベント情報の表示
+                document.getElementById('eventTitle').textContent = this.eventData.event_name || 'イベント名';
+                document.getElementById('eventDate').textContent = this.formatDate(this.eventData.event_date);
+                document.getElementById('eventVenue').textContent = this.eventData.venue?.venue_name || '会場未定';
+                document.getElementById('venueName').textContent = this.eventData.venue?.venue_name || '会場未定';
+                document.getElementById('venueAddress').textContent = this.eventData.venue?.address || '住所未定';
+                
+                if (this.eventData.description) {
+                    document.getElementById('eventDescription').textContent = this.eventData.description;
+                }
+                
+                // 残席状況（データがある場合のみ表示）
+                if (this.eventData.remaining_slots !== null && this.eventData.remaining_slots !== undefined) {
+                    document.getElementById('availabilityStatus').style.display = 'block';
+                    document.getElementById('remainingSlots').textContent = this.eventData.remaining_slots;
+                }
+                
+                // 画像
+                const eventImage = document.getElementById('eventImage');
+                if (eventImage) {
+                    eventImage.src = this.eventData.thumbnail_image || 'images/events/default.jpg';
+                    eventImage.onerror = function() {
+                        this.style.display = 'none';
+                        this.parentElement.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+                        this.parentElement.style.height = '300px';
+                        this.parentElement.style.display = 'flex';
+                        this.parentElement.style.alignItems = 'center';
+                        this.parentElement.style.justifyContent = 'center';
+                        this.parentElement.innerHTML = '<span style="font-size: 48px;">📸</span>';
+                    };
+                }
+                
+                document.title = `${this.eventData.event_name} | PhotoSession Connect`;
+            }
+            
+            formatDate(dateString) {
+                if (!dateString) return '日程未定';
+                const date = new Date(dateString);
+                const year = date.getFullYear();
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                const weekDays = ['日', '月', '火', '水', '木', '金', '土'];
+                const weekDay = weekDays[date.getDay()];
+                return `${year}年${month}月${day}日(${weekDay})`;
+            }
+            
+            setupGoogleFormLink() {
+                // GoogleフォームのURLを設定
+                // ここにあなたのGoogleフォームURLを設定してください
+                const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform';
+                
+                const button = document.getElementById('reservationButton');
+                if (button) {
+                    // イベント名を事前入力パラメータとして追加する場合
+                    // const formUrl = GOOGLE_FORM_URL + '?entry.123456789=' + encodeURIComponent(this.eventData?.event_name || '');
+                    // button.href = formUrl;
+                    
+                    button.href = GOOGLE_FORM_URL;
+                }
+            }
+            
+            async loadRelatedEvents() {
+                try {
+                    const response = await fetch('data/events.json');
+                    const data = await response.json();
+                    const events = data.events || data;
+                    
+                    const relatedEvents = events
+                        .filter(event => event.event_id !== this.eventData?.event_id)
+                        .slice(0, 3);
+                    
+                    const relatedEventsContainer = document.getElementById('relatedEvents');
+                    if (relatedEventsContainer && relatedEvents.length > 0) {
+                        relatedEventsContainer.innerHTML = relatedEvents
+                            .map(event => this.createEventCard(event))
+                            .join('');
+                    }
+                } catch (error) {
+                    console.error('関連イベントの読み込みエラー:', error);
+                }
+            }
+            
+            createEventCard(event) {
+                const eventDate = new Date(event.event_date);
+                const formattedDate = `${eventDate.getMonth() + 1}/${eventDate.getDate()}`;
+                
+                return `
+                    <div class="event-card">
+                        <div class="event-image">
+                            <img src="${event.thumbnail_image || 'images/events/default.jpg'}" 
+                                 alt="${event.event_name}"
+                                 onerror="this.style.display='none'; this.parentElement.classList.add('no-image');">
+                        </div>
+                        <div class="event-content">
+                            <h3 class="event-title">${event.event_name}</h3>
+                            <div class="event-info">
+                                <span class="event-date">
+                                    <i class="far fa-calendar"></i> ${formattedDate}
+                                </span>
+                            </div>
+                            <a href="event-detail.html?id=${event.event_id}" class="btn-view-detail">
+                                詳細を見る
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        // ページ読み込み時に初期化
+        document.addEventListener('DOMContentLoaded', () => {
+            new EventDetailPage();
+        });
+    </script>
 </body>
 </html>
