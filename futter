@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>簡略化フッター - ぴにょぐらむ撮影会</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* フッター専用スタイル */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Noto Sans JP', -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* メインコンテンツ（デモ用） */
+        .main-content {
+            flex: 1;
+            padding: 50px 20px;
+            background: #f5f7fa;
+            text-align: center;
+            color: #718096;
+        }
+        
+        /* フッタースタイル */
+        .site-footer {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: white;
+            padding: 60px 0 0;
+            margin-top: auto;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* フッター上部 */
+        .footer-top {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .footer-column p {
+            color: #cbd5e0;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        /* ロゴセクション */
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+        
+        .footer-description {
+            color: #cbd5e0;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        /* SNSリンク */
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .social-link:hover {
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .social-link i {
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        /* お問い合わせ情報 */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            color: #cbd5e0;
+        }
+        
+        .contact-item i {
+            color: #ff6ec7;
+            font-size: 1.1rem;
+            width: 20px;
+        }
+        
+        /* プライバシーポリシーボタン */
+        .privacy-policy-section {
+            margin-top: 20px;
+        }
+        
+        .privacy-policy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #cbd5e0;
+            text-decoration: none;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .privacy-policy-btn:hover {
+            background: rgba(255, 110, 199, 0.1);
+            border-color: #ff6ec7;
+            color: #ff6ec7;
+            transform: translateY(-2px);
+        }
+        
+        .privacy-policy-btn i {
+            font-size: 0.9rem;
+        }
+        
+        /* フッター下部 */
+        .footer-bottom {
+            padding: 30px 0;
+            text-align: center;
+            color: #718096;
+        }
+        
+        .footer-bottom-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .copyright {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: #718096;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            color: #ff6ec7;
+        }
+        
+        /* バックトゥトップボタン */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 110, 199, 0.4);
+        }
+        
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-bottom-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .copyright {
+                text-align: center;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- メインコンテンツ（デモ用） -->
+    <div class="main-content">
+        <h1>メインコンテンツエリア</h1>
+        <p>フッターは下部に表示されます</p>
+    </div>
+
+    <!-- 簡略化フッター -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <!-- フッター上部 -->
+            <div class="footer-top">
+                <!-- カラム1: 会社情報 -->
+                <div class="footer-column">
+                    <div class="footer-logo">ぴにょぐらむ撮影会</div>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- カラム2: お問い合わせ -->
+                <div class="footer-column">
+                    <h3>お問い合わせ</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-building"></i>
+                        <span>ぴにょきお株式会社</span>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@photosession-connect.jp</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>03-1234-5678</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>東京都渋谷区〇〇1-2-3</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>営業時間: 10:00 - 20:00</span>
+                    </div>
+
+                    
+                    <!-- プライバシーポリシーボタン -->
+                    <div class="privacy-policy-section">
+                        <a href="#" class="privacy-policy-btn">
+                            <i class="fas fa-shield-alt"></i>
+                            プライバシーポリシー
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- フッター下部 -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="copyright">
+                        &copy; 2024 ぴにょぐらむ撮影会. All rights reserved.
+                    </div>
+                    <ul class="footer-links">
+                        <li><a href="#terms">利用規約</a></li>
+                        <li><a href="#law">特定商取引法</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- バックトゥトップボタン -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // バックトゥトップボタンの表示制御
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

@@ -3,16 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>イベント詳細 | PhotoSession Connect</title>
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <title>イベント詳細 | ぴにょぐらむ撮影会</title>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* 予約ボタンのスタイル */
+        /* 基本リセット */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            .model-schedule {
+                font-size: 0.9rem;
+                color: #718096;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .price-table {
+                gap: 8px;
+            }
+            
+            .price-item {
+                padding: 8px 12px;
+            }
+            
+            .price-value {
+                font-size: 1rem;
+            }
+        }
+        
+        body {
+            font-family: 'Inter', 'Noto Sans JP', -apple-system, sans-serif;
+            background: #f5f7fa;
+            color: #2d3748;
+        }
+        
+        /* ヘッダー修正 - position: fixedで上部に固定 */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .site-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .site-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .site-title a {
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+        
+        .site-nav {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .site-nav a {
+            color: #718096;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .site-nav a:hover {
+            color: #ff6ec7;
+        }
+        
+        /* ヒーローセクション修正 - ヘッダー分の余白を追加 */
+        .event-detail-hero {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 120px 20px 40px; /* 上部パディングを80px→120pxに増やす */
+            color: white;
+            margin-top: 0; /* margin-topを削除 */
+        }
+        
+        .event-detail-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .event-meta {
+            display: flex;
+            gap: 30px;
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+        
+        .event-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* モデルセクション */
+        .models-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .model-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .model-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .model-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+        }
+        
+        .model-info {
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .model-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+        
+        .model-role {
+            font-size: 0.9rem;
+            color: #718096;
+        }
+        
+        /* コンテンツセクション */
+        .event-content-section {
+            padding: 60px 20px;
+            background: #f5f7fa;
+        }
+        
+        .event-info-column {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .event-gallery {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        
+        .event-description {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .event-description h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .event-description h3 {
+            color: #4a5568;
+            margin: 30px 0 15px;
+        }
+        
+        .event-description p {
+            color: #718096;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .venue-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .pricing-info {
+            background: linear-gradient(135deg, #fef3fd, #e6f3ff);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .notice-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .notice-list li {
+            padding: 10px 0;
+            color: #718096;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .notice-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #ff6ec7;
+            font-weight: bold;
+        }
+        
+        /* 予約セクション */
         .reservation-section {
             padding: 60px 20px;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -65,20 +300,119 @@
             margin-right: 10px;
         }
         
-        .availability-status {
-            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
+        /* 関連イベント */
+        .related-events {
+            padding: 60px 20px;
+            background: white;
         }
         
-        .status-count strong {
-            font-size: 24px;
-            margin: 0 5px;
+        .related-events h2 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 40px;
+            font-size: 2rem;
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .event-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .event-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            position: relative;
+        }
+        
+        .event-image.no-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+        
+        .event-content {
+            padding: 20px;
+        }
+        
+        .event-title {
+            font-size: 1.2rem;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .event-info {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .btn-view-detail {
+            display: block;
+            padding: 10px;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 25px;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-view-detail:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 110, 199, 0.3);
+        }
+        
+        /* フッター */
+        .site-footer {
+            background: linear-gradient(135deg, #2d3748, #1a202c);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .site-nav {
+                display: none;
+            }
+            
+            .event-detail-hero {
+                padding: 100px 20px 30px;
+            }
+            
+            .event-detail-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .event-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .main-image {
+                height: 250px;
+            }
+            
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -87,11 +421,10 @@
     <header class="site-header">
         <div class="container">
             <h1 class="site-title">
-                <a href="index.html">PhotoSession Connect</a>
+                <a href="index.html">ぴにょぐらむ撮影会</a>
             </h1>
             <nav class="site-nav">
                 <a href="index.html">ホーム</a>
-                <a href="events.html">イベント一覧</a>
                 <a href="#contact">お問い合わせ</a>
             </nav>
         </div>
@@ -134,6 +467,64 @@
                         お客様のご要望に合わせて対応いたします。
                     </p>
                     
+                    <h3>出演モデル</h3>
+                    <div class="models-section" id="modelsSection">
+                        <!-- モデル情報がここに挿入されます -->
+                    </div>
+                    
+                    <h3>タイムスケジュール</h3>
+                    <div class="schedule-info">
+                        <p><strong>■入場 17:30</strong></p>
+                        
+                        <p><strong>■開催時間</strong><br>
+                        18:00〜22:00</p>
+                        
+                        <div class="time-table">
+                            <p><strong>【タイムスケジュール】</strong></p>
+                            <ul>
+                                <li>1部: 18:00 - 18:40</li>
+                                <li>2部: 19:10 - 19:50</li>
+                                <li>3部: 20:20 - 21:00</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="model-schedule">
+                            <p class="note">※モデルにより出演時間が異なります</p>
+                            <p class="note">※詳細は当日ご確認ください</p>
+                        </div>
+                        
+                        <p class="access-note">
+                            スタジオまで直接お越しください。<br>
+                            開催時間中いつでもご入場が可能です。
+                        </p>
+                    </div>
+                    
+                    <h3>参加費（税込）</h3>
+                    <div class="pricing-info">
+                        <div class="price-table">
+                            <div class="price-item">
+                                <span class="price-label">各部</span>
+                                <span class="price-value">¥5,000</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="price-label">3部通し</span>
+                                <span class="price-value">¥13,000</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="price-label">全通し</span>
+                                <span class="price-value">¥16,000</span>
+                            </div>
+                        </div>
+                        
+                        <div class="option-section">
+                            <p><strong>■オプション（税込）</strong></p>
+                            <div class="price-item">
+                                <span class="price-label">2ショットチェキ</span>
+                                <span class="price-value">¥1,000/1枚</span>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <h3>会場情報</h3>
                     <div class="venue-info">
                         <p id="venueDetails">
@@ -143,13 +534,9 @@
                         </p>
                     </div>
                     
-                    <h3>料金</h3>
-                    <div class="pricing-info">
-                        <p>
-                            個人撮影: ¥6,000<br>
-                            グループ撮影: ¥4,800<br>
-                            VIP撮影: ¥12,000
-                        </p>
+                    <h3>画像掲載について</h3>
+                    <div class="photo-policy">
+                        <p>撮影した画像のSNS等への掲載については、各出演者にご確認ください。</p>
                     </div>
                     
                     <h3>注意事項</h3>
@@ -163,17 +550,11 @@
         </div>
     </section>
 
-    <!-- 予約セクション（シンプル版） -->
+    <!-- 予約セクション -->
     <section class="reservation-section">
         <div class="reservation-container">
             <div class="reservation-card">
                 <h2>このイベントに参加する</h2>
-                
-                <!-- 残席状況（オプション） -->
-                <div class="availability-status" id="availabilityStatus" style="display:none;">
-                    <span>残席状況: </span>
-                    <span class="status-count">残り<strong id="remainingSlots">-</strong>席</span>
-                </div>
                 
                 <p>
                     下記のボタンから予約フォームにアクセスし、<br>
@@ -181,7 +562,7 @@
                 </p>
                 
                 <!-- Googleフォームへのリンクボタン -->
-                <a href="YOUR_GOOGLE_FORM_URL" 
+                <a href="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform" 
                    target="_blank" 
                    class="btn-google-form"
                    id="reservationButton">
@@ -205,13 +586,13 @@
     <!-- フッター -->
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2024 PhotoSession Connect. All rights reserved.</p>
+            <p>&copy; 2024 ぴにょぐらむ撮影会. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- JavaScript -->
     <script>
-        // イベントデータ読み込みと表示（簡略版）
+        // イベントデータ読み込みと表示
         class EventDetailPage {
             constructor() {
                 this.eventData = null;
@@ -229,11 +610,94 @@
                     const urlParams = new URLSearchParams(window.location.search);
                     const eventId = urlParams.get('id') || 'EVT001';
                     
-                    const response = await fetch('data/events.json');
-                    const data = await response.json();
-                    const events = data.events || data;
+                    // イベントデータと画像パスのマッピング
+                    const eventDataMap = {
+                        'EVT001': {
+                            event_name: 'サマーフェスタ2024',
+                            event_date: '2024-08-10',
+                            venue: {
+                                venue_name: 'Gスタジオ',
+                                address: '東京都台東区秋葉原1-2-3'
+                            },
+                            description: '夏の特別な撮影会イベント。プロカメラマンが夏の思い出を美しく切り取ります。',
+                            image: 'images/events/event001.jpg',
+                            models: [
+                                { name: '佐藤 美月', role: 'メインモデル', image: 'images/models/1.jpg' },
+                                { name: '田中 さくら', role: 'ゲストモデル', image: 'images/models/2.jpg' },
+                                { name: '鈴木 あや', role: 'ゲストモデル', image: 'images/models/3.jpg' }
+                            ]
+                        },
+                        'EVT002': {
+                            event_name: '田中愛理 個人撮影会',
+                            event_date: '2024-08-12',
+                            venue: {
+                                venue_name: '渋谷スタジオ',
+                                address: '東京都渋谷区渋谷2-15-1'
+                            },
+                            description: '人気モデル田中愛理との個人撮影会。プロのモデルによるポージング指導付き。',
+                            image: 'images/events/event002.jpg',
+                            models: [
+                                { name: '田中 愛理', role: '専属モデル', image: 'images/models/1.jpg' }
+                            ]
+                        },
+                        'EVT003': {
+                            event_name: 'コスプレ撮影会SP',
+                            event_date: '2024-08-15',
+                            venue: {
+                                venue_name: '池袋スタジオ',
+                                address: '東京都豊島区池袋3-10-5'
+                            },
+                            description: '人気コスプレイヤーが集結！様々なキャラクターで撮影。',
+                            image: 'images/events/event003.jpg',
+                            models: [
+                                { name: '高橋 みお', role: 'コスプレイヤー', image: 'images/models/2.jpg' },
+                                { name: '伊藤 ゆい', role: 'コスプレイヤー', image: 'images/models/3.jpg' }
+                            ]
+                        },
+                        'EVT004': {
+                            event_name: '山田花子 撮影会',
+                            event_date: '2024-08-18',
+                            venue: {
+                                venue_name: '新宿スタジオ',
+                                address: '東京都新宿区新宿4-1-6'
+                            },
+                            description: 'モデル山田花子との個人撮影会。ポートレート撮影に最適。',
+                            image: 'images/events/event004.jpg',
+                            models: [
+                                { name: '山田 花子', role: '専属モデル', image: 'images/models/1.jpg' }
+                            ]
+                        },
+                        'EVT005': {
+                            event_name: '真夏の浴衣撮影会',
+                            event_date: '2024-08-20',
+                            venue: {
+                                venue_name: '浅草スタジオ',
+                                address: '東京都台東区浅草2-3-1'
+                            },
+                            description: '和風スタジオで浴衣撮影。夏祭りの雰囲気を演出。',
+                            image: 'images/events/event005.jpg',
+                            models: [
+                                { name: '小林 ななみ', role: '和装モデル', image: 'images/models/1.jpg' },
+                                { name: '渡辺 りん', role: '和装モデル', image: 'images/models/2.jpg' },
+                                { name: '加藤 えみ', role: '和装モデル', image: 'images/models/3.jpg' }
+                            ]
+                        },
+                        'EVT006': {
+                            event_name: '佐藤美咲 個人撮影',
+                            event_date: '2024-08-22',
+                            venue: {
+                                venue_name: '横浜スタジオ',
+                                address: '神奈川県横浜市西区みなとみらい3-5-1'
+                            },
+                            description: '新人モデル佐藤美咲のデビュー撮影会。フレッシュな魅力。',
+                            image: 'images/events/event006.jpg',
+                            models: [
+                                { name: '佐藤 美咲', role: '新人モデル', image: 'images/models/3.jpg' }
+                            ]
+                        }
+                    };
                     
-                    this.eventData = events.find(event => event.event_id === eventId);
+                    this.eventData = eventDataMap[eventId] || eventDataMap['EVT001'];
                     
                     if (this.eventData) {
                         this.displayEventInfo();
@@ -244,7 +708,6 @@
             }
             
             displayEventInfo() {
-                // イベント情報の表示
                 document.getElementById('eventTitle').textContent = this.eventData.event_name || 'イベント名';
                 document.getElementById('eventDate').textContent = this.formatDate(this.eventData.event_date);
                 document.getElementById('eventVenue').textContent = this.eventData.venue?.venue_name || '会場未定';
@@ -255,28 +718,48 @@
                     document.getElementById('eventDescription').textContent = this.eventData.description;
                 }
                 
-                // 残席状況（データがある場合のみ表示）
-                if (this.eventData.remaining_slots !== null && this.eventData.remaining_slots !== undefined) {
-                    document.getElementById('availabilityStatus').style.display = 'block';
-                    document.getElementById('remainingSlots').textContent = this.eventData.remaining_slots;
+                // モデル情報の表示
+                if (this.eventData.models && this.eventData.models.length > 0) {
+                    const modelsSection = document.getElementById('modelsSection');
+                    let modelsHTML = '';
+                    
+                    this.eventData.models.forEach(model => {
+                        modelsHTML += `
+                            <div class="model-card">
+                                <img src="${model.image}" alt="${model.name}" class="model-image" 
+                                     onerror="this.src=''; this.style.background='linear-gradient(135deg, #ff6ec7, #3b82f6)'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<span style=\"color:white; font-size:48px;\">👤</span>';">
+                                <div class="model-info">
+                                    <div class="model-name">${model.name}</div>
+                                    <div class="model-role">${model.role}</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    modelsSection.innerHTML = modelsHTML;
                 }
                 
-                // 画像
+                // 画像設定
                 const eventImage = document.getElementById('eventImage');
-                if (eventImage) {
-                    eventImage.src = this.eventData.thumbnail_image || 'images/events/default.jpg';
+                if (eventImage && this.eventData.image) {
+                    eventImage.src = this.eventData.image;
+                    eventImage.alt = this.eventData.event_name;
+                    
+                    // 画像読み込みエラー時のフォールバック
                     eventImage.onerror = function() {
+                        console.log('画像が見つかりません:', this.src);
                         this.style.display = 'none';
                         this.parentElement.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
-                        this.parentElement.style.height = '300px';
+                        this.parentElement.style.height = '400px';
                         this.parentElement.style.display = 'flex';
                         this.parentElement.style.alignItems = 'center';
                         this.parentElement.style.justifyContent = 'center';
-                        this.parentElement.innerHTML = '<span style="font-size: 48px;">📸</span>';
+                        this.parentElement.style.color = 'white';
+                        this.parentElement.innerHTML = '<div style="text-align: center;"><span style="font-size: 48px;">📸</span><p style="margin-top: 10px; font-size: 14px;">画像を準備中です</p></div>';
                     };
                 }
                 
-                document.title = `${this.eventData.event_name} | PhotoSession Connect`;
+                document.title = `${this.eventData.event_name} | ぴにょぐらむ撮影会`;
             }
             
             formatDate(dateString) {
@@ -291,71 +774,417 @@
             }
             
             setupGoogleFormLink() {
-                // GoogleフォームのURLを設定
-                // ここにあなたのGoogleフォームURLを設定してください
+                // Googleフォームのリンク設定
                 const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform';
-                
                 const button = document.getElementById('reservationButton');
                 if (button) {
-                    // イベント名を事前入力パラメータとして追加する場合
-                    // const formUrl = GOOGLE_FORM_URL + '?entry.123456789=' + encodeURIComponent(this.eventData?.event_name || '');
-                    // button.href = formUrl;
-                    
                     button.href = GOOGLE_FORM_URL;
                 }
             }
             
             async loadRelatedEvents() {
-                try {
-                    const response = await fetch('data/events.json');
-                    const data = await response.json();
-                    const events = data.events || data;
-                    
-                    const relatedEvents = events
-                        .filter(event => event.event_id !== this.eventData?.event_id)
-                        .slice(0, 3);
-                    
-                    const relatedEventsContainer = document.getElementById('relatedEvents');
-                    if (relatedEventsContainer && relatedEvents.length > 0) {
-                        relatedEventsContainer.innerHTML = relatedEvents
-                            .map(event => this.createEventCard(event))
-                            .join('');
-                    }
-                } catch (error) {
-                    console.error('関連イベントの読み込みエラー:', error);
-                }
-            }
-            
-            createEventCard(event) {
-                const eventDate = new Date(event.event_date);
-                const formattedDate = `${eventDate.getMonth() + 1}/${eventDate.getDate()}`;
-                
-                return `
+                // 関連イベントのダミーデータ
+                const relatedHTML = `
                     <div class="event-card">
-                        <div class="event-image">
-                            <img src="${event.thumbnail_image || 'images/events/default.jpg'}" 
-                                 alt="${event.event_name}"
-                                 onerror="this.style.display='none'; this.parentElement.classList.add('no-image');">
-                        </div>
+                        <div class="event-image no-image">📸</div>
                         <div class="event-content">
-                            <h3 class="event-title">${event.event_name}</h3>
+                            <h3 class="event-title">コスプレ撮影会SP</h3>
                             <div class="event-info">
-                                <span class="event-date">
-                                    <i class="far fa-calendar"></i> ${formattedDate}
-                                </span>
+                                <i class="far fa-calendar"></i> 8/15
                             </div>
-                            <a href="event-detail.html?id=${event.event_id}" class="btn-view-detail">
+                            <a href="event-detail.html?id=EVT003" class="btn-view-detail">
+                                詳細を見る
+                            </a>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-image no-image">📸</div>
+                        <div class="event-content">
+                            <h3 class="event-title">真夏の浴衣撮影会</h3>
+                            <div class="event-info">
+                                <i class="far fa-calendar"></i> 8/20
+                            </div>
+                            <a href="event-detail.html?id=EVT005" class="btn-view-detail">
+                                詳細を見る
+                            </a>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-image no-image">📸</div>
+                        <div class="event-content">
+                            <h3 class="event-title">佐藤美咲 個人撮影</h3>
+                            <div class="event-info">
+                                <i class="far fa-calendar"></i> 8/22
+                            </div>
+                            <a href="event-detail.html?id=EVT006" class="btn-view-detail">
                                 詳細を見る
                             </a>
                         </div>
                     </div>
                 `;
+                
+                const relatedEventsContainer = document.getElementById('relatedEvents');
+                if (relatedEventsContainer) {
+                    relatedEventsContainer.innerHTML = relatedHTML;
+                }
             }
         }
         
         // ページ読み込み時に初期化
         document.addEventListener('DOMContentLoaded', () => {
             new EventDetailPage();
+        });
+    </script>
+
+    <!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>簡略化フッター - ぴにょぐらむ撮影会</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* フッター専用スタイル */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Noto Sans JP', -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* フッタースタイル */
+        .site-footer {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: white;
+            padding: 60px 0 0;
+            margin-top: auto;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* フッター上部 */
+        .footer-top {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .footer-column p {
+            color: #cbd5e0;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        /* ロゴセクション */
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+        
+        .footer-description {
+            color: #cbd5e0;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        /* SNSリンク */
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .social-link:hover {
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .social-link i {
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        /* お問い合わせ情報 */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            color: #cbd5e0;
+        }
+        
+        .contact-item i {
+            color: #ff6ec7;
+            font-size: 1.1rem;
+            width: 20px;
+        }
+        
+        /* プライバシーポリシーボタン */
+        .privacy-policy-section {
+            margin-top: 20px;
+        }
+        
+        .privacy-policy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #cbd5e0;
+            text-decoration: none;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .privacy-policy-btn:hover {
+            background: rgba(255, 110, 199, 0.1);
+            border-color: #ff6ec7;
+            color: #ff6ec7;
+            transform: translateY(-2px);
+        }
+        
+        .privacy-policy-btn i {
+            font-size: 0.9rem;
+        }
+        
+        /* フッター下部 */
+        .footer-bottom {
+            padding: 30px 0;
+            text-align: center;
+            color: #718096;
+        }
+        
+        .footer-bottom-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .copyright {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: #718096;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            color: #ff6ec7;
+        }
+        
+        /* バックトゥトップボタン */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 110, 199, 0.4);
+        }
+        
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-bottom-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .copyright {
+                text-align: center;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 簡略化フッター -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <!-- フッター上部 -->
+            <div class="footer-top">
+                <!-- カラム1: 会社情報 -->
+                <div class="footer-column">
+                    <div class="footer-logo">ぴにょぐらむ撮影会</div>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- カラム2: お問い合わせ -->
+                <div class="footer-column">
+                    <h3>お問い合わせ</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-building"></i>
+                        <span>ぴにょきお株式会社</span>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@photosession-connect.jp</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>03-1234-5678</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>東京都渋谷区〇〇1-2-3</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>営業時間: 10:00 - 20:00</span>
+                    </div>
+
+                    
+                    <!-- プライバシーポリシーボタン -->
+                    <div class="privacy-policy-section">
+                        <a href="#" class="privacy-policy-btn">
+                            <i class="fas fa-shield-alt"></i>
+                            プライバシーポリシー
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- フッター下部 -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="copyright">
+                        &copy; 2024 ぴにょぐらむ撮影会. All rights reserved.
+                    </div>
+                    <ul class="footer-links">
+                        <li><a href="#terms">利用規約</a></li>
+                        <li><a href="#law">特定商取引法</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- バックトゥトップボタン -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // バックトゥトップボタンの表示制御
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     </script>
 </body>
