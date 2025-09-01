@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>イベント予約 | ぴにょぐらむ撮影会</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="site-header">
+        <div class="container">
+            <h1 class="site-title">
+                <a href="index.html">ぴにょぐらむ撮影会</a>
+            </h1>
+            <nav class="site-nav">
+                <a href="index.html">ホーム</a>
+                <a href="events.html">イベント一覧</a>
+                <a href="#contact">お問い合わせ</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 予約フォームセクション -->
+    <section class="reservation-section">
+        <div class="reservation-container">
+            <h2>イベント予約</h2>
+            
+            <!-- プログレスバー -->
+            <div class="form-progress">
+                <div class="progress-step active">
+                    <span class="progress-number">1</span>
+                    <span class="progress-label">情報入力</span>
+                </div>
+                <div class="progress-step">
+                    <span class="progress-number">2</span>
+                    <span class="progress-label">確認</span>
+                </div>
+                <div class="progress-step">
+                    <span class="progress-number">3</span>
+                    <span class="progress-label">完了</span>
+                </div>
+            </div>
+            
+            <!-- イベント情報表示 -->
+            <div class="event-info-card" id="eventInfo" style="display: none;">
+                <h3 id="eventName">-</h3>
+                <div class="event-info-item">
+                    <i class="fas fa-calendar"></i>
+                    <span id="eventDate">-</span>
+                </div>
+                <div class="event-info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="eventVenue">-</span>
+                </div>
+            </div>
+            
+            <!-- 予約フォーム -->
+            <form id="reservationForm" class="reservation-form">
+                <!-- 基本情報 -->
+                <div class="form-section">
+                    <h3>お客様情報</h3>
+                    
+                    <div class="form-group">
+                        <label for="name">お名前 <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" required>
+                        <span class="error-message">お名前を入力してください</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">メールアドレス <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required>
+                        <span class="error-message">正しいメールアドレスを入力してください</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">電話番号 <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" pattern="[0-9]{10,11}" required 
+                               placeholder="09012345678">
+                        <span class="error-message">10桁または11桁の数字で入力してください</span>
+                    </div>
+                </div>
+                
+                <!-- 予約詳細 -->
+                <div class="form-section">
+                    <h3>予約内容</h3>
+                    
+                    <div class="form-group">
+                        <label for="session-type">参加枠 <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="sessionType" value="individual" required>
+                                <span>個人撮影（30分）</span>
+                                <span class="option-price">¥6,000</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="sessionType" value="group" required>
+                                <span>グループ撮影（60分）</span>
+                                <span class="option-price">¥4,800</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="sessionType" value="vip" required>
+                                <span>VIP撮影（90分）</span>
+                                <span class="option-price">¥12,000</span>
+                            </label>
+                        </div>
+                        <span class="error-message">参加枠を選択してください</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="participants">参加人数 <span class="required">*</span></label>
+                        <input type="number" id="participants" name="participants" 
+                               min="1" max="10" value="1" required>
+                        <span class="error-message">1～10名で入力してください</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="preferred-date">希望日時</label>
+                        <input type="date" id="preferred-date" name="preferredDate">
+                    </div>
+                </div>
+                
+                <!-- オプション選択 -->
+                <div class="form-section">
+                    <h3>オプション</h3>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="options" value="costume">
+                                <span>衣装レンタル</span>
+                                <span class="option-price">+¥3,000</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="options" value="makeup">
+                                <span>ヘアメイク</span>
+                                <span class="option-price">+¥5,000</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="options" value="data">
+                                <span>全データ渡し</span>
+                                <span class="option-price">+¥10,000</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 料金表示 -->
+                <div class="price-summary">
+                    <h3>料金明細</h3>
+                    <div class="price-item">
+                        <span>基本料金:</span>
+                        <span id="basePrice">¥0</span>
+                    </div>
+                    <div class="price-item option-item" id="costumeOption" style="display:none;">
+                        <span>衣装レンタル:</span>
+                        <span>¥3,000</span>
+                    </div>
+                    <div class="price-item option-item" id="makeupOption" style="display:none;">
+                        <span>ヘアメイク:</span>
+                        <span>¥5,000</span>
+                    </div>
+                    <div class="price-item option-item" id="dataOption" style="display:none;">
+                        <span>全データ渡し:</span>
+                        <span>¥10,000</span>
+                    </div>
+                    <div class="price-total">
+                        <span>合計金額:</span>
+                        <span id="totalPrice">¥0</span>
+                    </div>
+                </div>
+                
+                <!-- 備考欄 -->
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="message">備考・ご要望</label>
+                        <textarea id="message" name="message" rows="4" 
+                                  placeholder="ご要望やご質問があればご記入ください"></textarea>
+                    </div>
+                </div>
+                
+                <!-- 利用規約同意 -->
+                <div class="terms-container">
+                    <div class="terms-checkbox">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">
+                            <a href="#" class="terms-link" onclick="event.preventDefault(); alert('利用規約の内容をここに表示');">利用規約</a>
+                            および
+                            <a href="#" class="terms-link" onclick="event.preventDefault(); alert('プライバシーポリシーの内容をここに表示');">プライバシーポリシー</a>
+                            に同意します <span class="required">*</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- 送信ボタン -->
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit" id="submitBtn">
+                        予約内容を確認する
+                    </button>
+                    <button type="button" class="btn-cancel" onclick="history.back()">
+                        キャンセル
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 ぴにょぐらむ撮影会. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/reservation.js"></script>
+</body>
+</html>
