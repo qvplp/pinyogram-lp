@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ぴにょぐらむ撮影会 - イベントスケジュール</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Noto Sans JP', -apple-system, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+        
+        /* ヘッダー */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #ff6ec7;
+        }
+        
+        /* メインコンテナ - 2:1レイアウト */
+        .main-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        
+        /* 左側：イベント一覧 */
+        .events-section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .event-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 110, 199, 0.2);
+            border-color: #ff6ec7;
+        }
+        
+        .event-card-image {
+            height: 150px;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .event-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .event-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            z-index: 1;
+        }
+        
+        .badge-new {
+            background: #10b981;
+            color: white;
+        }
+        
+        .badge-popular {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .badge-limited {
+            background: #f59e0b;
+            color: white;
+        }
+        
+        .event-content {
+            padding: 15px;
+        }
+        
+        .event-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .event-info {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .event-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .event-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #ff6ec7;
+        }
+        
+        /* 右側：月間カレンダー */
+        .calendar-section {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+        
+        .calendar-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .calendar-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        
+        .calendar-nav {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .calendar-nav button {
+            background: #f0f0f0;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .calendar-nav button:hover {
+            background: #e0e0e0;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            background: #e0e0e0;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .calendar-weekday {
+            background: #f8f9fa;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .calendar-day {
+            background: white;
+            min-height: 60px;
+            padding: 5px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .calendar-day:hover {
+            background: #f0f0ff;
+        }
+        
+        .calendar-day-number {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+        
+        .calendar-day.other-month {
+            color: #ccc;
+            background: #fafafa;
+        }
+        
+        .calendar-day.today {
+            background: #fff3cd;
+        }
+        
+        .calendar-day.has-event {
+            background: #e8f4ff;
+        }
+        
+        .calendar-event {
+            font-size: 0.65rem;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            color: white;
+            padding: 2px 4px;
+            border-radius: 3px;
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .calendar-event.individual {
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+        }
+        
+        .calendar-event.group {
+            background: linear-gradient(135deg, #ff6ec7, #f59e0b);
+        }
+        
+        /* イベントリスト（カレンダー下） */
+        .event-list {
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .event-list-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .event-list-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .event-list-item:hover {
+            background: #e8f4ff;
+            transform: translateX(5px);
+        }
+        
+        .event-list-date {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ff6ec7;
+            margin-right: 15px;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .event-list-info {
+            flex: 1;
+        }
+        
+        .event-list-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2px;
+        }
+        
+        .event-list-type {
+            font-size: 0.75rem;
+            color: #666;
+        }
+        
+        /* カード内のボタン */
+        .card-actions {
+            display: flex;
+            gap: 8px;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .btn-detail {
+            flex: 1;
+            padding: 6px 12px;
+            background: white;
+            color: #666;
+            text-align: center;
+            text-decoration: none;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-detail:hover {
+            background: #f0f0f0;
+            border-color: #ff6ec7;
+            color: #ff6ec7;
+        }
+        
+        /* レスポンシブ */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar-section {
+                position: relative;
+                top: 0;
+            }
+            
+            .events-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar-grid {
+                font-size: 0.8rem;
+            }
+            
+            .calendar-day {
+                min-height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">ぴにょぐらむ撮影会</div>
+            <ul class="nav-links">
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="#about">お問い合わせ</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="main-container">
+        <!-- 左側：イベント一覧（2/3） -->
+        <div class="events-section">
+            <h2 class="section-title">📸 開催予定イベント</h2>
+            <div class="events-grid" id="eventsGrid">
+                <!-- イベントカードは動的に生成されます -->
+            </div>
+        </div>
+        
+        <!-- 右側：月間カレンダー（1/3） -->
+        <div class="calendar-section">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <h3 class="calendar-title">2024年8月</h3>
+                    <div class="calendar-nav">
+                        <button onclick="changeMonth(-1)">‹</button>
+                        <button onclick="changeMonth(1)">›</button>
+                    </div>
+                </div>
+                <div class="calendar-grid" id="calendar">
+                    <!-- カレンダーは動的生成 -->
+                </div>
+            </div>
+            
+            <!-- イベントリスト -->
+            <div class="event-list" id="eventList">
+                <h4 class="event-list-title">🗓 今月のスケジュール</h4>
+                <!-- イベントリストアイテムは動的に生成されます -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // イベントデータ
+        const eventData = [
+            {
+                id: 'EVT001',
+                name: 'サマーフェスタ2024',
+                date: '2024-08-10',
+                venue: 'Gスタジオ（秋葉原）',
+                price: 6000,
+                type: 'group',
+                badge: 'popular',
+                remaining: 3,
+                image: 'images/events/event001.jpg'
+            },
+            {
+                id: 'EVT002',
+                name: '田中愛理 個人撮影会',
+                date: '2024-08-12',
+                venue: '渋谷スタジオ',
+                price: 15000,
+                type: 'individual',
+                badge: 'new',
+                remaining: null,
+                image: 'images/events/event002.jpg'
+            },
+            {
+                id: 'EVT003',
+                name: 'コスプレ撮影会SP',
+                date: '2024-08-15',
+                venue: '池袋スタジオ',
+                price: 8000,
+                type: 'group',
+                badge: 'limited',
+                remaining: null,
+                image: 'images/events/event003.jpg'
+            },
+            {
+                id: 'EVT004',
+                name: '山田花子 撮影会',
+                date: '2024-08-18',
+                venue: '新宿スタジオ',
+                price: 12000,
+                type: 'individual',
+                badge: null,
+                remaining: null,
+                image: 'images/events/event004.jpg'
+            },
+            {
+                id: 'EVT005',
+                name: '真夏の浴衣撮影会',
+                date: '2024-08-20',
+                venue: '浅草スタジオ',
+                price: 7000,
+                type: 'group',
+                badge: 'popular',
+                remaining: 5,
+                image: 'images/events/event005.jpg'
+            },
+            {
+                id: 'EVT006',
+                name: '佐藤美咲 個人撮影',
+                date: '2024-08-22',
+                venue: '横浜スタジオ',
+                price: 10000,
+                type: 'individual',
+                badge: 'new',
+                remaining: null,
+                image: 'images/events/event006.jpg'
+            }
+        ];
+        
+        // イベントカードを生成
+        function generateEventCards() {
+            const eventsGrid = document.getElementById('eventsGrid');
+            let html = '';
+            
+            eventData.forEach(event => {
+                const date = new Date(event.date);
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'][date.getDay()];
+                
+                let badgeHtml = '';
+                if (event.badge === 'new') {
+                    badgeHtml = '<span class="event-badge badge-new">NEW</span>';
+                } else if (event.badge === 'popular') {
+                    badgeHtml = '<span class="event-badge badge-popular">人気</span>';
+                } else if (event.badge === 'limited') {
+                    badgeHtml = '<span class="event-badge badge-limited">限定</span>';
+                }
+                
+                const gradient = event.type === 'individual' 
+                    ? 'linear-gradient(135deg, #10b981, #3b82f6)'
+                    : 'linear-gradient(135deg, #ff6ec7, #3b82f6)';
+                
+                html += `
+                    <div class="event-card" data-id="${event.id}">
+                        <div class="event-card-image" style="background: ${gradient};">
+                            ${event.name}
+                            <img src="${event.image}" alt="" onerror="this.style.display='none'">
+                            ${badgeHtml}
+                        </div>
+                        <div class="event-content">
+                            <h3 class="event-title">${event.name}</h3>
+                            <div class="event-info">📅 ${month}月${day}日(${dayOfWeek})</div>
+                            <div class="event-info">📍 ${event.venue}</div>
+                        </div>
+                        <div class="event-footer">
+                            <span class="event-price">¥${event.price.toLocaleString()}${event.type === 'individual' ? '/30分' : '〜'}</span>
+                            <span style="color: #666; font-size: 0.85rem;">
+                                ${event.remaining ? `残り${event.remaining}枠` : '空きあり'}
+                            </span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="event-detail.html?id=${event.id}" class="btn-detail">詳細を見る</a>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            eventsGrid.innerHTML = html;
+        }
+        
+        // イベントリストを生成
+        function generateEventList() {
+            const eventList = document.getElementById('eventList');
+            let html = '<h4 class="event-list-title">🗓 今月のスケジュール</h4>';
+            
+            eventData.forEach(event => {
+                const date = new Date(event.date);
+                const day = date.getDate();
+                const typeText = event.type === 'individual' ? '個人撮影会' : '団体撮影会';
+                
+                html += `
+                    <div class="event-list-item" data-id="${event.id}">
+                        <div class="event-list-date">${day}</div>
+                        <div class="event-list-info">
+                            <div class="event-list-name">${event.name}</div>
+                            <div class="event-list-type">${typeText}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            eventList.innerHTML = html;
+            
+            // クリックイベントを追加
+            document.querySelectorAll('.event-list-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const eventId = item.dataset.id;
+                    location.href = `event-detail.html?id=${eventId}`;
+                });
+            });
+        }
+        
+        // カレンダー生成
+        let currentYear = 2024;
+        let currentMonth = 8;
+        
+        function generateCalendar(year, month) {
+            const calendar = document.getElementById('calendar');
+            const firstDay = new Date(year, month - 1, 1);
+            const lastDay = new Date(year, month, 0);
+            const prevLastDay = new Date(year, month - 1, 0);
+            
+            const startingDayOfWeek = firstDay.getDay();
+            const monthLength = lastDay.getDate();
+            const prevMonthLength = prevLastDay.getDate();
+            
+            let html = '';
+            
+            // 曜日ヘッダー
+            const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+            weekdays.forEach(day => {
+                html += `<div class="calendar-weekday">${day}</div>`;
+            });
+            
+            // 前月の日付
+            for (let i = startingDayOfWeek - 1; i >= 0; i--) {
+                html += `<div class="calendar-day other-month">
+                    <div class="calendar-day-number">${prevMonthLength - i}</div>
+                </div>`;
+            }
+            
+            // 当月の日付
+            const today = new Date();
+            for (let day = 1; day <= monthLength; day++) {
+                const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const dayEvents = eventData.filter(e => e.date === dateStr);
+                const isToday = today.getFullYear() === year && today.getMonth() + 1 === month && today.getDate() === day;
+                
+                let dayClass = 'calendar-day';
+                if (isToday) dayClass += ' today';
+                if (dayEvents.length > 0) dayClass += ' has-event';
+                
+                html += `<div class="${dayClass}">
+                    <div class="calendar-day-number">${day}</div>`;
+                
+                dayEvents.forEach(event => {
+                    const shortName = event.name.length > 6 ? event.name.substring(0, 6) + '...' : event.name;
+                    html += `<div class="calendar-event ${event.type}">${shortName}</div>`;
+                });
+                
+                html += '</div>';
+            }
+            
+            // 次月の日付
+            const totalCells = startingDayOfWeek + monthLength;
+            const nextMonthDays = (7 - totalCells % 7) % 7;
+            for (let day = 1; day <= nextMonthDays; day++) {
+                html += `<div class="calendar-day other-month">
+                    <div class="calendar-day-number">${day}</div>
+                </div>`;
+            }
+            
+            calendar.innerHTML = html;
+            
+            // カレンダータイトル更新
+            const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+            document.querySelector('.calendar-title').textContent = `${year}年${monthNames[month - 1]}`;
+        }
+        
+        function changeMonth(direction) {
+            currentMonth += direction;
+            if (currentMonth > 12) {
+                currentMonth = 1;
+                currentYear++;
+            } else if (currentMonth < 1) {
+                currentMonth = 12;
+                currentYear--;
+            }
+            generateCalendar(currentYear, currentMonth);
+        }
+        
+        // 初期化
+        document.addEventListener('DOMContentLoaded', () => {
+            generateEventCards();
+            generateEventList();
+            generateCalendar(currentYear, currentMonth);
+        });
+    </script>
+ <!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>簡略化フッター - ぴにょぐらむ撮影会</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* フッター専用スタイル */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Noto Sans JP', -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* フッタースタイル */
+        .site-footer {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: white;
+            padding: 60px 0 0;
+            margin-top: auto;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* フッター上部 */
+        .footer-top {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .footer-column p {
+            color: #cbd5e0;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        /* ロゴセクション */
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+        
+        .footer-description {
+            color: #cbd5e0;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        /* SNSリンク */
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .social-link:hover {
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .social-link i {
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        /* お問い合わせ情報 */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            color: #cbd5e0;
+        }
+        
+        .contact-item i {
+            color: #ff6ec7;
+            font-size: 1.1rem;
+            width: 20px;
+        }
+        
+        /* プライバシーポリシーボタン */
+        .privacy-policy-section {
+            margin-top: 20px;
+        }
+        
+        .privacy-policy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #cbd5e0;
+            text-decoration: none;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .privacy-policy-btn:hover {
+            background: rgba(255, 110, 199, 0.1);
+            border-color: #ff6ec7;
+            color: #ff6ec7;
+            transform: translateY(-2px);
+        }
+        
+        .privacy-policy-btn i {
+            font-size: 0.9rem;
+        }
+        
+        /* フッター下部 */
+        .footer-bottom {
+            padding: 30px 0;
+            text-align: center;
+            color: #718096;
+        }
+        
+        .footer-bottom-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .copyright {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: #718096;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            color: #ff6ec7;
+        }
+        
+        /* バックトゥトップボタン */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 110, 199, 0.4);
+        }
+        
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-bottom-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .copyright {
+                text-align: center;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 簡略化フッター -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <!-- フッター上部 -->
+            <div class="footer-top">
+                <!-- カラム1: 会社情報 -->
+                <div class="footer-column">
+                    <div class="footer-logo">ぴにょぐらむ撮影会</div>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- カラム2: お問い合わせ -->
+                <div class="footer-column">
+                    <h3>お問い合わせ</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-building"></i>
+                        <span>ぴにょきお株式会社</span>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>account@pinyogram.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>03-1234-5678</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>東京都渋谷区〇〇1-2-3</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>営業時間: 10:00 - 20:00</span>
+                    </div>
+
+                    
+                    <!-- プライバシーポリシーボタン -->
+                    <div class="privacy-policy-section">
+                        <a href="#" class="privacy-policy-btn">
+                            <i class="fas fa-shield-alt"></i>
+                            プライバシーポリシー
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- フッター下部 -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="copyright">
+                        &copy; 2024 ぴにょぐらむ撮影会. All rights reserved.
+                    </div>
+                    <ul class="footer-links">
+                        <li><a href="#terms">利用規約</a></li>
+                        <li><a href="#law">特定商取引法</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+</body>
+</html>

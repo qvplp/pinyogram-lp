@@ -1,0 +1,230 @@
+{
+  "events": [
+    {
+      "event_id": "EVT001",
+      "event_name": "サマーフェスタ2024",
+      "event_type": "group",
+      "event_date": "2024-08-10",
+      "description": "夏の特別な撮影会イベント。プロカメラマンが夏の思い出を美しく切り取ります。屋内スタジオでの涼しい環境で、快適に撮影をお楽しみいただけます。",
+      "venue": {
+        "venue_name": "Gスタジオ",
+        "address": "東京都台東区秋葉原1-2-3",
+        "access": "JR秋葉原駅から徒歩5分"
+      },
+      "pricing": {
+        "base_price": 6000,
+        "individual": 6000,
+        "group": 4800,
+        "vip": 12000
+      },
+      "thumbnail_image": "images/events/event001.jpg",
+      "gallery_images": [
+        "images/events/event001-1.jpg",
+        "images/events/event001-2.jpg",
+        "images/events/event001-3.jpg"
+      ],
+      "is_popular": true,
+      "remaining_slots": 3,
+      "max_participants": 10,
+      "services": [
+        "プロカメラマンによる撮影",
+        "基本レタッチ済み写真データ（10枚）",
+        "オンラインギャラリーでの閲覧（30日間）",
+        "お気に入り写真の選択"
+      ],
+      "options": [
+        {
+          "id": "costume",
+          "name": "衣装レンタル",
+          "price": 3000,
+          "description": "各種衣装をご用意しています"
+        },
+        {
+          "id": "makeup",
+          "name": "ヘアメイク",
+          "price": 5000,
+          "description": "プロのヘアメイクアーティストが対応"
+        },
+        {
+          "id": "data",
+          "name": "全データ渡し",
+          "price": 10000,
+          "description": "撮影した全ての写真データをお渡し"
+        }
+      ]
+    },
+    {
+      "event_id": "EVT002",
+      "event_name": "田中愛理 個人撮影会",
+      "event_type": "individual",
+      "event_date": "2024-08-12",
+      "description": "人気モデル田中愛理との個人撮影会。プロのモデルによるポージング指導付きで、初心者の方でも安心して撮影を楽しめます。",
+      "venue": {
+        "venue_name": "渋谷スタジオ",
+        "address": "東京都渋谷区渋谷2-15-1",
+        "access": "JR渋谷駅から徒歩8分"
+      },
+      "pricing": {
+        "base_price": 15000,
+        "individual": 15000,
+        "group": 12000,
+        "vip": 25000
+      },
+      "thumbnail_image": "images/events/event002.jpg",
+      "is_new": true,
+      "remaining_slots": null,
+      "max_participants": 1,
+      "services": [
+        "モデルとの1対1撮影（30分）",
+        "ポージング指導",
+        "撮影データ（5枚選択）",
+        "プライベート撮影空間"
+      ],
+      "options": [
+        {
+          "id": "extend",
+          "name": "時間延長（15分）",
+          "price": 7000
+        },
+        {
+          "id": "costume",
+          "name": "衣装チェンジ",
+          "price": 3000
+        },
+        {
+          "id": "data",
+          "name": "全データ渡し",
+          "price": 15000
+        }
+      ]
+    },
+    {
+      "event_id": "EVT003",
+      "event_name": "コスプレ撮影会SP",
+      "event_type": "group",
+      "event_date": "2024-08-15",
+      "description": "人気コスプレイヤーが集結！アニメ・ゲームキャラクターのコスプレ撮影を楽しめる特別イベント。",
+      "venue": {
+        "venue_name": "池袋スタジオ",
+        "address": "東京都豊島区池袋3-10-5",
+        "access": "JR池袋駅から徒歩10分"
+      },
+      "pricing": {
+        "base_price": 8000,
+        "individual": 8000,
+        "group": 6500,
+        "vip": 15000
+      },
+      "thumbnail_image": "images/events/event003.jpg",
+      "is_limited": true,
+      "remaining_slots": null,
+      "max_participants": 20,
+      "services": [
+        "複数コスプレイヤーの撮影",
+        "特設セットでの撮影",
+        "撮影データ（20枚）",
+        "グループ撮影タイム"
+      ]
+    },
+    {
+      "event_id": "EVT004",
+      "event_name": "山田花子 撮影会",
+      "event_type": "individual",
+      "event_date": "2024-08-18",
+      "description": "フレッシュな魅力あふれる山田花子との撮影会。自然な笑顔と親しみやすい雰囲気で人気上昇中のモデルです。",
+      "venue": {
+        "venue_name": "新宿スタジオ",
+        "address": "東京都新宿区新宿4-1-6",
+        "access": "JR新宿駅から徒歩7分"
+      },
+      "pricing": {
+        "base_price": 12000,
+        "individual": 12000,
+        "group": 9600,
+        "vip": 20000
+      },
+      "thumbnail_image": "images/events/event004.jpg",
+      "remaining_slots": null,
+      "max_participants": 1,
+      "services": [
+        "モデルとの撮影（30分）",
+        "複数背景での撮影",
+        "撮影データ（8枚選択）",
+        "SNS用写真加工付き"
+      ]
+    },
+    {
+      "event_id": "EVT005",
+      "event_name": "真夏の浴衣撮影会",
+      "event_type": "group",
+      "event_date": "2024-08-20",
+      "description": "夏の風物詩、浴衣での特別撮影会。和の雰囲気あふれる撮影セットで、日本の夏を美しく表現します。",
+      "venue": {
+        "venue_name": "浅草スタジオ",
+        "address": "東京都台東区浅草2-3-1",
+        "access": "東京メトロ浅草駅から徒歩5分"
+      },
+      "pricing": {
+        "base_price": 7000,
+        "individual": 7000,
+        "group": 5600,
+        "vip": 14000
+      },
+      "thumbnail_image": "images/events/event005.jpg",
+      "is_popular": true,
+      "remaining_slots": 5,
+      "max_participants": 15,
+      "services": [
+        "浴衣レンタル込み",
+        "和風セットでの撮影",
+        "プロによる着付け",
+        "撮影データ（15枚）"
+      ],
+      "options": [
+        {
+          "id": "hair",
+          "name": "ヘアセット",
+          "price": 3500
+        },
+        {
+          "id": "accessory",
+          "name": "和小物レンタル",
+          "price": 2000
+        },
+        {
+          "id": "data",
+          "name": "全データ渡し",
+          "price": 8000
+        }
+      ]
+    },
+    {
+      "event_id": "EVT006",
+      "event_name": "佐藤美咲 個人撮影",
+      "event_type": "individual",
+      "event_date": "2024-08-22",
+      "description": "清楚な雰囲気で人気の佐藤美咲との撮影会。柔らかな表情と自然な仕草が魅力的なモデルです。",
+      "venue": {
+        "venue_name": "横浜スタジオ",
+        "address": "神奈川県横浜市西区みなとみらい3-5-1",
+        "access": "みなとみらい駅から徒歩3分"
+      },
+      "pricing": {
+        "base_price": 10000,
+        "individual": 10000,
+        "group": 8000,
+        "vip": 18000
+      },
+      "thumbnail_image": "images/events/event006.jpg",
+      "is_new": true,
+      "remaining_slots": null,
+      "max_participants": 1,
+      "services": [
+        "モデルとの撮影（30分）",
+        "海の見えるスタジオ",
+        "撮影データ（7枚選択）",
+        "記念チェキ1枚プレゼント"
+      ]
+    }
+  ]
+}
