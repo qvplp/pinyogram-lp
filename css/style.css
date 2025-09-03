@@ -119,12 +119,20 @@ nav {
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: pointer;
+    position: relative;
 }
 
 .event-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 24px rgba(0,122,255,0.15);
     border-color: rgba(0,122,255,0.3);
+}
+
+.event-card:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0,122,255,0.2);
 }
 
 .event-card-image {
@@ -213,6 +221,7 @@ nav {
     position: sticky;
     top: 80px;
     height: fit-content;
+    min-height: 600px; /* カレンダーセクション全体の最小高さを固定 */
 }
 
 .calendar-container {
@@ -220,6 +229,14 @@ nav {
     border-radius: 18px;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+    height: 560px; /* 高さを固定 */
+    min-height: 560px; /* 最小高さも固定 */
+    max-height: 560px; /* 最大高さも固定 */
+    width: 100%; /* 幅を100%に固定 */
+    box-sizing: border-box; /* ボックスサイズ計算を統一 */
+    overflow: hidden; /* オーバーフローを隠す */
+    display: flex;
+    flex-direction: column; /* 縦方向のレイアウト */
 }
 
 .calendar-header {
@@ -227,6 +244,11 @@ nav {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    height: 40px; /* ヘッダーの高さを固定 */
+    min-height: 40px;
+    max-height: 40px;
+    flex-shrink: 0; /* ヘッダーは縮小しない */
+    box-sizing: border-box;
 }
 
 .calendar-title {
@@ -256,9 +278,17 @@ nav {
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 80px); /* 各セル80px固定 */
     gap: 2px;
     background: rgba(0,0,0,0.04);
     border: 1px solid rgba(0,0,0,0.04);
+    height: 480px; /* 固定高さ: 6行 × 80px = 480px */
+    min-height: 480px; /* 最小高さも固定 */
+    max-height: 480px; /* 最大高さも固定 */
+    width: 100%; /* 幅を100%に固定 */
+    overflow: hidden; /* オーバーフローを隠す */
+    box-sizing: border-box; /* ボックスサイズ計算を統一 */
+    flex-shrink: 0; /* グリッドは縮小しない */
 }
 
 .calendar-weekday {
@@ -272,11 +302,18 @@ nav {
 
 .calendar-day {
     background: white;
-    min-height: 60px;
+    height: 80px; /* 固定高さ */
+    min-height: 80px; /* 最小高さも固定 */
+    max-height: 80px; /* 最大高さも固定 */
     padding: 5px;
     position: relative;
     cursor: pointer;
     transition: background 0.2s;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* オーバーフローを隠す */
+    box-sizing: border-box; /* ボックスサイズ計算を統一 */
+    border: none; /* ボーダーを削除してサイズを安定化 */
 }
 
 .calendar-day:hover {
@@ -287,6 +324,7 @@ nav {
     font-size: 14px;
     font-weight: 500;
     margin-bottom: 2px;
+    flex-shrink: 0; /* 日付番号は縮小しない */
 }
 
 .calendar-day.other-month {
@@ -312,6 +350,12 @@ nav {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    flex-shrink: 0; /* イベントも縮小しない */
+    height: 16px; /* 高さを固定 */
+    min-height: 16px; /* 最小高さも固定 */
+    max-height: 16px; /* 最大高さも固定 */
+    line-height: 12px; /* 行の高さを固定 */
+    box-sizing: border-box; /* ボックスサイズ計算を統一 */
 }
 
 .calendar-event.individual {
@@ -320,6 +364,11 @@ nav {
 
 .calendar-event.group {
     background: linear-gradient(135deg, #FF2D55, #FF9500);
+}
+
+.calendar-event.more-events {
+    background: linear-gradient(135deg, #8E8E93, #AEAEB2);
+    font-weight: 600;
 }
 
 /* イベントリスト */
@@ -400,11 +449,14 @@ nav {
     font-size: 14px;
     font-weight: 500;
     transition: all 0.2s;
+    position: relative;
+    z-index: 10; /* カードのクリックイベントより上に配置 */
 }
 
 .btn-detail:hover {
     background: var(--primary);
     color: white;
+    transform: scale(1.05); /* ホバー時の拡大効果 */
 }
 
 /* ===================================
@@ -536,17 +588,24 @@ nav {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.footer-column {
+    text-align: left;
+}
+
 .footer-column h3 {
     font-size: 17px;
     font-weight: 600;
     margin-bottom: 20px;
-    color: white;
+    background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .footer-logo {
     font-size: 1.5rem;
     font-weight: 600;
-    background: linear-gradient(135deg, #007AFF, #5856D6);
+    background: linear-gradient(135deg, #ff6ec7, #3b82f6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -581,6 +640,45 @@ nav {
     color: white;
 }
 
+.contact-info {
+    color: #cbd5e0;
+    line-height: 1.8;
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-info i {
+    color: #ff6ec7;
+    width: 16px;
+    font-size: 0.9rem;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column li {
+    margin-bottom: 8px;
+}
+
+.footer-column a {
+    color: #cbd5e0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.footer-column a:hover {
+    color: #ff6ec7;
+}
+
 .contact-item {
     display: flex;
     align-items: center;
@@ -599,38 +697,13 @@ nav {
 .footer-bottom {
     padding: 30px 0;
     text-align: center;
-    color: #718096;
+    color: #cbd5e0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.footer-bottom-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-}
 
-.copyright {
-    flex: 1;
-    text-align: left;
-}
 
-.footer-links {
-    display: flex;
-    gap: 30px;
-    list-style: none;
-}
 
-.footer-links a {
-    color: #718096;
-    text-decoration: none;
-    transition: opacity 0.3s;
-    font-size: 14px;
-}
-
-.footer-links a:hover {
-    opacity: 0.65;
-}
 
 /* レスポンシブ */
 @media (max-width: 1024px) {
@@ -641,6 +714,7 @@ nav {
     .calendar-section {
         position: relative;
         top: 0;
+        min-height: 450px; /* タブレット用の最小高さ */
     }
     
     .events-grid {
@@ -662,7 +736,16 @@ nav {
     }
     
     .calendar-day {
-        min-height: 50px;
+        height: 60px; /* モバイルでも固定サイズ */
+        min-height: 60px;
+        max-height: 60px;
+    }
+    
+    .calendar-grid {
+        grid-template-rows: repeat(6, 60px); /* 各セル60px固定 */
+        height: 360px; /* 6行 × 60px = 360px */
+        min-height: 360px;
+        max-height: 360px;
     }
 
     /* ===================================
@@ -744,6 +827,7 @@ nav {
         position: relative;
         top: 0;
         margin-bottom: 30px;
+        min-height: 400px; /* モバイル用の最小高さ */
     }
     
     .events-section {
@@ -814,6 +898,7 @@ nav {
     /* カレンダー調整 */
     .calendar-container {
         padding: 15px;
+        min-height: 420px; /* モバイル用の固定高さ */
     }
     
     .calendar-title {
@@ -825,9 +910,18 @@ nav {
     }
     
     .calendar-day {
-        min-height: 45px;
+        height: 50px; /* 小さな画面でも固定サイズ */
+        min-height: 50px;
+        max-height: 50px;
         padding: 3px;
         font-size: 12px;
+    }
+    
+    .calendar-grid {
+        grid-template-rows: repeat(6, 50px); /* 各セル50px固定 */
+        height: 300px; /* 6行 × 50px = 300px */
+        min-height: 300px;
+        max-height: 300px;
     }
     
     .calendar-weekday {
@@ -879,9 +973,7 @@ nav {
         padding-bottom: 30px;
     }
     
-    .footer-column {
-        text-align: center;
-    }
+
     
     .footer-logo {
         font-size: 1.3rem;
@@ -889,12 +981,10 @@ nav {
     }
     
     .social-links {
-        justify-content: center;
         margin-bottom: 20px;
     }
     
     .contact-item {
-        justify-content: center;
         font-size: 14px;
     }
     
@@ -902,22 +992,7 @@ nav {
         padding: 20px 15px;
     }
     
-    .footer-bottom-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
-    }
-    
-    .copyright {
-        text-align: center;
-        font-size: 13px;
-    }
-    
-    .footer-links {
-        flex-direction: row;
-        gap: 20px;
-        justify-content: center;
-    }
+
 }
 
 /* 小型スマートフォン (480px以下) */
@@ -938,6 +1013,10 @@ nav {
     .event-list {
         padding: 15px;
         border-radius: 12px;
+    }
+    
+    .calendar-container {
+        min-height: 360px; /* 小さな画面用の固定高さ */
     }
     
     /* イベントカード */
@@ -967,8 +1046,17 @@ nav {
     
     /* カレンダー */
     .calendar-day {
-        min-height: 40px;
+        height: 45px; /* 最小画面でも固定サイズ */
+        min-height: 45px;
+        max-height: 45px;
         font-size: 11px;
+    }
+    
+    .calendar-grid {
+        grid-template-rows: repeat(6, 45px); /* 各セル45px固定 */
+        height: 270px; /* 6行 × 45px = 270px */
+        min-height: 270px;
+        max-height: 270px;
     }
     
     .calendar-day-number {
@@ -979,7 +1067,6 @@ nav {
     .contact-item {
         font-size: 13px;
         flex-direction: column;
-        text-align: center;
         gap: 5px;
     }
     
@@ -987,15 +1074,14 @@ nav {
         margin-bottom: 5px;
     }
     
-    .footer-links {
-        font-size: 13px;
-    }
+
 }
 
 /* 横向き対応 */
 @media (max-width: 768px) and (orientation: landscape) {
     .calendar-section {
         position: relative;
+        min-height: 350px; /* 最小画面用の最小高さ */
     }
     
     .calendar-grid {
