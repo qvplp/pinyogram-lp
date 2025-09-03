@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>イベント詳細 | ぴにょぐらむ撮影会</title>
+
+
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+        <!-- CSS -->
+<link rel="stylesheet" href="css/style.css">
+
     <style>
         /* 基本リセット */
         * {
@@ -1121,7 +1125,7 @@
 
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <span>info@photosession-connect.jp</span>
+                        <span>account@pinyogram.com</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-phone"></i>
@@ -1161,31 +1165,5 @@
             </div>
         </div>
     </footer>
-
-    <!-- バックトゥトップボタン -->
-    <button class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- JavaScript -->
-    <script>
-        // バックトゥトップボタンの表示制御
-        const backToTop = document.getElementById('backToTop');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-        });
-        
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    </script>
 </body>
 </html>
