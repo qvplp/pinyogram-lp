@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>フォトコンテスト | ぴにょぐらむ撮影会</title>
+    
+    <!-- SEO最適化 -->
+    <meta name="description" content="ぴにょぐらむ撮影会のフォトコンテスト。素敵な写真を投稿して、豪華賞品をゲットしよう！">
+    <meta name="keywords" content="フォトコンテスト, 写真, コンテスト, ぴにょぐらむ, 撮影会, 賞品">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/shared/style.css">
+    <link rel="stylesheet" href="css/contest.css">
+    
+    <style>
+        .hero-bleed{
+            width: 100%;
+            aspect-ratio: 21 / 9;          /* PC */
+            background: #000;
+            overflow: hidden;
+        }
+        @media (max-width: 640px){ .hero-bleed{ aspect-ratio: 16 / 9; } }
+        .hero-img{
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center;
+            display: block;
+        }
+    </style>
+    
+    <!-- ファビコン -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23007AFF'/><circle cx='50' cy='50' r='30' fill='white'/></svg>">
+</head>
+
+<body>
+    <!-- 共有ヘッダー -->
+    <div id="site-header"></div>
+
+    <!-- ヒーローセクション -->
+    <section class="hero-bleed">
+        <img id="contestHeroImg" src="" alt="フォトコンテスト" class="hero-img">
+    </section>
+
+    <!-- 開催予定コンテストセクション -->
+    <!-- ガントチャートセクション -->
+    <div class="gantt-main-section">
+        <div class="gantt-container">
+            <div class="gantt-header">
+                <h2 class="gantt-title">📅 2024年8月のコンテストタイムライン</h2>
+                <div class="gantt-nav">
+                    <button onclick="changeGanttMonth(-1)">‹</button>
+                    <button onclick="changeGanttMonth(1)">›</button>
+                </div>
+            </div>
+            <div class="gantt-chart" id="ganttChart">
+                <!-- ガントチャートは動的生成 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 開催予定コンテストセクション -->
+    <div class="contests-section">
+        <div class="container">
+            <h2 class="section-title">🏆 開催予定コンテスト</h2>
+            <div class="contests-grid contest-grid" id="contestsGrid">
+                <!-- コンテストカードは動的に生成されます -->
+            </div>
+        </div>
+    </div>
+
+    <!-- メインコンテンツ -->
+    <main class="contest-main">
+        <!-- 応募作品ギャラリー -->
+        <section class="submission-gallery">
+            <div class="container">
+                <h2 class="section-title">📸 応募作品ギャラリー</h2>
+                <div class="gallery-filters">
+                    <button class="filter-btn active" data-filter="all">全て表示</button>
+                    <button class="filter-btn" data-filter="recent">最新順</button>
+                    <button class="filter-btn" data-filter="popular">人気順</button>
+                    <button class="filter-btn" data-filter="liked">いいね順</button>
+                </div>
+                <div class="gallery" id="submissionGallery">
+                    <!-- 応募作品は動的に生成されます -->
+                </div>
+                <div class="gallery-load-more">
+                    <button class="btn-load-more" id="loadMoreBtn">もっと見る</button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 開催予定コンテスト -->
+        <section class="upcoming-contests">
+            <div class="container">
+                <h2 class="section-title">📅 開催予定コンテスト</h2>
+                <p class="section-subtitle">今後のコンテストスケジュールをご確認ください</p>
+                <div class="contests-grid" id="contestsGrid">
+                    <!-- コンテストカードは動的に生成されます -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 過去の受賞作品 -->
+        <section class="gallery-section">
+            <div class="container">
+                <h2 class="section-title">過去の受賞作品</h2>
+                <div class="gallery-grid" id="galleryGrid">
+                    <!-- ギャラリーは動的に生成されます -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 共有フッター -->
+    <div id="site-footer"></div>
+
+    <!-- ギャラリーモーダル -->
+    <div class="gallery-modal" id="galleryModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeGalleryModal()">×</button>
+            <img class="modal-image" id="modalImage" alt="応募作品">
+            <div class="modal-info">
+                <h3 class="modal-title" id="modalTitle"></h3>
+                <p class="modal-author" id="modalAuthor"></p>
+                <div class="modal-actions">
+                    <button class="action-btn like" id="modalLikeBtn" onclick="toggleLike()">❤️ いいね</button>
+                    <button class="action-btn nominate" id="modalNominateBtn" onclick="toggleNominate()">🏆 ノミネート</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="/shared/js/config.js"></script>
+    <script src="js/shared/main.js"></script>
+    <script src="js/contest.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const url = (window.APP_IMAGE && window.APP_IMAGE.contestHero) || 'https://placehold.co/1920x820/png?text=Contest';
+        const img = document.getElementById('contestHeroImg');
+        if (img) img.src = url;
+      });
+    </script>
+    <script defer src="/shared/header.js"></script>
+    <script defer src="/shared/footer.js"></script>
+</body>
+</html>

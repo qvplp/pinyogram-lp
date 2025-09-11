@@ -1,0 +1,1823 @@
+/* コンテストページ専用スタイル */
+
+/* 開催予定コンテストセクション */
+.upcoming-contests {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 80px 0;
+    color: white;
+}
+
+.upcoming-contests .section-title {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.upcoming-contests .section-subtitle {
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 1.1rem;
+}
+
+.contests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.contest-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.contest-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.contest-card-image {
+    width: 100%;
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+}
+
+.contest-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.contest-card:hover .contest-card-image img {
+    transform: scale(1.05);
+}
+
+.contest-status {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.contest-status.upcoming {
+    background: #ff6b6b;
+    color: white;
+}
+
+.contest-status.active {
+    background: #51cf66;
+    color: white;
+}
+
+.contest-status.ended {
+    background: #868e96;
+    color: white;
+}
+
+.contest-card-content {
+    padding: 25px;
+}
+
+.contest-card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.contest-card-subtitle {
+    font-size: 1rem;
+    color: #7f8c8d;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.contest-card-description {
+    font-size: 0.95rem;
+    color: #5a6c7d;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.contest-card-meta {
+    margin-bottom: 25px;
+}
+
+.contest-card-meta .meta-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.contest-card-meta .meta-item i {
+    width: 20px;
+    margin-right: 10px;
+    color: #007bff;
+}
+
+.contest-card-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.contest-detail-btn {
+    flex: 1;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.contest-detail-btn:hover {
+    background: linear-gradient(135deg, #0056b3, #004085);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+}
+
+/* コンテスト詳細ページスタイル */
+.contest-detail-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 100px 0;
+    color: white;
+}
+
+.breadcrumb {
+    margin-bottom: 30px;
+    font-size: 0.9rem;
+}
+
+.breadcrumb a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb a:hover {
+    color: white;
+}
+
+.breadcrumb .separator {
+    margin: 0 10px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.contest-detail-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: start;
+}
+
+.contest-detail-image {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.contest-detail-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.contest-detail-info h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.contest-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.contest-description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.contest-meta {
+    margin-bottom: 40px;
+}
+
+.contest-meta .meta-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.contest-meta .meta-item i {
+    width: 25px;
+    margin-right: 15px;
+    color: #ffd700;
+    font-size: 1.1rem;
+}
+
+.contest-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.contest-actions .btn-primary {
+    flex: 1;
+    padding: 15px 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.contest-actions .btn-secondary {
+    flex: 1;
+    padding: 15px 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.contest-actions .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.contest-rules {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.contest-rules h2 {
+    text-align: center;
+    margin-bottom: 50px;
+    color: #2c3e50;
+}
+
+.rules-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.rule-section {
+    background: white;
+    padding: 30px;
+    margin-bottom: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.rule-section h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.rule-section p {
+    color: #5a6c7d;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.rule-section ul {
+    color: #5a6c7d;
+    line-height: 1.6;
+    padding-left: 20px;
+}
+
+.rule-section li {
+    margin-bottom: 8px;
+}
+
+.related-events {
+    padding: 80px 0;
+    background: white;
+}
+
+.related-events h2 {
+    text-align: center;
+    margin-bottom: 50px;
+    color: #2c3e50;
+}
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.event-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+}
+
+.event-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.event-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.event-date {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.event-date .month {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.event-date .day {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.event-content {
+    padding: 25px;
+}
+
+.event-content h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.event-content p {
+    color: #5a6c7d;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.event-meta {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.event-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.event-meta i {
+    color: #007bff;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .contest-detail-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .contest-detail-info h1 {
+        font-size: 2rem;
+    }
+    
+    .contest-actions {
+        flex-direction: column;
+    }
+    
+    .contests-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .events-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* コンテストセクション */
+.contests-section {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.contest-card-image {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+    position: relative;
+    overflow: hidden;
+}
+
+.contest-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.contest-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+}
+
+.badge-active {
+    background: #48bb78;
+}
+
+.badge-upcoming {
+    background: #ed8936;
+}
+
+.badge-ended {
+    background: #a0aec0;
+}
+
+.contest-content {
+    padding: 20px;
+}
+
+.contest-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #2d3748;
+    margin-bottom: 10px;
+}
+
+.contest-info {
+    color: #718096;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.contest-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-top: 1px solid #e2e8f0;
+}
+
+.contest-prize {
+    font-weight: bold;
+    color: #ff6ec7;
+    font-size: 1.1rem;
+}
+
+.contest-status {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    border-radius: 12px;
+    background: #e2e8f0;
+    color: #4a5568;
+}
+
+/* ガントチャートメインセクション */
+.gantt-main-section {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    margin: 40px auto;
+    max-width: 1200px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.gantt-container {
+    margin-bottom: 30px;
+}
+
+.gantt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.gantt-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #2d3748;
+}
+
+.gantt-nav {
+    display: flex;
+    gap: 10px;
+}
+
+.gantt-nav button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: #f7fafc;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.gantt-nav button:hover {
+    background: #e2e8f0;
+}
+
+.gantt-chart {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 30px;
+    overflow-x: auto;
+    position: relative;
+}
+
+
+.gantt-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 800px;
+    margin-left: 0;
+}
+
+/* 新しい2列グリッド構造 */
+.gantt {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 12px 16px;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.gantt:last-child {
+    border-bottom: none;
+}
+
+.label {
+    grid-column: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    color: #2d3748;
+    font-size: 0.9rem;
+}
+
+.track {
+    grid-column: 2;
+    display: grid;
+    grid-template-columns: repeat(var(--days), 1fr);
+    position: relative;
+    height: 40px;
+    background: #eef1f5;
+    border-radius: 8px;
+    --days: var(--gantt-days);
+    --dayw: calc(100% / var(--days));
+    --grid-day: rgba(15,23,42,.06);
+    --grid-week: rgba(15,23,42,.16);
+    
+    padding-inline: var(--gantt-pad);
+    box-sizing: border-box;
+    overflow: visible;           /* 重要：吹き出しが外へ出ても見せる */
+    
+    /* 背景線は content-box のみ（＝パディングを除外）に描画 */
+    background-origin: content-box;
+    background-clip: content-box;
+    
+    /* 1日を起点に毎日/毎7日の線を引く */
+    background:
+        /* 毎日：1px 線を dayw 間隔で */
+        repeating-linear-gradient(to right,
+            var(--grid-day) 0, var(--grid-day) 1px,
+            transparent 1px, transparent var(--dayw)
+        ),
+        /* 7日ごと：2px 線を 7*dayw 間隔で */
+        repeating-linear-gradient(to right,
+            var(--grid-week) 0, var(--grid-week) 2px,
+            transparent 2px, transparent calc(var(--dayw) * 7)
+        ),
+        #eef1f5;
+}
+
+/* === BARS: 応募期間 === */
+.bar {
+    grid-column: var(--start) / calc(var(--end) + 1);
+    align-self: center;
+    position: relative;
+    display: flex;                /* ラベルと日付を横並び */
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
+    height: 24px;
+    border-radius: 9999px;
+    min-width: 0;                 /* 子要素の省略を許可 */
+    overflow: hidden;             /* はみ出し防止 */
+    container-type: inline-size;  /* コンテナクエリ有効化 */
+    color: #fff;
+    font-size: 12px;
+    line-height: 1;
+    background: linear-gradient(90deg, #e979c8, #6a8bff);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* 子スパン（JSで生成） */
+.bar .bar-label {
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;      /* ラベル側を省略 */
+}
+.bar .bar-range {
+    flex: 0 0 auto;               /* 日付は省略しない（狭ければ非表示にする） */
+    white-space: nowrap;
+    opacity: .95;
+}
+
+/* 狭いバーでは日付レンジを隠す（しきい値は適宜調整） */
+@container (max-width: 140px) {
+    .bar .bar-range { 
+        display: none; 
+    }
+}
+
+.bar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* === マイルストーン（結果発表など）: 内容幅に自動フィット === */
+.milestone {
+    /* グリッドの該当日（var(--day)）に配置されている想定：grid-column は既存のままでOK */
+    justify-self: center;
+    align-self: center;
+
+    display: inline-flex;
+    align-items: center;
+    height: 24px;
+    padding: 0 10px;
+    border-radius: 9999px;
+    background: #9aa0a6;
+    color: #fff;
+    font-size: 12px;
+    line-height: 1;
+    white-space: nowrap;
+
+    width: max-content;          /* ← テキストに合わせて伸びる */
+    max-width: none;             /* ← 上限を撤廃 */
+    overflow: visible;           /* ← 切り捨てない */
+    z-index: 3;                  /* バーや線より前に */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+
+.milestone:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* === 吹き出し（バブル）版 ===
+   要素に .milestone--bubble を付けるだけで有効化。
+   中央の縦線（日付）を指すひし形の尾を付ける。 */
+.milestone--bubble {
+    position: relative;
+}
+.milestone--bubble::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -5px;                /* トラック内なら下に尾を出す。上に出したい場合は top:100% に変更 */
+    width: 10px;
+    height: 10px;
+    background: #9aa0a6;
+    transform: translateX(-50%) rotate(45deg);
+    border-radius: 2px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+/* （任意）見た目を少し整える影 */
+.bar {
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+
+/* ホバー時の縦ガイドラインとツールチップ */
+.track .hoverline {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: #94a3b8;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-0.5px);
+}
+
+.track:hover .hoverline {
+    opacity: .7;
+}
+
+.track .tooltip {
+    position: absolute;
+    top: -28px;
+    padding: 3px 6px;
+    font-size: 11px;
+    color: #334155;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.06);
+    transform: translateX(-50%);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.track:hover .tooltip {
+    opacity: 1;
+}
+
+/* 古いガントチャートスタイルは削除済み */
+
+.gantt-legend {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+    flex-wrap: wrap;
+}
+
+.gantt-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: #4a5568;
+}
+
+.gantt-legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+}
+
+.gantt-legend-color.active {
+    background: linear-gradient(90deg, #e979c8, #6a8bff);
+}
+
+.gantt-legend-color.upcoming {
+    background: linear-gradient(90deg, #e979c8, #6a8bff);
+}
+
+.gantt-legend-color.ended {
+    background: #9aa0a6;
+}
+
+/* ガントチャート共通変数 */
+:root {
+    --gantt-days: 31;
+    --gantt-pad: 16px; /* 左右の余白をヘッダーとトラックで統一 */
+}
+
+/* 日付ヘッダー */
+.date-header {
+    display: grid;
+    grid-template-columns: repeat(var(--gantt-days), 1fr);
+    margin-left: 220px;
+    margin-bottom: 20px;
+    gap: 0;
+    padding-inline: var(--gantt-pad);
+    box-sizing: border-box;
+}
+
+.tick {
+    justify-self: center;
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 600;
+    padding: 8px 4px;
+    background: white;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+}
+
+.calendar-day.other-month {
+    color: #cbd5e0;
+}
+
+.calendar-day.other-month:hover {
+    background: transparent;
+}
+
+/* コンテストリスト */
+.contest-list {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.contest-list-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #2d3748;
+    margin-bottom: 15px;
+}
+
+.contest-list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e2e8f0;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.contest-list-item:hover {
+    background: white;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 0 -10px;
+}
+
+.contest-list-date {
+    width: 40px;
+    height: 40px;
+    background: #ff6ec7;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.contest-list-info {
+    flex: 1;
+}
+
+.contest-list-name {
+    font-weight: bold;
+    color: #2d3748;
+    margin-bottom: 2px;
+}
+
+.contest-list-type {
+    font-size: 0.8rem;
+    color: #718096;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 1024px) {
+    .gantt-main-section {
+        margin: 20px;
+        padding: 20px;
+    }
+    
+    .gantt-chart {
+        padding: 20px;
+    }
+    
+    .gantt-timeline {
+        min-width: 600px;
+    }
+}
+
+@media (max-width: 768px) {
+    .gantt-main-section {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .gantt-chart {
+        padding: 15px;
+    }
+    
+    .gantt-timeline {
+        min-width: 500px;
+    }
+    
+    .contests-section {
+        padding: 20px;
+    }
+    
+    .contests-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* 応募作品ギャラリー */
+.submission-gallery {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.gallery-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border: 2px solid #e2e8f0;
+    background: white;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: #4a5568;
+}
+
+.filter-btn:hover {
+    border-color: #ff6ec7;
+    color: #ff6ec7;
+}
+
+.filter-btn.active {
+    background: #ff6ec7;
+    border-color: #ff6ec7;
+    color: white;
+}
+
+.gallery {
+    column-count: 4;
+    column-gap: 20px;
+    margin-bottom: 40px;
+}
+
+.gallery-item {
+    position: relative;
+    break-inside: avoid;
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.gallery-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px 15px 0 0;
+}
+
+.gallery-item-info {
+    padding: 15px;
+}
+
+.gallery-item-title {
+    font-weight: bold;
+    color: #2d3748;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.gallery-item-author {
+    color: #718096;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+}
+
+.gallery-item-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #718096;
+}
+
+.gallery-item-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .gallery-item-actions {
+    opacity: 1;
+}
+
+.action-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.action-btn:hover {
+    background: white;
+    transform: scale(1.05);
+}
+
+.action-btn.like.active {
+    color: #e53e3e;
+    background: rgba(229, 62, 62, 0.1);
+}
+
+.action-btn.nominate.active {
+    color: #d69e2e;
+    background: rgba(214, 158, 46, 0.1);
+}
+
+.gallery-load-more {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.btn-load-more {
+    background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.btn-load-more:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 110, 199, 0.4);
+}
+
+/* モーダル */
+.gallery-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 15px;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: hidden;
+    position: relative;
+}
+
+.modal-image {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+.modal-info {
+    padding: 20px;
+}
+
+.modal-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2d3748;
+    margin-bottom: 10px;
+}
+
+.modal-author {
+    color: #718096;
+    margin-bottom: 15px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 1200px) {
+    .gallery {
+        column-count: 3;
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery {
+        column-count: 2;
+        column-gap: 15px;
+    }
+    
+    .gallery-filters {
+        gap: 10px;
+    }
+    
+    .filter-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .gallery-item-actions {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery {
+        column-count: 1;
+    }
+    
+    .gallery-filters {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .filter-btn {
+        width: 200px;
+    }
+}
+
+/* ヒーローセクション */
+.contest-hero {
+    background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+    color: white;
+    padding: 120px 20px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.contest-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+}
+
+.hero-container {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+.hero-cta {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: white;
+    color: #ff6ec7;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.btn-secondary:hover {
+    background: white;
+    color: #ff6ec7;
+}
+
+/* メインコンテンツ */
+.contest-main {
+    padding: 80px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #2d3748;
+    margin-bottom: 60px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+    border-radius: 2px;
+}
+
+/* コンテスト概要 */
+.contest-overview {
+    background: #f8f9fa;
+    padding: 80px 0;
+}
+
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.overview-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.overview-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.overview-card h3 {
+    font-size: 1.5rem;
+    color: #2d3748;
+    margin-bottom: 15px;
+}
+
+.overview-card p {
+    color: #718096;
+    line-height: 1.6;
+}
+
+/* 削除されたセクションのスタイルは削除済み */
+
+/* ギャラリー */
+.gallery-section {
+    background: #f8f9fa;
+    padding: 80px 0;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.gallery-item {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+
+.gallery-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+}
+
+.gallery-info {
+    padding: 20px;
+}
+
+.gallery-title {
+    font-weight: bold;
+    color: #2d3748;
+    margin-bottom: 5px;
+}
+
+.gallery-author {
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .hero-cta {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .overview-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .prizes-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .rules-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .entry-form {
+        padding: 30px 20px;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .contest-hero {
+        padding: 100px 20px 60px;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .overview-card,
+    .prize-card {
+        padding: 30px 20px;
+    }
+    
+    .prize-amount {
+        font-size: 2rem;
+    }
+}
+
+/* ========= Readability Upgrade (contest-specific) ========= */
+
+/* コンテスト詳細ページの可読性向上 */
+.contest-detail-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-inline: clamp(16px, 3vw, 28px);
+}
+
+/* 応募作品ギャラリーの可読性向上 */
+.submissions-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-inline: clamp(16px, 3vw, 28px);
+}
+
+.submissions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(16px, 2vw, 24px);
+    margin-top: 2rem;
+}
+
+.submission-card {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: clamp(16px, 1.2vw + 14px, 28px);
+    box-shadow: 0 10px 24px rgba(2, 6, 23, .06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.submission-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(2, 6, 23, .12);
+}
+
+.submission-title {
+    font-size: clamp(16px, 1.2vw + 12px, 20px);
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.submission-author {
+    font-size: clamp(14px, 0.8vw + 12px, 16px);
+    color: #64748b;
+    margin-bottom: 1rem;
+}
+
+.submission-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: clamp(12px, 0.6vw + 10px, 14px);
+    color: #64748b;
+}
+
+/* コンテストカードの可読性向上 */
+.contest-card {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: clamp(16px, 1.2vw + 14px, 28px);
+    box-shadow: 0 10px 24px rgba(2, 6, 23, .06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contest-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(2, 6, 23, .12);
+}
+
+.contest-card-title {
+    font-size: clamp(18px, 1.6vw + 12px, 24px);
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+}
+
+.contest-card-subtitle {
+    font-size: clamp(14px, 0.8vw + 12px, 16px);
+    color: #64748b;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.contest-card-description {
+    font-size: clamp(14px, 0.8vw + 12px, 16px);
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+/* ルールセクションの可読性向上 */
+.rule-section {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: clamp(20px, 2vw + 16px, 32px);
+    margin-bottom: 1.5rem;
+    box-shadow: 0 10px 24px rgba(2, 6, 23, .06);
+}
+
+.rule-section h3 {
+    font-size: clamp(18px, 1.6vw + 12px, 24px);
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.rule-section p {
+    font-size: clamp(14px, 0.8vw + 12px, 16px);
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+}
+
+.rule-section ul {
+    font-size: clamp(14px, 0.8vw + 12px, 16px);
+    color: #475569;
+    line-height: 1.7;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.rule-section li {
+    margin-bottom: 0.5rem;
+}
+
+/* ===== Apple-like Readable Bold UI (Contest-specific) ===== */
+:root{
+  /* フォントスタック：Apple端末は SF、その他は近似 */
+  --font-sf: "SF Pro Text","SF Pro JP",-apple-system,BlinkMacSystemFont,
+             "Helvetica Neue","Hiragino Sans","Hiragino Kaku Gothic ProN",
+             "Yu Gothic UI","Noto Sans JP","Segoe UI",Arial,sans-serif;
+
+  /* ウェイト（可変フォントが無くても機能する値に） */
+  --fw-body: 600;     /* 本文を太め（Medium〜Semibold） */
+  --fw-strong: 700;
+  --fw-heavy: 800;
+
+  /* カラー & 余白 */
+  --text-900: #0f172a;    /* slate-900 */
+  --text-600: #475569;    /* slate-600 */
+  --card-bg:  #f8fafc;    /* slate-50 */
+  --radius-xl: 16px;
+}
+
+/* ボールドUIのスコープ（全体に効かせる場合は html に付与不要）
+   ページ限定で効かせたい時は <body data-style="bold"> にしてください。 */
+html, body[data-style="bold"]{
+  font-family: var(--font-sf);
+  color: var(--text-900);
+  letter-spacing: .01em;          /* 詰めすぎない */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 流体ベースフォント。本文は太め、行間はゆったり */
+body, body[data-style="bold"]{
+  font-size: clamp(16px, 0.7vw + 12px, 18.5px);
+  font-weight: var(--fw-body);
+  line-height: 1.65;
+}
+
+/* 見出し：Appleっぽい締まり（やや詰め & 大きめ） */
+h1{
+  font-size: clamp(28px, 3.2vw + 12px, 44px);
+  font-weight: var(--fw-heavy);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  margin: 28px 0 18px;
+  text-align: center;              /* セクション見出し用 */
+}
+h2{
+  font-size: clamp(22px, 2.1vw + 10px, 34px);
+  font-weight: var(--fw-strong);
+  line-height: 1.28;
+  letter-spacing: -0.005em;
+  margin: 26px 0 14px;
+}
+h3{
+  font-size: clamp(18px, 1.4vw + 8px, 24px);
+  font-weight: 700;
+  line-height: 1.32;
+  margin: 18px 0 10px;
+}
+
+/* 小見出し/ラベル（カードのタイトルなど） */
+.heading-with-icon, .section-title, .block-title{
+  font-weight: var(--fw-strong);
+}
+
+/* ナビゲーション・パンくず・ボタンは 600 で視認性UP */
+nav, .nav, .breadcrumb, .btn, button{
+  font-weight: 600;
+}
+
+/* 本文・リスト */
+p{ margin: .75em 0; color: var(--text-900); }
+small, .muted{ color: var(--text-600); font-weight: 500; }
+ul,ol{ padding-left: 1.2em; margin: .6em 0 .9em; }
+li{ margin: .35em 0; }
+
+/* カード */
+.card, .info-card, .panel, .box{
+  background: var(--card-bg);
+  border-radius: var(--radius-xl);
+  padding: clamp(16px, 1.2vw + 14px, 28px);
+  box-shadow: 0 10px 24px rgba(2,6,23,.06);
+}
+
+/* フォトコンのバッジ/ピル（応募期間・結果発表） */
+.bar, .milestone, .pill{
+  font-weight: var(--fw-strong);
+}
+
+/* ===== Contest list cards ===== */
+.contest-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: clamp(20px, 2vw, 28px);
+}
+
+/* 親カードのみ"カード化"する */
+.contest-card{
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(2,6,23,.08);
+  overflow: hidden;               /* 角丸内に収める */
+  display: flex;
+  flex-direction: column;
+}
+
+/* サムネ */
+.contest-card .contest-thumb{
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.contest-card .contest-thumb img{
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block;
+  border-radius: 0;
+}
+
+/* バッジ（開催予定など） */
+.contest-card .badge{
+  position: absolute;
+  top: 12px; right: 12px;
+  padding: 6px 12px;
+  font-size: 12px; font-weight: 700;
+  color: #fff; background: #fb7185;  /* rose-400 */
+  border-radius: 9999px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  z-index: 2;
+}
+
+/* 本文 */
+.contest-card .contest-body{
+  padding: 18px 22px 22px;
+}
+.contest-card .contest-title{
+  font-size: clamp(18px, 1.4vw + 8px, 24px);
+  font-weight: 800;
+  line-height: 1.3;
+  margin: 6px 0 8px;
+}
+.contest-card .contest-desc{
+  color: #475569;                 /* slate-600 */
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+/* 子要素に"カード"スタイルが誤適用されないようリセット */
+.contest-card h1, .contest-card h2, .contest-card h3,
+.contest-card p, .contest-card .box, .contest-card [class*="__"]{
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* HERO 見出し下の説明行などのセカンダリ文 */
+.meta, .subtle{ color: var(--text-600); font-weight: 500; }
+
+/* 読みやすい最大幅（長文の1行を短く） */
+main, .main, .content, .container{
+  max-width: 1000px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 3vw, 28px);
+}
+
+/* 画像ははみ出し防止 */
+img{ max-width: 100%; height: auto; border-radius: inherit; }
+
+/* コントラスト確保（WCAG意識） */
+a{ color:#0ea5e9; font-weight: 600; }
+a:hover{ text-decoration: underline; }
+
+/* カード間隔を「24〜28px」で統一 */
+.stack > * + *{ margin-top: clamp(16px, 1.4vw, 28px); }
+
+/* コンテスト専用の太字UI強化 */
+.contest-card-title, .contest-card-subtitle, .contest-card-description {
+  font-weight: var(--fw-body);
+}
+
+.submission-title, .submission-author, .submission-stats {
+  font-weight: var(--fw-body);
+}
+
+.rule-section h3, .rule-section p, .rule-section li {
+  font-weight: var(--fw-body);
+}
+
+.contest-status, .badge-active, .badge-upcoming, .badge-ended {
+  font-weight: var(--fw-strong);
+}
+
+.contest-detail-btn, .btn-primary, .btn-secondary {
+  font-weight: 600;
+}

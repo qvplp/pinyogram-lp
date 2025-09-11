@@ -1,0 +1,56 @@
+{
+  "contests": [
+    {
+      "id": "CONTEST001",
+      "title": "春のポートレートコンテスト",
+      "subtitle": "桜と共に美しい瞬間を",
+      "description": "桜の季節にぴったりのポートレート写真を募集します。自然光を活かした美しい写真をお待ちしています。",
+      "startDate": "2024-03-01",
+      "endDate": "2024-03-31",
+      "prize": "1位: 50,000円 + カメラレンズ",
+      "image": "assets/images/contests/spring-contest.jpg",
+      "status": "upcoming",
+      "participants": 0,
+      "maxParticipants": 100
+    },
+    {
+      "id": "CONTEST002", 
+      "title": "夏のビーチポートレート",
+      "subtitle": "海と空の美しさを表現",
+      "description": "夏の海辺でのポートレート写真を募集。青い海と空を背景にした爽やかな写真をお待ちしています。",
+      "startDate": "2024-06-01",
+      "endDate": "2024-08-31",
+      "prize": "1位: 80,000円 + カメラバッグ",
+      "image": "assets/images/contests/summer-contest.jpg",
+      "status": "upcoming",
+      "participants": 0,
+      "maxParticipants": 150
+    },
+    {
+      "id": "CONTEST003",
+      "title": "秋の紅葉ポートレート",
+      "subtitle": "美しい紅葉と共に",
+      "description": "秋の紅葉を背景にしたポートレート写真を募集。温かみのある色合いの写真をお待ちしています。",
+      "startDate": "2024-10-01",
+      "endDate": "2024-11-30",
+      "prize": "1位: 60,000円 + 三脚",
+      "image": "assets/images/contests/autumn-contest.jpg",
+      "status": "upcoming",
+      "participants": 0,
+      "maxParticipants": 120
+    },
+    {
+      "id": "CONTEST004",
+      "title": "冬の雪景色ポートレート",
+      "subtitle": "雪の美しさを表現",
+      "description": "冬の雪景色を背景にしたポートレート写真を募集。清らかで美しい雪の写真をお待ちしています。",
+      "startDate": "2024-12-01",
+      "endDate": "2025-02-28",
+      "prize": "1位: 70,000円 + カメラストラップ",
+      "image": "assets/images/contests/winter-contest.jpg",
+      "status": "upcoming",
+      "participants": 0,
+      "maxParticipants": 100
+    }
+  ]
+}

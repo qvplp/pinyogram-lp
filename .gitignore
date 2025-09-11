@@ -1,9 +1,16 @@
+# OS / Editor
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-node_modules/
 *.log
+
+# Node
+node_modules/
+
+# Build outputs
+.dist/
+dist/
+build/
+.cache/
+
+# Env
+.env
+.env.*

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ぴにょぐらむ撮影会 - イベントスケジュール</title>
+    
+    <!-- SEO最適化 -->
+    <meta name="description" content="ぴにょぐらむ撮影会のイベントスケジュール。最新の撮影会情報をお届けします。">
+    <meta name="keywords" content="ぴにょぐらむ, 撮影会, イベント, 写真, スケジュール">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/shared/style.css">
+    
+    <!-- ファビコン -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23007AFF'/><circle cx='50' cy='50' r='30' fill='white'/></svg>">
+</head>
+
+<body>
+    <!-- 共有ヘッダー -->
+    <div id="site-header"></div>
+    <!-- ヒーローセクション -->
+<section class="hero-section">
+    <div class="hero-container">
+        <div class="hero-slider">
+            <!-- スライド1 -->
+            <div class="hero-slide active">
+                <a href="index.html" class="hero-link">
+                    <img id="heroImg1" src="" alt="今月のイベント">
+                </a>
+            </div>
+            
+            <!-- スライド2 -->
+            <div class="hero-slide">
+                <a href="event-detail.html?id=EVT001" class="hero-link">
+                    <img id="heroImg2" src="" alt="サマーフェスタ2024">
+                </a>
+            </div>
+            
+            <!-- スライド3 -->
+            <div class="hero-slide">
+                <a href="#special" class="hero-link">
+                    <img id="heroImg3" src="" alt="特別キャンペーン">
+                </a>
+            </div>
+        </div>
+        
+        <!-- スライダーインジケーター -->
+        <div class="hero-indicators">
+            <span class="indicator active" data-slide="0"></span>
+            <span class="indicator" data-slide="1"></span>
+            <span class="indicator" data-slide="2"></span>
+        </div>
+    </div>
+</section>
+
+<!-- メインコンテナ（既存） -->
+<div class="main-container">
+    <!-- 既存のコンテンツ -->
+</div>
+
+    
+    <div class="main-container">
+        <!-- 左側：イベント一覧（2/3） -->
+        <div class="events-section">
+            <h2 class="section-title">📸 開催予定イベント</h2>
+            <div class="events-grid" id="eventsGrid">
+                <!-- イベントカードは動的に生成されます -->
+            </div>
+        </div>
+        
+        <!-- 右側：月間カレンダー（1/3） -->
+        <div class="calendar-section">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <h3 class="calendar-title">2024年8月</h3>
+                    <div class="calendar-nav">
+                        <button onclick="changeMonth(-1)">‹</button>
+                        <button onclick="changeMonth(1)">›</button>
+                    </div>
+                </div>
+                <div class="calendar-grid" id="calendar">
+                    <!-- カレンダーは動的生成 -->
+                </div>
+            </div>
+            
+            <!-- イベントリスト -->
+            <div class="event-list" id="eventList">
+                <h4 class="event-list-title">🗓 今月のスケジュール</h4>
+                <!-- イベントリストアイテムは動的に生成されます -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // イベントデータ
+        const eventData = [
+            {
+                id: 'EVT001',
+                name: 'サマーフェスタ2024',
+                date: '2024-08-10',
+                venue: 'Gスタジオ（秋葉原）',
+                price: 6000,
+                type: 'group',
+                badge: 'popular',
+                remaining: 3,
+                image: ''
+            },
+            {
+                id: 'EVT002',
+                name: '田中愛理 個人撮影会',
+                date: '2024-08-12',
+                venue: '渋谷スタジオ',
+                price: 15000,
+                type: 'individual',
+                badge: 'new',
+                remaining: null,
+                image: ''
+            },
+            {
+                id: 'EVT003',
+                name: 'コスプレ撮影会SP',
+                date: '2024-08-15',
+                venue: '池袋スタジオ',
+                price: 8000,
+                type: 'group',
+                badge: 'limited',
+                remaining: null,
+                image: ''
+            },
+            {
+                id: 'EVT004',
+                name: '山田花子 撮影会',
+                date: '2024-08-18',
+                venue: '新宿スタジオ',
+                price: 12000,
+                type: 'individual',
+                badge: null,
+                remaining: null,
+                image: ''
+            },
+            {
+                id: 'EVT005',
+                name: '真夏の浴衣撮影会',
+                date: '2024-08-20',
+                venue: '浅草スタジオ',
+                price: 7000,
+                type: 'group',
+                badge: 'popular',
+                remaining: 5,
+                image: ''
+            },
+            {
+                id: 'EVT006',
+                name: '佐藤美咲 個人撮影',
+                date: '2024-08-22',
+                venue: '横浜スタジオ',
+                price: 10000,
+                type: 'individual',
+                badge: 'new',
+                remaining: null,
+                image: ''
+            }
+        ];
+        
+        // イベントカードを生成
+        function generateEventCards() {
+            const eventsGrid = document.getElementById('eventsGrid');
+            let html = '';
+            
+            eventData.forEach(event => {
+                const date = new Date(event.date);
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'][date.getDay()];
+                
+                let badgeHtml = '';
+                if (event.badge === 'new') {
+                    badgeHtml = '<span class="event-badge badge-new">NEW</span>';
+                } else if (event.badge === 'popular') {
+                    badgeHtml = '<span class="event-badge badge-popular">人気</span>';
+                } else if (event.badge === 'limited') {
+                    badgeHtml = '<span class="event-badge badge-limited">限定</span>';
+                }
+                
+                const gradient = event.type === 'individual' 
+                    ? 'linear-gradient(135deg, #10b981, #3b82f6)'
+                    : 'linear-gradient(135deg, #ff6ec7, #3b82f6)';
+                
+                html += `
+                    <div class="event-card" data-id="${event.id}" role="button" tabindex="0" aria-label="${event.name}の詳細ページへ移動">
+                        <div class="event-card-image" style="background: ${gradient};">
+                            ${event.name}
+                            <img src="${event.image}" alt="${event.name}の画像" onerror="this.style.display='none'">
+                            ${badgeHtml}
+                        </div>
+                        <div class="event-content">
+                            <h3 class="event-title">${event.name}</h3>
+                            <div class="event-info">📅 ${month}月${day}日(${dayOfWeek})</div>
+                            <div class="event-info">📍 ${event.venue}</div>
+                        </div>
+                        <div class="event-footer">
+                            <span class="event-price">¥${event.price.toLocaleString()}${event.type === 'individual' ? '/30分' : '〜'}</span>
+                            <span style="color: #666; font-size: 0.85rem;">
+                                ${event.remaining ? `残り${event.remaining}枠` : '空きあり'}
+                            </span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="event-detail.html?id=${event.id}" class="btn-detail">詳細を見る</a>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            eventsGrid.innerHTML = html;
+            
+            // イベントカード全体にクリックイベントを追加
+            document.querySelectorAll('.event-card').forEach(card => {
+                const handleCardClick = (e) => {
+                    if (e.target.classList.contains('btn-detail') || e.target.closest('.btn-detail')) {
+                        return;
+                    }
+                    const eventId = card.dataset.id;
+                    window.location.href = `event-detail.html?id=${eventId}`;
+                };
+                card.addEventListener('click', handleCardClick);
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleCardClick(e);
+                    }
+                });
+                card.style.cursor = 'pointer';
+            });
+        }
+        
+        // イベントリストを生成
+        function generateEventList() {
+            const eventList = document.getElementById('eventList');
+            let html = '<h4 class="event-list-title">🗓 今月のスケジュール</h4>';
+            
+            eventData.forEach(event => {
+                const date = new Date(event.date);
+                const day = date.getDate();
+                const typeText = event.type === 'individual' ? '個人撮影会' : '団体撮影会';
+                
+                html += `
+                    <div class="event-list-item" data-id="${event.id}">
+                        <div class="event-list-date">${day}</div>
+                        <div class="event-list-info">
+                            <div class="event-list-name">${event.name}</div>
+                            <div class="event-list-type">${typeText}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            eventList.innerHTML = html;
+            
+            document.querySelectorAll('.event-list-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const eventId = item.dataset.id;
+                    location.href = `event-detail.html?id=${eventId}`;
+                });
+            });
+        }
+        
+        // カレンダー生成
+        let currentYear = 2024;
+        let currentMonth = 8;
+        
+        function generateCalendar(year, month) {
+            const calendar = document.getElementById('calendar');
+            const firstDay = new Date(year, month - 1, 1);
+            const lastDay = new Date(year, month, 0);
+            const prevLastDay = new Date(year, month - 1, 0);
+            
+            const startingDayOfWeek = firstDay.getDay();
+            const monthLength = lastDay.getDate();
+            const prevMonthLength = prevLastDay.getDate();
+            
+            let html = '';
+            
+            const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+            weekdays.forEach(day => {
+                html += `<div class="calendar-weekday">${day}</div>`;
+            });
+            
+            for (let i = startingDayOfWeek - 1; i >= 0; i--) {
+                html += `<div class="calendar-day other-month">
+                    <div class="calendar-day-number">${prevMonthLength - i}</div>
+                </div>`;
+            }
+            
+            const today = new Date();
+            for (let day = 1; day <= monthLength; day++) {
+                const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const dayEvents = eventData.filter(e => e.date === dateStr);
+                const isToday = today.getFullYear() === year && today.getMonth() + 1 === month && today.getDate() === day;
+                
+                let dayClass = 'calendar-day';
+                if (isToday) dayClass += ' today';
+                if (dayEvents.length > 0) dayClass += ' has-event';
+                
+                html += `<div class="${dayClass}">
+                    <div class="calendar-day-number">${day}</div>`;
+                
+                const maxEvents = 3;
+                const displayEvents = dayEvents.slice(0, maxEvents);
+                
+                displayEvents.forEach(event => {
+                    const shortName = event.name.length > 6 ? event.name.substring(0, 6) + '...' : event.name;
+                    html += `<div class="calendar-event ${event.type}">${shortName}</div>`;
+                });
+                
+                if (dayEvents.length > maxEvents) {
+                    const remainingCount = dayEvents.length - maxEvents;
+                    html += `<div class="calendar-event more-events">+${remainingCount}</div>`;
+                }
+                
+                html += '</div>';
+            }
+            
+            const totalCells = startingDayOfWeek + monthLength;
+            const nextMonthDays = 42 - totalCells;
+            for (let day = 1; day <= nextMonthDays; day++) {
+                html += `<div class="calendar-day other-month">
+                    <div class="calendar-day-number">${day}</div>
+                </div>`;
+            }
+            
+            calendar.innerHTML = html;
+            
+            const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+            document.querySelector('.calendar-title').textContent = `${year}年${monthNames[month - 1]}`;
+        }
+        
+        function changeMonth(direction) {
+            currentMonth += direction;
+            if (currentMonth > 12) {
+                currentMonth = 1;
+                currentYear++;
+            } else if (currentMonth < 1) {
+                currentMonth = 12;
+                currentYear--;
+            }
+            generateCalendar(currentYear, currentMonth);
+        }
+        
+        // 初期化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 画像設定読込
+            const heroUrl = (window.APP_IMAGE && window.APP_IMAGE.hero) || 'https://placehold.co/1920x1080/png?text=Pinyogram';
+            const eventUrl = (window.APP_IMAGE && window.APP_IMAGE.event) || 'https://placehold.co/800x600/png?text=Event';
+            ['heroImg1','heroImg2','heroImg3'].forEach(id => { const el = document.getElementById(id); if (el) el.src = heroUrl; });
+            // 全イベント画像を統一URLに差し替え
+            eventData.forEach(e => e.image = eventUrl);
+
+            generateEventCards();
+            generateEventList();
+            generateCalendar(currentYear, currentMonth);
+        });
+    </script>
+
+    <!-- 共有フッター -->
+    <div id="site-footer"></div>
+
+    <!-- JavaScript (ES6 Modules) -->
+    <script src="/shared/js/config.js"></script>
+    <script type="module" src="js/shared/main.js"></script>
+    <script defer src="/shared/header.js"></script>
+    <script defer src="/shared/footer.js"></script>
+</body>
+</html>

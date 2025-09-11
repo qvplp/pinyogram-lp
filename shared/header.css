@@ -1,0 +1,29 @@
+.site-header{
+  position: sticky; top: 0; z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+.header-inner{
+  height: 64px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.brand{
+  font-weight: 800;
+  color: #2563eb; text-decoration: none;
+  font-size: clamp(20px, 1vw + 18px, 24px);
+}
+.main-nav a{
+  text-decoration: none;
+  color: #0f172a;
+  font-weight: 600;
+  margin-left: 28px;
+}
+.main-nav a:hover{ color:#2563eb; }
+.main-nav a.is-active{ color:#2563eb; }
+@media (max-width: 640px){
+  .header-inner{ height: 56px; padding: 0 16px; }
+  .main-nav a{ margin-left: 18px; }
+}
