@@ -10,10 +10,12 @@ window.APP_IMAGE = {
 
 // 形式1: R2のデフォルト配信URL（推奨：設定が簡単）
 // Cloudflareダッシュボード > R2 > pinyogramlp > 設定 > 公開配信URL から取得
-window.CDN_EVENTS_BASE = window.CDN_EVENTS_BASE || 'https://pub-1234567890abcdef1234567890abcdef.r2.dev/pinyogramlp/events';
+// 実際の配信URL: https://images.pinyogram.com
+window.CDN_EVENTS_BASE = window.CDN_EVENTS_BASE || 'https://images.pinyogram.com/events';
 
 // 形式2: カスタムサブドメインを使用する場合（推奨：ブランド統一）
 // 例: cdn.pinyogram.com, assets.pinyogram.com, images.pinyogram.com
+// 現在使用中: https://images.pinyogram.com
 // window.CDN_EVENTS_BASE = window.CDN_EVENTS_BASE || 'https://cdn.pinyogram.com/pinyogramlp/events';
 
 // 形式3: Cloudflare Pagesの配信URLを使用する場合
@@ -47,21 +49,21 @@ console.log('🔧 CDN Configuration:', {
 // subdir: 'main' | 'models' など
 // fileName: 例 'hero.jpg', 'card.jpg', '1.jpg'
 window.getEventAssetUrl = function(eventSlug, subdir, fileName){
-  // R2のパス形式に合わせて調整
-  // スラッシュをコロンに変換（R2のオブジェクトキー形式）
-  const r2Slug = eventSlug.replace(/\//g, ':');
+  // 実際の配信URL形式に合わせて調整
+  // スラッシュをコロンに変換（URLエンコード形式）
+  const urlSlug = eventSlug.replace(/\//g, ':');
   
-  // R2の正しいパス形式: events/セッション撮影会2025:09:16/main/card.png
-  const r2Path = `events/${r2Slug}/${subdir}/${fileName}`;
-  const url = `${window.CDN_EVENTS_BASE}/${r2Path}`;
+  // 実際のパス形式: events/セッション撮影会2025:09:16/main/card.png
+  const path = `${urlSlug}/${subdir}/${fileName}`;
+  const url = `${window.CDN_EVENTS_BASE}/${path}`;
   
   // デバッグログを追加
-  console.log('🔗 Generated R2 URL:', {
+  console.log('🔗 Generated Image URL:', {
     eventSlug,
-    r2Slug,
+    urlSlug,
     subdir,
     fileName,
-    r2Path,
+    path,
     baseUrl: window.CDN_EVENTS_BASE,
     finalUrl: url
   });
