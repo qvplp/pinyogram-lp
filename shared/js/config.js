@@ -6,13 +6,35 @@ window.APP_IMAGE = {
 };
 
 // Cloudflare（R2/Pagesなど）の公開CDN基点URLを設定してください。
-// 実際のCloudflare配信URLに設定
-// 注意: 実際のCloudflare配信URLに変更してください
-window.CDN_EVENTS_BASE = window.CDN_EVENTS_BASE || 'https://pinyogram.com/pinyogramlp/events';
+// R2の正しい配信URL形式に設定
+// 形式1: R2のデフォルト配信URL（推奨）
+window.CDN_EVENTS_BASE = window.CDN_EVENTS_BASE || 'https://pub-1234567890abcdef1234567890abcdef.r2.dev/pinyogramlp/events';
+
+// 形式2: カスタムドメインを使用する場合（設定済みの場合）
+// window.CDN_EVENTS_BASE = window.CDN_EVENTS_BASE || 'https://cdn.pinyogram.com/pinyogramlp/events';
+
+// 形式3: Cloudflare Pagesの配信URLを使用する場合
+// window.CDN_EVENTS_BASE = window.CDN_EVENTS_BASE || 'https://pinyogram.pages.dev/pinyogramlp/events';
+
+// R2の実際の配信URLを取得するヘルパー関数
+window.getR2PublicUrl = function() {
+  // 実際のR2配信URLをここに設定してください
+  // CloudflareダッシュボードのR2 > 設定 > 公開配信URL から取得
+  const r2PublicUrls = [
+    'https://pub-1234567890abcdef1234567890abcdef.r2.dev', // プレースホルダー
+    'https://your-bucket-name.r2.dev', // バケット名ベース
+    'https://cdn.pinyogram.com', // カスタムドメイン
+    'https://pinyogram.pages.dev' // Pages配信
+  ];
+  
+  // 最初の有効なURLを使用（実際の設定に応じて変更）
+  return r2PublicUrls[0];
+};
 
 // デバッグ用: 現在の設定をコンソールに表示
 console.log('🔧 CDN Configuration:', {
   CDN_EVENTS_BASE: window.CDN_EVENTS_BASE,
+  R2_PUBLIC_URL: window.getR2PublicUrl(),
   timestamp: new Date().toISOString()
 });
 
@@ -20,16 +42,21 @@ console.log('🔧 CDN Configuration:', {
 // subdir: 'main' | 'models' など
 // fileName: 例 'hero.jpg', 'card.jpg', '1.jpg'
 window.getEventAssetUrl = function(eventSlug, subdir, fileName){
-  // フォルダ名に "/" を含むケースを許容するため encodeURI を使用（スラッシュは保持）
-  const encSlug = encodeURI(eventSlug);
-  const url = `${window.CDN_EVENTS_BASE}/${encSlug}/${subdir}/${fileName}`;
+  // R2のパス形式に合わせて調整
+  // スラッシュをコロンに変換（R2のオブジェクトキー形式）
+  const r2Slug = eventSlug.replace(/\//g, ':');
+  
+  // R2の正しいパス形式: events/セッション撮影会2025:09:16/main/card.png
+  const r2Path = `events/${r2Slug}/${subdir}/${fileName}`;
+  const url = `${window.CDN_EVENTS_BASE}/${r2Path}`;
   
   // デバッグログを追加
-  console.log('🔗 Generated URL:', {
+  console.log('🔗 Generated R2 URL:', {
     eventSlug,
+    r2Slug,
     subdir,
     fileName,
-    encSlug,
+    r2Path,
     baseUrl: window.CDN_EVENTS_BASE,
     finalUrl: url
   });
