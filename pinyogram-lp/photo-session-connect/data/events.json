@@ -1,121 +1,43 @@
 {
   "events": [
     {
-      "event_id": "EVT20240810",
-      "event_name": "サマーフェスタ2024",
+      "event_id": "EVT003",
+      "event_name": "コスプレ撮影会SP",
       "event_type": "group_session",
-      "category": ["swimsuit", "yukata"],
-      "description": "真夏の特別企画！人気モデル・アイドル・コスプレイヤー10名が集結する大型撮影会イベントです。",
-      "event_date": "2024-08-10",
-      "start_time": "10:00",
-      "end_time": "16:00",
+      "category": ["cosplay"],
+      "description": "人気コスプレイヤーが集結！アニメ・ゲームキャラクターのコスプレ撮影を楽しめる特別イベント。",
+      "event_date": "2025-08-15",
+      "start_time": "11:00",
+      "end_time": "17:00",
       "status": "published",
       "visibility": "public",
       "venue": {
-        "venue_id": "VENUE001",
-        "venue_name": "Gスタジオ",
-        "address": "東京都台東区浅草橋5-3-2 秋葉原スクエアビル4F",
-        "access": "JR秋葉原駅 徒歩10分 / JR浅草橋駅 徒歩8分",
+        "venue_id": "VENUE002",
+        "venue_name": "池袋スタジオ",
+        "address": "東京都豊島区池袋3-10-5",
+        "access": "JR池袋駅 徒歩10分",
         "google_maps_url": "https://maps.google.com/..."
       },
       "sessions": [
-        {
-          "session_id": "S1",
-          "session_name": "第1部",
-          "session_number": 1,
-          "time_slot": "10:00-11:00",
-          "price": 6000,
-          "capacity": 20,
-          "reserved_count": 12,
-          "costume": ["制服", "私服"],
-          "status": "available"
-        },
-        {
-          "session_id": "S2",
-          "session_name": "第2部",
-          "session_number": 2,
-          "time_slot": "11:20-12:20",
-          "price": 6000,
-          "capacity": 20,
-          "reserved_count": 17,
-          "costume": ["水着"],
-          "status": "limited"
-        },
-        {
-          "session_id": "S3",
-          "session_name": "第3部",
-          "session_number": 3,
-          "time_slot": "13:00-14:00",
-          "price": 6000,
-          "capacity": 20,
-          "reserved_count": 10,
-          "costume": ["浴衣"],
-          "status": "available"
-        },
-        {
-          "session_id": "S4",
-          "session_name": "第4部",
-          "session_number": 4,
-          "time_slot": "14:20-15:20",
-          "price": 6000,
-          "capacity": 20,
-          "reserved_count": 20,
-          "costume": ["コスプレ"],
-          "status": "full"
-        }
+        { "session_id": "A", "session_name": "前半の部", "time_slot": "11:00-13:00", "price": 8000, "capacity": 30, "reserved_count": 28, "status": "limited" },
+        { "session_id": "B", "session_name": "後半の部", "time_slot": "15:00-17:00", "price": 8000, "capacity": 30, "reserved_count": 19, "status": "available" }
       ],
-      "pricing": {
-        "base_price": 6000,
-        "all_session_price": 20000,
-        "early_bird_discount": 1000,
-        "student_discount": 500
-      },
+      "pricing": { "base_price": 8000 },
       "models": [
-        {
-          "model_id": "MDL001",
-          "model_name": "佐藤美咲",
-          "category": "モデル",
-          "instagram": "@misaki_sato",
-          "participating_sessions": ["S1", "S2", "S3", "S4"]
-        },
-        {
-          "model_id": "MDL002",
-          "model_name": "田中愛理",
-          "category": "アイドル",
-          "instagram": "@airi_tanaka",
-          "participating_sessions": ["S1", "S2", "S3", "S4"]
-        },
-        {
-          "model_id": "MDL003",
-          "model_name": "山田花子",
-          "category": "コスプレイヤー",
-          "instagram": "@hanako_cosplay",
-          "participating_sessions": ["S3", "S4"]
-        },
-        {
-          "model_id": "MDL004",
-          "model_name": "鈴木優奈",
-          "category": "モデル",
-          "instagram": "@yuna_suzuki",
-          "participating_sessions": ["S1", "S2"]
-        },
-        {
-          "model_id": "MDL005",
-          "model_name": "伊藤さくら",
-          "category": "アイドル",
-          "instagram": "@sakura_ito",
-          "participating_sessions": ["S2", "S3", "S4"]
-        },
-        {
-          "model_id": "MDL006",
-          "model_name": "渡辺真美",
-          "category": "コスプレイヤー",
-          "instagram": "@mami_watanabe",
-          "participating_sessions": ["S4"]
-        }
+        { "model_id": "MDL010", "model_name": "神崎レイ", "category": "コスプレイヤー", "instagram": "@rei_cos", "participating_sessions": ["A", "B"] },
+        { "model_id": "MDL011", "model_name": "綾瀬ルナ", "category": "コスプレイヤー", "instagram": "@luna_ayase", "participating_sessions": ["A", "B"] }
       ],
-      "options": [
-        {
-          "option_id": "OPT001",
-          "option_name": "2ショットチェキ",
-        }
+      "options": [ { "option_id": "OPT101", "option_name": "サイン入りブロマイド", "price": 1500 } ],
+      "assets": {
+        "banner": "assets/images/events/2025/cosplay_sp/banner.jpg",
+        "gallery": [
+          "assets/images/events/2025/cosplay_sp/1.jpg",
+          "assets/images/events/2025/cosplay_sp/2.jpg",
+          "assets/images/events/2025/cosplay_sp/3.jpg"
+        ]
+      }
+    }
+  ]
+}
+
+

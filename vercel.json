@@ -1,5 +1,17 @@
 {
   "buildCommand": "echo 'No build required'",
   "outputDirectory": ".",
-  "framework": null
+  "framework": null,
+  "redirects": [
+    {
+      "source": "/contest/:path*",
+      "destination": "/event/index.html",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "destination": "/event/index.html",
+      "permanent": true
+    }
+  ]
 }

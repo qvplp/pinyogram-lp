@@ -33,7 +33,7 @@
             <!-- スライド2 -->
             <div class="hero-slide">
                 <a href="event-detail.html?id=EVT001" class="hero-link">
-                    <img id="heroImg2" src="" alt="サマーフェスタ2024">
+                    <img id="heroImg2" src="" alt="サマーフェスタ2025">
                 </a>
             </div>
             
@@ -73,7 +73,7 @@
         <div class="calendar-section">
             <div class="calendar-container">
                 <div class="calendar-header">
-                    <h3 class="calendar-title">2024年8月</h3>
+                    <h3 class="calendar-title">2025年8月</h3>
                     <div class="calendar-nav">
                         <button onclick="changeMonth(-1)">‹</button>
                         <button onclick="changeMonth(1)">›</button>
@@ -96,70 +96,17 @@
         // イベントデータ
         const eventData = [
             {
-                id: 'EVT001',
-                name: 'サマーフェスタ2024',
-                date: '2024-08-10',
-                venue: 'Gスタジオ（秋葉原）',
-                price: 6000,
-                type: 'group',
-                badge: 'popular',
-                remaining: 3,
-                image: ''
-            },
-            {
-                id: 'EVT002',
-                name: '田中愛理 個人撮影会',
-                date: '2024-08-12',
-                venue: '渋谷スタジオ',
-                price: 15000,
-                type: 'individual',
-                badge: 'new',
-                remaining: null,
-                image: ''
-            },
-            {
                 id: 'EVT003',
                 name: 'コスプレ撮影会SP',
-                date: '2024-08-15',
+                date: '2025-08-15',
                 venue: '池袋スタジオ',
                 price: 8000,
                 type: 'group',
                 badge: 'limited',
-                remaining: null,
-                image: ''
-            },
-            {
-                id: 'EVT004',
-                name: '山田花子 撮影会',
-                date: '2024-08-18',
-                venue: '新宿スタジオ',
-                price: 12000,
-                type: 'individual',
-                badge: null,
-                remaining: null,
-                image: ''
-            },
-            {
-                id: 'EVT005',
-                name: '真夏の浴衣撮影会',
-                date: '2024-08-20',
-                venue: '浅草スタジオ',
-                price: 7000,
-                type: 'group',
-                badge: 'popular',
-                remaining: 5,
-                image: ''
-            },
-            {
-                id: 'EVT006',
-                name: '佐藤美咲 個人撮影',
-                date: '2024-08-22',
-                venue: '横浜スタジオ',
-                price: 10000,
-                type: 'individual',
-                badge: 'new',
-                remaining: null,
-                image: ''
+                remaining: 2,
+                image: '',
+                pricing: { perUnit: 8000, twoParts: 15000, threeParts: 22000 },
+                slug: 'コスプレ撮影会SP'
             }
         ];
         
@@ -200,11 +147,15 @@
                             <div class="event-info">📍 ${event.venue}</div>
                         </div>
                         <div class="event-footer">
-                            <span class="event-price">¥${event.price.toLocaleString()}${event.type === 'individual' ? '/30分' : '〜'}</span>
+                            <span class="event-price">${event.priceText ? event.priceText : `¥${(event.price||0).toLocaleString()}${event.type === 'individual' ? '/30分' : '〜'}`}</span>
                             <span style="color: #666; font-size: 0.85rem;">
                                 ${event.remaining ? `残り${event.remaining}枠` : '空きあり'}
                             </span>
                         </div>
+                        ${event.pricing ? `
+                        <div class=\"price-breakdown\" style=\"padding:6px 12px; color:#555; font-size:0.85rem;\">
+                            各部 ${'¥'+Number(event.pricing.perUnit).toLocaleString()} / 2部通し ${'¥'+Number(event.pricing.twoParts).toLocaleString()} / 3部通し ${'¥'+Number(event.pricing.threeParts).toLocaleString()}
+                        </div>` : ''}
                         <div class="card-actions">
                             <a href="event-detail.html?id=${event.id}" class="btn-detail">詳細を見る</a>
                         </div>
@@ -266,7 +217,7 @@
         }
         
         // カレンダー生成
-        let currentYear = 2024;
+        let currentYear = 2025;
         let currentMonth = 8;
         
         function generateCalendar(year, month) {
@@ -349,12 +300,17 @@
         
         // 初期化
         document.addEventListener('DOMContentLoaded', () => {
-            // 画像設定読込
-            const heroUrl = (window.APP_IMAGE && window.APP_IMAGE.hero) || 'https://placehold.co/1920x1080/png?text=Pinyogram';
-            const eventUrl = (window.APP_IMAGE && window.APP_IMAGE.event) || 'https://placehold.co/800x600/png?text=Event';
+            // 画像設定読込（Cloudflare構成対応）
+            const fallbackHero = 'https://placehold.co/1920x1080/png?text=Pinyogram';
+            const fallbackCard = 'https://placehold.co/800x600/png?text=Event';
+            const firstSlug = (eventData[0] && eventData[0].slug) || 'event';
+            const heroUrl = (window.getEventAssetUrl ? window.getEventAssetUrl(firstSlug, 'main', 'hero.jpg') : (window.APP_IMAGE && window.APP_IMAGE.hero)) || fallbackHero;
             ['heroImg1','heroImg2','heroImg3'].forEach(id => { const el = document.getElementById(id); if (el) el.src = heroUrl; });
-            // 全イベント画像を統一URLに差し替え
-            eventData.forEach(e => e.image = eventUrl);
+            // 各イベントのカード画像をCDNの card.jpg に差し替え
+            eventData.forEach(e => {
+                const url = window.getEventAssetUrl ? window.getEventAssetUrl(e.slug || e.name, 'main', 'card.jpg') : (window.APP_IMAGE && window.APP_IMAGE.event);
+                e.image = url || fallbackCard;
+            });
 
             generateEventCards();
             generateEventList();

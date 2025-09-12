@@ -333,9 +333,9 @@ const contestData = [
     {
         id: 'CONTEST001',
         name: '夏の思い出フォトコンテスト',
-        startDate: '2024-08-15',
-        endDate: '2024-08-20',
-        resultDate: '2024-08-25',
+        startDate: '2025-08-15',
+        endDate: '2025-08-20',
+        resultDate: '2025-08-25',
         prize: '¥100,000',
         status: 'active',
         badge: 'active',
@@ -345,9 +345,9 @@ const contestData = [
     {
         id: 'CONTEST002',
         name: '花火大会フォトコンテスト',
-        startDate: '2024-08-25',
-        endDate: '2024-08-30',
-        resultDate: '2024-09-05',
+        startDate: '2025-08-25',
+        endDate: '2025-08-30',
+        resultDate: '2025-09-05',
         prize: '¥50,000',
         status: 'upcoming',
         badge: 'upcoming',
@@ -357,9 +357,9 @@ const contestData = [
     {
         id: 'CONTEST003',
         name: '秋の風景フォトコンテスト',
-        startDate: '2024-10-01',
-        endDate: '2024-10-31',
-        resultDate: '2024-11-10',
+        startDate: '2025-10-01',
+        endDate: '2025-10-31',
+        resultDate: '2025-11-10',
         prize: '¥80,000',
         status: 'upcoming',
         badge: 'upcoming',
@@ -369,9 +369,9 @@ const contestData = [
     {
         id: 'CONTEST004',
         name: '海辺フォトコンテスト',
-        startDate: '2024-08-05',
-        endDate: '2024-08-08',
-        resultDate: '2024-08-15',
+        startDate: '2025-08-05',
+        endDate: '2025-08-08',
+        resultDate: '2025-08-15',
         prize: '¥25,000',
         status: 'active',
         badge: 'active',
@@ -381,9 +381,9 @@ const contestData = [
     {
         id: 'CONTEST005',
         name: '夕日フォトコンテスト',
-        startDate: '2024-08-12',
-        endDate: '2024-08-14',
-        resultDate: '2024-08-20',
+        startDate: '2025-08-12',
+        endDate: '2025-08-14',
+        resultDate: '2025-08-20',
         prize: '¥20,000',
         status: 'active',
         badge: 'active',
@@ -393,9 +393,9 @@ const contestData = [
     {
         id: 'CONTEST006',
         name: '春の桜フォトコンテスト',
-        startDate: '2024-04-01',
-        endDate: '2024-04-30',
-        resultDate: '2024-05-15',
+        startDate: '2025-04-01',
+        endDate: '2025-04-30',
+        resultDate: '2025-05-15',
         prize: '¥60,000',
         status: 'ended',
         badge: 'ended',
@@ -514,13 +514,13 @@ function generateContestList() {
 
 // ガントチャートの初期化
 function initGanttChart() {
-    contestCurrentYear = 2024;
+    contestCurrentYear = 2025;
     contestCurrentMonth = 8;
     generateGanttChart(contestCurrentYear, contestCurrentMonth);
 }
 
 // コンテストカレンダー生成
-let contestCurrentYear = 2024;
+let contestCurrentYear = 2025;
 let contestCurrentMonth = 8;
 
 function generateGanttChart(year, month) {
@@ -643,7 +643,7 @@ const submissionData = [
         likes: 45,
         isLiked: false,
         isNominated: false,
-        date: '2024-08-15'
+        date: '2025-08-15'
     },
     {
         id: 'SUB002',
@@ -653,7 +653,7 @@ const submissionData = [
         likes: 32,
         isLiked: true,
         isNominated: false,
-        date: '2024-08-14'
+        date: '2025-08-14'
     },
     {
         id: 'SUB003',
@@ -663,7 +663,7 @@ const submissionData = [
         likes: 28,
         isLiked: false,
         isNominated: true,
-        date: '2024-08-13'
+        date: '2025-08-13'
     },
     {
         id: 'SUB004',
@@ -673,7 +673,7 @@ const submissionData = [
         likes: 67,
         isLiked: true,
         isNominated: true,
-        date: '2024-08-12'
+        date: '2025-08-12'
     },
     {
         id: 'SUB005',
@@ -683,7 +683,7 @@ const submissionData = [
         likes: 23,
         isLiked: false,
         isNominated: false,
-        date: '2024-08-11'
+        date: '2025-08-11'
     },
     {
         id: 'SUB006',
@@ -693,7 +693,7 @@ const submissionData = [
         likes: 41,
         isLiked: false,
         isNominated: false,
-        date: '2024-08-10'
+        date: '2025-08-10'
     },
     {
         id: 'SUB007',
@@ -703,7 +703,7 @@ const submissionData = [
         likes: 56,
         isLiked: true,
         isNominated: false,
-        date: '2024-08-09'
+        date: '2025-08-09'
     },
     {
         id: 'SUB008',
@@ -713,7 +713,7 @@ const submissionData = [
         likes: 19,
         isLiked: false,
         isNominated: false,
-        date: '2024-08-08'
+        date: '2025-08-08'
     }
 ];
 

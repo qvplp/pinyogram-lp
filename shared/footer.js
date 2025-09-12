@@ -18,6 +18,6 @@
     .then(r => r.ok ? r.text() : Promise.reject(r.status))
     .then(html => { mount.outerHTML = html; })
     .catch(() => {
-      mount.outerHTML = '<footer class="site-footer"><div class="footer-bottom"><p>© 2024 ぴにょぐらむ撮影会</p></div></footer>';
+      mount.outerHTML = '<footer class="site-footer"><div class="footer-bottom"><p>© 2025 ぴにょぐらむ撮影会</p></div></footer>';
     });
 })();

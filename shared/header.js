@@ -25,6 +25,31 @@
           a.setAttribute('aria-current','page');
         }
       });
+
+      // コンテストリンクの一時無効化とイベントページでの「Coming soon」表示
+      const contestLink = document.querySelector('.main-nav a[href="/contest/contest.html"]');
+      if (contestLink) {
+        contestLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        });
+        contestLink.setAttribute('aria-disabled', 'true');
+        contestLink.classList.add('is-disabled');
+        contestLink.style.pointerEvents = 'none';
+        contestLink.style.opacity = '0.6';
+        contestLink.title = 'Coming soon';
+
+        // イベントページのみ補助テキストを表示
+        if (path.includes('/event/')) {
+          const note = document.createElement('span');
+          note.textContent = 'Coming soon';
+          note.className = 'coming-soon-note';
+          note.style.marginLeft = '8px';
+          note.style.fontSize = '0.85rem';
+          note.style.color = '#999';
+          contestLink.insertAdjacentElement('afterend', note);
+        }
+      }
     })
     .catch(() => {
       mount.outerHTML = '<header class="site-header"><div class="header-inner"><a class="brand" href="/">ぴによぐらむ撮影会</a></div></header>';

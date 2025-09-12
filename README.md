@@ -31,7 +31,7 @@ pinyogram_lp/
 │   │   │   │   ├── winners/       # 受賞者画像
 │   │   │   │   └── themes/        # テーマ画像
 │   │   │   └── submissions/       # ユーザー応募作品
-│   │   │       ├── 2024/          # 年別フォルダ
+│   │   │       ├── 2025/          # 年別フォルダ
 │   │   │       └── sample/        # サンプル作品
 │   │   └── icons/
 │   ├── css/
@@ -80,4 +80,4 @@ pinyogram_lp/
 - 静的サイトとしてデプロイ可能
 
 ## ライセンス
-© 2024 ぴにょぐらむ撮影会. All rights reserved.
+© 2025 ぴにょぐらむ撮影会. All rights reserved.
