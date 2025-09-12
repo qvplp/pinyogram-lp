@@ -314,7 +314,10 @@
             const fallbackCard = 'https://placehold.co/800x600/png?text=Event';
             const firstSlugRaw = (eventData[0] && eventData[0].slug) || 'event';
             let firstSlug = firstSlugRaw;
-            // スラッグはそのまま使用（getEventAssetUrlで正規化される）
+            // イベント詳細ページと同じスラッグ処理を適用
+            if (firstSlug && firstSlug.includes('/')) {
+                firstSlug = firstSlug.replace(/\//g, ':');
+            }
             
             console.log('🖼️ Processing hero image:', {
                 originalSlug: firstSlugRaw,
@@ -327,7 +330,10 @@
             const cacheBuster = '?v=' + Date.now();
             eventData.forEach(e => {
                 let slug = e.slug || e.name;
-                // スラッグはそのまま使用（getEventAssetUrlで正規化される）
+                // イベント詳細ページと同じスラッグ処理を適用
+                if (slug && slug.includes('/')) {
+                    slug = slug.replace(/\//g, ':');
+                }
                 
                 console.log('🎴 Processing card image for event:', {
                     eventName: e.event_name || e.name,
@@ -338,10 +344,21 @@
                 if (window.getEventAssetUrlCandidates) {
                     // card画像とバナー画像を統一（hero画像を使用）
                     const cands = window.getEventAssetUrlCandidates(slug, 'main', 'hero', ['png','jpg','webp']);
+                    console.log('🎴 Generated card image URLs:', {
+                        eventName: e.event_name || e.name,
+                        slug,
+                        candidates: cands,
+                        selectedUrl: cands[0]
+                    });
                     e.image = (cands[0] || fallbackCard) + cacheBuster;
                     e.__cardFallbacks = cands.slice(1).map(url => url + cacheBuster);
                 } else {
                     const url = window.getEventAssetUrl ? window.getEventAssetUrl(slug, 'main', 'hero.png') : (window.APP_IMAGE && window.APP_IMAGE.event);
+                    console.log('🎴 Generated single card image URL:', {
+                        eventName: e.event_name || e.name,
+                        slug,
+                        url
+                    });
                     e.image = (url || fallbackCard) + cacheBuster;
                 }
             });
