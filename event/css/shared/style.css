@@ -145,9 +145,9 @@ nav {
     font-weight: 600 !important;
     position: relative !important;
     overflow: hidden !important;
-    min-height: 120px !important; /* 最小高さを小さく */
-    max-height: 180px !important; /* 最大高さを小さく */
-    height: 150px !important; /* 固定高さを小さく */
+    min-height: 200px !important; /* 最小高さを拡大 */
+    max-height: 300px !important; /* 最大高さを拡大 */
+    height: 250px !important; /* 固定高さを拡大 */
     width: 100% !important; /* 幅を強制適用 */
 }
 
@@ -155,9 +155,9 @@ nav {
 .event-card .event-card-image {
     aspect-ratio: 1200/630 !important;
     background: var(--gradient-main) !important;
-    height: 150px !important; /* 固定高さを小さく */
-    min-height: 120px !important; /* 最小高さを小さく */
-    max-height: 180px !important; /* 最大高さを小さく */
+    height: 250px !important; /* 固定高さを拡大 */
+    min-height: 200px !important; /* 最小高さを拡大 */
+    max-height: 300px !important; /* 最大高さを拡大 */
 }
 
 .event-card-image img {
@@ -481,11 +481,11 @@ nav {
     position: relative;
     width: 100%;
     aspect-ratio: 1200/630 !important; /* 1200×630の正確な比率に固定 - 強制適用 */
-    max-height: 300px !important; /* 最大高さを小さく */
-    min-height: 150px !important; /* 最小高さを小さく */
-    height: 250px !important; /* 固定高さを小さく */
+    max-height: 500px !important; /* 最大高さを拡大 */
+    min-height: 250px !important; /* 最小高さを拡大 */
+    height: 400px !important; /* 固定高さを拡大 */
     overflow: hidden;
-    margin-bottom: 30px; /* 下の要素との間隔を縮小 */
+    margin-bottom: 40px; /* 下の要素との間隔を調整 */
 }
 
 .hero-container {
@@ -559,31 +559,31 @@ nav {
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
     .hero-section {
-        max-height: 200px !important; /* 最大高さを小さく */
-        min-height: 120px !important; /* 最小高さを小さく */
-        height: 180px !important; /* 固定高さを小さく */
-        margin-bottom: 20px;
+        max-height: 300px !important; /* 最大高さを調整 */
+        min-height: 180px !important; /* 最小高さを調整 */
+        height: 250px !important; /* 固定高さを調整 */
+        margin-bottom: 30px;
     }
     
     .event-card-image {
-        min-height: 100px !important; /* モバイル用の最小高さを小さく */
-        max-height: 150px !important; /* 最大高さを小さく */
-        height: 120px !important; /* 固定高さを小さく */
+        min-height: 150px !important; /* モバイル用の最小高さを調整 */
+        max-height: 250px !important; /* 最大高さを調整 */
+        height: 200px !important; /* 固定高さを調整 */
     }
 }
 
 @media (max-width: 480px) {
     .hero-section {
-        max-height: 150px !important; /* 最大高さを小さく */
-        min-height: 100px !important; /* 最小高さを小さく */
-        height: 120px !important; /* 固定高さを小さく */
-        margin-bottom: 15px;
+        max-height: 200px !important; /* 最大高さを調整 */
+        min-height: 120px !important; /* 最小高さを調整 */
+        height: 150px !important; /* 固定高さを調整 */
+        margin-bottom: 20px;
     }
     
     .event-card-image {
-        min-height: 80px !important; /* 小さな画面用の最小高さを小さく */
-        max-height: 120px !important; /* 最大高さを小さく */
-        height: 100px !important; /* 固定高さを小さく */
+        min-height: 120px !important; /* 小さな画面用の最小高さを調整 */
+        max-height: 180px !important; /* 最大高さを調整 */
+        height: 150px !important; /* 固定高さを調整 */
     }
     
     .hero-indicators {
