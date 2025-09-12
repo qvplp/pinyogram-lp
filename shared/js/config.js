@@ -42,8 +42,16 @@ window.getR2PublicUrl = function() {
 console.log('🔧 CDN Configuration:', {
   CDN_EVENTS_BASE: window.CDN_EVENTS_BASE,
   R2_PUBLIC_URL: window.getR2PublicUrl(),
-  timestamp: new Date().toISOString()
+  timestamp: new Date().toISOString(),
+  version: '2.0.0' // 設定変更の確認用
 });
+
+// 設定の強制更新（キャッシュ対策）
+if (window.CDN_EVENTS_BASE.includes('pinyogram.com/pinyogramlp')) {
+  console.warn('⚠️ 古い設定が検出されました。新しい設定に更新します。');
+  window.CDN_EVENTS_BASE = 'https://images.pinyogram.com/events';
+  console.log('✅ 設定を更新しました:', window.CDN_EVENTS_BASE);
+}
 
 // イベント用の画像URLを生成するヘルパー
 // subdir: 'main' | 'models' など
