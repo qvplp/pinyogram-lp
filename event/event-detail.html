@@ -794,6 +794,13 @@
                         }
                     });
                     modelsSection.innerHTML = modelsHTML;
+                    
+                    // モデル画像に即座フォールバック機能を設定
+                    if (window.setupImageFallback) {
+                        modelsSection.querySelectorAll('.model-image').forEach(img => {
+                            window.setupImageFallback(img);
+                        });
+                    }
                 }
                 
                 // 画像設定（Cloudflare構成対応: main/hero.jpg）
@@ -813,8 +820,15 @@
                         eventImage.setAttribute('data-fallbacks', urlsWithCacheBuster.slice(1).join(','));
                         eventImage.onerror = function(){ window.__imgFallback(this); };
                         eventImage.src = urlsWithCacheBuster[0];
+                        // 即座フォールバック機能を設定
+                        if (window.setupImageFallback) {
+                            window.setupImageFallback(eventImage);
+                        }
                     } else {
                         eventImage.src = (this.eventData.image || '') + cacheBuster;
+                        if (window.setupImageFallback) {
+                            window.setupImageFallback(eventImage);
+                        }
                     }
                     eventImage.alt = this.eventData.event_name;
                     
