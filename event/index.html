@@ -10,7 +10,10 @@
     <meta name="keywords" content="ぴにょぐらむ, 撮影会, イベント, 写真, スケジュール">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="css/shared/style.css?v=9.0.0">
+    <link rel="stylesheet" href="css/shared/style.css?v=11.0.0">
+    
+    <!-- ヒーロー画像のプリロード -->
+    <link rel="preload" as="image" href="https://images.pinyogram.com/home/0916.png">
     
     <!-- ファビコン -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23007AFF'/><circle cx='50' cy='50' r='30' fill='white'/></svg>">
@@ -20,38 +23,13 @@
     <!-- 共有ヘッダー -->
     <div id="site-header"></div>
     <!-- ヒーローセクション -->
-<section class="hero-section">
-    <div class="hero-container">
-        <div class="hero-slider">
-            <!-- スライド1 -->
-            <div class="hero-slide active">
-                <a href="index.html" class="hero-link">
-                    <img id="heroImg1" src="" alt="今月のイベント">
-                </a>
-            </div>
-            
-            <!-- スライド2 -->
-            <div class="hero-slide">
-                <a href="event-detail.html?id=EVT001" class="hero-link">
-                    <img id="heroImg2" src="" alt="サマーフェスタ2025">
-                </a>
-            </div>
-            
-            <!-- スライド3 -->
-            <div class="hero-slide">
-                <a href="#special" class="hero-link">
-                    <img id="heroImg3" src="" alt="特別キャンペーン">
-                </a>
-            </div>
+<section class="hero-shell hero--md">
+    <figure class="hero-frame fill-gradient img-100" style="--hero-aspect: 40/21;" data-pos="center">
+        <img id="heroImg1" src="" alt="今月のイベント" loading="lazy" decoding="async">
+        <div class="media-overlay">
+            <a href="index.html" class="hero-link"></a>
         </div>
-        
-        <!-- スライダーインジケーター -->
-        <div class="hero-indicators">
-            <span class="indicator active" data-slide="0"></span>
-            <span class="indicator" data-slide="1"></span>
-            <span class="indicator" data-slide="2"></span>
-        </div>
-    </div>
+    </figure>
 </section>
 
 <!-- メインコンテナ（既存） -->
@@ -143,11 +121,12 @@
                 
                 html += `
                     <div class="event-card" data-id="${event.id}" role="button" tabindex="0" aria-label="${event.name}の詳細ページへ移動">
-                        <div class="event-card-image">
-                            ${event.name}
-                            <img src="${event.image}" alt="${event.name}の画像" ${event.id === 'EVT004' || event.event_id === 'EVT004' ? 'onload="console.log(\'✅ EVT004 image loaded successfully:\', this.src)" onerror="console.error(\'❌ EVT004 image failed to load:\', this.src); this.style.display=\'none\'; this.parentElement.className=\'event-card-image\'; this.parentElement.innerHTML=\'<div style=\\\'color: white; text-align: center;\\\'>📷<br/>画像読み込み中...</div>\'"' : 'onerror="window.__imgFallback(this)"'} data-fallbacks="${event.__cardFallbacks ? event.__cardFallbacks.join(',') : ''}">
-                            ${badgeHtml}
-                        </div>
+                        <figure class="media-frame is-40x21 fill-gradient" data-focal="center" style="--bg: url('${event.image}')">
+                            <img src="${event.image}" alt="${event.name}の画像" loading="lazy" decoding="async" ${event.id === 'EVT004' || event.event_id === 'EVT004' ? 'onload="console.log(\'✅ EVT004 image loaded successfully:\', this.src)" onerror="console.error(\'❌ EVT004 image failed to load:\', this.src); this.style.display=\'none\'; this.parentElement.className=\'media-frame is-40x21 fill-gradient\'; this.parentElement.innerHTML=\'<div style=\\\'color: white; text-align: center;\\\'>📷<br/>画像読み込み中...</div>\'"' : 'onerror="window.__imgFallback(this)"'} data-fallbacks="${event.__cardFallbacks ? event.__cardFallbacks.join(',') : ''}">
+                            <div class="media-overlay">
+                                ${badgeHtml}
+                            </div>
+                        </figure>
                         <div class="event-content">
                             <h3 class="event-title">${event.name}</h3>
                             <div class="event-info">📅 ${month}月${day}日(${dayOfWeek})</div>
@@ -312,20 +291,60 @@
             // 画像設定読込（Cloudflare構成対応）
             const fallbackHero = 'https://placehold.co/1920x1080/png?text=Pinyogram';
             const fallbackCard = 'https://placehold.co/800x600/png?text=Event';
-            const firstSlugRaw = (eventData[0] && eventData[0].slug) || 'event';
-            let firstSlug = firstSlugRaw;
-            // イベント詳細ページと同じスラッグ処理を適用
-            if (firstSlug && firstSlug.includes('/')) {
-                firstSlug = firstSlug.replace(/\//g, ':');
-            }
             
-            console.log('🖼️ Processing hero image:', {
-                originalSlug: firstSlugRaw,
-                processedSlug: firstSlug
+            // 指定されたヒーロー画像URLを設定
+            const heroImageUrl = 'https://images.pinyogram.com/home/0916.png';
+            
+            console.log('🖼️ Setting hero image:', {
+                heroImageUrl: heroImageUrl
             });
             
-            const heroUrl = (window.getEventAssetUrl ? window.getEventAssetUrl(firstSlug, 'main', 'hero.png') : (window.APP_IMAGE && window.APP_IMAGE.hero)) || fallbackHero;
-            ['heroImg1','heroImg2','heroImg3'].forEach(id => { const el = document.getElementById(id); if (el) el.src = heroUrl; });
+            // ヒーロー画像を設定（3つのスライドすべてに同じ画像を適用）
+            ['heroImg1','heroImg2','heroImg3'].forEach(id => { 
+                const el = document.getElementById(id); 
+                if (el) {
+                    el.src = heroImageUrl;
+                    el.alt = 'ぴにょぐらむ撮影会 - イベント情報';
+                    
+                    // 画像読み込みエラーハンドリング
+                    el.onerror = function() {
+                        console.warn('⚠️ Hero image failed to load, using fallback:', heroImageUrl);
+                        this.src = fallbackHero;
+                        this.alt = 'ぴにょぐらむ撮影会 - フォールバック画像';
+                    };
+                    
+                    // 画像読み込み成功時のログ
+                    el.onload = function() {
+                        console.log('✅ Hero image loaded successfully:', heroImageUrl);
+                    };
+                }
+            });
+
+            // ヒーローバンドの背景URL設定機能
+            function applyBg(band) {
+                const img = band.querySelector('img');
+                if (!img) return;
+                const url = 'url("' + (img.currentSrc || img.src) + '")';
+                band.style.setProperty('--bg', url);
+                console.log('🎨 Applied background URL to hero-band:', url);
+            }
+
+            // すべてのヒーローバンドに背景URLを適用
+            document.querySelectorAll('.hero-band').forEach(band => {
+                const img = band.querySelector('img');
+                if (!img) return;
+
+                // 初期反映
+                if (img.complete) {
+                    applyBg(band);
+                } else {
+                    img.addEventListener('load', () => applyBg(band), { once: true });
+                }
+
+                // 画像差し替え（スライダー等）にも追随
+                new MutationObserver(() => applyBg(band))
+                    .observe(img, { attributes: true, attributeFilter: ['src', 'srcset'] });
+            });
             // 各イベントのカード画像に拡張子フォールバック（jpg/png/webp）
             const cacheBuster = '?v=' + Date.now();
             eventData.forEach(e => {
@@ -383,5 +402,32 @@
     <script type="module" src="js/shared/main.js"></script>
     <script defer src="../shared/header.js"></script>
     <script defer src="../shared/footer.js"></script>
+    
+    <!-- 自動2色抽出JS -->
+    <script>
+    (() => {
+      const frames = document.querySelectorAll('.media-frame.fill-gradient');
+      frames.forEach(frame => {
+        const img = frame.querySelector('img');
+        if (!img) return;
+        const apply = () => {
+          try{
+            const c = document.createElement('canvas'), ctx = c.getContext('2d');
+            const w = c.width = 24, h = c.height = 24;
+            ctx.drawImage(img, 0, 0, w, h);
+            const {data} = ctx.getImageData(0,0,w,h);
+            let lR=0,lG=0,lB=0,lN=0, rR=0,rG=0,rB=0,rN=0;
+            for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+              const i=(y*w+x)*4, R=data[i], G=data[i+1], B=data[i+2];
+              if(x<w/2){ lR+=R; lG+=G; lB+=B; lN++; } else { rR+=R; rG+=G; rB+=B; rN++; }
+            }
+            frame.style.setProperty('--c1',`rgb(${(lR/lN)|0},${(lG/lN)|0},${(lB/lN)|0})`);
+            frame.style.setProperty('--c2',`rgb(${(rR/rN)|0},${(rG/rN)|0},${(rB/rN)|0})`);
+          }catch(e){}
+        };
+        img.complete ? apply() : img.addEventListener('load', apply, {once:true});
+      });
+    })();
+    </script>
 </body>
 </html>

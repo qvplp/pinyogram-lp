@@ -33,6 +33,9 @@ body {
     line-height: 1.47059;
     font-size: 17px;
     -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+    text-align: center; /* 子要素の中央配置を確実にする */
 }
 
 /* ヘッダー */
@@ -86,8 +89,12 @@ nav {
     grid-template-columns: 2fr 1fr;
     gap: 30px;
     max-width: 1400px;
-    margin: 30px auto;
+    margin: 80px auto 30px auto; /* ヒーローセクションとの間隔を確保 */
     padding: 0 30px;
+    position: relative; /* 重なりを防ぐ */
+    text-align: left; /* メインコンテナのテキストは左寄せ */
+    z-index: 1; /* ヒーローセクションより下に配置 */
+    clear: both; /* フロートクリア */
 }
 
 /* 左側：イベント一覧 */
@@ -96,6 +103,9 @@ nav {
     border-radius: 18px;
     padding: 30px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+    position: relative; /* 位置を明確化 */
+    z-index: 1; /* ヒーローセクションより下に配置 */
+    margin-top: 0; /* 上部マージンを確実に0に */
 }
 
 .section-title {
@@ -124,6 +134,8 @@ nav {
     display: flex;
     flex-direction: column;
     height: 100%; /* カードの高さを統一 */
+    margin: 0 !important; /* マージンを0に設定 */
+    padding: 0 !important; /* パディングを0に設定 */
 }
 
 .event-card:hover {
@@ -139,39 +151,121 @@ nav {
     box-shadow: 0 8px 16px rgba(0,122,255,0.2);
 }
 
-.event-card-image {
-    aspect-ratio: 1200/630 !important; /* 1200×630の正確な比率に統一 - 強制適用 */
-    background: var(--gradient-main) !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    color: white !important;
-    font-weight: 600 !important;
-    position: relative !important;
-    overflow: hidden !important;
-    min-height: 200px !important; /* 最小高さを拡大 */
-    max-height: 300px !important; /* 最大高さを拡大 */
-    height: 250px !important; /* 固定高さを拡大 */
-    width: 100% !important; /* 幅を強制適用 */
+/* ▼ 新しいスコープ化されたメディア枠 */
+.media-frame {
+    position: relative;
+    aspect-ratio: 40 / 21;     /* 1200x630 固定比 */
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    line-height: 0;            /* 下の謎余白対策 */
+    border-radius: 16px 16px 0 0; /* 必要に応じて調整 */
+    background: #111;
+    isolation: isolate;        /* スタックコンテキスト分離 */
 }
 
-/* より具体的なセレクタでインラインスタイルを上書き */
-.event-card .event-card-image {
-    aspect-ratio: 1200/630 !important;
-    background: var(--gradient-main) !important;
-    height: 250px !important; /* 固定高さを拡大 */
-    min-height: 200px !important; /* 最小高さを拡大 */
-    max-height: 300px !important; /* 最大高さを拡大 */
-}
-
-.event-card-image img {
+/* 画像本体：切れない・余白ゼロ */
+.media-frame > img {
+    display: block;            /* baseline ギャップ消し */
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 画像を枠いっぱいに表示 */
-    object-position: center;
-    position: relative; /* absoluteからrelativeに変更 */
-    z-index: 1; /* 画像を前面に配置 */
-    border-radius: 8px 8px 0 0;
+    object-fit: contain;       /* 切れ防止（coverにしたい枠は別クラスで切替） */
+    object-position: var(--pos, center);
+    position: relative;
+    z-index: 1;
+}
+
+/* ぼかし背景（必要な枠だけに適用） */
+.media-frame.has-blur::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--bg) center/cover no-repeat;
+    filter: blur(14px) saturate(0.95) brightness(0.95);
+    transform: scale(1.1);
+    z-index: 0;
+}
+
+/* ▼ これが "オーバーレイ帯" の正しいスコープ（グローバル .overlay は使わない） */
+.media-frame > .media-overlay {
+    position: absolute;
+    inset: auto 0 0 0;  /* 下部にピタッと */
+    padding: var(--overlay-p, 0); /* 既存があれば使う */
+    line-height: normal;         /* テキストはここで管理 */
+    z-index: 2;
+}
+
+/* ▼ 一時的な保険：グローバル .overlay を無効化（本番は該当CSS自体を削除） */
+:root .overlay {
+    position: static !important;
+    inset: auto !important;
+    left: auto !important; 
+    right: auto !important;
+    top: auto !important; 
+    bottom: auto !important;
+}
+
+/* height直指定を使わない。aspect-ratioで高さを確保 */
+.hero img, .hero figure { 
+    height: auto !important; 
+}
+
+/* ▼ 被写体の寄せ位置（任意） */
+.media-frame[data-focal="left"]   { --pos: left  center; }
+.media-frame[data-focal="right"]  { --pos: right center; }
+.media-frame[data-focal="top"]    { --pos: center top; }
+.media-frame[data-focal="bottom"] { --pos: center bottom; }
+.media-frame[data-focal="center"] { --pos: center center; }
+
+/* 既存クラスとの互換性維持 */
+.event-card-image,
+.card-media,
+.hero-media {
+    /* .media-frame のスタイルを継承 */
+    position: relative;
+    aspect-ratio: 40 / 21;
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    line-height: 0;
+    border-radius: 12px 12px 0 0;
+    background: #111;
+    isolation: isolate;        /* スタックコンテキスト分離 */
+}
+
+.event-card-image > img,
+.card-media > img,
+.hero-media > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: var(--pos, center);
+    position: relative;
+    z-index: 1;
+}
+
+/* 既存のぼかし背景（.has-blurクラスで管理） */
+.event-card-image.has-blur::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--bg) center/cover no-repeat;
+    filter: blur(14px) saturate(0.95) brightness(0.95);
+    transform: scale(1.1);
+    z-index: 0;
+}
+
+/* 既存のオーバーレイ（段階的に .media-overlay に移行） */
+.event-card-image .overlay,
+.card-media .overlay,
+.hero-media .overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    margin: 0;
+    line-height: normal;
+    pointer-events: none;
+    z-index: 2;
 }
 
 .event-badge {
@@ -243,10 +337,12 @@ nav {
 
 /* 右側：カレンダー */
 .calendar-section {
-    position: sticky;
-    top: 80px;
+    position: relative; /* stickyをrelativeに変更 */
+    top: 0; /* topを0に */
     height: fit-content;
     min-height: 600px; /* カレンダーセクション全体の最小高さを固定 */
+    z-index: 1; /* ヒーローセクションより下に配置 */
+    margin-top: 0; /* 上部マージンを確実に0に */
 }
 
 .calendar-container {
@@ -484,61 +580,71 @@ nav {
     transform: scale(1.05); /* ホバー時の拡大効果 */
 }
 
-/* ===================================
-   ヒーローセクション（修正版）
-   =================================== */
-.hero-section {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1200/630 !important; /* 1200×630の正確な比率に固定 - 強制適用 */
-    max-height: 600px !important; /* 最大高さをさらに拡大 */
-    min-height: 350px !important; /* 最小高さをさらに拡大 */
-    height: 500px !important; /* 固定高さをさらに拡大 */
-    overflow: hidden;
-    margin-bottom: 50px; /* 下の要素との間隔を調整 */
+/* 旧ヒーロー定義は削除 - 統一版に置き換え */
+
+/* 3) ヒーロー統一版：見切れない自然サイズ＋非オーバーラップ */
+:root{
+  /* 画面幅ごとの"目安高さ"だけ触ればOK */
+  --hero-h-sm: clamp(220px, 55vw, 350px);
+  --hero-h-md: clamp(280px, 42vw, 450px);
+  --hero-h-lg: clamp(320px, 38vw, 520px);
 }
 
-.hero-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
+.hero.no-overlap{
+  position: relative;
+  isolation: isolate;        /* 他セクションへ侵食しない */
+  overflow: clip;            /* 子要素を枠内に閉じ込める */
+  margin-block: 12px clamp(16px, 4vw, 28px);
+  z-index: 0;
 }
 
-.hero-slider {
-    position: relative;
-    width: 100%;
-    height: 100%;
+/* デフォ高さ → 画面幅で切替 */
+.hero.no-overlap{ --hero-h: var(--hero-h-md); }
+@media (max-width: 480px){  .hero.no-overlap{ --hero-h: var(--hero-h-sm); } }
+@media (min-width: 1024px){ .hero.no-overlap{ --hero-h: var(--hero-h-lg); } }
+
+/* ヒーローは "高さ主導"。比率は無効化して切れを防ぐ */
+.hero.no-overlap .media-frame{
+  height: var(--hero-h);
+  max-height: 46svh;         /* 画面の約半分までに抑制（好みで調整） */
+  width: 100%;
+  aspect-ratio: auto !important;  /* ここがポイント：比率固定を外す */
+  border-radius: 16px;
+  overflow: hidden;
 }
 
-.hero-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    cursor: pointer; /* クリック可能を示す */
+/* 画像は常に全体表示（左右に余白OK） */
+.hero.no-overlap .media-frame > img{
+  width: 100%;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  display: block;
+  vertical-align: bottom;
 }
 
-.hero-slide.active {
-    opacity: 1;
+/* オーバーレイは枠内に固定 */
+.hero.no-overlap .media-overlay{ inset: auto 0 0 0; }
+
+/* fill-gradient の下地（既に定義済ならそのまま） */
+.media-frame.fill-gradient::before{
+  content:""; position:absolute; inset:0; z-index:0;
+  background: linear-gradient(90deg, var(--c1,#1b1b1b), var(--c2,#2a2a2a));
 }
 
-.hero-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* 画像全体を表示し、余白は背景色で埋める */
-    object-position: center;
-    background: var(--gradient-main); /* 余白部分の背景色 */
+/* グローバル .overlay の副作用を無効化（該当CSSを削除できない場合のみ） */
+:root .overlay{
+  position: static !important;
+  inset: auto !important;
+  left: auto !important; right: auto !important;
+  top: auto !important;  bottom: auto !important;
 }
 
-/* リンクラッパー */
-.hero-link {
+.hero-media .media-overlay .hero-link {
     display: block;
     width: 100%;
     height: 100%;
-    position: relative;
+    pointer-events: auto;
 }
 
 /* インジケーター */
@@ -571,8 +677,19 @@ nav {
     .main-container {
         grid-template-columns: 1fr;
         gap: 20px;
-        margin: 20px auto;
+        margin: 0 auto 20px auto; /* 上部マージンを削除 */
         padding: 0 20px;
+    }
+    
+    /* ヒーロー専用モバイル設定（他セクションに影響しない） */
+    .hero-section {
+        margin-bottom: 60px; /* モバイルでも十分な間隔を確保 */
+        z-index: 10; /* モバイルでも確実に上に配置 */
+    }
+    
+    .main-container {
+        margin-top: 0; /* モバイルでも上部マージンを確実に0に */
+        z-index: 1; /* ヒーローセクションより下に配置 */
     }
     
     .events-section {
@@ -584,11 +701,16 @@ nav {
         gap: 20px;
     }
     
-    .hero-section {
-        max-height: 400px !important; /* 最大高さを調整 */
-        min-height: 250px !important; /* 最小高さを調整 */
-        height: 350px !important; /* 固定高さを調整 */
-        margin-bottom: 40px;
+    .hero-container {
+        padding: 0 20px;
+    }
+    
+    .hero-band {
+        aspect-ratio: 40 / 21; /* 40:21比率に統一 */
+    }
+    
+    .hero-media {
+        aspect-ratio: 40 / 21; /* 40:21比率に統一 */
     }
     
     .event-card-image {
@@ -600,8 +722,19 @@ nav {
 
 @media (max-width: 480px) {
     .main-container {
-        margin: 15px auto;
+        margin: 0 auto 15px auto; /* 上部マージンを削除 */
         padding: 0 15px;
+    }
+    
+    /* ヒーロー専用小型スマートフォン設定（他セクションに影響しない） */
+    .hero-section {
+        margin-bottom: 50px; /* 小型スマートフォンでも十分な間隔を確保 */
+        z-index: 10; /* 小型スマートフォンでも確実に上に配置 */
+    }
+    
+    .main-container {
+        margin-top: 0; /* 小型スマートフォンでも上部マージンを確実に0に */
+        z-index: 1; /* ヒーローセクションより下に配置 */
     }
     
     .events-section {
@@ -613,11 +746,16 @@ nav {
         margin-bottom: 20px;
     }
     
-    .hero-section {
-        max-height: 300px !important; /* 最大高さを調整 */
-        min-height: 180px !important; /* 最小高さを調整 */
-        height: 250px !important; /* 固定高さを調整 */
-        margin-bottom: 30px;
+    .hero-container {
+        padding: 0 15px;
+    }
+    
+    .hero-band {
+        aspect-ratio: 40 / 21; /* 40:21比率に統一 */
+    }
+    
+    .hero-media {
+        aspect-ratio: 40 / 21; /* 40:21比率に統一 */
     }
     
     .event-card-image {
@@ -841,10 +979,11 @@ nav {
         min-height: 360px;
         max-height: 360px;
     }
+}
 
-    /* ===================================
-   ハンバーガーメニュー
-   =================================== */
+/* ===================================
+ハンバーガーメニュー
+=================================== */
 .mobile-menu-toggle {
     display: none;
     flex-direction: column;
@@ -1013,7 +1152,7 @@ nav {
     
     .calendar-grid {
         grid-template-rows: repeat(6, 50px); /* 各セル50px固定 */
-        height: 300px; /* 6行 × 50px = 300px */
+        height: 400px; /* 6行 × 50px = 300px */
         min-height: 300px;
         max-height: 300px;
     }
@@ -1206,4 +1345,204 @@ nav {
         padding-bottom: env(safe-area-inset-bottom);
     }
 }
+
+/* ===== Media Frame 共通（既存） ===== */
+.media-frame{
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 16px;
+  margin: 0;
+  line-height: 0;
+  background: #111;
+  box-sizing: border-box;
 }
+.media-frame.is-40x21{ aspect-ratio: 40/21; width: 100%; }
+
+.media-frame > img{
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: contain;
+  object-position: var(--pos, center);
+  position: relative;
+  z-index: 1;
+}
+
+.media-frame > .media-overlay{
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 2;
+  line-height: normal;
+  box-sizing: border-box;
+}
+
+/* 自動2色グラデ（fill-gradient 用） */
+.media-frame.fill-gradient::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(90deg, var(--c1,#1b1b1b), var(--c2,#2a2a2a));
+}
+
+/* ===== No-Overlap ガード（ヒーロー専用） ===== */
+.hero.no-overlap{
+  position: relative;
+  z-index: 0;            /* ヘッダー等より下でOK */
+  isolation: isolate;    /* ここで積層文脈を分離 */
+  overflow: clip;        /* 子要素が枠外へ描画できない */
+  margin-bottom: clamp(16px, 4vw, 28px);  /* 下のセクションとの空き */
+}
+
+/* ヒーローは必ず "全体表示"（縮小時に左右余白が出てもOK） */
+.hero.no-overlap .media-frame{ aspect-ratio: 30/21; }
+.hero.no-overlap .media-frame > img{
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+/* 帯UIが枠外へ出ないよう明示 */
+.hero.no-overlap .media-overlay{ inset: auto 0 0 0; }
+
+/* 旧グローバル overlay の副作用を無効化（該当CSSを削除できるなら削除推奨） */
+:root .overlay{
+  position: static !important;
+  inset: auto !important;
+  left: auto !important; right: auto !important;
+  top: auto !important;  bottom: auto !important;
+}
+
+/* height 直指定との競合を回避（過去の応急処置が残っていた場合の打ち消し） */
+.hero img, .hero figure{ height: auto; } /* ← 基本は auto に戻す（下で img=100% を強制） */
+
+/* ===============================
+   HERO: 調整ポイント（セクション／画像を分離）
+   =============================== */
+
+/* --- セクション側のサイズ調整（ここだけで"横幅・丸み・間隔"を変えられる） --- */
+:root{
+  /* デフォルト：最大幅800px（拡大）、左右はビューポート8vwまで広げる */
+  --hero-max-w: 800px;
+  --hero-side-vw: 8vw;            /* 余白の目安 */
+  --hero-radius: 16px;            /* 角丸 */
+  --hero-gap-bottom: clamp(8px, 4vw, 10px);
+  /* 画像の既定比率（1200x630=40/21） */
+  --hero-aspect: 40 / 21;
+}
+
+/* プリセット（幅だけ変えたい時にセクションへクラスを足す） */
+.hero--sm { --hero-max-w: 640px;  --hero-side-vw: 6vw; }  /* 拡大版 */
+.hero--md { --hero-max-w: 800px;  --hero-side-vw: 8vw; }  /* 拡大版 */
+.hero--lg { --hero-max-w: 960px;  --hero-side-vw: 10vw; } /* 拡大版 */
+
+/* セクション外枠：横いっぱいにしない／中央寄せ／他セクションに被らない */
+.hero-shell{
+  /* 確実に最大幅を適用 */
+  width: var(--hero-max-w);
+  max-width: var(--hero-max-w);
+  margin: 12px auto var(--hero-gap-bottom) auto !important;
+  isolation: isolate;     /* 積層分離 */
+  overflow: clip;         /* はみ出し禁止 */
+  z-index: 0;
+  display: flex;          /* Flexboxで確実な中央配置 */
+  justify-content: center; /* 水平中央配置 */
+  align-items: center;    /* 垂直中央配置 */
+  position: relative;     /* 相対位置で中央配置を確実にする */
+  text-align: left;       /* ヒーロー内のテキストは左寄せ */
+}
+
+/* モバイルデバイスでのみビューポート幅を考慮 */
+@media (max-width: 768px) {
+  .hero-shell{
+    width: min(var(--hero-max-w), 100vw - 2 * var(--hero-side-vw));
+    margin: 12px auto var(--hero-gap-bottom) auto !important;
+  }
+}
+
+/* --- 画像フレーム（比率追従） --- */
+.hero-frame{
+  position: relative;
+  width: 100%;
+  flex: 0 0 auto;        /* Flexbox内で適切に動作 */
+  /* ★セクション自体が画像比率に追従：高さは幅から自動算出 */
+  aspect-ratio: var(--hero-aspect);
+  border-radius: var(--hero-radius);
+  overflow: hidden;
+  background: #111;
+}
+
+/* 背景（任意）：自動2色グラデ。fill-gradientを付けた時だけ出る */
+.hero-frame.fill-gradient::before{
+  content:"";
+  position:absolute; inset:0; z-index:0;
+  background: linear-gradient(90deg, var(--c1,#1b1b1b), var(--c2,#2a2a2a));
+}
+
+/* --- 画像の見せ方（セクションと独立に調整） --- */
+.hero-frame>img{
+  display:block;
+  inline-size:100%;
+  block-size:100%;
+  object-fit: contain;          /* デフォルト：切れない */
+  object-position: var(--hero-pos, center);
+  z-index:1; position:relative;
+}
+
+/* オプション：もしベタ張りが必要な箇所だけ .img-cover を hero-frame に追加 */
+.hero-frame.img-cover>img{ object-fit: cover; }
+
+/* 被写体寄せを属性で */
+.hero-frame[data-pos="left"]   { --hero-pos: left  center; }
+.hero-frame[data-pos="right"]  { --hero-pos: right center; }
+.hero-frame[data-pos="top"]    { --hero-pos: center top; }
+.hero-frame[data-pos="bottom"] { --hero-pos: center bottom; }
+
+/* 帯UIは枠内に固定 */
+.hero-frame>.media-overlay{
+  position:absolute; left:0; right:0; bottom:0; z-index:2;
+  line-height:normal;
+}
+
+/* 旧グローバル .overlay が残っていた場合の保険（可能なら元CSSを削除） */
+:root .overlay{
+  position: static !important;
+  inset: auto !important;
+  left:auto !important; right:auto !important;
+  top:auto !important;  bottom:auto !important;
+}
+
+/* ===============================
+   画像だけ縮小するための共通フック
+   =============================== */
+
+/* 画像スケールの既定（figure に載る変数） */
+.hero-frame, .media-frame { --img-scale: 1; }
+
+/* スケール適用（画像だけ拡大/縮小。レイアウトは変えない） */
+.hero-frame > img, .media-frame > img{
+  transform: scale(var(--img-scale));
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* ユーティリティ（必要な倍率だけ使う） */
+.hero-frame.img-100 > img, .media-frame.img-100 > img { --img-scale: 1;   }
+.hero-frame.img-110 > img, .media-frame.img-110 > img { --img-scale: 1.1; }
+.hero-frame.img-120 > img, .media-frame.img-120 > img { --img-scale: 1.2; }
+
+/* ヒーロー画像は比率維持で枠にフィット（同比率なら黒は出ない） */
+.hero-frame > img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;          /* ← 切らずにフィット */
+  object-position: center;
+}
+
+/* よく使う固定スケールのユーティリティ（旧版） */
+.hero-frame.img-75{ --img-scale: .75; }  /* 25%縮小（=75%表示） */
+.hero-frame.img-50{ --img-scale: .5;  }  /* 50%縮小（=半分）  */
+.hero-frame.img-90{ --img-scale: .9;  }  /* 10%縮小           */
+.media-frame.img-75{ --img-scale: .75; }  /* 25%縮小（=75%表示） */
+.media-frame.img-50{ --img-scale: .5;  }  /* 50%縮小（=半分）  */
+.media-frame.img-90{ --img-scale: .9;  }  /* 10%縮小           */

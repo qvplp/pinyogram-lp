@@ -154,6 +154,9 @@
             border-radius: 10px;
             overflow: hidden;
             transition: transform 0.3s ease;
+            margin: 0 !important; /* 余白除去 */
+            padding: 0 !important; /* 余白除去 */
+            line-height: 0 !important; /* inline要素の行ボックスを無効化 */
         }
         
         .model-card:hover {
@@ -163,12 +166,16 @@
         
         .model-image {
             width: 100% !important;
-            aspect-ratio: 1200/630 !important; /* 1200×630の正確な比率に統一 - 強制適用 */
+            aspect-ratio: 40/21 !important; /* 1200×630 = 40:21の正確な比率 */
             max-height: 300px !important; /* 最大高さを拡大 */
             min-height: 200px !important; /* 最小高さを拡大 */
             height: 250px !important; /* 固定高さを拡大 */
             object-fit: contain; /* 画像全体を表示し、余白は背景色で埋める */
             background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            display: block !important; /* baselineギャップ対策 */
+            margin: 0 !important; /* 余白除去 */
+            padding: 0 !important; /* 余白除去 */
+            vertical-align: bottom !important; /* ブラウザ依存の1px対策 */
         }
         
         .model-info {
@@ -190,7 +197,7 @@
         
         /* コンテンツセクション */
         .event-content-section {
-            padding: 80px 30px;
+            padding: 80px 10px;
             background: #f5f7fa;
         }
         
@@ -201,20 +208,27 @@
         
         .event-gallery {
             background: white;
-            border-radius: 15px;
+            border-radius: 0px;
             overflow: hidden;
             margin-bottom: 30px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin: 0 !important; /* 余白除去 */
+            padding: 0 !important; /* 余白除去 */
+            line-height: 0 !important; /* inline要素の行ボックスを無効化 */
         }
         
         .main-image {
             width: 100% !important;
-            aspect-ratio: 1200/630 !important; /* 1200×630の正確な比率に統一 - 強制適用 */
-            max-height: 500px !important; /* 最大高さを拡大 */
-            min-height: 300px !important; /* 最小高さを拡大 */
-            height: 400px !important; /* 固定高さを拡大 */
+            aspect-ratio: 40/21 !important; /* 1200×630 = 40:21の正確な比率 */
+            max-height: 490px !important; /* 最大高さを拡大 */
+            min-height: 400px !important; /* 最小高さを拡大 */
+            height: 500px !important; /* 固定高さを拡大 */
             object-fit: cover; /* 画像を枠いっぱいに表示 */
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(1deg, #667eea, #764ba2);
+            display: block !important; /* baselineギャップ対策 */
+            margin: 0 !important; /* 余白除去 */
+            padding: 0 !important; /* 余白除去 */
+            vertical-align: bottom !important; /* ブラウザ依存の1px対策 */
         }
         
         .event-description {
@@ -357,6 +371,9 @@
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
+            margin: 0 !important; /* 余白除去 */
+            padding: 0 !important; /* 余白除去 */
+            line-height: 0 !important; /* inline要素の行ボックスを無効化 */
         }
         
         .event-card:hover {
@@ -364,12 +381,15 @@
         }
         
         .event-image {
-            aspect-ratio: 1200/630 !important; /* 1200×630の正確な比率に統一 - 強制適用 */
+            aspect-ratio: 40/21 !important; /* 1200×630 = 40:21の正確な比率 */
             max-height: 250px !important; /* 最大高さを拡大 */
             min-height: 150px !important; /* 最小高さを拡大 */
             height: 200px !important; /* 固定高さを拡大 */
             background: linear-gradient(135deg, #667eea, #764ba2);
             position: relative;
+            margin: 0 !important; /* 余白除去 */
+            padding: 0 !important; /* 余白除去 */
+            line-height: 0 !important; /* inline要素の行ボックスを無効化 */
         }
         
         .event-image img {
@@ -378,6 +398,10 @@
             object-fit: contain; /* 画像全体を表示し、余白は背景色で埋める */
             object-position: center;
             background: linear-gradient(135deg, #667eea, #764ba2);
+            display: block !important; /* baselineギャップ対策 */
+            margin: 0 !important; /* 余白除去 */
+            padding: 0 !important; /* 余白除去 */
+            vertical-align: bottom !important; /* ブラウザ依存の1px対策 */
         }
         
         .event-image.no-image {
@@ -796,8 +820,8 @@
                         const fmt = (n)=>`¥${Number(n).toLocaleString()}`;
                         priceTable.innerHTML = `
                             <div class="price-item"><span class="price-label">各部</span><span class="price-value">${fmt(p.perUnit)}</span></div>
-                            <div class="price-item"><span class="price-label">3部通し</span><span class="price-value">${fmt(p.twoParts)}</span></div>
-                            <div class="price-item"><span class="price-label">全通し</span><span class="price-value">${fmt(p.threeParts)}</span></div>
+                            <div class="price-item"><span class="price-label">2部通し</span><span class="price-value">${fmt(p.twoParts)}</span></div>
+                            <div class="price-item"><span class="price-label">3部通し</span><span class="price-value">${fmt(p.threeParts)}</span></div>
                         `;
                     }
                 }
