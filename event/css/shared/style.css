@@ -84,32 +84,33 @@ nav {
 .main-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 20px;
+    gap: 30px;
     max-width: 1400px;
-    margin: 20px auto;
-    padding: 0 20px;
+    margin: 30px auto;
+    padding: 0 30px;
 }
 
 /* 左側：イベント一覧 */
 .events-section {
     background: white;
     border-radius: 18px;
-    padding: 24px;
+    padding: 30px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.04);
 }
 
 .section-title {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 600;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(0,0,0,0.06);
 }
 
 .events-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    align-items: start; /* カードの高さを揃える */
 }
 
 .event-card {
@@ -120,6 +121,9 @@ nav {
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: pointer;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* カードの高さを統一 */
 }
 
 .event-card:hover {
@@ -200,29 +204,36 @@ nav {
 }
 
 .event-content {
-    padding: 15px;
+    padding: 20px;
+    flex: 1; /* 利用可能なスペースを拡張 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .event-title {
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     color: var(--gray-900);
+    line-height: 1.3;
 }
 
 .event-info {
     font-size: 14px;
     color: var(--gray-600);
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    line-height: 1.4;
 }
 
 .event-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 15px;
+    padding: 15px 20px;
     background: var(--gray-50);
     border-top: 1px solid rgba(0,0,0,0.04);
+    min-height: 60px; /* 画像サイズに合わせた最小高さ */
 }
 
 .event-price {
@@ -558,6 +569,22 @@ nav {
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
+    .main-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin: 20px auto;
+        padding: 0 20px;
+    }
+    
+    .events-section {
+        padding: 20px;
+    }
+    
+    .events-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
     .hero-section {
         max-height: 300px !important; /* 最大高さを調整 */
         min-height: 180px !important; /* 最小高さを調整 */
@@ -573,6 +600,20 @@ nav {
 }
 
 @media (max-width: 480px) {
+    .main-container {
+        margin: 15px auto;
+        padding: 0 15px;
+    }
+    
+    .events-section {
+        padding: 15px;
+    }
+    
+    .section-title {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+    
     .hero-section {
         max-height: 200px !important; /* 最大高さを調整 */
         min-height: 120px !important; /* 最小高さを調整 */
@@ -584,6 +625,14 @@ nav {
         min-height: 120px !important; /* 小さな画面用の最小高さを調整 */
         max-height: 180px !important; /* 最大高さを調整 */
         height: 150px !important; /* 固定高さを調整 */
+    }
+    
+    .event-content {
+        padding: 15px;
+    }
+    
+    .event-title {
+        font-size: 16px;
     }
     
     .hero-indicators {
