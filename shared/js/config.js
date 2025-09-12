@@ -17,3 +17,26 @@ window.getEventAssetUrl = function(eventSlug, subdir, fileName){
   const encSlug = encodeURI(eventSlug);
   return `${window.CDN_EVENTS_BASE}/${encSlug}/${subdir}/${fileName}`;
 };
+
+// 拡張子フォールバック用：baseName と拡張子候補からURL配列を生成
+window.getEventAssetUrlCandidates = function(eventSlug, subdir, baseName, extensions){
+  const exts = extensions && extensions.length ? extensions : ['jpg','png','webp'];
+  return exts.map(ext => window.getEventAssetUrl(eventSlug, subdir, `${baseName}.${ext}`));
+};
+
+// 画像読み込みフォールバック: data-fallbacks に保存されたURLを順番に試す
+window.__imgFallback = function(imgEl){
+  try {
+    const list = imgEl.getAttribute('data-fallbacks') || '';
+    const arr = list.split(',').filter(Boolean);
+    if (arr.length === 0) {
+      imgEl.style.display = 'none';
+      return;
+    }
+    const next = arr.shift();
+    imgEl.setAttribute('data-fallbacks', arr.join(','));
+    imgEl.src = next;
+  } catch (e) {
+    imgEl.style.display = 'none';
+  }
+};

@@ -749,20 +749,36 @@
                 if (this.eventData.models && this.eventData.models.length > 0) {
                     const modelsSection = document.getElementById('modelsSection');
                     let modelsHTML = '';
-                    const EVENT_SLUG = this.eventData.slug || this.eventData.event_name;
+                    let EVENT_SLUG = this.eventData.slug || this.eventData.event_name;
+                    if (EVENT_SLUG && EVENT_SLUG.includes('/')) {
+                        EVENT_SLUG = EVENT_SLUG.replace(/\//g, ':');
+                    }
                     this.eventData.models.forEach((model, idx) => {
-                        // 明示ファイル名があればそれを優先、なければ連番
-                        const fileName = (model.image && model.image.trim()) ? model.image : `${idx+1}.jpg`;
-                        const src = (window.getEventAssetUrl ? window.getEventAssetUrl(EVENT_SLUG, 'models', fileName) : (model.image || ''));
-                        modelsHTML += `
-                            <div class="model-card">
-                                <img src="${src}" alt="${model.name}" class="model-image">
-                                <div class="model-info">
-                                    <div class="model-name">${model.name}</div>
-                                    <div class="model-role">${model.role}</div>
+                        const base = (model.image && model.image.trim()) ? model.image.replace(/\.(jpg|jpeg|png|webp)$/i,'') : `${idx+1}`;
+                        if (window.getEventAssetUrlCandidates) {
+                            const cands = window.getEventAssetUrlCandidates(EVENT_SLUG, 'models', base, ['jpg','png','webp']);
+                            const fallbacks = cands.slice(1).join(',');
+                            modelsHTML += `
+                                <div class="model-card">
+                                    <img src="${cands[0]}" data-fallbacks="${fallbacks}" alt="${model.name}" class="model-image" onerror="window.__imgFallback(this)">
+                                    <div class="model-info">
+                                        <div class="model-name">${model.name}</div>
+                                        <div class="model-role">${model.role}</div>
+                                    </div>
                                 </div>
-                            </div>
-                        `;
+                            `;
+                        } else {
+                            const src = (window.getEventAssetUrl ? window.getEventAssetUrl(EVENT_SLUG, 'models', `${base}.jpg`) : (model.image || ''));
+                            modelsHTML += `
+                                <div class="model-card">
+                                    <img src="${src}" alt="${model.name}" class="model-image">
+                                    <div class="model-info">
+                                        <div class="model-name">${model.name}</div>
+                                        <div class="model-role">${model.role}</div>
+                                    </div>
+                                </div>
+                            `;
+                        }
                     });
                     modelsSection.innerHTML = modelsHTML;
                 }
@@ -770,9 +786,18 @@
                 // 画像設定（Cloudflare構成対応: main/hero.jpg）
                 const eventImage = document.getElementById('eventImage');
                 if (eventImage) {
-                    const EVENT_SLUG = this.eventData.slug || this.eventData.event_name;
-                    const heroUrl = (window.getEventAssetUrl ? window.getEventAssetUrl(EVENT_SLUG, 'main', 'hero.jpg') : this.eventData.image);
-                    eventImage.src = heroUrl || this.eventData.image;
+                    let EVENT_SLUG = this.eventData.slug || this.eventData.event_name;
+                    if (EVENT_SLUG && EVENT_SLUG.includes('/')) {
+                        EVENT_SLUG = EVENT_SLUG.replace(/\//g, ':');
+                    }
+                    if (window.getEventAssetUrlCandidates) {
+                        const cands = window.getEventAssetUrlCandidates(EVENT_SLUG, 'main', 'hero', ['jpg','png','webp']);
+                        eventImage.setAttribute('data-fallbacks', cands.slice(1).join(','));
+                        eventImage.onerror = function(){ window.__imgFallback(this); };
+                        eventImage.src = cands[0];
+                    } else {
+                        eventImage.src = this.eventData.image || '';
+                    }
                     eventImage.alt = this.eventData.event_name;
                     
                     // 画像読み込みエラー時のフォールバック
