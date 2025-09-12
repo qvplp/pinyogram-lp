@@ -36,8 +36,43 @@
           "assets/images/events/2025/cosplay_sp/3.jpg"
         ]
       }
+    },
+    {
+      "event_id": "EVT004",
+      "event_name": "セッション撮影会2025/09/16",
+      "event_type": "group_session",
+      "category": ["session"],
+      "description": "各部5人以下の少人数セッション撮影会",
+      "event_date": "2025-09-16",
+      "start_time": "18:00",
+      "end_time": "22:00",
+      "status": "published",
+      "visibility": "public",
+      "venue": {
+        "venue_id": "VENUE_GSTA",
+        "venue_name": "Gスタ",
+        "address": "〒111-0053 東京都台東区浅草橋５丁目３−２ 秋葉原スクエアビル ４F"
+      },
+      "sessions": [
+        { "session_id": "S1", "session_name": "1部", "time_slot": "18:00-18:40", "price": 10000, "capacity": 5, "reserved_count": 0, "status": "available" },
+        { "session_id": "S2", "session_name": "2部", "time_slot": "19:10-19:50", "price": 10000, "capacity": 5, "reserved_count": 0, "status": "available" },
+        { "session_id": "S3", "session_name": "3部", "time_slot": "20:20-21:00", "price": 10000, "capacity": 5, "reserved_count": 0, "status": "available" }
+      ],
+      "pricing": { "base_price": 10000, "twoParts": 19000, "threeParts": 28000 },
+      "models": [
+        { "model_id": "MDL_KURIEMI", "model_name": "くりえみ", "category": "タレント", "participating_sessions": ["S1","S2","S3"] },
+        { "model_id": "MDL_MARO", "model_name": "（まろ）", "category": "タレント", "participating_sessions": ["S1","S2","S3"] }
+      ],
+      "options": [ { "option_id": "OPT_CHEKI", "option_name": "2ショットチェキ", "price": 1000 } ],
+      "assets": {
+        "banner": "assets/images/events/2025/session_20250916/banner.jpg",
+        "gallery": []
+      },
+      "reservationUrl": "https://docs.google.com/forms/d/e/xxxxx/viewform",
+      "slug": "セッション撮影会2025:09:16"
     }
   ]
 }
+
 
 

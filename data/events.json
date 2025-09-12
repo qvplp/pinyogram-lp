@@ -27,6 +27,47 @@
         "撮影データ（20枚）",
         "グループ撮影タイム"
       ]
+    },
+    {
+      "event_id": "EVT004",
+      "event_name": "セッション撮影会2025/09/16",
+      "event_type": "group",
+      "event_date": "2025-09-16",
+      "description": "各部5人以下の少人数セッション撮影会",
+      "venue": {
+        "venue_name": "Gスタ",
+        "address": "〒111-0053 東京都台東区浅草橋５丁目３−２ 秋葉原スクエアビル ４F"
+      },
+      "pricing": {
+        "perUnit": 10000,
+        "twoParts": 19000,
+        "threeParts": 28000
+      },
+      "thumbnail_image": "images/events/placeholder.jpg",
+      "is_limited": true,
+      "remaining_slots": null,
+      "max_participants": 15,
+      "services": [
+        "セッション撮影",
+        "モデルとの交流",
+        "撮影データ"
+      ],
+      "entryTime": "17:30",
+      "hours": "18:00〜22:00",
+      "schedule": [
+        "1部: 18:00 - 18:40",
+        "2部: 19:10 - 19:50",
+        "3部: 20:20 - 21:00"
+      ],
+      "options": [
+        { "name": "2ショットチェキ", "price": "¥1,000/1枚" }
+      ],
+      "reservationUrl": "https://docs.google.com/forms/d/e/xxxxx/viewform",
+      "models": [
+        { "name": "くりえみ", "role": "", "image": "くりえみ.png" },
+        { "name": "（まろ）", "role": "", "image": "まろ.png" }
+      ],
+      "slug": "セッション撮影会2025:09:16"
     }
   ]
 }
