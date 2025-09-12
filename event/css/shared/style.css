@@ -136,26 +136,39 @@ nav {
 }
 
 .event-card-image {
-    height: 150px;
-    background: var(--gradient-main);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 600;
-    position: relative;
-    overflow: hidden;
+    aspect-ratio: 1200/630 !important; /* 1200×630の正確な比率に統一 - 強制適用 */
+    background: var(--gradient-main) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: white !important;
+    font-weight: 600 !important;
+    position: relative !important;
+    overflow: hidden !important;
+    min-height: 120px !important; /* 最小高さを小さく */
+    max-height: 180px !important; /* 最大高さを小さく */
+    height: 150px !important; /* 固定高さを小さく */
+    width: 100% !important; /* 幅を強制適用 */
+}
+
+/* より具体的なセレクタでインラインスタイルを上書き */
+.event-card .event-card-image {
+    aspect-ratio: 1200/630 !important;
+    background: var(--gradient-main) !important;
+    height: 150px !important; /* 固定高さを小さく */
+    min-height: 120px !important; /* 最小高さを小さく */
+    max-height: 180px !important; /* 最大高さを小さく */
 }
 
 .event-card-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain; /* 画像全体を表示し、余白は背景色で埋める */
     object-position: center;
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative; /* absoluteからrelativeに変更 */
+    z-index: 1; /* 画像を前面に配置 */
     border-radius: 8px 8px 0 0;
+    background: var(--gradient-main); /* 余白部分の背景色 */
 }
 
 .event-badge {
@@ -467,9 +480,12 @@ nav {
 .hero-section {
     position: relative;
     width: 100%;
-    height: 400px; /* 高さを小さく */
+    aspect-ratio: 1200/630 !important; /* 1200×630の正確な比率に固定 - 強制適用 */
+    max-height: 300px !important; /* 最大高さを小さく */
+    min-height: 150px !important; /* 最小高さを小さく */
+    height: 250px !important; /* 固定高さを小さく */
     overflow: hidden;
-    margin-bottom: 40px; /* 下の要素との間隔 */
+    margin-bottom: 30px; /* 下の要素との間隔を縮小 */
 }
 
 .hero-container {
@@ -502,8 +518,9 @@ nav {
 .hero-slide img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain; /* 画像全体を表示し、余白は背景色で埋める */
     object-position: center;
+    background: var(--gradient-main); /* 余白部分の背景色 */
 }
 
 /* リンクラッパー */
@@ -542,15 +559,31 @@ nav {
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
     .hero-section {
-        height: 250px;
-        margin-bottom: 30px;
+        max-height: 200px !important; /* 最大高さを小さく */
+        min-height: 120px !important; /* 最小高さを小さく */
+        height: 180px !important; /* 固定高さを小さく */
+        margin-bottom: 20px;
+    }
+    
+    .event-card-image {
+        min-height: 100px !important; /* モバイル用の最小高さを小さく */
+        max-height: 150px !important; /* 最大高さを小さく */
+        height: 120px !important; /* 固定高さを小さく */
     }
 }
 
 @media (max-width: 480px) {
     .hero-section {
-        height: 200px;
-        margin-bottom: 20px;
+        max-height: 150px !important; /* 最大高さを小さく */
+        min-height: 100px !important; /* 最小高さを小さく */
+        height: 120px !important; /* 固定高さを小さく */
+        margin-bottom: 15px;
+    }
+    
+    .event-card-image {
+        min-height: 80px !important; /* 小さな画面用の最小高さを小さく */
+        max-height: 120px !important; /* 最大高さを小さく */
+        height: 100px !important; /* 固定高さを小さく */
     }
     
     .hero-indicators {
@@ -560,6 +593,17 @@ nav {
     .indicator {
         width: 8px;
         height: 8px;
+    }
+}
+
+/* 1.9:1比率の最適化 */
+@media (max-width: 1200px) {
+    .hero-section {
+        aspect-ratio: 1.9/1; /* 1.9:1比率を維持 */
+    }
+    
+    .event-card-image {
+        aspect-ratio: 1.9/1; /* 1.9:1比率を維持 */
     }
 }
 
@@ -886,7 +930,7 @@ nav {
     }
     
     .event-card-image {
-        height: 180px;
+        /* アスペクト比は16:9で統一、高さは自動調整 */
     }
     
     .event-title {
@@ -1023,7 +1067,7 @@ nav {
     
     /* イベントカード */
     .event-card-image {
-        height: 150px;
+        /* アスペクト比は16:9で統一、高さは自動調整 */
     }
     
     .event-content {

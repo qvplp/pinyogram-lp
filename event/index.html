@@ -10,7 +10,7 @@
     <meta name="keywords" content="ぴにょぐらむ, 撮影会, イベント, 写真, スケジュール">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="css/shared/style.css">
+    <link rel="stylesheet" href="event/css/shared/style.css?v=5.0.0">
     
     <!-- ファビコン -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23007AFF'/><circle cx='50' cy='50' r='30' fill='white'/></svg>">
@@ -143,9 +143,9 @@
                 
                 html += `
                     <div class="event-card" data-id="${event.id}" role="button" tabindex="0" aria-label="${event.name}の詳細ページへ移動">
-                        <div class="event-card-image" style="background: ${gradient};">
+                        <div class="event-card-image">
                             ${event.name}
-                            <img src="${event.image}" alt="${event.name}の画像" ${event.id === 'EVT004' || event.event_id === 'EVT004' ? 'onload="console.log(\'✅ EVT004 image loaded successfully:\', this.src)" onerror="console.error(\'❌ EVT004 image failed to load:\', this.src); this.style.display=\'none\'; this.parentElement.style.background=\'linear-gradient(135deg, #667eea, #764ba2)\'; this.parentElement.style.display=\'flex\'; this.parentElement.style.alignItems=\'center\'; this.parentElement.style.justifyContent=\'center\'; this.parentElement.innerHTML=\'<div style=\\\'color: white; text-align: center;\\\'>📷<br/>画像読み込み中...</div>\'"' : 'onerror="window.__imgFallback(this)"'} data-fallbacks="${event.__cardFallbacks ? event.__cardFallbacks.join(',') : ''}">
+                            <img src="${event.image}" alt="${event.name}の画像" ${event.id === 'EVT004' || event.event_id === 'EVT004' ? 'onload="console.log(\'✅ EVT004 image loaded successfully:\', this.src)" onerror="console.error(\'❌ EVT004 image failed to load:\', this.src); this.style.display=\'none\'; this.parentElement.className=\'event-card-image\'; this.parentElement.innerHTML=\'<div style=\\\'color: white; text-align: center;\\\'>📷<br/>画像読み込み中...</div>\'"' : 'onerror="window.__imgFallback(this)"'} data-fallbacks="${event.__cardFallbacks ? event.__cardFallbacks.join(',') : ''}">
                             ${badgeHtml}
                         </div>
                         <div class="event-content">
