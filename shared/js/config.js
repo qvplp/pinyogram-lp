@@ -82,7 +82,17 @@ window.getEventAssetUrl = function(eventSlug, subdir, fileName){
 // 拡張子フォールバック用：baseName と拡張子候補からURL配列を生成
 window.getEventAssetUrlCandidates = function(eventSlug, subdir, baseName, extensions){
   const exts = extensions && extensions.length ? extensions : ['jpg','png','webp'];
-  return exts.map(ext => window.getEventAssetUrl(eventSlug, subdir, `${baseName}.${ext}`));
+  const urls = exts.map(ext => window.getEventAssetUrl(eventSlug, subdir, `${baseName}.${ext}`));
+  
+  console.log('🔗 Generated URL candidates:', {
+    eventSlug,
+    subdir,
+    baseName,
+    extensions: exts,
+    urls
+  });
+  
+  return urls;
 };
 
 // 画像読み込みフォールバック: data-fallbacks に保存されたURLを順番に試す

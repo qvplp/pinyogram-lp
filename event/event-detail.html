@@ -771,7 +771,23 @@
                     const cacheBuster = '?v=' + Date.now();
                     
                     this.eventData.models.forEach((model, idx) => {
-                        const base = (model.image && model.image.trim()) ? model.image.replace(/\.(jpg|jpeg|png|webp)$/i,'') : `${idx+1}`;
+                        // モデル画像のファイル名を正しく処理
+                        let base;
+                        if (model.image && model.image.trim()) {
+                            // ファイル名から拡張子を除去してベース名を取得
+                            base = model.image.replace(/\.(jpg|jpeg|png|webp)$/i,'');
+                        } else {
+                            // フォールバック: インデックスベースのファイル名
+                            base = `${idx+1}`;
+                        }
+                        
+                        console.log('🎭 Processing model image:', {
+                            modelName: model.name,
+                            modelImage: model.image,
+                            baseName: base,
+                            eventSlug: EVENT_SLUG
+                        });
+                        
                         if (window.getEventAssetUrlCandidates) {
                             // PNGを最初に試行（実際のファイル形式に合わせる）
                             const cands = window.getEventAssetUrlCandidates(EVENT_SLUG, 'models', base, ['png','jpg','webp']);
