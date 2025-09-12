@@ -313,21 +313,49 @@
             const fallbackHero = 'https://placehold.co/1920x1080/png?text=Pinyogram';
             const fallbackCard = 'https://placehold.co/800x600/png?text=Event';
             const firstSlugRaw = (eventData[0] && eventData[0].slug) || 'event';
-            const firstSlug = firstSlugRaw && firstSlugRaw.includes('/') ? firstSlugRaw.replace(/\//g, ':') : firstSlugRaw;
-            const heroUrl = (window.getEventAssetUrl ? window.getEventAssetUrl(firstSlug, 'main', 'hero.jpg') : (window.APP_IMAGE && window.APP_IMAGE.hero)) || fallbackHero;
+            let firstSlug = firstSlugRaw;
+            // スラッグの正規化: pinyogramlp/events/... 形式をそのまま使用
+            if (firstSlug && firstSlug.startsWith('pinyogramlp/events/')) {
+                // 既に正しい形式の場合はそのまま使用
+                firstSlug = firstSlug;
+            } else if (firstSlug && firstSlug.includes('/')) {
+                // 古い形式の場合は置換
+                firstSlug = firstSlug.replace(/\//g, ':');
+            }
+            
+            console.log('🖼️ Processing hero image:', {
+                originalSlug: firstSlugRaw,
+                processedSlug: firstSlug
+            });
+            
+            const heroUrl = (window.getEventAssetUrl ? window.getEventAssetUrl(firstSlug, 'main', 'hero.png') : (window.APP_IMAGE && window.APP_IMAGE.hero)) || fallbackHero;
             ['heroImg1','heroImg2','heroImg3'].forEach(id => { const el = document.getElementById(id); if (el) el.src = heroUrl; });
             // 各イベントのカード画像に拡張子フォールバック（jpg/png/webp）
             const cacheBuster = '?v=' + Date.now();
             eventData.forEach(e => {
                 let slug = e.slug || e.name;
-                if (slug && slug.includes('/')) slug = slug.replace(/\//g, ':');
+                // スラッグの正規化: pinyogramlp/events/... 形式をそのまま使用
+                if (slug && slug.startsWith('pinyogramlp/events/')) {
+                    // 既に正しい形式の場合はそのまま使用
+                    slug = slug;
+                } else if (slug && slug.includes('/')) {
+                    // 古い形式の場合は置換
+                    slug = slug.replace(/\//g, ':');
+                }
+                
+                console.log('🎴 Processing card image for event:', {
+                    eventName: e.event_name || e.name,
+                    originalSlug: e.slug,
+                    processedSlug: slug
+                });
+                
                 if (window.getEventAssetUrlCandidates) {
-                    // PNGを最初に試行（実際のファイル形式に合わせる）
-                    const cands = window.getEventAssetUrlCandidates(slug, 'main', 'card', ['png','jpg','webp']);
+                    // card画像とバナー画像を統一（同じ画像を使用）
+                    const cands = window.getEventAssetUrlCandidates(slug, 'main', 'hero', ['png','jpg','webp']);
                     e.image = (cands[0] || fallbackCard) + cacheBuster;
                     e.__cardFallbacks = cands.slice(1).map(url => url + cacheBuster);
                 } else {
-                    const url = window.getEventAssetUrl ? window.getEventAssetUrl(slug, 'main', 'card.png') : (window.APP_IMAGE && window.APP_IMAGE.event);
+                    const url = window.getEventAssetUrl ? window.getEventAssetUrl(slug, 'main', 'hero.png') : (window.APP_IMAGE && window.APP_IMAGE.event);
                     e.image = (url || fallbackCard) + cacheBuster;
                 }
             });
