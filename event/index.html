@@ -93,23 +93,30 @@
     </div>
 
     <script>
-        // イベントデータ
-        const eventData = [
-            {
-                id: 'EVT003',
-                name: 'コスプレ撮影会SP',
-                date: '2025-08-15',
-                venue: '池袋スタジオ',
-                price: 8000,
-                type: 'group',
-                badge: 'limited',
-                remaining: 2,
-                image: '',
-                pricing: { perUnit: 8000, twoParts: 15000, threeParts: 22000 },
-                slug: 'コスプレ撮影会SP'
+        let eventData = [];
+
+        async function loadEvents() {
+            try {
+                const res = await fetch('data/events.json');
+                const json = await res.json();
+                const list = json.events || json;
+                eventData = (list || []).map(ev => ({
+                    id: ev.event_id,
+                    name: ev.event_name,
+                    date: ev.event_date,
+                    venue: ev.venue?.venue_name || '-',
+                    price: ev.pricing?.perUnit || ev.pricing?.base_price || 0,
+                    type: ev.event_type || 'group',
+                    badge: ev.is_limited ? 'limited' : undefined,
+                    remaining: ev.remaining_slots,
+                    pricing: ev.pricing,
+                    slug: ev.slug || ev.event_name
+                }));
+            } catch (e) {
+                console.error('Failed to load events:', e);
             }
-        ];
-        
+        }
+
         // イベントカードを生成
         function generateEventCards() {
             const eventsGrid = document.getElementById('eventsGrid');
@@ -299,7 +306,9 @@
         }
         
         // 初期化
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadEvents();
+
             // 画像設定読込（Cloudflare構成対応）
             const fallbackHero = 'https://placehold.co/1920x1080/png?text=Pinyogram';
             const fallbackCard = 'https://placehold.co/800x600/png?text=Event';
