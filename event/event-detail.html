@@ -15,7 +15,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <!-- CSS -->
-<link rel="stylesheet" href="css/shared/style.css?v=7.0.0">
+<link rel="stylesheet" href="css/shared/style.css?v=8.0.0">
 
     <style>
         /* 基本リセット */
@@ -60,9 +60,9 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 30px;
         }
         
         /* ナビゲーションスタイル - ホームページと同じ */
@@ -190,12 +190,12 @@
         
         /* コンテンツセクション */
         .event-content-section {
-            padding: 60px 20px;
+            padding: 80px 30px;
             background: #f5f7fa;
         }
         
         .event-info-column {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
         }
         
@@ -213,15 +213,16 @@
             max-height: 500px !important; /* 最大高さを拡大 */
             min-height: 300px !important; /* 最小高さを拡大 */
             height: 400px !important; /* 固定高さを拡大 */
-            object-fit: contain; /* 画像全体を表示し、余白は背景色で埋める */
+            object-fit: cover; /* 画像を枠いっぱいに表示 */
             background: linear-gradient(135deg, #667eea, #764ba2);
         }
         
         .event-description {
             background: white;
-            padding: 30px;
+            padding: 40px;
             border-radius: 15px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-top: 20px; /* hero画像との間隔を調整 */
         }
         
         .event-description h2 {
@@ -447,10 +448,18 @@
             }
             
             .main-image {
-                max-height: 300px !important; /* 最大高さを調整 */
-                min-height: 200px !important; /* 最小高さを調整 */
-                height: 250px !important; /* 固定高さを調整 */
+                max-height: 350px !important; /* 最大高さを調整 */
+                min-height: 250px !important; /* 最小高さを調整 */
+                height: 300px !important; /* 固定高さを調整 */
                 aspect-ratio: 1200/630 !important; /* 1200×630比率を維持 */
+            }
+            
+            .event-content-section {
+                padding: 60px 20px;
+            }
+            
+            .event-description {
+                padding: 30px;
             }
             
             /* モデルカードのレスポンシブ設定 */
@@ -469,6 +478,27 @@
             
             .events-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+        
+        /* モバイル用のレスポンシブ設定 */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .event-content-section {
+                padding: 40px 15px;
+            }
+            
+            .event-description {
+                padding: 20px;
+            }
+            
+            .main-image {
+                max-height: 250px !important;
+                min-height: 180px !important;
+                height: 220px !important;
             }
         }
     </style>
