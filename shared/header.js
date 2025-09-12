@@ -16,6 +16,9 @@
     .then(html => {
       mount.outerHTML = html;
 
+      // ハンバーガーメニューの機能を初期化
+      initHamburgerMenu();
+
       // アクティブ表示：現在のパスに合う data-match を持つリンクに is-active
       const path = location.pathname;
       document.querySelectorAll('.main-nav a[data-match]').forEach(a=>{
@@ -54,4 +57,52 @@
     .catch(() => {
       mount.outerHTML = '<header class="site-header"><div class="header-inner"><a class="brand" href="/">ぴによぐらむ撮影会</a></div></header>';
     });
+
+  // ハンバーガーメニューの機能
+  function initHamburgerMenu() {
+    const hamburgerButton = document.querySelector('.hamburger-menu');
+    const mainNav = document.querySelector('.main-nav');
+    
+    if (!hamburgerButton || !mainNav) return;
+
+    // ハンバーガーメニューボタンのクリックイベント
+    hamburgerButton.addEventListener('click', () => {
+      const isExpanded = hamburgerButton.getAttribute('aria-expanded') === 'true';
+      
+      // メニューの開閉状態を切り替え
+      hamburgerButton.setAttribute('aria-expanded', !isExpanded);
+      mainNav.classList.toggle('is-open');
+      
+      // ボディのスクロールを制御（メニューが開いている時はスクロール無効）
+      document.body.style.overflow = !isExpanded ? 'hidden' : '';
+    });
+
+    // メニューリンクがクリックされた時にメニューを閉じる
+    mainNav.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        hamburgerButton.setAttribute('aria-expanded', 'false');
+        mainNav.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // 画面サイズが変更された時の処理
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        // デスクトップサイズではメニューを閉じる
+        hamburgerButton.setAttribute('aria-expanded', 'false');
+        mainNav.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // ESCキーでメニューを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mainNav.classList.contains('is-open')) {
+        hamburgerButton.setAttribute('aria-expanded', 'false');
+        mainNav.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+    });
+  }
 })();

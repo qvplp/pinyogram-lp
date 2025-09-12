@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{EVENT_TITLE}} | ぴにょぐらむ撮影会</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ぴにょぐらむ撮影会">
+    <meta property="og:title" content="{{EVENT_TITLE}}">
+    <meta property="og:description" content="{{EVENT_DESCRIPTION}}">
+    <meta property="og:image" content="{{EVENT_IMAGE_URL}}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{EVENT_TITLE}} - {{EVENT_DESCRIPTION}}">
+    <meta property="og:url" content="{{EVENT_URL}}">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{EVENT_TITLE}}">
+    <meta name="twitter:description" content="{{EVENT_DESCRIPTION}}">
+    <meta name="twitter:image" content="{{EVENT_IMAGE_URL}}">
+    <meta name="twitter:image:alt" content="{{EVENT_TITLE}} - {{EVENT_DESCRIPTION}}">
+
+    <!-- 追加SEOメタタグ -->
+    <meta name="description" content="{{EVENT_DESCRIPTION}}">
+    <meta name="keywords" content="ぴにょぐらむ, 撮影会, イベント, {{EVENT_KEYWORDS}}">
+
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=/event/event-detail.html?id={{EVENT_ID}}">
+    </noscript>
+    <script>
+        window.location.replace('/event/event-detail.html?id={{EVENT_ID}}');
+    </script>
+</head>
+<body></body>
+</html>

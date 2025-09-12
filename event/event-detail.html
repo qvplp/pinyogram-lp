@@ -5,13 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>イベント詳細 | ぴにょぐらむ撮影会</title>
     
+    <!-- 動的OGPメタタグ（JavaScriptで生成） -->
+    <meta id="og-type" property="og:type" content="website">
+    <meta id="og-site-name" property="og:site_name" content="ぴにょぐらむ撮影会">
+    <meta id="og-title" property="og:title" content="イベント詳細">
+    <meta id="og-description" property="og:description" content="ぴにょぐらむ撮影会のイベント詳細ページです">
+    <meta id="og-image" property="og:image" content="https://images.pinyogram.com/home/0916.png">
+    <meta id="og-image-width" property="og:image:width" content="1200">
+    <meta id="og-image-height" property="og:image:height" content="630">
+    <meta id="og-image-alt" property="og:image:alt" content="ぴにょぐらむ撮影会">
+    <meta id="og-url" property="og:url" content="">
+    
+    <!-- Twitter Card -->
+    <meta id="twitter-card" name="twitter:card" content="summary_large_image">
+    <meta id="twitter-title" name="twitter:title" content="イベント詳細">
+    <meta id="twitter-description" name="twitter:description" content="ぴにょぐらむ撮影会のイベント詳細ページです">
+    <meta id="twitter-image" name="twitter:image" content="https://images.pinyogram.com/home/0916.png">
+    <meta id="twitter-image-alt" name="twitter:image:alt" content="ぴにょぐらむ撮影会">
+    
+    <!-- 基本SEOメタタグ -->
+    <meta id="meta-description" name="description" content="ぴにょぐらむ撮影会のイベント詳細ページです">
+    <meta id="meta-keywords" name="keywords" content="ぴにょぐらむ, 撮影会, イベント, 写真">
+    
     <!-- キャッシュ対策 -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
-
-    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <!-- CSS -->
@@ -671,6 +691,8 @@
     <!-- JavaScript -->
     <!-- JavaScript (ES6 Modules) -->
     <script src="../shared/js/config.js?v=5.0.0"></script>
+    <script src="js/ogp-generator.js?v=1.0.0"></script>
+    <script src="js/event-manager.js?v=1.0.0"></script>
     <script type="module" src="../shared/js/main.js?v=5.0.0"></script>
     <script defer src="../shared/header.js?v=5.0.0"></script>
     <script defer src="../shared/footer.js?v=5.0.0"></script>
@@ -679,6 +701,7 @@
         class EventDetailPage {
             constructor() {
                 this.eventData = null;
+                this.ogpGenerator = new EventOGPGenerator();
                 this.init();
             }
             
@@ -949,6 +972,60 @@
                 }
                 
                 document.title = `${this.eventData.event_name} | ぴにょぐらむ撮影会`;
+                
+                // 動的OGPメタタグを更新
+                this.updateOGPMetaTags();
+            }
+            
+            /**
+             * 動的OGPメタタグを更新
+             */
+            updateOGPMetaTags() {
+                if (!this.eventData) return;
+                
+                try {
+                    // OGPメタタグを生成
+                    const ogpMeta = this.ogpGenerator.generateOGPMetaTags(this.eventData);
+                    
+                    // ページタイトルを更新
+                    document.title = ogpMeta.title;
+                    
+                    // OGPメタタグを更新
+                    this.updateMetaTag('og-title', 'property', 'og:title', ogpMeta.ogTitle);
+                    this.updateMetaTag('og-description', 'property', 'og:description', ogpMeta.ogDescription);
+                    this.updateMetaTag('og-image', 'property', 'og:image', ogpMeta.ogImage);
+                    this.updateMetaTag('og-image-alt', 'property', 'og:image:alt', ogpMeta.ogImageAlt);
+                    this.updateMetaTag('og-url', 'property', 'og:url', ogpMeta.ogUrl);
+                    
+                    // Twitter Cardメタタグを更新
+                    this.updateMetaTag('twitter-title', 'name', 'twitter:title', ogpMeta.twitterTitle);
+                    this.updateMetaTag('twitter-description', 'name', 'twitter:description', ogpMeta.twitterDescription);
+                    this.updateMetaTag('twitter-image', 'name', 'twitter:image', ogpMeta.twitterImage);
+                    this.updateMetaTag('twitter-image-alt', 'name', 'twitter:image:alt', ogpMeta.twitterImageAlt);
+                    
+                    // 基本SEOメタタグを更新
+                    this.updateMetaTag('meta-description', 'name', 'description', ogpMeta.description);
+                    this.updateMetaTag('meta-keywords', 'name', 'keywords', ogpMeta.keywords);
+                    
+                    console.log('OGP meta tags updated for event:', this.eventData.event_name);
+                } catch (error) {
+                    console.error('Error updating OGP meta tags:', error);
+                }
+            }
+            
+            /**
+             * メタタグを更新するヘルパーメソッド
+             * @param {string} elementId - 要素ID
+             * @param {string} attribute - 属性名（property または name）
+             * @param {string} attributeValue - 属性値
+             * @param {string} content - コンテンツ値
+             */
+            updateMetaTag(elementId, attribute, attributeValue, content) {
+                const element = document.getElementById(elementId);
+                if (element) {
+                    element.setAttribute(attribute, attributeValue);
+                    element.setAttribute('content', content);
+                }
             }
             
             formatDate(dateString) {

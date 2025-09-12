@@ -1,34 +1,6 @@
 {
   "events": [
     {
-      "event_id": "EVT003",
-      "event_name": "コスプレ撮影会SP",
-      "event_type": "group",
-      "event_date": "2025-08-15",
-      "description": "人気コスプレイヤーが集結！アニメ・ゲームキャラクターのコスプレ撮影を楽しめる特別イベント。",
-      "venue": {
-        "venue_name": "池袋スタジオ",
-        "address": "東京都豊島区池袋3-10-5",
-        "access": "JR池袋駅から徒歩10分"
-      },
-      "pricing": {
-        "base_price": 8000,
-        "individual": 8000,
-        "group": 6500,
-        "vip": 15000
-      },
-      "thumbnail_image": "images/events/event003.jpg",
-      "is_limited": true,
-      "remaining_slots": null,
-      "max_participants": 20,
-      "services": [
-        "複数コスプレイヤーの撮影",
-        "特設セットでの撮影",
-        "撮影データ（20枚）",
-        "グループ撮影タイム"
-      ]
-    },
-    {
       "event_id": "EVT004",
       "event_name": "セッション撮影会2025/09/16",
       "event_type": "group",

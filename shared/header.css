@@ -9,21 +9,116 @@
   margin: 0 auto;
   padding: 0 24px;
   display: flex; align-items: center; justify-content: space-between;
+  position: relative;
 }
 .brand{
   font-weight: 800;
   color: #2563eb; text-decoration: none;
   font-size: clamp(20px, 1vw + 18px, 24px);
 }
+
+/* ハンバーガーメニューボタン */
+.hamburger-menu{
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 60;
+}
+
+.hamburger-line{
+  width: 100%;
+  height: 3px;
+  background: #0f172a;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* ハンバーガーメニューが開いている状態 */
+.hamburger-menu[aria-expanded="true"] .hamburger-line:nth-child(1){
+  transform: rotate(45deg) translate(6px, 6px);
+}
+.hamburger-menu[aria-expanded="true"] .hamburger-line:nth-child(2){
+  opacity: 0;
+}
+.hamburger-menu[aria-expanded="true"] .hamburger-line:nth-child(3){
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* ナビゲーションメニュー */
+.main-nav{
+  display: flex;
+  align-items: center;
+}
+
 .main-nav a{
   text-decoration: none;
   color: #0f172a;
   font-weight: 600;
   margin-left: 28px;
+  transition: color 0.2s ease;
 }
 .main-nav a:hover{ color:#2563eb; }
 .main-nav a.is-active{ color:#2563eb; }
+
+/* レスポンシブ対応 */
+@media (max-width: 768px){
+  .hamburger-menu{
+    display: flex;
+  }
+  
+  .main-nav{
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px 0;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .main-nav.is-open{
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .main-nav a{
+    margin: 0;
+    padding: 12px 24px;
+    border-bottom: 1px solid #f3f4f6;
+    text-align: center;
+  }
+  
+  .main-nav a:last-child{
+    border-bottom: none;
+  }
+  
+  .main-nav a:hover{
+    background: #f8fafc;
+  }
+}
+
 @media (max-width: 640px){
-  .header-inner{ height: 56px; padding: 0 16px; }
-  .main-nav a{ margin-left: 18px; }
+  .header-inner{ 
+    height: 56px; 
+    padding: 0 16px; 
+  }
+  
+  .main-nav{
+    top: 56px;
+  }
 }

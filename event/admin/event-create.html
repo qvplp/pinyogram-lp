@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>イベント管理 - ぴにょぐらむ撮影会</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Noto Sans JP', -apple-system, sans-serif;
+            background: #f5f7fa;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p {
+            color: #718096;
+        }
+        
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #ff6ec7;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 110, 199, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #718096;
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568;
+            box-shadow: 0 5px 20px rgba(113, 128, 150, 0.3);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .preview-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .preview-section h3 {
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+        
+        .preview-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid #ff6ec7;
+        }
+        
+        .preview-item strong {
+            color: #2d3748;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-calendar-plus"></i> 新規イベント登録</h1>
+            <p>新しいイベントを登録し、OGPページを自動生成します</p>
+        </div>
+        
+        <div class="form-container">
+            <form id="eventForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="eventName">イベント名 *</label>
+                        <input type="text" id="eventName" name="eventName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDate">開催日 *</label>
+                        <input type="date" id="eventDate" name="eventDate" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventDescription">イベント説明 *</label>
+                    <textarea id="eventDescription" name="eventDescription" placeholder="イベントの詳細説明を入力してください" required></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="venueName">会場名</label>
+                        <input type="text" id="venueName" name="venueName">
+                    </div>
+                    <div class="form-group">
+                        <label for="venueAddress">会場住所</label>
+                        <input type="text" id="venueAddress" name="venueAddress">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventSlug">イベントスラッグ（自動生成されます）</label>
+                    <input type="text" id="eventSlug" name="eventSlug" readonly>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="perUnitPrice">各部料金（円）</label>
+                        <input type="number" id="perUnitPrice" name="perUnitPrice" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="twoPartsPrice">2部通し料金（円）</label>
+                        <input type="number" id="twoPartsPrice" name="twoPartsPrice" min="0">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="threePartsPrice">3部通し料金（円）</label>
+                    <input type="number" id="threePartsPrice" name="threePartsPrice" min="0">
+                </div>
+                
+                <div class="preview-section">
+                    <h3><i class="fas fa-eye"></i> OGPプレビュー</h3>
+                    <div id="ogpPreview">
+                        <div class="preview-item">
+                            <strong>タイトル:</strong> <span id="previewTitle">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <strong>説明:</strong> <span id="previewDescription">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <strong>画像URL:</strong> <span id="previewImage">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <strong>URL:</strong> <span id="previewUrl">-</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button type="submit" class="btn">
+                        <i class="fas fa-plus"></i> イベントを作成
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="previewOGP()">
+                        <i class="fas fa-eye"></i> OGPプレビュー更新
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../js/ogp-generator.js?v=1.0.0"></script>
+    <script src="../js/event-manager.js?v=1.0.0"></script>
+    <script>
+        let eventManager;
+        let ogpGenerator;
+
+        // 初期化
+        document.addEventListener('DOMContentLoaded', () => {
+            eventManager = new EventManager();
+            ogpGenerator = new EventOGPGenerator();
+            
+            // フォームイベントを設定
+            setupFormEvents();
+            
+            // 初期プレビューを表示
+            previewOGP();
+        });
+
+        // フォームイベントを設定
+        function setupFormEvents() {
+            const form = document.getElementById('eventForm');
+            const eventNameInput = document.getElementById('eventName');
+            const eventSlugInput = document.getElementById('eventSlug');
+
+            // イベント名変更時にスラッグを自動生成
+            eventNameInput.addEventListener('input', () => {
+                const slug = eventManager.generateSlug(eventNameInput.value);
+                eventSlugInput.value = slug;
+                previewOGP();
+            });
+
+            // フォーム送信
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                await createEvent();
+            });
+
+            // その他の入力フィールド変更時にプレビュー更新
+            ['eventDescription', 'venueName', 'venueAddress'].forEach(fieldId => {
+                document.getElementById(fieldId).addEventListener('input', previewOGP);
+            });
+        }
+
+        // イベントを作成
+        async function createEvent() {
+            try {
+                const formData = new FormData(document.getElementById('eventForm'));
+                const eventData = {
+                    event_name: formData.get('eventName'),
+                    event_date: formData.get('eventDate'),
+                    description: formData.get('eventDescription'),
+                    slug: formData.get('eventSlug'),
+                    venue: {
+                        venue_name: formData.get('venueName'),
+                        address: formData.get('venueAddress')
+                    },
+                    pricing: {
+                        perUnit: parseInt(formData.get('perUnitPrice')) || 0,
+                        twoParts: parseInt(formData.get('twoPartsPrice')) || 0,
+                        threeParts: parseInt(formData.get('threePartsPrice')) || 0
+                    }
+                };
+
+                const success = await eventManager.createEvent(eventData);
+                
+                if (success) {
+                    showAlert('イベントが正常に作成されました！OGPページも生成されました。', 'success');
+                    document.getElementById('eventForm').reset();
+                    previewOGP();
+                } else {
+                    showAlert('イベントの作成に失敗しました。', 'error');
+                }
+            } catch (error) {
+                console.error('Error creating event:', error);
+                showAlert('エラーが発生しました: ' + error.message, 'error');
+            }
+        }
+
+        // OGPプレビューを更新
+        function previewOGP() {
+            try {
+                const formData = new FormData(document.getElementById('eventForm'));
+                const eventName = formData.get('eventName');
+                const description = formData.get('eventDescription');
+                const slug = formData.get('eventSlug');
+
+                if (!eventName) {
+                    clearPreview();
+                    return;
+                }
+
+                // イベントデータを作成
+                const eventData = {
+                    event_id: 'PREVIEW',
+                    event_name: eventName,
+                    description: description,
+                    slug: slug,
+                    venue: {
+                        venue_name: formData.get('venueName')
+                    }
+                };
+
+                // OGPメタタグを生成
+                const ogpMeta = ogpGenerator.generateOGPMetaTags(eventData);
+
+                // プレビューを更新
+                document.getElementById('previewTitle').textContent = ogpMeta.ogTitle;
+                document.getElementById('previewDescription').textContent = ogpMeta.ogDescription;
+                document.getElementById('previewImage').textContent = ogpMeta.ogImage;
+                document.getElementById('previewUrl').textContent = ogpMeta.ogUrl;
+            } catch (error) {
+                console.error('Error updating preview:', error);
+            }
+        }
+
+        // プレビューをクリア
+        function clearPreview() {
+            document.getElementById('previewTitle').textContent = '-';
+            document.getElementById('previewDescription').textContent = '-';
+            document.getElementById('previewImage').textContent = '-';
+            document.getElementById('previewUrl').textContent = '-';
+        }
+
+        // アラートを表示
+        function showAlert(message, type) {
+            // 既存のアラートを削除
+            const existingAlert = document.querySelector('.alert');
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+
+            // 新しいアラートを作成
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+
+            // フォームの前に挿入
+            const form = document.getElementById('eventForm');
+            form.parentNode.insertBefore(alert, form);
+
+            // 3秒後に自動削除
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.remove();
+                }
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
