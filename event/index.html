@@ -145,7 +145,7 @@
                     <div class="event-card" data-id="${event.id}" role="button" tabindex="0" aria-label="${event.name}の詳細ページへ移動">
                         <div class="event-card-image" style="background: ${gradient};">
                             ${event.name}
-                            <img src="${event.image}" alt="${event.name}の画像" onerror="window.__imgFallback(this)" data-fallbacks="${event.__cardFallbacks ? event.__cardFallbacks.join(',') : ''}">
+                            <img src="${event.image}" alt="${event.name}の画像" ${event.id === 'EVT004' || event.event_id === 'EVT004' ? 'onload="console.log(\'✅ EVT004 image loaded successfully:\', this.src)" onerror="console.error(\'❌ EVT004 image failed to load:\', this.src); this.style.display=\'none\'; this.parentElement.style.background=\'linear-gradient(135deg, #667eea, #764ba2)\'; this.parentElement.style.display=\'flex\'; this.parentElement.style.alignItems=\'center\'; this.parentElement.style.justifyContent=\'center\'; this.parentElement.innerHTML=\'<div style=\\\'color: white; text-align: center;\\\'>📷<br/>画像読み込み中...</div>\'"' : 'onerror="window.__imgFallback(this)"'} data-fallbacks="${event.__cardFallbacks ? event.__cardFallbacks.join(',') : ''}">
                             ${badgeHtml}
                         </div>
                         <div class="event-content">
@@ -341,8 +341,14 @@
                     processedSlug: slug
                 });
                 
-                if (window.getEventAssetUrlCandidates) {
-                    // card画像とバナー画像を統一（hero画像を使用）
+                // EVT004の場合は提供されたURLを直接使用
+                if (e.id === 'EVT004' || e.event_id === 'EVT004') {
+                    const directUrl = 'https://images.pinyogram.com/events/%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A2025:09:16/main/hero.png';
+                    e.image = directUrl + cacheBuster;
+                    e.__cardFallbacks = []; // フォールバックなし（直接URL使用）
+                    console.log('🎴 Using direct URL for EVT004:', directUrl);
+                } else if (window.getEventAssetUrlCandidates) {
+                    // その他のイベントは従来の処理
                     const cands = window.getEventAssetUrlCandidates(slug, 'main', 'hero', ['png','jpg','webp']);
                     console.log('🎴 Generated card image URLs:', {
                         eventName: e.event_name || e.name,
