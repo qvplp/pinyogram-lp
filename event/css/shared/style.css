@@ -491,11 +491,11 @@ nav {
     position: relative;
     width: 100%;
     aspect-ratio: 1200/630 !important; /* 1200×630の正確な比率に固定 - 強制適用 */
-    max-height: 500px !important; /* 最大高さを拡大 */
-    min-height: 250px !important; /* 最小高さを拡大 */
-    height: 400px !important; /* 固定高さを拡大 */
+    max-height: 600px !important; /* 最大高さをさらに拡大 */
+    min-height: 350px !important; /* 最小高さをさらに拡大 */
+    height: 500px !important; /* 固定高さをさらに拡大 */
     overflow: hidden;
-    margin-bottom: 40px; /* 下の要素との間隔を調整 */
+    margin-bottom: 50px; /* 下の要素との間隔を調整 */
 }
 
 .hero-container {
@@ -585,10 +585,10 @@ nav {
     }
     
     .hero-section {
-        max-height: 300px !important; /* 最大高さを調整 */
-        min-height: 180px !important; /* 最小高さを調整 */
-        height: 250px !important; /* 固定高さを調整 */
-        margin-bottom: 30px;
+        max-height: 400px !important; /* 最大高さを調整 */
+        min-height: 250px !important; /* 最小高さを調整 */
+        height: 350px !important; /* 固定高さを調整 */
+        margin-bottom: 40px;
     }
     
     .event-card-image {
@@ -614,10 +614,10 @@ nav {
     }
     
     .hero-section {
-        max-height: 200px !important; /* 最大高さを調整 */
-        min-height: 120px !important; /* 最小高さを調整 */
-        height: 150px !important; /* 固定高さを調整 */
-        margin-bottom: 20px;
+        max-height: 300px !important; /* 最大高さを調整 */
+        min-height: 180px !important; /* 最小高さを調整 */
+        height: 250px !important; /* 固定高さを調整 */
+        margin-bottom: 30px;
     }
     
     .event-card-image {
