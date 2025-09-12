@@ -761,14 +761,19 @@
                     if (EVENT_SLUG && EVENT_SLUG.includes('/')) {
                         EVENT_SLUG = EVENT_SLUG.replace(/\//g, ':');
                     }
+                    
+                    // キャッシュバスティング用のタイムスタンプを追加
+                    const cacheBuster = '?v=' + Date.now();
+                    
                     this.eventData.models.forEach((model, idx) => {
                         const base = (model.image && model.image.trim()) ? model.image.replace(/\.(jpg|jpeg|png|webp)$/i,'') : `${idx+1}`;
                         if (window.getEventAssetUrlCandidates) {
                             const cands = window.getEventAssetUrlCandidates(EVENT_SLUG, 'models', base, ['jpg','png','webp']);
-                            const fallbacks = cands.slice(1).join(',');
+                            const urlsWithCacheBuster = cands.map(url => url + cacheBuster);
+                            const fallbacks = urlsWithCacheBuster.slice(1).join(',');
                             modelsHTML += `
                                 <div class="model-card">
-                                    <img src="${cands[0]}" data-fallbacks="${fallbacks}" alt="${model.name}" class="model-image" onerror="window.__imgFallback(this)">
+                                    <img src="${urlsWithCacheBuster[0]}" data-fallbacks="${fallbacks}" alt="${model.name}" class="model-image" onerror="window.__imgFallback(this)">
                                     <div class="model-info">
                                         <div class="model-name">${model.name}</div>
                                         <div class="model-role">${model.role}</div>
@@ -776,10 +781,10 @@
                                 </div>
                             `;
                         } else {
-                            const src = (window.getEventAssetUrl ? window.getEventAssetUrl(EVENT_SLUG, 'models', `${base}.jpg`) : (model.image || ''));
+                            const src = (window.getEventAssetUrl ? window.getEventAssetUrl(EVENT_SLUG, 'models', `${base}.jpg`) : (model.image || '')) + cacheBuster;
                             modelsHTML += `
                                 <div class="model-card">
-                                    <img src="${src}" alt="${model.name}" class="model-image">
+                                    <img src="${src}" alt="${model.name}" class="model-image" onerror="window.__imgFallback(this)">
                                     <div class="model-info">
                                         <div class="model-name">${model.name}</div>
                                         <div class="model-role">${model.role}</div>
@@ -798,27 +803,36 @@
                     if (EVENT_SLUG && EVENT_SLUG.includes('/')) {
                         EVENT_SLUG = EVENT_SLUG.replace(/\//g, ':');
                     }
+                    
+                    // キャッシュバスティング用のタイムスタンプを追加
+                    const cacheBuster = '?v=' + Date.now();
+                    
                     if (window.getEventAssetUrlCandidates) {
                         const cands = window.getEventAssetUrlCandidates(EVENT_SLUG, 'main', 'hero', ['jpg','png','webp']);
-                        eventImage.setAttribute('data-fallbacks', cands.slice(1).join(','));
+                        const urlsWithCacheBuster = cands.map(url => url + cacheBuster);
+                        eventImage.setAttribute('data-fallbacks', urlsWithCacheBuster.slice(1).join(','));
                         eventImage.onerror = function(){ window.__imgFallback(this); };
-                        eventImage.src = cands[0];
+                        eventImage.src = urlsWithCacheBuster[0];
                     } else {
-                        eventImage.src = this.eventData.image || '';
+                        eventImage.src = (this.eventData.image || '') + cacheBuster;
                     }
                     eventImage.alt = this.eventData.event_name;
                     
-                    // 画像読み込みエラー時のフォールバック
+                    // 画像読み込みエラー時のフォールバック（強化版）
                     eventImage.onerror = function() {
                         console.log('画像が見つかりません:', this.src);
-                        this.style.display = 'none';
-                        this.parentElement.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
-                        this.parentElement.style.height = '400px';
-                        this.parentElement.style.display = 'flex';
-                        this.parentElement.style.alignItems = 'center';
-                        this.parentElement.style.justifyContent = 'center';
-                        this.parentElement.style.color = 'white';
-                        this.parentElement.innerHTML = '<div style="text-align: center;"><span style="font-size: 48px;">📸</span><p style="margin-top: 10px; font-size: 14px;">画像を準備中です</p></div>';
+                        if (window.__imgFallback) {
+                            window.__imgFallback(this);
+                        } else {
+                            this.style.display = 'none';
+                            this.parentElement.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+                            this.parentElement.style.height = '400px';
+                            this.parentElement.style.display = 'flex';
+                            this.parentElement.style.alignItems = 'center';
+                            this.parentElement.style.justifyContent = 'center';
+                            this.parentElement.style.color = 'white';
+                            this.parentElement.innerHTML = '<div style="text-align: center;"><span style="font-size: 48px;">📸</span><p style="margin-top: 10px; font-size: 14px;">画像を準備中です</p></div>';
+                        }
                     };
                 }
                 

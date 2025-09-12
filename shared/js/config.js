@@ -6,8 +6,8 @@ window.APP_IMAGE = {
 };
 
 // Cloudflare（R2/Pagesなど）の公開CDN基点URLを設定してください。
-// 例: 'https://cdn.example.com/pinyogramlp/events'
-window.CDN_EVENTS_BASE = window.CDN_EVENTS_BASE || 'https://cdn.example.com/pinyogramlp/events';
+// 実際のCloudflare配信URLに設定
+window.CDN_EVENTS_BASE = window.CDN_EVENTS_BASE || 'https://pinyogram.com/pinyogramlp/events';
 
 // イベント用の画像URLを生成するヘルパー
 // subdir: 'main' | 'models' など
@@ -30,13 +30,73 @@ window.__imgFallback = function(imgEl){
     const list = imgEl.getAttribute('data-fallbacks') || '';
     const arr = list.split(',').filter(Boolean);
     if (arr.length === 0) {
-      imgEl.style.display = 'none';
+      // フォールバック候補がない場合はプレースホルダーを表示
+      showPlaceholderImage(imgEl);
       return;
     }
     const next = arr.shift();
     imgEl.setAttribute('data-fallbacks', arr.join(','));
     imgEl.src = next;
   } catch (e) {
-    imgEl.style.display = 'none';
+    showPlaceholderImage(imgEl);
   }
 };
+
+// プレースホルダー画像を表示する関数
+function showPlaceholderImage(imgEl) {
+  const alt = imgEl.alt || '画像';
+  const isModel = imgEl.classList.contains('model-image');
+  const isHero = imgEl.classList.contains('main-image');
+  
+  if (isModel) {
+    // モデル画像のプレースホルダー
+    imgEl.style.display = 'none';
+    const placeholder = document.createElement('div');
+    placeholder.style.cssText = `
+      width: 100%;
+      height: 250px;
+      background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 48px;
+      border-radius: 10px;
+    `;
+    placeholder.innerHTML = '👤';
+    imgEl.parentNode.insertBefore(placeholder, imgEl);
+  } else if (isHero) {
+    // ヒーロー画像のプレースホルダー
+    imgEl.style.display = 'none';
+    const placeholder = document.createElement('div');
+    placeholder.style.cssText = `
+      width: 100%;
+      height: 400px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 48px;
+    `;
+    placeholder.innerHTML = '<div>📸</div><div style="font-size: 14px; margin-top: 10px;">画像を準備中です</div>';
+    imgEl.parentNode.insertBefore(placeholder, imgEl);
+  } else {
+    // その他の画像のプレースホルダー
+    imgEl.style.display = 'none';
+    const placeholder = document.createElement('div');
+    placeholder.style.cssText = `
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+    `;
+    placeholder.innerHTML = '📷';
+    imgEl.parentNode.insertBefore(placeholder, imgEl);
+  }
+}

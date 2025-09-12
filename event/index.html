@@ -145,7 +145,7 @@
                     <div class="event-card" data-id="${event.id}" role="button" tabindex="0" aria-label="${event.name}の詳細ページへ移動">
                         <div class="event-card-image" style="background: ${gradient};">
                             ${event.name}
-                            <img src="${event.image}" alt="${event.name}の画像" onerror="this.style.display='none'">
+                            <img src="${event.image}" alt="${event.name}の画像" onerror="window.__imgFallback(this)" data-fallbacks="${event.__cardFallbacks ? event.__cardFallbacks.join(',') : ''}">
                             ${badgeHtml}
                         </div>
                         <div class="event-content">
@@ -317,16 +317,17 @@
             const heroUrl = (window.getEventAssetUrl ? window.getEventAssetUrl(firstSlug, 'main', 'hero.jpg') : (window.APP_IMAGE && window.APP_IMAGE.hero)) || fallbackHero;
             ['heroImg1','heroImg2','heroImg3'].forEach(id => { const el = document.getElementById(id); if (el) el.src = heroUrl; });
             // 各イベントのカード画像に拡張子フォールバック（jpg/png/webp）
+            const cacheBuster = '?v=' + Date.now();
             eventData.forEach(e => {
                 let slug = e.slug || e.name;
                 if (slug && slug.includes('/')) slug = slug.replace(/\//g, ':');
                 if (window.getEventAssetUrlCandidates) {
                     const cands = window.getEventAssetUrlCandidates(slug, 'main', 'card', ['jpg','png','webp']);
-                    e.image = cands[0] || fallbackCard;
-                    e.__cardFallbacks = cands.slice(1);
+                    e.image = (cands[0] || fallbackCard) + cacheBuster;
+                    e.__cardFallbacks = cands.slice(1).map(url => url + cacheBuster);
                 } else {
                     const url = window.getEventAssetUrl ? window.getEventAssetUrl(slug, 'main', 'card.jpg') : (window.APP_IMAGE && window.APP_IMAGE.event);
-                    e.image = url || fallbackCard;
+                    e.image = (url || fallbackCard) + cacheBuster;
                 }
             });
 
