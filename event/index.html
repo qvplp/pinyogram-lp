@@ -314,14 +314,7 @@
             const fallbackCard = 'https://placehold.co/800x600/png?text=Event';
             const firstSlugRaw = (eventData[0] && eventData[0].slug) || 'event';
             let firstSlug = firstSlugRaw;
-            // スラッグの正規化: pinyogramlp/events/... 形式をそのまま使用
-            if (firstSlug && firstSlug.startsWith('pinyogramlp/events/')) {
-                // 既に正しい形式の場合はそのまま使用
-                firstSlug = firstSlug;
-            } else if (firstSlug && firstSlug.includes('/')) {
-                // 古い形式の場合は置換
-                firstSlug = firstSlug.replace(/\//g, ':');
-            }
+            // スラッグはそのまま使用（getEventAssetUrlで正規化される）
             
             console.log('🖼️ Processing hero image:', {
                 originalSlug: firstSlugRaw,
@@ -334,14 +327,7 @@
             const cacheBuster = '?v=' + Date.now();
             eventData.forEach(e => {
                 let slug = e.slug || e.name;
-                // スラッグの正規化: pinyogramlp/events/... 形式をそのまま使用
-                if (slug && slug.startsWith('pinyogramlp/events/')) {
-                    // 既に正しい形式の場合はそのまま使用
-                    slug = slug;
-                } else if (slug && slug.includes('/')) {
-                    // 古い形式の場合は置換
-                    slug = slug.replace(/\//g, ':');
-                }
+                // スラッグはそのまま使用（getEventAssetUrlで正規化される）
                 
                 console.log('🎴 Processing card image for event:', {
                     eventName: e.event_name || e.name,
@@ -350,7 +336,7 @@
                 });
                 
                 if (window.getEventAssetUrlCandidates) {
-                    // card画像とバナー画像を統一（同じ画像を使用）
+                    // card画像とバナー画像を統一（hero画像を使用）
                     const cands = window.getEventAssetUrlCandidates(slug, 'main', 'hero', ['png','jpg','webp']);
                     e.image = (cands[0] || fallbackCard) + cacheBuster;
                     e.__cardFallbacks = cands.slice(1).map(url => url + cacheBuster);

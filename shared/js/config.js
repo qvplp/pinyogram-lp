@@ -57,11 +57,26 @@ if (window.CDN_EVENTS_BASE.includes('pinyogram.com/pinyogramlp')) {
 // subdir: 'main' | 'models' など
 // fileName: 例 'hero.jpg', 'card.jpg', '1.jpg'
 window.getEventAssetUrl = function(eventSlug, subdir, fileName){
-  // 実際の配信URL形式に合わせて調整
-  // スラッシュをコロンに変換（URLエンコード形式）
-  const urlSlug = eventSlug.replace(/\//g, ':');
+  if (!eventSlug || !subdir || !fileName) {
+    console.warn('⚠️ Missing parameters for getEventAssetUrl:', { eventSlug, subdir, fileName });
+    return '';
+  }
   
-  // 実際のパス形式: events/セッション撮影会2025:09:16/main/card.png
+  let urlSlug = eventSlug;
+  
+  // スラッグの正規化: pinyogramlp/events/... 形式をそのまま使用
+  if (eventSlug.startsWith('pinyogramlp/events/')) {
+    // 新しい形式: pinyogramlp/events/セッション撮影会2025:09:16/ をそのまま使用
+    urlSlug = eventSlug;
+  } else if (eventSlug.includes('/')) {
+    // 古い形式: セッション撮影会2025:09:16 を events/セッション撮影会2025:09:16 に変換
+    urlSlug = `events/${eventSlug.replace(/\//g, ':')}`;
+  } else {
+    // その他の形式: events/ プレフィックスを追加
+    urlSlug = `events/${eventSlug}`;
+  }
+  
+  // 実際のパス形式: events/セッション撮影会2025:09:16/main/hero.png
   const path = `${urlSlug}/${subdir}/${fileName}`;
   const url = `${window.CDN_EVENTS_BASE}/${path}`;
   
