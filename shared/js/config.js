@@ -5,16 +5,21 @@ window.APP_IMAGE = {
   contestHero: 'https://placehold.co/1920x820/png?text=Contest'
 };
 
-// Cloudflare（R2/Pagesなど）の公開CDN基点URLを設定してください。
-// R2の正しい配信URL形式に設定
-// 形式1: R2のデフォルト配信URL（推奨）
+// Cloudflare R2の公開CDN基点URLを設定してください。
+// ⚠️ 重要: メインドメイン（pinyogram.com）は使用しないでください。サイトが404になります。
+
+// 形式1: R2のデフォルト配信URL（推奨：設定が簡単）
+// Cloudflareダッシュボード > R2 > pinyogramlp > 設定 > 公開配信URL から取得
 window.CDN_EVENTS_BASE = window.CDN_EVENTS_BASE || 'https://pub-1234567890abcdef1234567890abcdef.r2.dev/pinyogramlp/events';
 
-// 形式2: カスタムドメインを使用する場合（設定済みの場合）
+// 形式2: カスタムサブドメインを使用する場合（推奨：ブランド統一）
+// 例: cdn.pinyogram.com, assets.pinyogram.com, images.pinyogram.com
 // window.CDN_EVENTS_BASE = window.CDN_EVENTS_BASE || 'https://cdn.pinyogram.com/pinyogramlp/events';
 
 // 形式3: Cloudflare Pagesの配信URLを使用する場合
 // window.CDN_EVENTS_BASE = window.CDN_EVENTS_BASE || 'https://pinyogram.pages.dev/pinyogramlp/events';
+
+// 設定手順の詳細は CLOUDFLARE_R2_SETUP.md を参照してください
 
 // R2の実際の配信URLを取得するヘルパー関数
 window.getR2PublicUrl = function() {
