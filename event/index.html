@@ -157,7 +157,7 @@
                             各部 ${'¥'+Number(event.pricing.perUnit).toLocaleString()} / 2部通し ${'¥'+Number(event.pricing.twoParts).toLocaleString()} / 3部通し ${'¥'+Number(event.pricing.threeParts).toLocaleString()}
                         </div>` : ''}
                         <div class="card-actions">
-                            <a href="event-detail.html?id=${event.id}" class="btn-detail">詳細を見る</a>
+                            <a href="/event/${event.id}/" class="btn-detail">詳細を見る</a>
                         </div>
                     </div>
                 `;
@@ -172,7 +172,7 @@
                         return;
                     }
                     const eventId = card.dataset.id;
-                    window.location.href = `event-detail.html?id=${eventId}`;
+                    window.location.href = `/event/${eventId}/`;
                 };
                 card.addEventListener('click', handleCardClick);
                 card.addEventListener('keydown', (e) => {
@@ -211,7 +211,7 @@
             document.querySelectorAll('.event-list-item').forEach(item => {
                 item.addEventListener('click', () => {
                     const eventId = item.dataset.id;
-                    location.href = `event-detail.html?id=${eventId}`;
+                    location.href = `/event/${eventId}/`;
                 });
             });
         }
