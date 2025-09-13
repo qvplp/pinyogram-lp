@@ -31,22 +31,124 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    <meta name="cache-control" content="max-age=0">
+    <meta name="expires" content="0">
+    <meta name="expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
+    <meta name="pragma" content="no-cache">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Font Awesome - CSP対応のためコメントアウト -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> -->
         <!-- CSS -->
-<link rel="stylesheet" href="css/shared/style.css?v=8.0.0">
+<link rel="stylesheet" href="css/shared/style.css?v=8.3.0">
 
     <style>
-        /* 基本リセット */
+        /* 基本リセット - キャッシュ対策: 2025-01-27 15:30 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            .model-schedule {
-                font-size: 0.9rem;
-                color: #718096;
-            }
+        }
+        
+        .model-schedule {
+            font-size: 0.9rem;
+            color: #718096;
+        }
+        
+        /* タイムスケジュール以降の文字を左揃えに */
+        .schedule-info {
+            text-align: left !important;
+        }
+        
+        .schedule-info p,
+        .schedule-info .time-table,
+        .schedule-info .model-schedule,
+        .schedule-info .access-note {
+            text-align: left !important;
+        }
+        
+        /* タイムスケジュールセクション内のすべての要素を左揃えに */
+        .schedule-info * {
+            text-align: left !important;
+        }
+        
+        /* タイムスケジュールの見出しも左揃えに */
+        .schedule-info h3 {
+            text-align: left !important;
+        }
+        
+        /* 参加費、会場情報、画像掲載について、注意事項セクションを左揃えに */
+        .pricing-info,
+        .venue-info,
+        .photo-policy,
+        .notice-list {
+            text-align: left !important;
+        }
+        
+        .pricing-info p,
+        .venue-info p,
+        .photo-policy p,
+        .notice-list li {
+            text-align: left !important;
+        }
+        
+        /* 指定セクションの見出し（h3タグ）も左揃えに */
+        .event-details h3 {
+            text-align: left !important;
+        }
+        
+        /* 特に指定されたセクションの見出しを確実に左揃えに */
+        .event-details h3:nth-of-type(4), /* 参加費（税込） */
+        .event-details h3:nth-of-type(5), /* 会場情報 */
+        .event-details h3:nth-of-type(6), /* 画像掲載について */
+        .event-details h3:nth-of-type(7)  /* 注意事項 */ {
+            text-align: left !important;
+        }
+        
+        /* より強力な左揃えルール（キャッシュ対策） - 2025-01-27 15:30 */
+        .event-details h3 {
+            text-align: left !important;
+        }
+        
+        /* より具体的なセレクタで確実に左揃えを適用 */
+        .event-details .pricing-info h3,
+        .event-details .venue-info h3,
+        .event-details .photo-policy h3,
+        .event-details .notice-list h3 {
+            text-align: left !important;
+        }
+        
+        /* 特定のセクション内のすべての要素を左揃えに */
+        .event-details .pricing-info *,
+        .event-details .venue-info *,
+        .event-details .photo-policy *,
+        .event-details .notice-list * {
+            text-align: left !important;
+        }
+        
+        /* 特定のセクション全体を左揃えに */
+        .event-details .pricing-info,
+        .event-details .venue-info,
+        .event-details .photo-policy,
+        .event-details .notice-list {
+            text-align: left !important;
+        }
+        
+        /* 価格テーブルとオプションセクションも左揃えに */
+        .price-table,
+        .option-section {
+            text-align: left !important;
+        }
+        
+        .price-table *,
+        .option-section * {
+            text-align: left !important;
+        }
+        
+        .event-details .pricing-info p,
+        .event-details .venue-info p,
+        .event-details .photo-policy p,
+        .event-details .notice-list li {
+            text-align: left !important;
         }
         
         @media (max-width: 640px) {
@@ -377,6 +479,22 @@
             font-size: 2rem;
         }
         
+        /* 関連イベントのグリッドレイアウト（2つずつ表示） */
+        .related-events .events-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .related-events .events-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+        
         .events-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -556,16 +674,6 @@
         <div class="container">
             <div class="event-detail-header">
                 <h1 id="eventTitle">イベント名読み込み中...</h1>
-                <div class="event-meta">
-                    <span class="event-date">
-                        <i class="far fa-calendar"></i>
-                        <span id="eventDate">-</span>
-                    </span>
-                    <span class="event-venue">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span id="eventVenue">-</span>
-                    </span>
-                </div>
             </div>
         </div>
     </section>
@@ -595,11 +703,6 @@
                     
                     <h3>タイムスケジュール</h3>
                     <div class="schedule-info">
-                        <p><strong>■入場 17:30</strong></p>
-                        
-                        <p><strong>■開催時間</strong><br>
-                        18:00〜22:00</p>
-                        
                         <div class="time-table" id="timeTable">
                             <p><strong>【タイムスケジュール】</strong></p>
                             <ul id="timeTableList"></ul>
@@ -667,7 +770,7 @@
                    target="_blank" 
                    class="btn-google-form"
                    id="reservationButton">
-                    <i class="fas fa-external-link-alt"></i>
+                    🔗
                     参加予約はこちら
                 </a>
             </div>
@@ -714,31 +817,10 @@
             async loadEventData() {
                 try {
                     const urlParams = new URLSearchParams(window.location.search);
-                    const eventId = urlParams.get('id') || 'EVT003';
+                    const eventId = urlParams.get('id') || 'EVT004';
                     
                     // イベントデータと画像パスのマッピング
                     const eventDataMap = {
-                        'EVT003': {
-                            event_name: 'コスプレ撮影会SP',
-                            event_date: '2025-08-15',
-                            venue: {
-                                venue_name: '池袋スタジオ',
-                                address: '東京都豊島区池袋3-10-5'
-                            },
-                            description: '人気コスプレイヤーが集結！アニメ・ゲームキャラクターのコスプレ撮影を楽しめる特別イベント。',
-                            image: '',
-                            entryTime: '10:30',
-                            hours: '11:00〜17:00',
-                            schedule: ['前半の部: 11:00 - 13:00','後半の部: 15:00 - 17:00'],
-                            pricing: { perUnit: 8000, twoParts: 15000, threeParts: 22000 },
-                            options: [{ name: '2ショットチェキ', price: '¥1,500/1枚' }],
-                            reservationUrl: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform',
-                            models: [
-                                { name: '神崎レイ', role: 'コスプレイヤー', image: '' },
-                                { name: '綾瀬ルナ', role: 'コスプレイヤー', image: '' }
-                            ],
-                            slug: 'コスプレ撮影会SP'
-                        },
                         'EVT004': {
                             event_name: 'セッション撮影会2025/09/16',
                             event_date: '2025-09-16',
@@ -753,7 +835,7 @@
                             schedule: ['1部: 18:00 - 18:40','2部: 19:10 - 19:50','3部: 20:20 - 21:00'],
                             pricing: { perUnit: 10000, twoParts: 19000, threeParts: 28000 },
                             options: [{ name: '2ショットチェキ', price: '¥1,000/1枚' }],
-                            reservationUrl: 'https://docs.google.com/forms/d/e/xxxxx/viewform',
+                            reservationUrl: 'https://forms.gle/A2cGcKViqxhJrtWW6',
                             models: [
                                 { name: 'くりえみ', role: '', image: 'くりえみ.png' },
                                 { name: '（まろ）', role: '', image: 'まろ.png' }
@@ -802,8 +884,7 @@
             
             displayEventInfo() {
                 document.getElementById('eventTitle').textContent = this.eventData.event_name || 'イベント名';
-                document.getElementById('eventDate').textContent = this.formatDate(this.eventData.event_date);
-                document.getElementById('eventVenue').textContent = this.eventData.venue?.venue_name || '会場未定';
+                // eventDate と eventVenue の要素は削除されたため、参照を削除
                 document.getElementById('venueName').textContent = this.eventData.venue?.venue_name || '会場未定';
                 document.getElementById('venueAddress').textContent = this.eventData.venue?.address || '住所未定';
                 
@@ -811,21 +892,29 @@
                     document.getElementById('eventDescription').textContent = this.eventData.description;
                 }
                 // 入場時間・開催時間
-                if (this.eventData.entryTime) {
+                if (this.eventData.entryTime || this.eventData.hours) {
                     const el = document.querySelector('.schedule-info');
                     if (el) {
-                        el.querySelectorAll('p strong')?.[0]?.parentElement?.remove();
-                        el.insertAdjacentHTML('afterbegin', `<p><strong>■入場 ${this.eventData.entryTime}</strong></p>`);
-                        const hoursP = el.querySelector('p strong + br') ? null : document.createElement('p');
-                    }
-                }
-                if (this.eventData.hours) {
-                    const el = document.querySelector('.schedule-info');
-                    if (el) {
-                        const hoursHtml = `<p><strong>■開催時間</strong><br>${this.eventData.hours}</p>`;
-                        const first = el.querySelector('p');
-                        if (first) first.insertAdjacentHTML('afterend', hoursHtml);
-                        else el.insertAdjacentHTML('afterbegin', hoursHtml);
+                        // 既存の入場時間・開催時間をクリア
+                        const existingTimes = el.querySelectorAll('p strong');
+                        existingTimes.forEach(p => {
+                            if (p.textContent.includes('■入場') || p.textContent.includes('■開催時間')) {
+                                p.parentElement.remove();
+                            }
+                        });
+                        
+                        // 入場時間を追加
+                        if (this.eventData.entryTime) {
+                            el.insertAdjacentHTML('afterbegin', `<p><strong>■入場 ${this.eventData.entryTime}</strong></p>`);
+                        }
+                        
+                        // 開催時間を追加
+                        if (this.eventData.hours) {
+                            const entryTimeHtml = this.eventData.entryTime ? 
+                                `<p><strong>■開催時間</strong><br>${this.eventData.hours}</p>` :
+                                `<p><strong>■開催時間</strong><br>${this.eventData.hours}</p>`;
+                            el.insertAdjacentHTML('afterbegin', entryTimeHtml);
+                        }
                     }
                 }
                 // タイムテーブル
@@ -1047,18 +1136,26 @@
             }
             
             async loadRelatedEvents() {
-                // 関連イベントのダミーデータ
+                // 関連イベントのダミーデータ（ホームページと同じ構造）
                 const relatedHTML = `
-                    <div class="event-card">
-                        <div class="event-image no-image">📸</div>
-                        <div class="event-content">
-                            <h3 class="event-title">コスプレ撮影会SP</h3>
-                            <div class="event-info">
-                                <i class="far fa-calendar"></i> 8/15
+                    <div class="event-card" data-id="EVT004" role="button" tabindex="0" aria-label="セッション撮影会2025/09/16の詳細ページへ移動">
+                        <figure class="media-frame is-40x21 fill-gradient" data-focal="center" style="--bg: url('https://images.pinyogram.com/events/セッション撮影会2025:09:16/main/hero.png')">
+                            <img src="https://images.pinyogram.com/events/セッション撮影会2025:09:16/main/hero.png" alt="セッション撮影会2025/09/16の画像" loading="lazy" decoding="async" onerror="this.style.display='none'; this.parentElement.className='media-frame is-40x21 fill-gradient'; this.parentElement.innerHTML='<div style=\\'color: white; text-align: center;\\'>📷<br/>画像読み込み中...</div>'">
+                            <div class="media-overlay">
+                                <div class="event-badge badge-popular">人気</div>
                             </div>
-                            <a href="/event/EVT003/" class="btn-view-detail">
-                                詳細を見る
-                            </a>
+                        </figure>
+                        <div class="event-content">
+                            <h3 class="event-title">セッション撮影会2025/09/16</h3>
+                            <div class="event-info">📅 9月16日(月)</div>
+                            <div class="event-info">📍 Gスタ</div>
+                        </div>
+                        <div class="event-footer">
+                            <span class="event-price">¥10,000〜</span>
+                            <span style="color: #666; font-size: 0.85rem;">空きあり</span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="/event/EVT004/" class="btn-detail">詳細を見る</a>
                         </div>
                     </div>
                 `;
@@ -1066,6 +1163,27 @@
                 const relatedEventsContainer = document.getElementById('relatedEvents');
                 if (relatedEventsContainer) {
                     relatedEventsContainer.innerHTML = relatedHTML;
+                    
+                    // ホームページと同じクリックイベントを追加
+                    relatedEventsContainer.querySelectorAll('.event-card').forEach(card => {
+                        const handleCardClick = (e) => {
+                            if (e.target.classList.contains('btn-detail') || e.target.closest('.btn-detail')) {
+                                return;
+                            }
+                            const eventId = card.dataset.id;
+                            if (eventId) {
+                                location.href = `/event/${eventId}/`;
+                            }
+                        };
+                        
+                        card.addEventListener('click', handleCardClick);
+                        card.addEventListener('keydown', (e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                handleCardClick(e);
+                            }
+                        });
+                    });
                 }
             }
         }
@@ -1073,6 +1191,42 @@
         // ページ読み込み時に初期化
         document.addEventListener('DOMContentLoaded', () => {
             new EventDetailPage();
+            
+            // 特定のセクションを確実に左揃えにする
+            const sectionsToAlign = [
+                '.schedule-info',
+                '.pricing-info',
+                '.venue-info', 
+                '.photo-policy',
+                '.notice-list',
+                '.price-table',
+                '.option-section'
+            ];
+            
+            sectionsToAlign.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(element => {
+                    element.style.textAlign = 'left';
+                    // 子要素も左揃えに
+                    const children = element.querySelectorAll('*');
+                    children.forEach(child => {
+                        child.style.textAlign = 'left';
+                    });
+                });
+            });
+            
+            // 特定の見出しも左揃えに
+            const headings = document.querySelectorAll('h3');
+            headings.forEach(heading => {
+                const text = heading.textContent.trim();
+                if (text === 'タイムスケジュール' ||
+                    text === '参加費（税込）' || 
+                    text === '会場情報' || 
+                    text === '画像掲載について' || 
+                    text === '注意事項') {
+                    heading.style.textAlign = 'left';
+                }
+            });
         });
     </script>
 
@@ -1082,8 +1236,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>簡略化フッター - ぴにょぐらむ撮影会</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Font Awesome - CSP対応のためコメントアウト -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> -->
     
     <style>
         /* フッター専用スタイル */

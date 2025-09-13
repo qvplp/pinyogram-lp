@@ -206,9 +206,12 @@
   - デフォルトの--img-scaleを1から0.8に変更（20%縮小）
   - 現在の比率を維持したまま適度なサイズに調整
   - shared/css/style.cssとevent/css/shared/style.cssの両方を更新
-- 2025-01-27: コスプレ撮影会SPイベント削除完了
-  - events.jsonからEVT003（コスプレ撮影会SP）を削除
-  - イベント一覧から該当イベントが表示されなくなった
+- 2025-01-27: コスプレ撮影会SPイベント完全削除完了
+  - data/events.jsonからEVT003（コスプレ撮影会SP）を削除
+  - pinyogram-lp/photo-session-connect/data/events.jsonからEVT003を削除
+  - event/event-detail.htmlからEVT003のイベントデータと関連イベントを削除
+  - event/EVT003/index.htmlとディレクトリを削除
+  - デフォルトイベントIDをEVT004に変更
 - 2025-01-27: ヘッダーレスポンシブ対応（ハンバーガーメニュー）実装完了
   - ヘッダーHTMLにハンバーガーメニューボタンを追加
   - CSSで768px以下でハンバーガーメニューを表示

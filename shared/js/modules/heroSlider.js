@@ -30,7 +30,7 @@ export class HeroSlider {
             this.indicators = Array.from(document.querySelectorAll('.hero-indicator'));
             
             if (this.slides.length === 0) {
-                console.warn('No slides found');
+                // スライドが見つからない場合は警告を出さずにfalseを返す
                 return false;
             }
 

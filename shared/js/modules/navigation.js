@@ -20,7 +20,7 @@ export class NavigationManager {
             this.navLinks = document.getElementById('navLinks');
             
             if (!this.mobileMenuToggle || !this.navLinks) {
-                console.warn('Navigation elements not found');
+                // ナビゲーション要素が見つからない場合は警告を出さずにfalseを返す
                 return false;
             }
 

@@ -1,43 +1,6 @@
 {
   "events": [
     {
-      "event_id": "EVT003",
-      "event_name": "コスプレ撮影会SP",
-      "event_type": "group_session",
-      "category": ["cosplay"],
-      "description": "人気コスプレイヤーが集結！アニメ・ゲームキャラクターのコスプレ撮影を楽しめる特別イベント。",
-      "event_date": "2025-08-15",
-      "start_time": "11:00",
-      "end_time": "17:00",
-      "status": "published",
-      "visibility": "public",
-      "venue": {
-        "venue_id": "VENUE002",
-        "venue_name": "池袋スタジオ",
-        "address": "東京都豊島区池袋3-10-5",
-        "access": "JR池袋駅 徒歩10分",
-        "google_maps_url": "https://maps.google.com/..."
-      },
-      "sessions": [
-        { "session_id": "A", "session_name": "前半の部", "time_slot": "11:00-13:00", "price": 8000, "capacity": 30, "reserved_count": 28, "status": "limited" },
-        { "session_id": "B", "session_name": "後半の部", "time_slot": "15:00-17:00", "price": 8000, "capacity": 30, "reserved_count": 19, "status": "available" }
-      ],
-      "pricing": { "base_price": 8000 },
-      "models": [
-        { "model_id": "MDL010", "model_name": "神崎レイ", "category": "コスプレイヤー", "instagram": "@rei_cos", "participating_sessions": ["A", "B"] },
-        { "model_id": "MDL011", "model_name": "綾瀬ルナ", "category": "コスプレイヤー", "instagram": "@luna_ayase", "participating_sessions": ["A", "B"] }
-      ],
-      "options": [ { "option_id": "OPT101", "option_name": "サイン入りブロマイド", "price": 1500 } ],
-      "assets": {
-        "banner": "assets/images/events/2025/cosplay_sp/banner.jpg",
-        "gallery": [
-          "assets/images/events/2025/cosplay_sp/1.jpg",
-          "assets/images/events/2025/cosplay_sp/2.jpg",
-          "assets/images/events/2025/cosplay_sp/3.jpg"
-        ]
-      }
-    },
-    {
       "event_id": "EVT004",
       "event_name": "セッション撮影会2025/09/16",
       "event_type": "group_session",

@@ -257,11 +257,11 @@ export class SecurityManager {
         meta.content = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:;";
         document.head.appendChild(meta);
         
-        // X-Frame-Options
-        const frameOptions = document.createElement('meta');
-        frameOptions.httpEquiv = 'X-Frame-Options';
-        frameOptions.content = 'DENY';
-        document.head.appendChild(frameOptions);
+        // X-Frame-Options - HTTPヘッダーでのみ設定可能なためコメントアウト
+        // const frameOptions = document.createElement('meta');
+        // frameOptions.httpEquiv = 'X-Frame-Options';
+        // frameOptions.content = 'DENY';
+        // document.head.appendChild(frameOptions);
         
         // X-Content-Type-Options
         const contentType = document.createElement('meta');
