@@ -1,0 +1,25 @@
+User-agent: *
+Allow: /
+
+# 重要なページを優先的にクロール
+Allow: /event/
+Allow: /reservation/
+Allow: /contest/
+
+# 管理ページやプライベートなディレクトリを除外
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /test/
+
+# 静的ファイルの最適化
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /assets/
+
+# サイトマップの場所
+Sitemap: https://pinyogram.com/sitemap.xml
+
+# クロール頻度の調整
+Crawl-delay: 1

@@ -91,7 +91,7 @@ const eventData = {
     event_id: 'EVT004',
     event_name: 'セッション撮影会2025/09/16',
     event_date: '2025-09-16',
-    description: '各部5人以下の少人数セッション撮影会',
+    description: '少人数セッション撮影会',
     slug: 'セッション撮影会2025:09:16',
     venue: {
         venue_name: 'Gスタ',
