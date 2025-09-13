@@ -3,11 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ぴにょぐらむ撮影会 - イベントスケジュール</title>
+    <title>ぴにょぐらむ撮影会 | Pinyogram - イベントスケジュール・予約システム</title>
     
-    <!-- SEO最適化 -->
-    <meta name="description" content="ぴにょぐらむ撮影会のイベントスケジュール。最新の撮影会情報をお届けします。">
-    <meta name="keywords" content="ぴにょぐらむ, 撮影会, イベント, 写真, スケジュール">
+    <!-- SEO最適化メタタグ -->
+    <meta name="description" content="ぴにょぐらむ（Pinyogram）撮影会のイベントスケジュール・予約システム。個人撮影会・団体撮影会の最新情報、カレンダー表示、オンライン予約が可能。写真愛好家のための撮影会プラットフォームです。">
+    <meta name="keywords" content="ぴにょぐらむ, pinyogram, 撮影会, 写真撮影会, 個人撮影会, 団体撮影会, イベントスケジュール, 撮影会予約, 写真イベント, カメラマン, モデル撮影, 撮影会カレンダー">
+    <meta name="author" content="Pinyogram">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D3J45W8YXL"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-D3J45W8YXL');
+    </script>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pinyogram.com/event/">
+    <meta property="og:title" content="ぴにょぐらむ撮影会 | Pinyogram - イベントスケジュール・予約システム">
+    <meta property="og:description" content="ぴにょぐらむ（Pinyogram）撮影会のイベントスケジュール・予約システム。個人撮影会・団体撮影会の最新情報、カレンダー表示、オンライン予約が可能。">
+    <meta property="og:image" content="https://images.pinyogram.com/home/0916.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="ぴにょぐらむ撮影会イベントスケジュール">
+    <meta property="og:site_name" content="ぴにょぐらむ撮影会">
+    <meta property="og:locale" content="ja_JP">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://pinyogram.com/event/">
+    <meta name="twitter:title" content="ぴにょぐらむ撮影会 | Pinyogram - イベントスケジュール・予約システム">
+    <meta name="twitter:description" content="ぴにょぐらむ（Pinyogram）撮影会のイベントスケジュール・予約システム。個人撮影会・団体撮影会の最新情報、カレンダー表示、オンライン予約が可能。">
+    <meta name="twitter:image" content="https://images.pinyogram.com/home/0916.png">
+    <meta name="twitter:image:alt" content="ぴにょぐらむ撮影会イベントスケジュール">
+    
+    <!-- 構造化データ（JSON-LD） -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "ぴにょぐらむ撮影会イベント",
+      "description": "写真撮影会イベントのスケジュールと予約システム。個人撮影会・団体撮影会の情報提供。",
+      "url": "https://pinyogram.com/event/",
+      "image": "https://images.pinyogram.com/home/0916.png",
+      "organizer": {
+        "@type": "Organization",
+        "name": "ぴにょぐらむ撮影会",
+        "alternateName": "Pinyogram",
+        "url": "https://pinyogram.com"
+      },
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "撮影会会場",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "JP"
+        }
+      },
+      "offers": {
+        "@type": "Offer",
+        "availability": "https://schema.org/InStock",
+        "price": "0",
+        "priceCurrency": "JPY"
+      }
+    }
+    </script>
+    
+    <link rel="canonical" href="https://pinyogram.com/event/">
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/shared/style.css?v=11.0.0">
@@ -41,7 +109,7 @@
     <div class="main-container">
         <!-- 左側：イベント一覧（2/3） -->
         <div class="events-section">
-            <h2 class="section-title">📸 開催予定イベント</h2>
+            <h2 class="section-title">📸 ぴにょぐらむ撮影会 - 開催予定イベント</h2>
             <div class="events-grid" id="eventsGrid">
                 <!-- イベントカードは動的に生成されます -->
             </div>
@@ -64,7 +132,7 @@
             
             <!-- イベントリスト -->
             <div class="event-list" id="eventList">
-                <h4 class="event-list-title">🗓 今月のスケジュール</h4>
+                <h4 class="event-list-title">🗓 ぴにょぐらむ撮影会 - 今月のスケジュール</h4>
                 <!-- イベントリストアイテムは動的に生成されます -->
             </div>
         </div>
