@@ -82,9 +82,10 @@
     <meta name="expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
     <meta name="pragma" content="no-cache">
 
-    <!-- Font Awesome - CSP対応のためコメントアウト -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> -->
-        <!-- CSS -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <!-- CSS -->
 <link rel="stylesheet" href="css/shared/style.css?v=8.3.0">
 
     <style>
@@ -628,13 +629,7 @@
             box-shadow: 0 5px 15px rgba(255, 110, 199, 0.3);
         }
         
-        /* フッター */
-        .site-footer {
-            background: linear-gradient(135deg, #2d3748, #1a202c);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
+        /* フッター - 共有フッターを使用 */
         
         /* レスポンシブ */
         @media (max-width: 768px) {
@@ -1300,98 +1295,11 @@
             flex-direction: column;
         }
         
-        /* フッタースタイル */
-        .site-footer {
-            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-            color: white;
-            padding: 60px 0 0;
-            margin-top: auto;
-        }
-        
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* フッター上部 */
-        .footer-top {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            padding-bottom: 40px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .footer-column h3 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .footer-column p {
-            color: #cbd5e0;
-            line-height: 1.8;
-            margin-bottom: 15px;
-        }
-        
-        /* ロゴセクション */
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 15px;
-        }
-        
-        .footer-description {
-            color: #cbd5e0;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        
-        /* SNSリンク */
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .social-link {
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-        
-        .social-link:hover {
-            background: linear-gradient(135deg, #ff6ec7, #3b82f6);
-            transform: translateY(-3px);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-        
-        .social-link i {
-            font-size: 1.2rem;
-            color: white;
-        }
+        /* フッタースタイル - 共有フッターを使用 */
         
 
         
-        /* フッター下部 */
-        .footer-bottom {
-            padding: 30px 0;
-            text-align: center;
-            color: #718096;
-        }
+        /* フッター下部 - 共有フッターを使用 */
         
 
         
@@ -1426,19 +1334,7 @@
             box-shadow: 0 10px 30px rgba(255, 110, 199, 0.4);
         }
         
-        /* レスポンシブ */
-        @media (max-width: 768px) {
-            .footer-top {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            
-
-            
-            .social-links {
-                justify-content: center;
-            }
-        }
+        /* レスポンシブ - フッター関連は共有フッターを使用 */
     </style>
 </head>
 <body>
