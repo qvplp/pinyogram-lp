@@ -78,7 +78,7 @@
     <link rel="canonical" href="https://pinyogram.com/event/">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="css/shared/style.css?v=11.0.0">
+    <link rel="stylesheet" href="css/shared/style.css?v=11.1.0">
     
     <!-- ヒーロー画像のプリロード -->
     <link rel="preload" as="image" href="https://images.pinyogram.com/home/0916.png">
@@ -93,9 +93,9 @@
     <!-- ヒーローセクション -->
 <section class="hero-shell hero--md">
     <figure class="hero-frame fill-gradient img-100" style="--hero-aspect: 40/21;" data-pos="center">
-        <img id="heroImg1" src="" alt="今月のイベント" loading="lazy" decoding="async">
+        <img id="heroImg1" src="" alt="EVT004セッション撮影会2025/09/16 - クリックして詳細を表示" loading="lazy" decoding="async">
         <div class="media-overlay">
-            <a href="index.html" class="hero-link"></a>
+            <a href="/event/EVT004/" class="hero-link" aria-label="EVT004セッション撮影会2025/09/16の詳細ページへ移動"></a>
         </div>
     </figure>
 </section>
@@ -119,7 +119,7 @@
         <div class="calendar-section">
             <div class="calendar-container">
                 <div class="calendar-header">
-                    <h3 class="calendar-title">2025年8月</h3>
+                    <h3 class="calendar-title" id="calendarTitle">2025年8月</h3>
                     <div class="calendar-nav">
                         <button onclick="changeMonth(-1)">‹</button>
                         <button onclick="changeMonth(1)">›</button>
@@ -242,37 +242,81 @@
         // イベントリストを生成
         function generateEventList() {
             const eventList = document.getElementById('eventList');
-            let html = '<h4 class="event-list-title">🗓 今月のスケジュール</h4>';
+            const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+            let html = `<h4 class="event-list-title">🗓 ${currentYear}年${monthNames[currentMonth - 1]}のスケジュール</h4>`;
             
-            eventData.forEach(event => {
-                const date = new Date(event.date);
-                const day = date.getDate();
-                const typeText = event.type === 'individual' ? '個人撮影会' : '団体撮影会';
-                
-                html += `
-                    <div class="event-list-item" data-id="${event.id}">
-                        <div class="event-list-date">${day}</div>
-                        <div class="event-list-info">
-                            <div class="event-list-name">${event.name}</div>
-                            <div class="event-list-type">${typeText}</div>
-                        </div>
-                    </div>
-                `;
+            // 現在表示中の月のイベントのみをフィルタリング
+            const currentMonthEvents = eventData.filter(event => {
+                const eventDate = new Date(event.date);
+                return eventDate.getFullYear() === currentYear && eventDate.getMonth() + 1 === currentMonth;
             });
+            
+            if (currentMonthEvents.length === 0) {
+                html += '<div class="event-list-item no-events">この月のイベントはありません</div>';
+            } else {
+                currentMonthEvents.forEach(event => {
+                    const date = new Date(event.date);
+                    const day = date.getDate();
+                    const typeText = event.type === 'individual' ? '個人撮影会' : '団体撮影会';
+                    
+                    html += `
+                        <div class="event-list-item" data-id="${event.id}">
+                            <div class="event-list-date">${day}</div>
+                            <div class="event-list-info">
+                                <div class="event-list-name">${event.name}</div>
+                                <div class="event-list-type">${typeText}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
             
             eventList.innerHTML = html;
             
             document.querySelectorAll('.event-list-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    const eventId = item.dataset.id;
-                    location.href = `/event/${eventId}/`;
-                });
+                if (!item.classList.contains('no-events')) {
+                    item.addEventListener('click', () => {
+                        const eventId = item.dataset.id;
+                        location.href = `/event/${eventId}/`;
+                    });
+                }
             });
         }
         
         // カレンダー生成
         let currentYear = 2025;
         let currentMonth = 8;
+        
+        // 現在の日付から最も近いイベントがある月を取得
+        function getNearestEventMonth() {
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            const currentMonth = today.getMonth() + 1;
+            const currentDate = today.getDate();
+            
+            // 未来のイベントのみをフィルタリング
+            const futureEvents = eventData.filter(event => {
+                const eventDate = new Date(event.date);
+                const todayDate = new Date(currentYear, currentMonth - 1, currentDate);
+                return eventDate >= todayDate;
+            });
+            
+            if (futureEvents.length === 0) {
+                // 未来のイベントがない場合は現在の月を返す
+                return { year: currentYear, month: currentMonth };
+            }
+            
+            // 日付順にソート
+            futureEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            // 最も近いイベントの月を取得
+            const nearestEvent = futureEvents[0];
+            const nearestEventDate = new Date(nearestEvent.date);
+            const nearestYear = nearestEventDate.getFullYear();
+            const nearestMonth = nearestEventDate.getMonth() + 1;
+            
+            return { year: nearestYear, month: nearestMonth };
+        }
         
         function generateCalendar(year, month) {
             const calendar = document.getElementById('calendar');
@@ -337,7 +381,10 @@
             calendar.innerHTML = html;
             
             const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
-            document.querySelector('.calendar-title').textContent = `${year}年${monthNames[month - 1]}`;
+            const calendarTitle = document.getElementById('calendarTitle');
+            if (calendarTitle) {
+                calendarTitle.textContent = `${year}年${monthNames[month - 1]}`;
+            }
         }
         
         function changeMonth(direction) {
@@ -350,6 +397,7 @@
                 currentYear--;
             }
             generateCalendar(currentYear, currentMonth);
+            generateEventList(); // イベントリストも更新
         }
         
         // 初期化
@@ -372,7 +420,7 @@
                 const el = document.getElementById(id); 
                 if (el) {
                     el.src = heroImageUrl;
-                    el.alt = 'ぴにょぐらむ撮影会 - イベント情報';
+                    el.alt = 'EVT004セッション撮影会2025/09/16 - クリックして詳細を表示';
                     
                     // 画像読み込みエラーハンドリング
                     el.onerror = function() {
@@ -387,6 +435,31 @@
                     };
                 }
             });
+
+            // ヒーロー画像のクリックイベントを追加
+            const heroLink = document.querySelector('.hero-frame .media-overlay .hero-link');
+            if (heroLink) {
+                console.log('🔗 Hero link found, adding click event');
+                heroLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('🎯 Hero image clicked, navigating to EVT004');
+                    window.location.href = '/event/EVT004/';
+                });
+                
+                // ヒーロー画像全体にもクリックイベントを追加（保険）
+                const heroFrame = document.querySelector('.hero-frame');
+                if (heroFrame) {
+                    heroFrame.addEventListener('click', function(e) {
+                        if (e.target.tagName !== 'A') {
+                            console.log('🎯 Hero frame clicked, navigating to EVT004');
+                            window.location.href = '/event/EVT004/';
+                        }
+                    });
+                    heroFrame.style.cursor = 'pointer';
+                }
+            } else {
+                console.warn('⚠️ Hero link not found');
+            }
 
             // ヒーローバンドの背景URL設定機能
             function applyBg(band) {
@@ -458,6 +531,18 @@
 
             generateEventCards();
             generateEventList();
+            
+            // 最も近いイベントがある月を取得してカレンダーを初期化
+            const nearestEventMonth = getNearestEventMonth();
+            currentYear = nearestEventMonth.year;
+            currentMonth = nearestEventMonth.month;
+            
+            console.log('📅 Initializing calendar with nearest event month:', {
+                year: currentYear,
+                month: currentMonth,
+                events: eventData.length
+            });
+            
             generateCalendar(currentYear, currentMonth);
         });
     </script>
