@@ -245,7 +245,7 @@
             const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
             let html = `<h4 class="event-list-title">🗓 ${currentYear}年${monthNames[currentMonth - 1]}のスケジュール</h4>`;
             
-            // 現在表示中の月のイベントのみをフィルタリング
+            // カレンダーと同じ月のイベントのみをフィルタリング
             const currentMonthEvents = eventData.filter(event => {
                 const eventDate = new Date(event.date);
                 return eventDate.getFullYear() === currentYear && eventDate.getMonth() + 1 === currentMonth;
@@ -272,6 +272,12 @@
             }
             
             eventList.innerHTML = html;
+            
+            // スケジュール表示のタイトルをカレンダーと同期
+            const eventListTitle = eventList.querySelector('.event-list-title');
+            if (eventListTitle) {
+                eventListTitle.textContent = `🗓 ${currentYear}年${monthNames[currentMonth - 1]}のスケジュール`;
+            }
             
             document.querySelectorAll('.event-list-item').forEach(item => {
                 if (!item.classList.contains('no-events')) {
@@ -397,7 +403,7 @@
                 currentYear--;
             }
             generateCalendar(currentYear, currentMonth);
-            generateEventList(); // イベントリストも更新
+            generateEventList(); // イベントリストも更新（カレンダーと同じ月を表示）
         }
         
         // 初期化
@@ -530,7 +536,6 @@
             });
 
             generateEventCards();
-            generateEventList();
             
             // 最も近いイベントがある月を取得してカレンダーを初期化
             const nearestEventMonth = getNearestEventMonth();
@@ -544,6 +549,7 @@
             });
             
             generateCalendar(currentYear, currentMonth);
+            generateEventList(); // カレンダー初期化後にスケジュール表示も同期
         });
     </script>
 
