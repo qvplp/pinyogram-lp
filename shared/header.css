@@ -13,8 +13,40 @@
 }
 .brand{
   font-weight: 800;
-  color: #2563eb; text-decoration: none;
+  color: #C67DFF; text-decoration: none;
   font-size: clamp(20px, 1vw + 18px, 24px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.brand-logo{
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+  max-width: none;
+}
+
+.brand-text{
+  font-size: clamp(18px, 1vw + 16px, 22px);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px){
+  .brand-logo{
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  
+  .brand-text{
+    font-size: clamp(16px, 1vw + 14px, 20px);
+    white-space: nowrap;
+  }
 }
 
 /* ハンバーガーメニューボタン */
@@ -64,8 +96,8 @@
   margin-left: 28px;
   transition: color 0.2s ease;
 }
-.main-nav a:hover{ color:#2563eb; }
-.main-nav a.is-active{ color:#2563eb; }
+.main-nav a:hover{ color:#C67DFF; }
+.main-nav a.is-active{ color:#C67DFF; }
 
 /* レスポンシブ対応 */
 @media (max-width: 768px){

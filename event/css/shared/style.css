@@ -12,14 +12,14 @@
 
 /* CSS変数 - Apple Design System */
 :root {
-    --primary: #007AFF;
+    --primary: #C67DFF;
     --accent: #FF2D55;
     --secondary: #5856D6;
     --gray-900: #000000;
     --gray-700: #2C2C2E;
     --gray-600: #3A3A3C;
     --gray-50: #F2F2F7;
-    --gradient-main: linear-gradient(135deg, #007AFF, #5856D6);
+    --gradient-main: linear-gradient(135deg, #C67DFF, #5856D6);
     --shadow-sm: 0 2px 4px rgba(0,0,0,0.04);
     --shadow-md: 0 4px 6px rgba(0,0,0,0.04);
 }
@@ -140,15 +140,15 @@ nav {
 
 .event-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0,122,255,0.15);
-    border-color: rgba(0,122,255,0.3);
+    box-shadow: 0 12px 24px rgba(198,125,255,0.15);
+    border-color: rgba(198,125,255,0.3);
 }
 
 .event-card:focus {
     outline: 2px solid var(--primary);
     outline-offset: 2px;
     transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(0,122,255,0.2);
+    box-shadow: 0 8px 16px rgba(198,125,255,0.2);
 }
 
 /* ▼ 新しいスコープ化されたメディア枠 */
@@ -393,7 +393,7 @@ nav {
 }
 
 .calendar-nav button:hover {
-    background: rgba(0,122,255,0.1);
+    background: rgba(198,125,255,0.1);
 }
 
 .calendar-grid {
@@ -438,7 +438,7 @@ nav {
 }
 
 .calendar-day:hover {
-    background: rgba(0,122,255,0.05);
+    background: rgba(198,125,255,0.05);
 }
 
 .calendar-day-number {
@@ -458,7 +458,7 @@ nav {
 }
 
 .calendar-day.has-event {
-    background: rgba(0,122,255,0.08);
+    background: rgba(198,125,255,0.08);
 }
 
 .calendar-event {
@@ -480,7 +480,7 @@ nav {
 }
 
 .calendar-event.individual {
-    background: linear-gradient(135deg, #34C759, #007AFF);
+    background: linear-gradient(135deg, #34C759, #C67DFF);
 }
 
 .calendar-event.group {
@@ -520,7 +520,7 @@ nav {
 }
 
 .event-list-item:hover {
-    background: rgba(0,122,255,0.08);
+    background: rgba(198,125,255,0.08);
     transform: translateX(4px);
 }
 
@@ -861,7 +861,7 @@ nav {
     font-size: 17px;
     font-weight: 600;
     margin-bottom: 20px;
-    background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+    background: linear-gradient(135deg, #ff6ec7, #C67DFF);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -870,7 +870,7 @@ nav {
 .footer-logo {
     font-size: 1.5rem;
     font-weight: 600;
-    background: linear-gradient(135deg, #ff6ec7, #3b82f6);
+    background: linear-gradient(135deg, #ff6ec7, #C67DFF);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
