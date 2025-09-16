@@ -8,7 +8,7 @@
       "description": "少人数セッション撮影会",
       "event_date": "2025-09-16",
       "start_time": "18:00",
-      "end_time": "22:00",
+      "end_time": "21:30",
       "status": "published",
       "visibility": "public",
       "venue": {
@@ -17,9 +17,9 @@
         "address": "〒111-0053 東京都台東区浅草橋５丁目３−２ 秋葉原スクエアビル ４F"
       },
       "sessions": [
-        { "session_id": "S1", "session_name": "1部", "time_slot": "18:00-18:40", "price": 10000, "capacity": 5, "reserved_count": 0, "status": "available" },
-        { "session_id": "S2", "session_name": "2部", "time_slot": "19:10-19:50", "price": 10000, "capacity": 5, "reserved_count": 0, "status": "available" },
-        { "session_id": "S3", "session_name": "3部", "time_slot": "20:20-21:00", "price": 10000, "capacity": 5, "reserved_count": 0, "status": "available" }
+        { "session_id": "S1", "session_name": "1部", "time_slot": "18:30-19:10", "price": 10000, "capacity": 5, "reserved_count": 0, "status": "available" },
+        { "session_id": "S2", "session_name": "2部", "time_slot": "19:30-20:10", "price": 10000, "capacity": 5, "reserved_count": 0, "status": "available" },
+        { "session_id": "S3", "session_name": "3部", "time_slot": "20:30-21:10", "price": 10000, "capacity": 5, "reserved_count": 0, "status": "available" }
       ],
       "pricing": { "base_price": 10000, "twoParts": 19000, "threeParts": 28000 },
       "models": [
