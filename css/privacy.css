@@ -1,0 +1,608 @@
+/* プライバシーポリシーページ専用スタイル */
+
+.privacy-main {
+  min-height: calc(100vh - 56px);
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: 2rem 0 0 0;
+  margin-bottom: 0;
+}
+
+.privacy-container {
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+  padding: 0 1rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.privacy-header {
+  background: linear-gradient(135deg, #007AFF 0%, #0056CC 100%);
+  color: white;
+  padding: 3rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.privacy-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.3;
+}
+
+.privacy-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.privacy-header h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0 0 1.5rem 0;
+  position: relative;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+.privacy-intro {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  opacity: 0.95;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.privacy-content {
+  padding: 2rem;
+}
+
+.privacy-section {
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.privacy-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.privacy-section h3 {
+  color: #1e293b;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  border-left: 4px solid #007AFF;
+  border-radius: 0 8px 8px 0;
+  position: relative;
+}
+
+.privacy-section h3::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(135deg, #007AFF 0%, #0056CC 100%);
+  border-radius: 2px 0 0 2px;
+}
+
+.privacy-section h4 {
+  color: #334155;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem 0;
+  padding-left: 0.5rem;
+  border-left: 3px solid #94a3b8;
+}
+
+.privacy-section p {
+  color: #475569;
+  line-height: 1.7;
+  margin: 1rem 0;
+  text-align: left;
+}
+
+.privacy-section ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.privacy-section ol li {
+  color: #475569;
+  line-height: 1.7;
+  margin: 0.75rem 0;
+  position: relative;
+}
+
+.privacy-section ol ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.privacy-section ol ol li {
+  margin: 0.5rem 0;
+}
+
+.privacy-section ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.privacy-section ul li {
+  color: #475569;
+  line-height: 1.6;
+  margin: 0.5rem 0;
+}
+
+.privacy-section strong {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.privacy-section a {
+  color: #007AFF;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.privacy-section a:hover {
+  color: #0056CC;
+  text-decoration: underline;
+}
+
+.contact-info {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  margin: 1.5rem 0;
+}
+
+.contact-info p {
+  margin: 0.5rem 0;
+  color: #334155;
+}
+
+.company-info {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #f59e0b;
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.company-info p {
+  margin: 0.5rem 0;
+  color: #92400e;
+}
+
+.policy-date {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #b45309 !important;
+  margin-top: 1rem !important;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+  .privacy-main {
+    padding: 1rem 0;
+  }
+  
+  .privacy-container {
+    margin: 0 0.5rem;
+    border-radius: 8px;
+  }
+  
+  .privacy-header {
+    padding: 2rem 1rem;
+  }
+  
+  .privacy-header h1 {
+    font-size: 2rem;
+  }
+  
+  .privacy-header h2 {
+    font-size: 1.25rem;
+  }
+  
+  .privacy-intro {
+    font-size: 0.9rem;
+    padding: 1rem;
+  }
+  
+  .privacy-content {
+    padding: 1.5rem;
+  }
+  
+  .privacy-section h3 {
+    font-size: 1.2rem;
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .privacy-section h4 {
+    font-size: 1rem;
+  }
+  
+  .privacy-section p {
+    font-size: 0.9rem;
+  }
+  
+  .privacy-section ol li {
+    font-size: 0.9rem;
+  }
+  
+  .contact-info,
+  .company-info {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .privacy-container {
+    margin: 0 0.25rem;
+  }
+  
+  .privacy-header {
+    padding: 1.5rem 0.75rem;
+  }
+  
+  .privacy-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .privacy-header h2 {
+    font-size: 1.1rem;
+  }
+  
+  .privacy-content {
+    padding: 1rem;
+  }
+  
+  .privacy-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  .privacy-section h3 {
+    font-size: 1.1rem;
+    padding: 0.5rem;
+  }
+  
+  .privacy-section h4 {
+    font-size: 0.95rem;
+  }
+  
+  .privacy-section p,
+  .privacy-section ol li {
+    font-size: 0.85rem;
+  }
+}
+
+/* 印刷用スタイル */
+@media print {
+  .privacy-main {
+    background: white;
+    padding: 0;
+  }
+  
+  .privacy-container {
+    box-shadow: none;
+    border-radius: 0;
+    max-width: none;
+    margin: 0;
+  }
+  
+  .privacy-header {
+    background: #007AFF !important;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+  
+  .privacy-section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  
+  .privacy-section h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+}
+
+/* ===========================
+   Emergency: 全文を左寄せに固定
+   =========================== */
+.privacy-main {
+  text-align: left !important;
+}
+.privacy-main :where(h1,h2,h3,h4,h5,h6,p,ul,ol,li,dl,dt,dd,blockquote,figure,figcaption,small,strong,a,span) {
+  text-align: left !important;
+}
+
+/* ===========================
+   Privacy Policy 専用スタイル
+   =========================== */
+
+/* レイアウトとタイポグラフィ */
+.privacy-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 56px 20px 96px;
+}
+
+.privacy-main {
+  color: #111;
+  line-height: 1.9;
+  letter-spacing: .01em;
+  font-family: ui-sans-serif, system-ui, -apple-system,
+               "Hiragino Kaku Gothic ProN", "Yu Gothic",
+               "Noto Sans JP", Meiryo, sans-serif;
+  font-feature-settings: "palt";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ヒーロー（ページ冒頭） */
+.privacy-header {
+  margin-bottom: 28px;
+}
+.privacy-header h1 {
+  font-size: clamp(26px, 3.2vw, 34px);
+  font-weight: 800;
+  letter-spacing: .06em;
+  margin: 0 0 .25em;
+}
+.privacy-header h2 {
+  font-size: clamp(18px, 2.3vw, 20px);
+  color: #6b7280; /* グレー */
+  margin: 0 0 .6em;
+}
+.privacy-intro {
+  color: #374151;
+}
+
+/* セクション */
+.privacy-section {
+  padding: 28px 0;
+  border-top: 1px solid #eee;
+}
+.privacy-section:first-of-type {
+  border-top: 0;
+}
+.privacy-section h3 {
+  font-size: clamp(18px, 2.4vw, 22px);
+  font-weight: 700;
+  margin: 0 0 .5em;
+  position: relative;
+  padding-left: .8em;
+}
+.privacy-section h3::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .35em;
+  width: 4px;
+  height: 1.1em;
+  background: #007aff; /* アクセント（iOSブルー系） */
+  border-radius: 2px;
+}
+.privacy-section h4 {
+  font-size: clamp(16px, 2vw, 18px);
+  font-weight: 700;
+  margin: 1.2em 0 .4em;
+  color: #111;
+}
+
+/* リストと段落 */
+.privacy-section p {
+  margin: .6em 0;
+}
+.privacy-section ol,
+.privacy-section ul {
+  padding-left: 1.4em;
+  margin: .5em 0 .9em;
+}
+.privacy-section li {
+  margin: .25em 0;
+}
+
+/* リンク（長いURL対策も） */
+.privacy-main a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-word;
+}
+
+/* お問い合わせと会社情報をカード風に */
+.contact-info,
+.company-info {
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-top: 14px;
+}
+.company-info .policy-date {
+  color: #6b7280;
+}
+
+/* 余白の微調整（番号付き見出し直後のリストなど） */
+.privacy-section > h4 + ol,
+.privacy-section > h4 + ul {
+  margin-top: .3em;
+}
+
+/* レスポンシブ余白（横幅が広い時に余白を増やす） */
+@media (min-width: 960px) {
+  .privacy-container {
+    padding: 72px 24px 120px;
+  }
+}
+
+/* ダークモード軽対応 */
+@media (prefers-color-scheme: dark) {
+  .privacy-main { color: #e5e7eb; }
+  .privacy-intro { color: #cbd5e1; }
+  .privacy-section { border-top-color: #2b2f36; }
+  .privacy-main a { color: #93c5fd; }
+  .contact-info, .company-info {
+    background: #15171a;
+    border-color: #2b2f36;
+  }
+  .company-info .policy-date { color: #9ca3af; }
+}
+
+/* ===========================
+   Privacy Policy: プレーン化 & 左寄せ（参照: aihub.co.jp/privacy-policy）
+   =========================== */
+
+/* 最優先で左寄せ（ページ範囲内のみ） */
+.privacy-container,
+.privacy-container * {
+  text-align: left !important;
+}
+
+/* ベースレイアウトとタイポグラフィ */
+.privacy-container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 40px 20px 96px;
+}
+.privacy-main {
+  color: #111;
+  line-height: 1.9;
+  letter-spacing: .01em;
+  font-family: ui-sans-serif, system-ui, -apple-system,
+               "Hiragino Kaku Gothic ProN", "Yu Gothic",
+               "Noto Sans JP", Meiryo, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 青いヒーロー/カード装飾を撤去 */
+.privacy-header {
+  background: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  margin-bottom: 24px;
+}
+.privacy-intro {
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  color: #111 !important;
+}
+.privacy-main [class*="hero"],
+.privacy-main [class*="banner"],
+.privacy-main [class*="card"] {
+  background: none !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+
+/* 見出し（装飾なし・左寄せ） */
+.privacy-header h1 {
+  font-size: clamp(26px, 3.2vw, 34px);
+  font-weight: 800;
+  margin: 0 0 .25em;
+  color: #111 !important;
+}
+.privacy-header h2 {
+  font-size: clamp(18px, 2.3vw, 20px);
+  color: #6b7280;
+  margin: 0 0 .6em;
+}
+.privacy-section h3 {
+  font-size: clamp(18px, 2.4vw, 22px);
+  font-weight: 700;
+  margin: 2.2rem 0 .8rem;
+  padding: 0;
+  border: none;
+}
+.privacy-section h3::before,
+.privacy-section h3::after {
+  content: none !important;
+}
+.privacy-section h4 {
+  font-size: clamp(16px, 2vw, 18px);
+  font-weight: 700;
+  margin: 1.4rem 0 .4rem;
+  color: #111;
+}
+
+/* セクション区切り：薄い罫線のみ */
+.privacy-section {
+  padding: 24px 0;
+  border-top: 1px solid #eee;
+}
+.privacy-section:first-of-type { border-top: 0; }
+
+/* 段落・リストの標準化 */
+.privacy-section p { margin: .6em 0; }
+.privacy-section ol,
+.privacy-section ul {
+  padding-left: 1.4em;
+  margin: .5em 0 .9em;
+}
+.privacy-section li { margin: .35em 0; }
+.privacy-section ol { list-style: decimal; }
+.privacy-section ol ol { list-style: lower-alpha; }
+.privacy-section ul { list-style: disc; }
+
+/* リンクは下線のみ（本文色継承） */
+.privacy-main a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-word;
+}
+
+/* お問い合わせ/会社情報をプレーン化 */
+.contact-info,
+.company-info {
+  background: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin-top: 10px;
+}
+.company-info .policy-date { color: #6b7280; }
+
+/* レスポンシブ余白 */
+@media (min-width: 960px) {
+  .privacy-container { padding: 56px 24px 120px; }
+}
+
+/* ダークモード軽対応 */
+@media (prefers-color-scheme: dark) {
+  .privacy-main { color: #e5e7eb; }
+  .privacy-intro { color: #cbd5e1; }
+  .privacy-section { border-top-color: #2b2f36; }
+  .company-info .policy-date { color: #9ca3af; }
+}

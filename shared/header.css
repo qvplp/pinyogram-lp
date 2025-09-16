@@ -8,18 +8,26 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
-  display: flex; align-items: center; justify-content: space-between;
-  position: relative;
-}
-.brand{
-  font-weight: 800;
-  color: #C67DFF; text-decoration: none;
-  font-size: clamp(20px, 1vw + 18px, 24px);
   display: flex;
   align-items: center;
-  gap: 8px;
-  min-width: 0;
-  flex-shrink: 0;
+  justify-content: space-between;
+  position: relative;
+}
+.brand-logo-link{
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.brand-text-link{
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
 }
 
 .brand-logo{
@@ -32,7 +40,11 @@
 
 .brand-text{
   font-size: clamp(18px, 1vw + 16px, 22px);
+  font-weight: 800;
+  color: #C67DFF;
   white-space: nowrap;
+  min-width: 200px;
+  text-align: center;
 }
 
 @media (max-width: 640px){
@@ -46,6 +58,8 @@
   .brand-text{
     font-size: clamp(16px, 1vw + 14px, 20px);
     white-space: nowrap;
+    min-width: 150px;
+    text-align: center;
   }
 }
 
@@ -87,6 +101,13 @@
 .main-nav{
   display: flex;
   align-items: center;
+  z-index: 2;
+}
+
+@media (max-width: 768px){
+  .main-nav{
+    display: none;
+  }
 }
 
 .main-nav a{
@@ -95,6 +116,11 @@
   font-weight: 600;
   margin-left: 28px;
   transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.main-nav a:first-child{
+  margin-left: 0;
 }
 .main-nav a:hover{ color:#C67DFF; }
 .main-nav a.is-active{ color:#C67DFF; }
@@ -103,6 +129,11 @@
 @media (max-width: 768px){
   .hamburger-menu{
     display: flex;
+  }
+  
+  .brand-text-link{
+    left: 50%;
+    transform: translateX(-50%);
   }
   
   .main-nav{
@@ -120,6 +151,7 @@
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
+    display: flex;
   }
   
   .main-nav.is-open{
@@ -154,3 +186,29 @@
     top: 56px;
   }
 }
+
+/* === override: desktop only — place main-nav at the far right of header === */
+@media (min-width: 769px){
+  /* フレックスの開始基準にして、main-nav をautoマージンで右端に押し出す */
+  .site-header[data-version="v1"] .header-inner{
+    justify-content: flex-start !important; /* 既存space-betweenでも可だが、明示して安定させる */
+    gap: 24px; /* ロゴ左と中央テキスト周りの間隔（必要に応じて調整） */
+    position: relative; /* 念のため */
+  }
+
+  /* ナビを右端へ */
+  .site-header[data-version="v1"] .main-nav{
+    margin-left: auto !important;  /* 右端へ固定 */
+    margin-right: 0 !important;
+    z-index: 3; /* 中央テキストの上に出す保険 */
+  }
+
+  /* 中央のブランドテキストは現状維持（センター固定） */
+  .site-header[data-version="v1"] .brand-text-link{
+    position: absolute; 
+    left: 50%; 
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+}
+
