@@ -592,6 +592,10 @@
   padding: 0 !important;
   margin-top: 10px;
 }
+.contact-info p,
+.company-info p {
+  color: #d7e4ff !important;
+}
 .company-info .policy-date { color: #6b7280; }
 
 /* レスポンシブ余白 */
