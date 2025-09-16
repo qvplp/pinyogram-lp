@@ -596,7 +596,7 @@
 .company-info p {
   color: #d7e4ff !important;
 }
-.company-info .policy-date { color: #6b7280; }
+.company-info .policy-date { color: #111 !important; }
 
 /* レスポンシブ余白 */
 @media (min-width: 960px) {
