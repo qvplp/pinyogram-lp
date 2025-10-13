@@ -219,6 +219,12 @@
   - アクセシビリティ対応（aria-expanded、キーボード操作、ESCキー）
   - メニューリンククリック時の自動閉じ機能
   - 画面サイズ変更時の自動メニュー閉じ機能
+- 2025-01-27: EVT005「ぴにょぐらむ撮影会with福島裕二」バナー画像挿入完了
+  - イベントデータのthumbnail_imageフィールドを優先使用するロジックを実装
+  - eventDataマッピングにthumbnail_imageプロパティを追加
+  - 画像URL処理でthumbnail_imageが設定されている場合はそれを優先使用
+  - 指定された画像URL: https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/main/Frame%2056.png
+  - イベントカード生成時にEVT005のバナー画像が正しく表示されるよう修正
 
 ## 次のアクション
 1. アーキテクチャ最適化の実行

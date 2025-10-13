@@ -159,7 +159,8 @@
                     badge: ev.is_limited ? 'limited' : undefined,
                     remaining: ev.remaining_slots,
                     pricing: ev.pricing,
-                    slug: ev.slug || ev.event_name
+                    slug: ev.slug || ev.event_name,
+                    thumbnail_image: ev.thumbnail_image
                 }));
             } catch (e) {
                 console.error('Failed to load events:', e);
@@ -211,7 +212,7 @@
                         </div>
                         ${event.pricing ? `
                         <div class=\"price-breakdown\" style=\"padding:6px 12px; color:#555; font-size:0.85rem;\">
-                            各部 ${'¥'+Number(event.pricing.perUnit).toLocaleString()} / 2部通し ${'¥'+Number(event.pricing.twoParts).toLocaleString()} / 3部通し ${'¥'+Number(event.pricing.threeParts).toLocaleString()}
+                            各部 ${'¥'+Number(event.pricing.perUnit).toLocaleString()} / 2部通し ${'¥'+Number(event.pricing.twoParts).toLocaleString()}
                         </div>` : ''}
                         <div class="card-actions">
                             <a href="/event/${event.id}/" class="btn-detail">詳細を見る</a>
@@ -507,11 +508,18 @@
                 console.log('🎴 Processing card image for event:', {
                     eventName: e.event_name || e.name,
                     originalSlug: e.slug,
-                    processedSlug: slug
+                    processedSlug: slug,
+                    thumbnail_image: e.thumbnail_image
                 });
                 
-                // EVT004の場合は提供されたURLを直接使用
-                if (e.id === 'EVT004' || e.event_id === 'EVT004') {
+                // thumbnail_imageが設定されている場合はそれを優先使用
+                if (e.thumbnail_image && e.thumbnail_image.startsWith('http')) {
+                    e.image = e.thumbnail_image + cacheBuster;
+                    e.__cardFallbacks = []; // フォールバックなし（直接URL使用）
+                    console.log('🎴 Using thumbnail_image URL:', e.thumbnail_image);
+                }
+                // EVT004の場合は提供されたURLを直接使用（フォールバック）
+                else if (e.id === 'EVT004' || e.event_id === 'EVT004') {
                     const directUrl = 'https://images.pinyogram.com/events/%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A2025:09:16/main/hero.png';
                     e.image = directUrl + cacheBuster;
                     e.__cardFallbacks = []; // フォールバックなし（直接URL使用）
