@@ -96,9 +96,9 @@
     <!-- ヒーローセクション -->
 <section class="hero-shell hero--md">
     <figure class="hero-frame fill-gradient img-100" style="--hero-aspect: 40/21;" data-pos="center">
-        <img id="heroImg1" src="" alt="EVT004セッション撮影会2025/09/16 - クリックして詳細を表示" loading="lazy" decoding="async">
+        <img id="heroImg1" src="" alt="EVT005 ぴにょぐらむ撮影会with福島裕二 - クリックして詳細を表示" loading="lazy" decoding="async">
         <div class="media-overlay">
-            <a href="/event/EVT004/" class="hero-link" aria-label="EVT004セッション撮影会2025/09/16の詳細ページへ移動"></a>
+            <a href="/event/EVT005/" class="hero-link" aria-label="EVT005 ぴにょぐらむ撮影会with福島裕二 の詳細ページへ移動"></a>
         </div>
     </figure>
 </section>
@@ -430,7 +430,7 @@
                 const el = document.getElementById(id); 
                 if (el) {
                     el.src = heroImageUrl;
-                    el.alt = 'EVT004セッション撮影会2025/09/16 - クリックして詳細を表示';
+                    el.alt = 'EVT005 ぴにょぐらむ撮影会with福島裕二 - クリックして詳細を表示';
                     
                     // 画像読み込みエラーハンドリング
                     el.onerror = function() {
@@ -452,8 +452,8 @@
                 console.log('🔗 Hero link found, adding click event');
                 heroLink.addEventListener('click', function(e) {
                     e.preventDefault();
-                    console.log('🎯 Hero image clicked, navigating to EVT004');
-                    window.location.href = '/event/EVT004/';
+                    console.log('🎯 Hero image clicked, navigating to EVT005');
+                    window.location.href = '/event/EVT005/';
                 });
                 
                 // ヒーロー画像全体にもクリックイベントを追加（保険）
@@ -461,8 +461,8 @@
                 if (heroFrame) {
                     heroFrame.addEventListener('click', function(e) {
                         if (e.target.tagName !== 'A') {
-                            console.log('🎯 Hero frame clicked, navigating to EVT004');
-                            window.location.href = '/event/EVT004/';
+                            console.log('🎯 Hero frame clicked, navigating to EVT005');
+                            window.location.href = '/event/EVT005/';
                         }
                     });
                     heroFrame.style.cursor = 'pointer';

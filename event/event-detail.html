@@ -1198,7 +1198,7 @@
                         お客様のご要望に合わせて対応いたします。
                     </p>
                     
-                    <h3>出演モデル</h3>
+                    <h3>出演モデル（全4名が出演予定、後日記載）</h3>
                     <div class="models-section" id="modelsSection">
                         <!-- モデル情報がここに挿入されます -->
                     </div>
@@ -1632,28 +1632,7 @@
             
             async loadRelatedEvents() {
                 // 関連イベントのダミーデータ（ホームページと同じ構造）
-                const relatedHTML = `
-                    <div class="event-card" data-id="EVT004" role="button" tabindex="0" aria-label="セッション撮影会2025/09/16の詳細ページへ移動">
-                        <figure class="media-frame is-40x21 fill-gradient" data-focal="center" style="--bg: url('https://images.pinyogram.com/events/セッション撮影会2025:09:16/main/hero.png')">
-                            <img src="https://images.pinyogram.com/events/セッション撮影会2025:09:16/main/hero.png" alt="セッション撮影会2025/09/16の画像" loading="lazy" decoding="async" onerror="this.style.display='none'; this.parentElement.className='media-frame is-40x21 fill-gradient'; this.parentElement.innerHTML='<div style=\\'color: white; text-align: center;\\'>📷<br/>画像読み込み中...</div>'">
-                            <div class="media-overlay">
-                                <div class="event-badge badge-popular">人気</div>
-                            </div>
-                        </figure>
-                        <div class="event-content">
-                            <h3 class="event-title">セッション撮影会2025/09/16</h3>
-                            <div class="event-info">📅 9月16日(月)</div>
-                            <div class="event-info">📍 Gスタ</div>
-                        </div>
-                        <div class="event-footer">
-                            <span class="event-price">¥10,000〜</span>
-                            <span style="color: #666; font-size: 0.85rem;">空きあり</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="/event/EVT004/" class="btn-detail">詳細を見る</a>
-                        </div>
-                    </div>
-                `;
+                const relatedHTML = ``;
                 
                 const relatedEventsContainer = document.getElementById('relatedEvents');
                 if (relatedEventsContainer) {
