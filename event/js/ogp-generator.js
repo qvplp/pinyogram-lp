@@ -34,6 +34,22 @@ class EventOGPGenerator {
     }
 
     /**
+     * イベント用の代表画像URLを解決
+     * - 明示的に `thumbnail_image` が http(s) のフルURLで指定されていればそれを最優先で使用
+     * - それ以外は従来どおり slug ベースの hero.png を参照
+     * @param {Object} eventData
+     * @returns {string}
+     */
+    resolveEventImageUrl(eventData) {
+        const explicit = eventData?.thumbnail_image;
+        if (typeof explicit === 'string' && /^https?:\/\//.test(explicit)) {
+            return explicit;
+        }
+        const fallbackSlug = eventData?.slug || eventData?.event_name || '';
+        return this.generateEventImageUrl(fallbackSlug, 'main', 'hero', 'png');
+    }
+
+    /**
      * イベントOGPページのHTMLを生成
      * @param {Object} eventData - イベントデータ
      * @returns {string} - 生成されたHTML
@@ -48,8 +64,8 @@ class EventOGPGenerator {
             venue
         } = eventData;
 
-        // イベント画像URLを生成
-        const eventImageUrl = this.generateEventImageUrl(slug || event_name, 'main', 'hero', 'png');
+        // イベント画像URLを生成（サムネイルURLが明示されていれば優先）
+        const eventImageUrl = this.resolveEventImageUrl(eventData);
         
         // イベントURLを生成
         const eventUrl = `${window.location.origin}/event/${event_id}/`;
@@ -155,7 +171,7 @@ class EventOGPGenerator {
             venue
         } = eventData;
 
-        const eventImageUrl = this.generateEventImageUrl(slug || event_name, 'main', 'hero', 'png');
+        const eventImageUrl = this.resolveEventImageUrl(eventData);
         const eventUrl = `${window.location.origin}/event/${event_id}/`;
         const keywords = [
             'ぴにょぐらむ',
