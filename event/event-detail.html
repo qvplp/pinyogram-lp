@@ -324,112 +324,85 @@
             gap: 8px;
         }
         
-        /* モデルセクション */
+        /* モデルセクション - Gridレイアウトでスマホ1列/PC2列切り替え */
         .models-section {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
             margin: 20px 0;
+            padding: 0 10px;
         }
         
-        /* 画像と名前の縦並びを保証 */
+        /* カード全体をレスポンシブ対応 */
         .model-card {
+            width: 100% !important;         /* 親幅にフィット */
+            max-width: 480px;              /* PC時は少し余白を残す */
+            margin: 0 auto 24px auto;      /* 中央揃え */
             display: flex !important;
             flex-direction: column !important;
-            background: #f8f9fa;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            background: #fff;
             transition: transform 0.3s ease;
-            margin: 0 !important; /* 余白除去 */
-            padding: 0 !important; /* 余白除去 */
-            width: 200px !important; /* 固定幅で拡大を防ぐ */
-            max-width: 200px !important; /* 最大幅制限 */
-            min-width: 200px !important; /* 最小幅制限 */
-            flex-shrink: 0 !important; /* 縮小を防ぐ */
-            aspect-ratio: 3/4 !important; /* カードの比率を3:4に設定 */
-            line-height: normal !important; /* テキスト表示を確実にする */
         }
         
         .model-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
         }
         
-        /* 画像は上、情報は下 */
+        /* 画像をカード内で100%幅にする */
         .model-image {
-            display: block !important;
             width: 100% !important;
             height: auto !important;
+            display: block !important;
             object-fit: cover !important;
-            border-radius: 10px 10px 0 0 !important;
-            margin: 0 !important; /* 余白除去 */
-            padding: 0 !important; /* 余白除去 */
-            vertical-align: bottom !important; /* ブラウザ依存の1px対策 */
-            flex-shrink: 0 !important; /* 縮小を防ぐ */
-            flex-grow: 1 !important; /* 画像エリアを拡張 */
+            border-radius: 0 !important;
         }
         
-        /* 情報エリア */
+        /* モデル名部分も100%幅に */
         .model-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            padding: 12px 10px;
-            min-height: 56px;       /* 2行になっても崩れない */
+            width: 100% !important;
+            padding: 12px 0;
+            text-align: center;
             background: #f8f9fa;
-            border-radius: 0 0 10px 10px;
-            flex-shrink: 0; /* モデル名エリアのサイズを固定 */
-            line-height: normal !important; /* テキスト表示を確実にする */
-            visibility: visible !important; /* 確実に表示 */
-            opacity: 1 !important; /* 確実に表示 */
-            z-index: 10 !important; /* 表示順序を最優先 */
-            position: relative !important; /* z-indexを有効にする */
         }
         
-        /* モデル名（1行省略） */
         .model-name {
-            font-weight: 700;
-            line-height: 1.2 !important;
-            text-align: center;
-            max-width: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            font-size: 14px;        /* base */
-            color: #2d3748;
+            font-size: 16px;
+            font-weight: 600;
+            color: #222;
             margin: 0;
-            visibility: visible !important; /* 確実に表示 */
-            opacity: 1 !important; /* 確実に表示 */
-            display: block !important; /* 確実に表示 */
-            z-index: 11 !important; /* 表示順序を最優先 */
-            position: relative !important; /* z-indexを有効にする */
+            line-height: 1.3;
         }
         
-        /* 役割（任意） */
         .model-role {
-            font-size: 12px;
-            line-height: 1.2 !important;
-            color: #667085;
-            text-align: center;
-            max-width: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin: 0;
-            visibility: visible !important; /* 確実に表示 */
-            opacity: 1 !important; /* 確実に表示 */
-            display: block !important; /* 確実に表示 */
-            z-index: 11 !important; /* 表示順序を最優先 */
-            position: relative !important; /* z-indexを有効にする */
+            font-size: 14px;
+            color: #666;
+            margin: 4px 0 0 0;
+            line-height: 1.2;
         }
         
-        /* タブレット以上は少し大きく */
+        /* タブレット・PCでカードを整える */
         @media (min-width: 768px) {
-            .model-name { font-size: 16px; }
-            .model-role { font-size: 13px; }
+            .models-section {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 30px;
+                padding: 0 20px;
+            }
+            
+            .model-card {
+                max-width: 320px;
+            }
+            
+            .model-name {
+                font-size: 18px;
+            }
+            
+            .model-role {
+                font-size: 15px;
+            }
         }
         
         
@@ -472,7 +445,6 @@
             display: block !important; /* baselineギャップ対策 */
             margin: 0 !important; /* 余白除去 */
             padding: 0 !important; /* 余白除去 */
-            vertical-align: bottom !important; /* ブラウザ依存の1px対策 */
             border-radius: 15px !important; /* 画像自体の角を丸くする */
         }
         
@@ -815,7 +787,6 @@
             display: block !important; /* baselineギャップ対策 */
             margin: 0 !important; /* 余白除去 */
             padding: 0 !important; /* 余白除去 */
-            vertical-align: bottom !important; /* ブラウザ依存の1px対策 */
         }
         
         /* スマートフォン対応 - レスポンシブデザイン */
@@ -876,6 +847,11 @@
                 font-size: 1.2rem; /* スマホでは文字サイズを小さく */
                 margin: 20px 0 10px;
             }
+            
+            /* モデルカードのスマートフォン対応 - 新しいレスポンシブスタイルで上書き */
+            .models-section {
+                padding: 0 10px !important;
+            }
         }
         
     /* より小さなスマートフォン対応 */
@@ -913,6 +889,145 @@
         .main-image {
             border-radius: 8px !important;
         }
+        
+        /* 小型スマートフォン用モデルカード設定 - 新しいレスポンシブスタイルで上書き */
+        /*
+        .models-section {
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 0 5px !important;
+        }
+        
+        .model-card {
+            width: 100% !important;
+            max-width: 260px !important;
+            min-width: 220px !important;
+            aspect-ratio: 3/4 !important;
+        }
+        
+        .model-image {
+            height: auto !important;
+            flex-grow: 1 !important;
+            object-fit: cover !important;
+            background: #f8f9fa !important;
+            border-radius: 8px 8px 0 0 !important;
+        }
+        
+        .model-info {
+            padding: 10px 8px !important;
+            min-height: 55px !important;
+        }
+        
+        .model-name {
+            font-size: 13px !important;
+        }
+        */
+        
+        /* 最小画面サイズ（360px以下）でのモデルカード対応 - 新しいレスポンシブスタイルで上書き */
+        /*
+        .models-section {
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 10px !important;
+            padding: 0 3px !important;
+        }
+        
+        .model-card {
+            width: 100% !important;
+            max-width: 240px !important;
+            min-width: 200px !important;
+            aspect-ratio: 3/4 !important;
+        }
+        
+        .model-image {
+            height: auto !important;
+            flex-grow: 1 !important;
+            object-fit: cover !important;
+            background: #f8f9fa !important;
+            border-radius: 6px 6px 0 0 !important;
+        }
+        
+        .model-info {
+            padding: 8px 6px !important;
+            min-height: 50px !important;
+        }
+        
+        .model-name {
+            font-size: 12px !important;
+        }
+        
+        .model-role {
+            font-size: 10px !important;
+        }
+        */
+    }
+    
+    /* 最小画面サイズ（360px以下）での対応 */
+    @media (max-width: 360px) {
+        .event-content-section {
+            padding: 15px 3px;
+        }
+        
+        .event-info-column {
+            padding: 0 3px;
+        }
+        
+        .event-description {
+            padding: 12px;
+            border-radius: 6px;
+        }
+        
+        .event-description h2 {
+            font-size: 1.2rem;
+        }
+        
+        .event-description h3 {
+            font-size: 1rem;
+        }
+        
+        .event-gallery,
+        .main-image {
+            border-radius: 6px !important;
+        }
+        
+        /* 最小画面サイズ（360px以下）でのモデルカード対応 - 新しいレスポンシブスタイルで上書き */
+        /*
+        .models-section {
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 8px !important;
+            padding: 0 2px !important;
+        }
+        
+        .model-card {
+            width: 100% !important;
+            max-width: 220px !important;
+            min-width: 180px !important;
+            aspect-ratio: 3/4 !important;
+        }
+        
+        .model-image {
+            height: auto !important;
+            flex-grow: 1 !important;
+            object-fit: cover !important;
+            background: #f8f9fa !important;
+            border-radius: 6px 6px 0 0 !important;
+        }
+        
+        .model-info {
+            padding: 6px 4px !important;
+            min-height: 45px !important;
+        }
+        
+        .model-name {
+            font-size: 11px !important;
+        }
+        
+        .model-role {
+            font-size: 9px !important;
+        }
+        */
     }
     
     /* 711px以下でのヒーロー画像フレーム調整 */
@@ -1092,7 +1207,8 @@
                 padding: 30px;
             }
             
-            /* モデルカードのレスポンシブ設定 */
+            /* モデルカードのレスポンシブ設定 - 新しいレスポンシブスタイルで上書き */
+            /*
             .models-section {
                 flex-direction: column;
                 align-items: center;
@@ -1103,19 +1219,21 @@
                 width: 100% !important;
                 max-width: 300px !important;
                 min-width: 250px !important;
-                aspect-ratio: 3/4 !important; /* カードの比率を3:4に設定 */
+                aspect-ratio: 3/4 !important;
             }
             
             .model-image {
-                height: auto !important; /* 高さを自動調整 */
-                flex-grow: 1 !important; /* 画像エリアを拡張 */
-                object-fit: cover !important; /* 画像全体を表示し、余白は背景色で埋める */
-                background: #f8f9fa !important; /* 背景色を設定 */
-                border-radius: 10px 10px 0 0 !important; /* 上部のみ角を丸くする */
+                height: auto !important;
+                flex-grow: 1 !important;
+                object-fit: cover !important;
+                background: #f8f9fa !important;
+                border-radius: 10px 10px 0 0 !important;
             }
+            */
         }
         
-        /* タブレットサイズでのモデルカード設定 */
+        /* タブレットサイズでのモデルカード設定 - 新しいレスポンシブスタイルで上書き */
+        /*
         @media (max-width: 1024px) and (min-width: 769px) {
             .models-section {
                 flex-direction: row;
@@ -1128,21 +1246,22 @@
                 width: 200px !important;
                 max-width: 200px !important;
                 min-width: 200px !important;
-                aspect-ratio: 3/4 !important; /* カードの比率を3:4に設定 */
+                aspect-ratio: 3/4 !important;
             }
             
             .model-image {
-                height: auto !important; /* 高さを自動調整 */
-                flex-grow: 1 !important; /* 画像エリアを拡張 */
-                object-fit: cover !important; /* 画像全体を表示し、余白は背景色で埋める */
-                background: #f8f9fa !important; /* 背景色を設定 */
-                border-radius: 10px 10px 0 0 !important; /* 上部のみ角を丸くする */
+                height: auto !important;
+                flex-grow: 1 !important;
+                object-fit: cover !important;
+                background: #f8f9fa !important;
+                border-radius: 10px 10px 0 0 !important;
             }
             
             .events-grid {
                 grid-template-columns: 1fr;
             }
         }
+        */
         
         /* モバイル用のレスポンシブ設定 */
         @media (max-width: 480px) {
@@ -1768,7 +1887,8 @@
             box-shadow: 0 10px 30px rgba(255, 110, 199, 0.4);
         }
         
-        /* --- Fix: 出演モデル名が消える問題（完全版） --- */
+        /* --- Fix: 出演モデル名が消える問題（完全版） - 新しいレスポンシブスタイルで上書き --- */
+        /*
         .model-card {
             display: grid !important;
             grid-template-rows: 1fr auto !important;
@@ -1796,6 +1916,7 @@
         @media (min-width: 768px) {
             .model-name { font-size: 16px !important; }
         }
+        */
         
         /* レスポンシブ - フッター関連は共有フッターを使用 */
     </style>
