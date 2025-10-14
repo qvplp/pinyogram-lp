@@ -7,6 +7,11 @@ class EventOGPGenerator {
     constructor() {
         this.templatePath = '/event/templates/event-ogp-template.html';
         this.eventsDataPath = '/event/data/events.json';
+        // 固定OGP画像の上書き設定（イベント単位）
+        this.OVERRIDE_OG_IMAGE_BY_EVENT_ID = {
+            // EVT005: ご指定のOGP画像に固定
+            EVT005: 'https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/main/Frame%2056.png'
+        };
     }
 
     /**
@@ -41,6 +46,11 @@ class EventOGPGenerator {
      * @returns {string}
      */
     resolveEventImageUrl(eventData) {
+        // イベントIDでの明示的な上書きがあれば最優先
+        const eid = eventData?.event_id;
+        if (eid && this.OVERRIDE_OG_IMAGE_BY_EVENT_ID[eid]) {
+            return this.OVERRIDE_OG_IMAGE_BY_EVENT_ID[eid];
+        }
         const explicit = eventData?.thumbnail_image;
         if (typeof explicit === 'string' && /^https?:\/\//.test(explicit)) {
             return explicit;
@@ -181,6 +191,15 @@ class EventOGPGenerator {
             venue?.venue_name || ''
         ].filter(Boolean).join(', ');
 
+        // 代表的なOGP推奨サイズを複数用意（同一URLでも可：プラットフォームが最適解像度を選択）
+        const ogImageVariants = [
+            { url: eventImageUrl, width: '1200', height: '630' },  // 汎用（Facebook/Twitter）
+            { url: eventImageUrl, width: '1200', height: '628' },  // Twitter推奨
+            { url: eventImageUrl, width: '800',  height: '418' },  // 小さめ横長
+            { url: eventImageUrl, width: '600',  height: '315' },  // 旧来サイズ
+            { url: eventImageUrl, width: '1200', height: '1200' }  // 正方形（プラットフォーム互換用）
+        ];
+
         return {
             title: `${event_name} | ぴにょぐらむ撮影会`,
             ogType: 'website',
@@ -198,7 +217,8 @@ class EventOGPGenerator {
             twitterImage: eventImageUrl,
             twitterImageAlt: `${event_name} - ${description || 'ぴにょぐらむ撮影会のイベントです'}`,
             description: description || 'ぴにょぐらむ撮影会のイベントです',
-            keywords: keywords
+            keywords: keywords,
+            ogImageVariants
         };
     }
 }
