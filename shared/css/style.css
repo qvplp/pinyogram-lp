@@ -2,6 +2,11 @@
    ぴにょぐらむ撮影会 - Appleデザインシステム版
    =================================== */
 
+/* フォント設定 */
+body {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
 /* リセット & 基本設定 */
 * {
     margin: 0;
@@ -1125,7 +1130,7 @@ html{
 
 /* 本文の標準設定（日本語向け行間と字間） */
 body{
-  font-family: system-ui, -apple-system, "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
   color: #0f172a;                  /* slate-900 */
   line-height: 1.7;
   letter-spacing: 0.02em;
@@ -1236,7 +1241,7 @@ img{ max-width: 100%; height: auto; }
 /* ボールドUIのスコープ（全体に効かせる場合は html に付与不要）
    ページ限定で効かせたい時は <body data-style="bold"> にしてください。 */
 html, body[data-style="bold"]{
-  font-family: var(--font-sf);
+  font-family: 'M PLUS Rounded 1c', sans-serif;
   color: var(--text-900);
   letter-spacing: .01em;          /* 詰めすぎない */
   -webkit-font-smoothing: antialiased;

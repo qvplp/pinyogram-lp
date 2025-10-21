@@ -1,5 +1,10 @@
 /* コンテストページ専用スタイル */
 
+/* フォント設定 */
+body {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
 /* 開催予定コンテストセクション */
 .upcoming-contests {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -1648,7 +1653,7 @@
 /* ボールドUIのスコープ（全体に効かせる場合は html に付与不要）
    ページ限定で効かせたい時は <body data-style="bold"> にしてください。 */
 html, body[data-style="bold"]{
-  font-family: var(--font-sf);
+  font-family: 'M PLUS Rounded 1c', sans-serif;
   color: var(--text-900);
   letter-spacing: .01em;          /* 詰めすぎない */
   -webkit-font-smoothing: antialiased;

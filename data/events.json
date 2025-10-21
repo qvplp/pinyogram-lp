@@ -46,7 +46,7 @@
       "event_name": "ぴにょぐらむ撮影会with福島裕二",
       "event_type": "group",
       "event_date": "2025-10-21",
-      "description": "2部より福島氏が参加し、ライティングとライブシュートを行います",
+      "description": "3名が出演する2部制のセッション撮影会です。\n福島氏の「震える写真」撮影現場を一緒に体感。\n2部より福島氏が参加し、ライティングとライブシュートを行います",
       "venue": {
         "venue_name": "Gスタ",
         "address": "〒111-0053 東京都台東区浅草橋５丁目３−２ 秋葉原スクエアビル ４F"
@@ -80,6 +80,38 @@
         { "name": "（まろ）", "role": "", "image": "https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/models/events_%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A2025_09_16_models_%E3%81%BE%E3%82%8D.png" }
       ],
       "slug": "pinyogramlp/events/セッション撮影会2025:10:21/"
+    },
+    {
+      "event_id": "EVT006",
+      "event_name": "過去のイベント（テスト用）",
+      "event_type": "group",
+      "event_date": "2024-01-15",
+      "description": "過去のイベント（表示されないはず）",
+      "venue": {
+        "venue_name": "テスト会場",
+        "address": "テスト住所"
+      },
+      "pricing": {
+        "perUnit": 5000
+      },
+      "thumbnail_image": "images/events/placeholder.jpg",
+      "is_limited": false,
+      "remaining_slots": null,
+      "max_participants": 10,
+      "services": [
+        "テスト撮影"
+      ],
+      "entryTime": "10:00",
+      "hours": "10:00〜12:00",
+      "schedule": [
+        "1部: 10:00 - 12:00"
+      ],
+      "options": [],
+      "reservationUrl": "",
+      "models": [
+        { "name": "くりえみ", "role": "", "image": "くりえみ.png" }
+      ],
+      "slug": "test/past-event/"
     }
   ]
 }

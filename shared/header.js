@@ -55,7 +55,7 @@
       }
     })
     .catch(() => {
-      mount.outerHTML = '<header class="site-header"><div class="header-inner"><a class="brand" href="/">ぴによぐらむ撮影会</a></div></header>';
+      mount.outerHTML = '<header class="site-header"><div class="header-inner"></div></header>';
     });
 
   // ハンバーガーメニューの機能

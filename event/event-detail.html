@@ -13,12 +13,17 @@
         img-src 'self' data: https://images.pinyogram.com https://*.cloudflare.com;
         script-src 'self' 'unsafe-inline' https://www.google-analytics.com;
         connect-src 'self' https://www.google-analytics.com;
-        style-src 'self' 'unsafe-inline';
-        font-src 'self' data:;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src 'self' data: https://fonts.gstatic.com;
     ">
     
     <title>イベント詳細 | ぴにょぐらむ撮影会 | Pinyogram</title>
     
+    <!-- Google Fonts - M PLUS Rounded 1c -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
+
     <!-- 動的OGPメタタグ（JavaScriptで生成） -->
     <meta id="og-type" property="og:type" content="website">
     <meta id="og-site-name" property="og:site_name" content="ぴにょぐらむ撮影会">
@@ -40,7 +45,7 @@
     <meta property="og:image" content="https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/main/Frame%2056.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="1200">
-    <meta id="og-image-alt" property="og:image:alt" content="ぴにょぐらむ撮影会イベント詳細">
+    <meta id="og-image-alt" property="og:image:alt" content="ぴにょぐらむ撮影イベント詳細">
     <meta id="og-url" property="og:url" content="">
     
     <!-- Twitter Card -->
@@ -48,7 +53,7 @@
     <meta id="twitter-title" name="twitter:title" content="イベント詳細 | ぴにょぐらむ撮影会 | Pinyogram">
     <meta id="twitter-description" name="twitter:description" content="ぴにょぐらむ（Pinyogram）撮影会のイベント詳細ページ。個人撮影会・団体撮影会の詳細情報、開催日時、会場、料金、予約方法をご確認いただけます。">
     <meta id="twitter-image" name="twitter:image" content="https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/main/Frame%2056.png">
-    <meta id="twitter-image-alt" name="twitter:image:alt" content="ぴにょぐらむ撮影会イベント詳細">
+    <meta id="twitter-image-alt" name="twitter:image:alt" content="ぴにょぐらむ撮影イベント詳細">
     
     <!-- 基本SEOメタタグ -->
     <meta id="meta-description" name="description" content="ぴにょぐらむ（Pinyogram）撮影会のイベント詳細ページ。個人撮影会・団体撮影会の詳細情報、開催日時、会場、料金、予約方法をご確認いただけます。写真愛好家のための撮影会プラットフォームです。">
@@ -71,8 +76,8 @@
     {
       "@context": "https://schema.org",
       "@type": "Event",
-      "name": "ぴにょぐらむ撮影会イベント",
-      "description": "写真撮影会イベントの詳細情報。個人撮影会・団体撮影会の開催情報。",
+      "name": "ぴにょぐらむ撮影イベント",
+      "description": "写真撮影イベントの詳細情報。個人撮影会・団体撮影会の開催情報。",
       "url": "https://pinyogram.com/event/",
       "image": "https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/main/Frame%2056.png",
       "organizer": {
@@ -240,7 +245,7 @@
         }
         
         body {
-            font-family: 'Inter', 'Noto Sans JP', -apple-system, sans-serif;
+            font-family: 'M PLUS Rounded 1c', -apple-system, system-ui, sans-serif;
             background: #f5f7fa;
             color: #2d3748;
         }
@@ -1592,20 +1597,53 @@
 
                 console.log("✅ 読み込んだモデル一覧:", models);
 
-                const modelsHTML = models.map(model => `
-                    <div class="model-card" role="group" aria-label="${model.name}">
-                        <img
-                            src="${model.image}"
-                            alt="${model.name}（出演モデル）"
-                            class="model-image"
-                            loading="lazy"
-                        >
-                        <div class="model-info">
-                            <div class="model-name">${model.name}</div>
-                            ${model.role ? `<div class="model-role">${model.role}</div>` : ""}
-                        </div>
-                    </div>
-                `).join("");
+                const modelsHTML = models.map(model => {
+                    // くりえみとまろのみリンク機能を追加
+                    const isClickableModel = model.name === "くりえみ" || model.name === "（まろ）";
+                    const modelId = model.name === "くりえみ" ? "kuriemi" : model.name === "（まろ）" ? "maro" : null;
+                    
+                    if (isClickableModel && modelId) {
+                        return `
+                            <div class="model-card clickable-model" 
+                                 role="group" 
+                                 aria-label="${model.name}"
+                                 data-model-id="${modelId}"
+                                 onclick="navigateToModelDetail('${modelId}')"
+                                 style="cursor: pointer; transition: transform 0.3s ease;"
+                                 onmouseover="this.style.transform='translateY(-5px)'"
+                                 onmouseout="this.style.transform='translateY(0)'">
+                                <img
+                                    src="${model.image}"
+                                    alt="${model.name}（出演モデル）"
+                                    class="model-image"
+                                    loading="lazy"
+                                >
+                                <div class="model-info">
+                                    <div class="model-name">${model.name}</div>
+                                    ${model.role ? `<div class="model-role">${model.role}</div>` : ""}
+                                    <div class="model-link-hint" style="font-size: 12px; color: #666; margin-top: 4px;">
+                                        <i class="fas fa-external-link-alt"></i> 詳細を見る
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        return `
+                            <div class="model-card" role="group" aria-label="${model.name}">
+                                <img
+                                    src="${model.image}"
+                                    alt="${model.name}（出演モデル）"
+                                    class="model-image"
+                                    loading="lazy"
+                                >
+                                <div class="model-info">
+                                    <div class="model-name">${model.name}</div>
+                                    ${model.role ? `<div class="model-role">${model.role}</div>` : ""}
+                                </div>
+                            </div>
+                        `;
+                    }
+                }).join("");
 
                 // modelsHTML を DOM に挿入
                 const modelsSection = document.querySelector(".models-section");
@@ -1787,6 +1825,17 @@
             }
         }
         
+        // モデル詳細ページへの遷移関数
+        function navigateToModelDetail(modelId) {
+            console.log('🔗 モデル詳細ページへ遷移:', modelId);
+            
+            // モデル詳細ページのURLを構築
+            const modelDetailUrl = `/models/detail.html?id=${modelId}`;
+            
+            // 新しいタブで開く
+            window.open(modelDetailUrl, '_blank');
+        }
+
         // ページ読み込み時に初期化
         document.addEventListener('DOMContentLoaded', () => {
             new EventDetailPage();

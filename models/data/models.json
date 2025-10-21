@@ -1,0 +1,63 @@
+{
+  "models": [
+    {
+      "model_id": "kuriemi",
+      "name": "くりえみ",
+      "name_en": "Kuriemi",
+      "profile_image": "https://images.pinyogram.com/models/kuriemi/events_%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A2025_09_16_models_%E3%81%8F%E3%82%8A%E3%81%88%E3%81%BF.png",
+      "photo_notes": "【撮影時のご注意】\n\n・自然体での撮影をお願いします\n・ポーズのご提案もお気軽にどうぞ！\n・笑顔を大切に、リラックスして撮影しましょう\n・お気に入りのポーズがあれば教えてください\n・撮影中は楽しくコミュニケーションを取りながら進めます",
+      "model_comment": "いつも撮影会に参加してくださる皆さん、ありがとうございます！\n\n皆さんと一緒に素敵な写真を作り上げていけたら嬉しいです。\n\nこれからもよろしくお願いします！\n\nくりえみより💕",
+      "sns": {
+        "twitter": "https://x.com/kuriemi",
+        "instagram": "https://instagram.com/kuriemi"
+      },
+      "gallery": [
+        {
+          "id": "kuriemi0001",
+          "url": "https://images.pinyogram.com/models/kuriemi/kuriemi0001.jpg",
+          "title": "ナチュラルポートレート"
+        },
+        {
+          "id": "kuriemi0002",
+          "url": "https://images.pinyogram.com/models/kuriemi/kuriemi0002.jpg",
+          "title": "プロフェッショナルスタジオ"
+        },
+        {
+          "id": "kuriemi0003",
+          "url": "https://images.pinyogram.com/models/kuriemi/kuriemi0003.jpg",
+          "title": "自然光アウトドア"
+        },
+        {
+          "id": "kuriemi0004",
+          "url": "https://images.pinyogram.com/models/kuriemi/kuriemi0004.png",
+          "title": "a"
+        }
+        
+      ],
+      "upcoming_events": ["EVT004", "EVT005", "EVT006"],
+      "upload_link": "https://docs.google.com/forms/d/e/1FAIpQLSfcceT0L6RGEirKM7jBwiljYgwJqCoJlCdfQd5vjnBbDbBraQ/viewform?usp=dialog"
+    },
+    {
+      "model_id": "maro",
+      "name": "（まろ）",
+      "name_en": "Maro",
+      "profile_image": "https://images.pinyogram.com/models/maro/events_%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A2025_09_16_models_%E3%81%BE%E3%82%8D.png",
+      "photo_notes": "",
+      "model_comment": "撮影会デビューです！緊張していますが、皆さんと楽しく撮影したいと思います。",
+      "sns": {
+        "twitter": "",
+        "instagram": ""
+      },
+      "gallery": [
+        {
+          "id": "maro0001",
+          "url": "https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/models/events_%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A2025_09_16_models_%E3%81%8F%E3%82%8A%E3%81%88%E3%81%BF.png",
+          "title": "ポートレート撮影",
+          "description": "デビュー作のポートレート"
+        }
+      ],
+      "upcoming_events": ["EVT004", "EVT005", "EVT006"],
+      "upload_link": "https://docs.google.com/forms/d/e/1FAIpQLSeSAj3E9KDzNidU9d5o7k2TUDP2nhIQZVUsrkzBHX0r6YVcFQ/viewform?usp=dialog"
+    }
+  ]
+}

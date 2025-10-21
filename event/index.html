@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ぴにょぐらむ撮影会 | Pinyogram - イベントスケジュール・予約システム</title>
     
+    <!-- Google Fonts - M PLUS Rounded 1c -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    
     <!-- SEO最適化メタタグ -->
     <meta name="description" content="ぴにょぐらむ（Pinyogram）撮影会のイベントスケジュール・予約システム。個人撮影会・団体撮影会の最新情報、カレンダー表示、オンライン予約が可能。写真愛好家のための撮影会プラットフォームです。">
     <meta name="keywords" content="ぴにょぐらむ, pinyogram, 撮影会, 写真撮影会, 個人撮影会, 団体撮影会, イベントスケジュール, 撮影会予約, 写真イベント, カメラマン, モデル撮影, 撮影会カレンダー">
@@ -29,7 +34,7 @@
     <meta property="og:image" content="https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/main/Frame%2056.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="ぴにょぐらむ撮影会イベントスケジュール">
+    <meta property="og:image:alt" content="ぴにょぐらむ撮影イベントスケジュール">
     <meta property="og:site_name" content="ぴにょぐらむ撮影会">
     <meta property="og:locale" content="ja_JP">
     
@@ -39,15 +44,15 @@
     <meta name="twitter:title" content="ぴにょぐらむ撮影会 | Pinyogram - イベントスケジュール・予約システム">
     <meta name="twitter:description" content="ぴにょぐらむ（Pinyogram）撮影会のイベントスケジュール・予約システム。個人撮影会・団体撮影会の最新情報、カレンダー表示、オンライン予約が可能。">
     <meta name="twitter:image" content="https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/main/Frame%2056.png">
-    <meta name="twitter:image:alt" content="ぴにょぐらむ撮影会イベントスケジュール">
+    <meta name="twitter:image:alt" content="ぴにょぐらむ撮影イベントスケジュール">
     
     <!-- 構造化データ（JSON-LD） -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Event",
-      "name": "ぴにょぐらむ撮影会イベント",
-      "description": "写真撮影会イベントのスケジュールと予約システム。個人撮影会・団体撮影会の情報提供。",
+      "name": "ぴにょぐらむ撮影イベント",
+      "description": "写真撮影イベントのスケジュールと予約システム。個人撮影会・団体撮影会の情報提供。",
       "url": "https://pinyogram.com/event/",
       "image": "https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/main/Frame%2056.png",
       "organizer": {
@@ -156,7 +161,7 @@
                     venue: ev.venue?.venue_name || '-',
                     price: ev.pricing?.perUnit || ev.pricing?.base_price || 0,
                     type: ev.event_type || 'group',
-                    badge: ev.is_limited ? 'limited' : undefined,
+                    badge: ev.is_limited ? '満席' : '予約可',
                     remaining: ev.remaining_slots,
                     pricing: ev.pricing,
                     slug: ev.slug || ev.event_name,
