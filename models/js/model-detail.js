@@ -355,6 +355,7 @@ function initLightbox() {
     const prevBtn = document.getElementById('lightbox-prev');
     const nextBtn = document.getElementById('lightbox-next');
     const shareBtn = document.getElementById('lightbox-share');
+    const lightboxImage = document.getElementById('lightbox-image');
     
     if (closeBtn) {
         closeBtn.addEventListener('click', closeLightbox);
@@ -369,6 +370,97 @@ function initLightbox() {
         shareBtn.addEventListener('click', () => {
             const currentPhoto = galleryPhotos[currentPhotoIndex];
             copyPhotoUrl(currentPhoto.id, shareBtn);
+        });
+    }
+    
+    // 画像クリックで次の画像に遷移
+    if (lightboxImage) {
+        lightboxImage.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const rect = lightboxImage.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const imageCenter = rect.width / 2;
+            
+            if (clickX < imageCenter) {
+                navigateLightbox(-1); // 左側クリックで前の画像
+            } else {
+                navigateLightbox(1); // 右側クリックで次の画像
+            }
+        });
+    }
+    
+    // スワイプ機能の実装
+    let startX = 0;
+    let startY = 0;
+    let isDragging = false;
+    
+    if (lightboxImage) {
+        // タッチイベント（モバイル）
+        lightboxImage.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            isDragging = true;
+        });
+        
+        lightboxImage.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+        });
+        
+        lightboxImage.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            const endX = e.changedTouches[0].clientX;
+            const endY = e.changedTouches[0].clientY;
+            const deltaX = endX - startX;
+            const deltaY = endY - startY;
+            
+            // 水平方向のスワイプが垂直方向より大きい場合のみ処理
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+                if (deltaX > 0) {
+                    navigateLightbox(-1); // 右スワイプで前の画像
+                } else {
+                    navigateLightbox(1); // 左スワイプで次の画像
+                }
+            }
+        });
+        
+        // マウスイベント（デスクトップ）
+        lightboxImage.addEventListener('mousedown', (e) => {
+            startX = e.clientX;
+            startY = e.clientY;
+            isDragging = true;
+            e.preventDefault();
+        });
+        
+        lightboxImage.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+        });
+        
+        lightboxImage.addEventListener('mouseup', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            const endX = e.clientX;
+            const endY = e.clientY;
+            const deltaX = endX - startX;
+            const deltaY = endY - startY;
+            
+            // 水平方向のドラッグが垂直方向より大きい場合のみ処理
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+                if (deltaX > 0) {
+                    navigateLightbox(-1); // 右ドラッグで前の画像
+                } else {
+                    navigateLightbox(1); // 左ドラッグで次の画像
+                }
+            }
+        });
+        
+        // マウスが離れた場合の処理
+        lightboxImage.addEventListener('mouseleave', () => {
+            isDragging = false;
         });
     }
     

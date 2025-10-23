@@ -521,28 +521,33 @@ body {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.6);
     color: white;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     cursor: pointer;
     font-size: 20px;
+    opacity: 0;
     transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 10;
 }
 
 .lightbox-nav:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 1);
     transform: translateY(-50%) scale(1.1);
 }
 
-.lightbox-nav.prev {
-    left: 20px;
+.lightbox-nav-left {
+    left: 30px;
 }
 
-.lightbox-nav.next {
-    right: 20px;
+.lightbox-nav-right {
+    right: 30px;
 }
 
 .lightbox-close {
@@ -557,6 +562,7 @@ body {
     border-radius: 50%;
     cursor: pointer;
     font-size: 18px;
+    opacity: 0;
     transition: all 0.3s ease;
 }
 
@@ -567,8 +573,11 @@ body {
 
 /* ライトボックス内の共有ボタン */
 .lightbox-share {
-    width: 44px;
-    height: 44px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -576,10 +585,11 @@ body {
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    opacity: 0;
     transition: all 0.3s ease;
-    font-size: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-size: 1.1rem;
     color: #007bff;
-    margin-left: 12px;
 }
 
 .lightbox-share:hover {
@@ -593,6 +603,17 @@ body {
     color: white;
 }
 
+.lightbox-share.copied i::before {
+    content: "\f00c"; /* Font Awesome check icon */
+}
+
+/* ライトボックスコンテンツにカーソルがある時にボタンを表示 */
+.lightbox-content:hover .lightbox-share,
+.lightbox-content:hover .lightbox-close,
+.lightbox-content:hover .lightbox-nav {
+    opacity: 1;
+}
+
 .lightbox-counter {
     position: absolute;
     bottom: 20px;
@@ -603,6 +624,8 @@ body {
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 14px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 /* レスポンシブ Masonry */
@@ -613,17 +636,17 @@ body {
     }
     
     .lightbox-nav {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
     }
     
-    .lightbox-nav.prev {
-        left: 10px;
+    .lightbox-nav-left {
+        left: 15px;
     }
     
-    .lightbox-nav.next {
-        right: 10px;
+    .lightbox-nav-right {
+        right: 15px;
     }
 }
 

@@ -58,6 +58,28 @@
       ],
       "upcoming_events": ["EVT004", "EVT005", "EVT006"],
       "upload_link": "https://docs.google.com/forms/d/e/1FAIpQLSeSAj3E9KDzNidU9d5o7k2TUDP2nhIQZVUsrkzBHX0r6YVcFQ/viewform?usp=dialog"
+    },
+    {
+      "model_id": "shiar",
+      "name": "SHIAr（しある）",
+      "name_en": "SHIAr",
+      "profile_image": "https://images.pinyogram.com/models/SHIAr/IMG_1506.JPG",
+      "photo_notes": "【撮影時のご注意】\n\n・自然体での撮影をお願いします\n・ポーズのご提案もお気軽にどうぞ！\n・笑顔を大切に、リラックスして撮影しましょう\n・お気に入りのポーズがあれば教えてください\n・撮影中は楽しくコミュニケーションを取りながら進めます",
+      "model_comment": "こんにちは！SHIAr（しある）です。",
+      "sns": {
+        "twitter": "",
+        "instagram": ""
+      },
+      "gallery": [
+        {
+          "id": "shiar0001",
+          "url": "https://images.pinyogram.com/models/SHIAr/IMG_1506.JPG",
+          "title": "ポートレート撮影",
+          "description": "デビュー作のポートレート"
+        }
+      ],
+      "upcoming_events": ["EVT004", "EVT005", "EVT006"],
+      "upload_link": "https://forms.gle/twK3aAZ43KgTfJHRA"
     }
   ]
 }

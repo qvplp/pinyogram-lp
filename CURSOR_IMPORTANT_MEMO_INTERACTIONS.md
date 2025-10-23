@@ -243,6 +243,17 @@
   - レスポンシブ対応: PC（4列）、タブレット（2列）、モバイル（1列）
   - アクセシビリティ: ARIA属性、キーボード操作、フォーカス表示
 
+## 実装履歴（続き）
+- 2025-01-27: SHIArモデル追加完了
+  - models/data/models.jsonにSHIArモデルを追加
+  - モデルID: shiar
+  - モデル名: SHIAr（しある）
+  - プロフィール画像: https://images.pinyogram.com/models/SHIAr/IMG_1506.JPG
+  - ギャラリー画像: https://images.pinyogram.com/models/SHIAr/IMG_1506.JPG
+  - アップロードフォーム: https://forms.gle/twK3aAZ43KgTfJHRA
+  - 出演予定イベント: EVT004, EVT005, EVT006
+  - 既存のJavaScriptコードで自動的にモデル一覧・詳細ページに表示される
+
 ## 次のアクション
 1. モデル詳細ページの動作確認
 2. 画像URLの実際の動作テスト
