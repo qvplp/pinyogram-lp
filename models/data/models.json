@@ -54,7 +54,33 @@
           "url": "https://images.pinyogram.com/models/maro/events_%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A2025_09_16_models_%E3%81%BE%E3%82%8D.png",
           "title": "ポートレート撮影",
           "description": "デビュー作のポートレート"
+        },
+        {
+          "id": "maro0002",
+          "url": "https://images.pinyogram.com/models/maro/maro0002.jpeg",
+          "title": "プロフェッショナルスタジオ"
+        },
+        {
+          "id": "maro0003",
+          "url": "https://images.pinyogram.com/models/maro/maro0003.jpeg",
+          "title": "プロフェッショナルスタジオ"
+        },
+        {
+          "id": "maro0004",
+          "url": "https://images.pinyogram.com/models/maro/maro0004.jpeg",
+          "title": "プロフェッショナルスタジオ"
+        },
+        {
+          "id": "maro0005",
+          "url": "https://images.pinyogram.com/models/maro/maro0005.jpeg",
+          "title": "プロフェッショナルスタジオ"
+        },
+        {
+          "id": "maro0006",
+          "url": "https://images.pinyogram.com/models/maro/maro0006.jpeg",
+          "title": "プロフェッショナルスタジオ"
         }
+
       ],
       "upcoming_events": ["EVT004", "EVT005", "EVT006"],
       "upload_link": "https://docs.google.com/forms/d/e/1FAIpQLSeSAj3E9KDzNidU9d5o7k2TUDP2nhIQZVUsrkzBHX0r6YVcFQ/viewform?usp=dialog"
