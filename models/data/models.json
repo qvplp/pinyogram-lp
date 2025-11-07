@@ -74,7 +74,13 @@
           "id": "maro0005",
           "url": "https://images.pinyogram.com/models/maro/maro0005.jpeg",
           "title": "プロフェッショナルスタジオ"
+        },
+        {
+          "id": "maro0006",
+          "url": "https://images.pinyogram.com/models/maro/maro0006.jpeg",
+          "title": "プロフェッショナルスタジオ"
         }
+
       ],
       "upcoming_events": ["EVT004", "EVT005", "EVT006"],
       "upload_link": "https://docs.google.com/forms/d/e/1FAIpQLSeSAj3E9KDzNidU9d5o7k2TUDP2nhIQZVUsrkzBHX0r6YVcFQ/viewform?usp=dialog"
