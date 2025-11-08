@@ -101,9 +101,9 @@
     <!-- ヒーローセクション -->
 <section class="hero-shell hero--md">
     <figure class="hero-frame fill-gradient img-100" style="--hero-aspect: 40/21;" data-pos="center">
-        <img id="heroImg1" src="" alt="EVT005 ぴにょぐらむ撮影会with福島裕二 - クリックして詳細を表示" loading="lazy" decoding="async">
+        <img id="heroImg1" src="" alt="最新イベント - クリックして詳細を表示" loading="lazy" decoding="async">
         <div class="media-overlay">
-            <a href="/event/EVT005/" class="hero-link" aria-label="EVT005 ぴにょぐらむ撮影会with福島裕二 の詳細ページへ移動"></a>
+            <a href="#" class="hero-link" aria-label="最新イベントの詳細ページへ移動"></a>
         </div>
     </figure>
 </section>
@@ -172,12 +172,30 @@
             }
         }
 
+        // 過去のイベントをフィルタリング
+        function filterPastEvents(events) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            return events.filter(event => {
+                const eventDate = new Date(event.date);
+                eventDate.setHours(0, 0, 0, 0);
+                return eventDate >= today;
+            });
+        }
+        
         // イベントカードを生成
         function generateEventCards() {
             const eventsGrid = document.getElementById('eventsGrid');
             let html = '';
             
-            eventData.forEach(event => {
+            // 過去のイベントを除外
+            const futureEvents = filterPastEvents(eventData);
+            
+            if (futureEvents.length === 0) {
+                html = '<div class="no-events-message" style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #666;">開催予定のイベントはありません</div>';
+            } else {
+                futureEvents.forEach(event => {
                 const date = new Date(event.date);
                 const month = date.getMonth() + 1;
                 const day = date.getDate();
@@ -224,7 +242,8 @@
                         </div>
                     </div>
                 `;
-            });
+                });
+            }
             
             eventsGrid.innerHTML = html;
             
@@ -254,11 +273,11 @@
             const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
             let html = `<h4 class="event-list-title">🗓 ${currentYear}年${monthNames[currentMonth - 1]}のスケジュール</h4>`;
             
-            // カレンダーと同じ月のイベントのみをフィルタリング
-            const currentMonthEvents = eventData.filter(event => {
+            // カレンダーと同じ月のイベントのみをフィルタリング（過去のイベントを除外）
+            const currentMonthEvents = filterPastEvents(eventData.filter(event => {
                 const eventDate = new Date(event.date);
                 return eventDate.getFullYear() === currentYear && eventDate.getMonth() + 1 === currentMonth;
-            });
+            }));
             
             if (currentMonthEvents.length === 0) {
                 html += '<div class="event-list-item no-events">この月のイベントはありません</div>';
@@ -359,7 +378,8 @@
             const today = new Date();
             for (let day = 1; day <= monthLength; day++) {
                 const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const dayEvents = eventData.filter(e => e.date === dateStr);
+                // 過去のイベントを除外
+                const dayEvents = filterPastEvents(eventData.filter(e => e.date === dateStr));
                 const isToday = today.getFullYear() === year && today.getMonth() + 1 === month && today.getDate() === day;
                 
                 let dayClass = 'calendar-day';
@@ -415,6 +435,56 @@
             generateEventList(); // イベントリストも更新（カレンダーと同じ月を表示）
         }
         
+        // 最新のイベントを取得（日付順でソート）
+        function getLatestEvent() {
+            if (eventData.length === 0) return null;
+            
+            // 未来のイベントのみをフィルタリング
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            const futureEvents = eventData.filter(event => {
+                const eventDate = new Date(event.date);
+                eventDate.setHours(0, 0, 0, 0);
+                return eventDate >= today;
+            });
+            
+            if (futureEvents.length === 0) {
+                // 未来のイベントがない場合は最新の過去イベントを返す
+                return eventData.sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+            }
+            
+            // 未来のイベントを日付順でソートして最新のものを返す
+            return futureEvents.sort((a, b) => new Date(a.date) - new Date(b.date))[0];
+        }
+        
+        // イベント画像URLを生成
+        function getEventHeroImageUrl(event) {
+            if (!event) return null;
+            
+            // thumbnail_imageが設定されている場合はそれを優先使用
+            if (event.thumbnail_image && event.thumbnail_image.startsWith('http')) {
+                return event.thumbnail_image;
+            }
+            
+            // slugから画像URLを生成
+            let slug = event.slug || event.name;
+            if (slug && slug.includes('/')) {
+                slug = slug.replace(/\//g, ':');
+            }
+            
+            // pinyogramlp/events/プレフィックスを削除
+            if (slug.startsWith('pinyogramlp:events:')) {
+                slug = slug.replace('pinyogramlp:events:', '');
+            } else if (slug.startsWith('pinyogramlp/events/')) {
+                slug = slug.replace('pinyogramlp/events/', '').replace(/\//g, ':');
+            }
+            
+            // URLエンコード
+            const encodedSlug = encodeURIComponent(slug);
+            return `https://images.pinyogram.com/events/${encodedSlug}/main/hero.png`;
+        }
+        
         // 初期化
         document.addEventListener('DOMContentLoaded', async () => {
             await loadEvents();
@@ -423,11 +493,28 @@
             const fallbackHero = 'https://placehold.co/1920x1080/png?text=Pinyogram';
             const fallbackCard = 'https://placehold.co/800x600/png?text=Event';
             
-            // 指定されたヒーロー画像URLを設定
-            const heroImageUrl = 'https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/main/Frame%2056.png';
+            // 最新のイベントを取得
+            const latestEvent = getLatestEvent();
+            let heroImageUrl = fallbackHero;
+            let heroEventId = 'EVT005';
+            let heroEventName = 'ぴにょぐらむ撮影会';
+            
+            if (latestEvent) {
+                heroEventId = latestEvent.id;
+                heroEventName = latestEvent.name;
+                const eventImageUrl = getEventHeroImageUrl(latestEvent);
+                if (eventImageUrl) {
+                    heroImageUrl = eventImageUrl;
+                }
+            } else {
+                // フォールバック: EVT005の画像を使用
+                heroImageUrl = 'https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/main/Frame%2056.png';
+            }
             
             console.log('🖼️ Setting hero image:', {
-                heroImageUrl: heroImageUrl
+                heroImageUrl: heroImageUrl,
+                heroEventId: heroEventId,
+                heroEventName: heroEventName
             });
             
             // ヒーロー画像を設定（3つのスライドすべてに同じ画像を適用）
@@ -435,7 +522,7 @@
                 const el = document.getElementById(id); 
                 if (el) {
                     el.src = heroImageUrl;
-                    el.alt = 'EVT005 ぴにょぐらむ撮影会with福島裕二 - クリックして詳細を表示';
+                    el.alt = `${heroEventId} ${heroEventName} - クリックして詳細を表示`;
                     
                     // 画像読み込みエラーハンドリング
                     el.onerror = function() {
@@ -454,11 +541,13 @@
             // ヒーロー画像のクリックイベントを追加
             const heroLink = document.querySelector('.hero-frame .media-overlay .hero-link');
             if (heroLink) {
+                heroLink.href = `/event/${heroEventId}/`;
+                heroLink.setAttribute('aria-label', `${heroEventId} ${heroEventName} の詳細ページへ移動`);
                 console.log('🔗 Hero link found, adding click event');
                 heroLink.addEventListener('click', function(e) {
                     e.preventDefault();
-                    console.log('🎯 Hero image clicked, navigating to EVT005');
-                    window.location.href = '/event/EVT005/';
+                    console.log(`🎯 Hero image clicked, navigating to ${heroEventId}`);
+                    window.location.href = `/event/${heroEventId}/`;
                 });
                 
                 // ヒーロー画像全体にもクリックイベントを追加（保険）
@@ -466,8 +555,8 @@
                 if (heroFrame) {
                     heroFrame.addEventListener('click', function(e) {
                         if (e.target.tagName !== 'A') {
-                            console.log('🎯 Hero frame clicked, navigating to EVT005');
-                            window.location.href = '/event/EVT005/';
+                            console.log(`🎯 Hero frame clicked, navigating to ${heroEventId}`);
+                            window.location.href = `/event/${heroEventId}/`;
                         }
                     });
                     heroFrame.style.cursor = 'pointer';
@@ -510,6 +599,13 @@
                     slug = slug.replace(/\//g, ':');
                 }
                 
+                // pinyogramlp/events/プレフィックスを削除
+                if (slug && slug.startsWith('pinyogramlp:events:')) {
+                    slug = slug.replace('pinyogramlp:events:', '');
+                } else if (slug && slug.startsWith('pinyogramlp/events/')) {
+                    slug = slug.replace('pinyogramlp/events/', '').replace(/\//g, ':');
+                }
+                
                 console.log('🎴 Processing card image for event:', {
                     eventName: e.event_name || e.name,
                     originalSlug: e.slug,
@@ -529,6 +625,14 @@
                     e.image = directUrl + cacheBuster;
                     e.__cardFallbacks = []; // フォールバックなし（直接URL使用）
                     console.log('🎴 Using direct URL for EVT004:', directUrl);
+                }
+                // EVT006の場合はslugから画像URLを生成
+                else if (e.id === 'EVT006' || e.event_id === 'EVT006') {
+                    const encodedSlug = encodeURIComponent(slug);
+                    const directUrl = `https://images.pinyogram.com/events/${encodedSlug}/main/hero.png`;
+                    e.image = directUrl + cacheBuster;
+                    e.__cardFallbacks = []; // フォールバックなし（直接URL使用）
+                    console.log('🎴 Using direct URL for EVT006:', directUrl);
                 } else if (window.getEventAssetUrlCandidates) {
                     // その他のイベントは従来の処理
                     const cands = window.getEventAssetUrlCandidates(slug, 'main', 'hero', ['png','jpg','webp']);

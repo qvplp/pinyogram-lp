@@ -83,35 +83,44 @@
     },
     {
       "event_id": "EVT006",
-      "event_name": "過去のイベント（テスト用）",
+      "event_name": "セッション撮影会2025/11/18",
       "event_type": "group",
-      "event_date": "2024-01-15",
-      "description": "過去のイベント（表示されないはず）",
+      "event_date": "2025-11-18",
+      "description": "",
       "venue": {
-        "venue_name": "テスト会場",
-        "address": "テスト住所"
+        "venue_name": "Gスタ",
+        "address": "〒111-0053 東京都台東区浅草橋５丁目３−２ 秋葉原スクエアビル ４F"
       },
       "pricing": {
-        "perUnit": 5000
+        "perUnit": 10000,
+        "twoParts": 19000,
+        "threeParts": 28000
       },
-      "thumbnail_image": "images/events/placeholder.jpg",
+      "thumbnail_image": "",
       "is_limited": false,
       "remaining_slots": null,
-      "max_participants": 10,
+      "max_participants": 15,
       "services": [
-        "テスト撮影"
+        "セッション撮影",
+        "モデルとの交流",
+        "撮影データ"
       ],
-      "entryTime": "10:00",
-      "hours": "10:00〜12:00",
+      "entryTime": "17:30",
+      "hours": "18:00〜21:00",
       "schedule": [
-        "1部: 10:00 - 12:00"
+        "1部: 18:00 - 18:40",
+        "2部: 19:10 - 19:50",
+        "3部: 20:20 - 21:00"
       ],
-      "options": [],
-      "reservationUrl": "",
+      "options": [
+        { "name": "2ショットチェキ", "price": "¥2,000/1枚" }
+      ],
+      "reservationUrl": "https://forms.gle/9CUpYv3ZKRKUUqqp6",
       "models": [
-        { "name": "くりえみ", "role": "", "image": "くりえみ.png" }
+        { "name": "くりえみ", "role": "", "image": "くりえみ.png" },
+        { "name": "（まろ）", "role": "", "image": "まろ.png" }
       ],
-      "slug": "test/past-event/"
+      "slug": "pinyogramlp/events/セッション撮影会2025:11:18/"
     }
   ]
 }

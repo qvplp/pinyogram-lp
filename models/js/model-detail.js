@@ -176,26 +176,114 @@ function renderGallery() {
         const photoCard = document.createElement('div');
         photoCard.className = 'gallery-item';
         photoCard.dataset.photoId = photo.id;
+
+        const imgElement = document.createElement('img');
+        imgElement.src = photo.url;
+        imgElement.alt = currentModel.name;
+        imgElement.loading = 'lazy';
+
+        // 画像読み込みエラー時のフォールバック（拡張子の自動切り替え）
+        imgElement.addEventListener('error', function() {
+            const currentUrl = this.src;
+            // .jpgで読み込めない場合は.pngを試す
+            if (currentUrl.endsWith('.jpg')) {
+                const fallbackUrl = currentUrl.replace('.jpg', '.png');
+                console.log(`画像読み込みエラー: ${currentUrl} -> ${fallbackUrl} を試行`);
+                this.src = fallbackUrl;
+            }
+            // .pngで読み込めない場合は.jpgを試す
+            else if (currentUrl.endsWith('.png')) {
+                const fallbackUrl = currentUrl.replace('.png', '.jpg');
+                console.log(`画像読み込みエラー: ${currentUrl} -> ${fallbackUrl} を試行`);
+                this.src = fallbackUrl;
+            }
+        }, { once: true });
+
+        const determineOrientation = () => {
+            if (!imgElement.naturalWidth || !imgElement.naturalHeight) return;
+            const orientation = imgElement.naturalWidth >= imgElement.naturalHeight ? 'landscape' : 'portrait';
+            photoCard.dataset.orientation = orientation;
+            
+            // 横長画像の場合、実際のアスペクト比に基づいて高さを設定
+            if (orientation === 'landscape') {
+                // 画像が読み込まれた後、コンテナの幅を取得
+                const calculateHeight = () => {
+                    // 複数回の requestAnimationFrame で確実にレイアウト確定を待つ
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            if (photoCard.offsetWidth > 0 && imgElement.naturalWidth > 0) {
+                                // コンテナの実際の幅を取得（2カラム分）
+                                const containerWidth = photoCard.offsetWidth;
+                                
+                                // 画像のアスペクト比に基づいて高さを計算
+                                const aspectRatio = imgElement.naturalHeight / imgElement.naturalWidth;
+                                const calculatedHeight = containerWidth * aspectRatio;
+                                
+                                // 画像要素の高さを設定（インラインスタイルで確実に適用）
+                                imgElement.style.height = `${calculatedHeight}px`;
+                                imgElement.style.maxHeight = 'none';
+                                
+                                console.log(`横長画像の高さを設定: ${calculatedHeight}px (幅: ${containerWidth}px, アスペクト比: ${aspectRatio})`);
+                            }
+                        });
+                    });
+                };
+                
+                calculateHeight();
+            }
+        };
+
+        imgElement.addEventListener('load', () => {
+            // 画像読み込み完了後、少し遅延してから計算（レイアウトが確定してから）
+            setTimeout(() => {
+                determineOrientation();
+            }, 100);
+        });
+
+        if (imgElement.complete) {
+            setTimeout(() => {
+                determineOrientation();
+            }, 100);
+        } else {
+            // 画像がまだ読み込まれていない場合、読み込み完了を待つ
+            imgElement.addEventListener('load', () => {
+                setTimeout(() => {
+                    determineOrientation();
+                }, 100);
+            }, { once: true });
+        }
         
-        // タイトルと説明文は表示しない
-        photoCard.innerHTML = `
-            <img src="${photo.url}" alt="${currentModel.name}" loading="lazy">
-            <button class="share-button" data-photo-id="${photo.id}">
-                <i class="fas fa-share-alt"></i>
-            </button>
-        `;
-        
+        // リサイズ時にも再計算
+        let resizeTimeout;
+        const handleResize = () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (photoCard.dataset.orientation === 'landscape') {
+                    determineOrientation();
+                }
+            }, 250);
+        };
+        window.addEventListener('resize', handleResize);
+
+        const shareButton = document.createElement('button');
+        shareButton.className = 'share-button';
+        shareButton.dataset.photoId = photo.id;
+        shareButton.innerHTML = '<i class="fas fa-share-alt"></i>';
+
         // 画像クリックでライトボックス
-        photoCard.querySelector('img').addEventListener('click', () => {
+        imgElement.addEventListener('click', () => {
             openLightbox(index);
         });
-        
+
         // 共有ボタンのクリックイベント
-        photoCard.querySelector('.share-button').addEventListener('click', (e) => {
-            e.stopPropagation(); // 画像クリックイベントを防ぐ
-            copyPhotoUrl(photo.id, e.target.closest('.share-button'));
+        shareButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            copyPhotoUrl(photo.id, shareButton);
         });
-        
+
+        photoCard.appendChild(imgElement);
+        photoCard.appendChild(shareButton);
+
         galleryGrid.appendChild(photoCard);
     });
     
@@ -356,6 +444,25 @@ function initLightbox() {
     const nextBtn = document.getElementById('lightbox-next');
     const shareBtn = document.getElementById('lightbox-share');
     const lightboxImage = document.getElementById('lightbox-image');
+    
+    // ライトボックス画像のエラーハンドリング（拡張子の自動切り替え）
+    if (lightboxImage) {
+        lightboxImage.addEventListener('error', function() {
+            const currentUrl = this.src;
+            // .jpgで読み込めない場合は.pngを試す
+            if (currentUrl.endsWith('.jpg')) {
+                const fallbackUrl = currentUrl.replace('.jpg', '.png');
+                console.log(`ライトボックス画像読み込みエラー: ${currentUrl} -> ${fallbackUrl} を試行`);
+                this.src = fallbackUrl;
+            }
+            // .pngで読み込めない場合は.jpgを試す
+            else if (currentUrl.endsWith('.png')) {
+                const fallbackUrl = currentUrl.replace('.png', '.jpg');
+                console.log(`ライトボックス画像読み込みエラー: ${currentUrl} -> ${fallbackUrl} を試行`);
+                this.src = fallbackUrl;
+            }
+        });
+    }
     
     if (closeBtn) {
         closeBtn.addEventListener('click', closeLightbox);
