@@ -3,6 +3,8 @@ Allow: /
 
 # 重要なページを優先的にクロール
 Allow: /event/
+Allow: /models/
+Allow: /about/
 Allow: /reservation/
 Allow: /contest/
 
@@ -11,6 +13,7 @@ Disallow: /admin/
 Disallow: /private/
 Disallow: /temp/
 Disallow: /test/
+Disallow: /node_modules/
 
 # 静的ファイルの最適化
 Allow: /css/
@@ -21,5 +24,5 @@ Allow: /assets/
 # サイトマップの場所
 Sitemap: https://pinyogram.com/sitemap.xml
 
-# クロール頻度の調整
-Crawl-delay: 1
+# クロール頻度の調整（検索エンジン最適化のため削除）
+# Crawl-delay: 1

@@ -10,7 +10,9 @@ class EventOGPGenerator {
         // 固定OGP画像の上書き設定（イベント単位）
         this.OVERRIDE_OG_IMAGE_BY_EVENT_ID = {
             // EVT005: ご指定のOGP画像に固定
-            EVT005: 'https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/main/Frame%2056.png'
+            EVT005: 'https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/main/Frame%2056.png',
+            // EVT006: ご指定のOGP画像に固定
+            EVT006: 'https://images.pinyogram.com/events/2025-11-18%20%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A/main/1118.png'
         };
     }
 
