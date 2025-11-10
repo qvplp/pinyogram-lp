@@ -110,10 +110,12 @@
                 muted
                 loop
                 playsinline
-                controls 
                 preload="metadata"
                 poster="../assets/images/common/placeholder.jpg"
-                aria-label="ぴにょぐらむイベント紹介動画">
+                aria-label="ぴにょぐらむイベント紹介動画"
+                controlslist="nodownload noplaybackrate nofullscreen noremoteplayback"
+                disablepictureinpicture
+                oncontextmenu="return false;">
                 <!-- ローカルファイル（絶対パス） -->
                 <source src="/assets/videos/event-hiro.webm" type="video/webm">
                 お使いのブラウザは動画タグをサポートしていません。

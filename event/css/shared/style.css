@@ -1512,6 +1512,8 @@ nav {
     top: 0 !important;
     left: 0 !important;
     z-index: 1 !important;
+    pointer-events: none !important;
+    user-select: none !important;
 }
 
 /* レスポンシブ対応 */
