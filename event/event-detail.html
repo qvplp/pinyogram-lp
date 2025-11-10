@@ -337,7 +337,7 @@
             padding: 0 !important;
             position: relative;
             overflow: hidden;
-            background: #000;
+            background: transparent !important; /* 黒背景を削除 */
         }
         
         .event-detail-hero .container {
@@ -572,7 +572,7 @@
             padding: 0 !important;
             position: relative;
             overflow: hidden;
-            background: #000;
+            background: transparent !important; /* 黒背景を削除 */
             display: block !important;
             box-sizing: border-box !important;
             /* 親要素の幅制限を無視して全幅表示 */
@@ -618,6 +618,13 @@
             padding: 0 !important;
             border-radius: 0 !important;
             aspect-ratio: 16 / 9;
+            line-height: 0; /* 画像の下側の余白を削除 */
+        }
+        
+        /* 画像の下側の余白を完全に削除 */
+        .event-image::after {
+            content: '';
+            display: none;
         }
         
         .event-description {
