@@ -96,7 +96,7 @@
         "twoParts": 19000,
         "threeParts": 28000
       },
-      "thumbnail_image": "",
+      "thumbnail_image": "https://images.pinyogram.com/events/2025-11-18%20%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A/main/1118.png",
       "is_limited": false,
       "remaining_slots": null,
       "max_participants": 15,
@@ -117,8 +117,10 @@
       ],
       "reservationUrl": "https://forms.gle/9CUpYv3ZKRKUUqqp6",
       "models": [
-        { "name": "くりえみ", "role": "", "image": "くりえみ.png" },
-        { "name": "（まろ）", "role": "", "image": "まろ.png" }
+        { "name": "まろ", "role": "", "image": "https://images.pinyogram.com/events/2025-11-18%20%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A/models/%E3%81%BE%E3%82%8D.png" },
+        { "name": "神楽ユリア", "role": "", "image": "https://images.pinyogram.com/events/2025-11-18%20%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A/models/%E7%A5%9E%E6%A5%BD%E3%82%86%E3%82%8A%E3%81%82.jpg" },
+        { "name": "あーちゃみ", "role": "", "image": "https://images.pinyogram.com/events/2025-11-18%20%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A/models/%E3%81%82%E3%83%BC%E3%81%A1%E3%82%83%E3%81%BF1.jpg" },
+        { "name": "くりえみ", "role": "", "image": "https://images.pinyogram.com/events/2025-11-18%20%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A/models/%E3%81%8F%E3%82%8A%E3%81%88%E3%81%BF.png" }
       ],
       "slug": "pinyogramlp/events/セッション撮影会2025:11:18/"
     }

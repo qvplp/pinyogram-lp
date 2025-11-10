@@ -40,60 +40,23 @@
     
     <!-- メインコンテンツ -->
     <main class="about-page">
-        <!-- パンくずリスト -->
-        <nav class="breadcrumb" aria-label="パンくずリスト">
-            <ol class="breadcrumb-list">
-                <li class="breadcrumb-item">
-                    <a href="/" class="breadcrumb-link">ホーム</a>
-                </li>
-                <li class="breadcrumb-item breadcrumb-current" aria-current="page">
-                    <span>About Us</span>
-                </li>
-            </ol>
-        </nav>
-        
-        <!-- ページタイトル -->
-        <section class="page-header">
-            <div class="page-header-container">
-                <h1 class="page-title">About Us</h1>
-                <p class="page-description">ぴにょぐらむについて</p>
-            </div>
-        </section>
-        
-        <!-- 動画セクション -->
-        <section class="video-section">
-            <div class="video-container">
-                <div class="video-wrapper">
-                    <!-- ローカル動画ファイルを使用する場合 -->
-                    <video 
-                        class="about-video" 
-                        autoplay
-                        muted
-                        loop
-                        playsinline
-                        controls 
-                        preload="auto"
-                        poster="../assets/images/common/placeholder.jpg"
-                        aria-label="ぴにょぐらむ紹介動画">
-                        <source src="../assets/videos/about-intro.mp4" type="video/mp4">
-                        <source src="../assets/videos/about-intro.webm" type="video/webm">
-                        お使いのブラウザは動画タグをサポートしていません。
-                    </video>
-                    
-                    <!-- YouTube埋め込みを使用する場合は、上記のvideoタグをコメントアウトして以下を使用 -->
-                    <!--
-                    <div class="video-embed-wrapper">
-                        <iframe 
-                            class="video-embed" 
-                            src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1&mute=1&loop=1&playlist=YOUR_VIDEO_ID" 
-                            title="ぴにょぐらむ紹介動画"
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-                    -->
-                </div>
+        <!-- ヒーロームービーセクション -->
+        <section class="hero-video-section">
+            <div class="hero-video-wrapper">
+                <video 
+                    class="hero-video" 
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    controls 
+                    preload="auto"
+                    poster="../assets/images/common/placeholder.jpg"
+                    aria-label="ぴにょぐらむ紹介動画">
+                    <source src="../assets/videos/about-intro.mp4" type="video/mp4">
+                    <source src="../assets/videos/about-intro.webm" type="video/webm">
+                    お使いのブラウザは動画タグをサポートしていません。
+                </video>
             </div>
         </section>
         

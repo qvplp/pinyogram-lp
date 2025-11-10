@@ -98,15 +98,296 @@
 <body>
     <!-- 共有ヘッダー -->
     <div id="site-header"></div>
-    <!-- ヒーローセクション -->
-<section class="hero-shell hero--md">
-    <figure class="hero-frame fill-gradient img-100" style="--hero-aspect: 40/21;" data-pos="center">
-        <img id="heroImg1" src="" alt="最新イベント - クリックして詳細を表示" loading="lazy" decoding="async">
-        <div class="media-overlay">
-            <a href="#" class="hero-link" aria-label="最新イベントの詳細ページへ移動"></a>
+    <!-- ヒーロームービーセクション -->
+    <section class="hero-video-section">
+        <div class="hero-video-wrapper">
+            <video 
+                id="hero-video"
+                class="hero-video" 
+                autoplay
+                muted
+                loop
+                playsinline
+                controls 
+                preload="metadata"
+                poster="../assets/images/common/placeholder.jpg"
+                aria-label="ぴにょぐらむイベント紹介動画">
+                <!-- ローカルファイル（絶対パス） -->
+                <source src="/assets/videos/event-hiro.webm" type="video/webm">
+                お使いのブラウザは動画タグをサポートしていません。
+            </video>
+            
+            <!-- 読みやすさ用の薄い黒レイヤー -->
+            <div class="hero-video-overlay"></div>
+            
+            <!-- テキストブロック（左寄せ、縦中央やや上） -->
+            <div class="hero-text-overlay">
+                <h1 class="hero-title">
+                    PHOTO<br />SESSION
+                </h1>
+                <p class="hero-description">
+                    「撮る」「作る」「応援する」をつなげ、女の子もファンもみんなが嬉しくなる新しい形の撮影会です。
+                </p>
+            </div>
+            
+            <!-- 下向きの白い三角形ボタン（#events へ） -->
+            <a
+                href="#events"
+                aria-label="下へスクロール"
+                class="hero-scroll-button"
+            >
+                <span class="sr-only">下へスクロール</span>
+                <span class="scroll-arrow"></span>
+            </a>
         </div>
-    </figure>
-</section>
+    </section>
+    
+    <script>
+        // 動画の読み込みを確実にする
+        (function() {
+            function initVideo() {
+                const video = document.getElementById('hero-video');
+                if (!video) {
+                    console.warn('⚠️ 動画要素が見つかりません');
+                    return;
+                }
+                
+                console.log('🎬 動画要素を検出しました');
+                
+                // source要素のパスを確認・修正
+                const sources = video.querySelectorAll('source');
+                const baseUrl = window.location.origin;
+                const currentPath = window.location.pathname;
+                const isEventPage = currentPath.includes('/event/');
+                
+                // パスの候補を定義
+                const pathCandidates = [
+                    '../assets/videos/event-hiro.webm',  // 相対パス（event/から）
+                    '/assets/videos/event-hiro.webm',   // ルートからの絶対パス
+                    'assets/videos/event-hiro.webm'     // 現在のディレクトリからの相対パス
+                ];
+                
+                sources.forEach((source, index) => {
+                    const originalSrc = source.getAttribute('src');
+                    console.log(`📹 Source ${index + 1} (元のパス): ${originalSrc}`);
+                    
+                    // パスが正しく解決されるか確認
+                    let resolvedPath = originalSrc;
+                    if (originalSrc.startsWith('../')) {
+                        // 相対パスを絶対パスに変換して確認
+                        try {
+                            const resolvedUrl = new URL(originalSrc, window.location.href);
+                            resolvedPath = resolvedUrl.pathname;
+                            console.log(`📹 Source ${index + 1} (解決後): ${resolvedPath}`);
+                        } catch (e) {
+                            console.warn(`⚠️ Source ${index + 1}のパス解決に失敗:`, e);
+                        }
+                    }
+                });
+                
+                // 動画が確実に表示されるようにスタイルを強制設定（CSS で管理されているため最小限に）
+                video.style.opacity = '1';
+                video.style.visibility = 'visible';
+                
+                console.log('📹 動画の初期状態:', {
+                    readyState: video.readyState,
+                    networkState: video.networkState,
+                    error: video.error,
+                    src: video.src,
+                    currentSrc: video.currentSrc,
+                    sourcesCount: sources.length,
+                    computedStyle: {
+                        display: window.getComputedStyle(video).display,
+                        visibility: window.getComputedStyle(video).visibility,
+                        opacity: window.getComputedStyle(video).opacity,
+                        width: window.getComputedStyle(video).width,
+                        height: window.getComputedStyle(video).height
+                    }
+                });
+                
+                // 動画の読み込み成功を確認
+                video.addEventListener('loadedmetadata', function() {
+                    console.log('✅ 動画のメタデータ読み込み完了');
+                    console.log('📊 動画情報:', {
+                        duration: video.duration,
+                        videoWidth: video.videoWidth,
+                        videoHeight: video.videoHeight,
+                        currentSrc: video.currentSrc
+                    });
+                });
+                
+                video.addEventListener('loadeddata', function() {
+                    console.log('✅ 動画のデータ読み込み完了:', video.currentSrc || video.src);
+                    video.style.opacity = '1';
+                    video.style.visibility = 'visible';
+                });
+                
+                video.addEventListener('canplay', function() {
+                    console.log('✅ 動画の再生準備完了:', video.currentSrc || video.src);
+                    // 自動再生を試行
+                    video.play().then(() => {
+                        console.log('▶️ 動画の自動再生を開始しました');
+                    }).catch(err => {
+                        console.warn('⚠️ 自動再生に失敗しました（ユーザー操作が必要な可能性）:', err);
+                    });
+                });
+                
+                video.addEventListener('canplaythrough', function() {
+                    console.log('✅ 動画の完全読み込み完了（バッファリング完了）');
+                });
+                
+                // 動画の読み込みエラーハンドリング
+                let errorHandled = false;
+                video.addEventListener('error', function(e) {
+                    if (errorHandled) return; // 一度だけ処理
+                    
+                    console.error('❌ 動画の読み込みエラー:', e);
+                    console.error('📹 動画の状態:', {
+                        error: video.error,
+                        errorCode: video.error ? video.error.code : null,
+                        errorMessage: video.error ? video.error.message : null,
+                        networkState: video.networkState,
+                        currentSrc: video.currentSrc,
+                        src: video.src
+                    });
+                    
+                    // エラーコードの説明
+                    if (video.error) {
+                        const errorMessages = {
+                            1: 'MEDIA_ERR_ABORTED - 動画の読み込みが中断されました',
+                            2: 'MEDIA_ERR_NETWORK - ネットワークエラー（404など）',
+                            3: 'MEDIA_ERR_DECODE - 動画のデコードエラー',
+                            4: 'MEDIA_ERR_SRC_NOT_SUPPORTED - 動画形式がサポートされていません'
+                        };
+                        console.error('エラー詳細:', errorMessages[video.error.code] || '不明なエラー');
+                        
+                        // ネットワークエラー（404など）の場合、絶対パスを試す
+                        if (video.error.code === 2) {
+                            const firstSource = video.querySelector('source');
+                            if (firstSource) {
+                                const currentSrc = firstSource.getAttribute('src');
+                                const fallbackSrc = firstSource.getAttribute('data-fallback-src');
+                                
+                                // フォールバックパスを試す
+                                if (fallbackSrc && !firstSource.getAttribute('data-retry')) {
+                                    console.log('🔄 ネットワークエラーを検出。フォールバックパスに切り替えます...');
+                                    console.log('📂 現在のパス:', currentSrc);
+                                    console.log('📂 フォールバックパス:', fallbackSrc);
+                                    firstSource.setAttribute('src', fallbackSrc);
+                                    firstSource.setAttribute('data-retry', 'true');
+                                    errorHandled = false; // リトライのため、フラグをリセット
+                                    video.load(); // 再読み込み
+                                    return;
+                                } else if (currentSrc && !fallbackSrc) {
+                                    // フォールバックパスが設定されていない場合、設定して再試行
+                                    const alternativePath = currentSrc.startsWith('/') 
+                                        ? '../assets/videos/event-hiro.webm' 
+                                        : '/assets/videos/event-hiro.webm';
+                                    console.log('🔄 代替パスを設定して再試行します:', alternativePath);
+                                    firstSource.setAttribute('src', alternativePath);
+                                    firstSource.setAttribute('data-retry', 'true');
+                                    errorHandled = false;
+                                    video.load();
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    
+                    errorHandled = true;
+                    
+                    // すべての試行が失敗した場合、ポスター画像を表示
+                    const wrapper = video.parentElement;
+                    if (wrapper && video.poster) {
+                        console.log('🖼️ すべての試行が失敗しました。ポスター画像を表示します');
+                        video.style.display = 'none';
+                        const img = document.createElement('img');
+                        img.src = video.poster;
+                        img.alt = 'ぴにょぐらむイベント紹介';
+                        img.style.cssText = 'width: 100%; height: auto; display: block; aspect-ratio: 16 / 9; object-fit: cover;';
+                        wrapper.appendChild(img);
+                    }
+                });
+                
+                // 動画の読み込みを強制
+                try {
+                    console.log('🔄 動画の読み込みを開始します...');
+                    
+                    // まず、source要素の存在を確認し、パスを検証
+                    const firstSource = video.querySelector('source');
+                    if (firstSource) {
+                        let videoPath = firstSource.getAttribute('src');
+                        console.log('📂 動画ファイルパス（元）:', videoPath);
+                        console.log('📂 現在のページURL:', window.location.href);
+                        
+                        // パスを解決
+                        let resolvedUrl;
+                        try {
+                            resolvedUrl = new URL(videoPath, window.location.href);
+                            console.log('📂 解決された動画URL:', resolvedUrl.href);
+                            
+                            // パスが絶対パスの場合、相対パスもフォールバックとして保持
+                            if (videoPath.startsWith('/')) {
+                                // 絶対パスが機能しない場合のフォールバック（相対パス）
+                                const relativePath = '../assets/videos/event-hiro.webm';
+                                console.log('📂 フォールバックパス（相対パス）:', relativePath);
+                                firstSource.setAttribute('data-fallback-src', relativePath);
+                            } else if (videoPath.startsWith('../')) {
+                                // 相対パスが機能しない場合のフォールバック（絶対パス）
+                                const absolutePath = '/assets/videos/event-hiro.webm';
+                                console.log('📂 フォールバックパス（絶対パス）:', absolutePath);
+                                firstSource.setAttribute('data-fallback-src', absolutePath);
+                            }
+                        } catch (e) {
+                            console.error('❌ URL解決エラー:', e);
+                        }
+                    } else {
+                        console.error('❌ source要素が見つかりません');
+                    }
+                    
+                    // 動画の読み込みを強制実行
+                    video.load();
+                    
+                    // 読み込み状態を定期的にチェック
+                    let checkCount = 0;
+                    const maxChecks = 20; // 10秒間（500ms × 20）
+                    const checkInterval = setInterval(() => {
+                        checkCount++;
+                        const currentState = {
+                            readyState: video.readyState,
+                            networkState: video.networkState,
+                            error: video.error,
+                            currentSrc: video.currentSrc
+                        };
+                        
+                        if (video.readyState >= 2) { // HAVE_CURRENT_DATA以上
+                            console.log('✅ 動画の読み込みが進行中:', currentState);
+                            clearInterval(checkInterval);
+                        } else if (video.error) {
+                            console.error('❌ 動画の読み込みエラーが検出されました:', currentState);
+                            clearInterval(checkInterval);
+                        } else if (checkCount >= maxChecks) {
+                            console.warn('⚠️ 動画の読み込みがタイムアウトしました:', currentState);
+                            clearInterval(checkInterval);
+                        } else {
+                            console.log(`⏳ 動画の読み込み待機中... (${checkCount}/${maxChecks}):`, currentState);
+                        }
+                    }, 500);
+                    
+                } catch (error) {
+                    console.error('❌ 動画の読み込みエラー:', error);
+                }
+            }
+            
+            // DOMContentLoadedまたは既に読み込み済みの場合
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initVideo);
+            } else {
+                // 既に読み込み済みの場合は少し待ってから実行（DOMが完全に構築されるまで）
+                setTimeout(initVideo, 100);
+            }
+        })();
+    </script>
 
 <!-- メインコンテナ（既存） -->
 <div class="main-container">
@@ -116,7 +397,7 @@
     
     <div class="main-container">
         <!-- 左側：イベント一覧（2/3） -->
-        <div class="events-section">
+        <div id="events" class="events-section">
             <h2 class="section-title">📸 ぴにょぐらむ撮影会 - 開催予定イベント</h2>
             <div class="events-grid" id="eventsGrid">
                 <!-- イベントカードは動的に生成されます -->
@@ -235,7 +516,7 @@
                         </div>
                         ${event.pricing ? `
                         <div class=\"price-breakdown\" style=\"padding:6px 12px; color:#555; font-size:0.85rem;\">
-                            各部 ${'¥'+Number(event.pricing.perUnit).toLocaleString()} / 2部通し ${'¥'+Number(event.pricing.twoParts).toLocaleString()}
+                            各部 ${'¥'+Number(event.pricing.perUnit).toLocaleString()} / 2部通し ${'¥'+Number(event.pricing.twoParts).toLocaleString()}${event.pricing.threeParts ? ' / 3部通し ¥'+Number(event.pricing.threeParts).toLocaleString() : ''}
                         </div>` : ''}
                         <div class="card-actions">
                             <a href="/event/${event.id}/" class="btn-detail">詳細を見る</a>
@@ -518,51 +799,59 @@
             });
             
             // ヒーロー画像を設定（3つのスライドすべてに同じ画像を適用）
-            ['heroImg1','heroImg2','heroImg3'].forEach(id => { 
-                const el = document.getElementById(id); 
-                if (el) {
-                    el.src = heroImageUrl;
-                    el.alt = `${heroEventId} ${heroEventName} - クリックして詳細を表示`;
-                    
-                    // 画像読み込みエラーハンドリング
-                    el.onerror = function() {
-                        console.warn('⚠️ Hero image failed to load, using fallback:', heroImageUrl);
-                        this.src = fallbackHero;
-                        this.alt = 'ぴにょぐらむ撮影会 - フォールバック画像';
-                    };
-                    
-                    // 画像読み込み成功時のログ
-                    el.onload = function() {
-                        console.log('✅ Hero image loaded successfully:', heroImageUrl);
-                    };
-                }
-            });
-
-            // ヒーロー画像のクリックイベントを追加
-            const heroLink = document.querySelector('.hero-frame .media-overlay .hero-link');
-            if (heroLink) {
-                heroLink.href = `/event/${heroEventId}/`;
-                heroLink.setAttribute('aria-label', `${heroEventId} ${heroEventName} の詳細ページへ移動`);
-                console.log('🔗 Hero link found, adding click event');
-                heroLink.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log(`🎯 Hero image clicked, navigating to ${heroEventId}`);
-                    window.location.href = `/event/${heroEventId}/`;
+            // 動画が表示されている場合は画像処理をスキップ
+            const heroVideo = document.getElementById('hero-video');
+            if (!heroVideo) {
+                ['heroImg1','heroImg2','heroImg3'].forEach(id => { 
+                    const el = document.getElementById(id); 
+                    if (el) {
+                        el.src = heroImageUrl;
+                        el.alt = `${heroEventId} ${heroEventName} - クリックして詳細を表示`;
+                        
+                        // 画像読み込みエラーハンドリング
+                        el.onerror = function() {
+                            console.warn('⚠️ Hero image failed to load, using fallback:', heroImageUrl);
+                            this.src = fallbackHero;
+                            this.alt = 'ぴにょぐらむ撮影会 - フォールバック画像';
+                        };
+                        
+                        // 画像読み込み成功時のログ
+                        el.onload = function() {
+                            console.log('✅ Hero image loaded successfully:', heroImageUrl);
+                        };
+                    }
                 });
-                
-                // ヒーロー画像全体にもクリックイベントを追加（保険）
-                const heroFrame = document.querySelector('.hero-frame');
-                if (heroFrame) {
-                    heroFrame.addEventListener('click', function(e) {
-                        if (e.target.tagName !== 'A') {
-                            console.log(`🎯 Hero frame clicked, navigating to ${heroEventId}`);
-                            window.location.href = `/event/${heroEventId}/`;
-                        }
-                    });
-                    heroFrame.style.cursor = 'pointer';
-                }
             } else {
-                console.warn('⚠️ Hero link not found');
+                console.log('📹 ヒーロー動画が表示されているため、画像処理をスキップしました');
+            }
+
+            // ヒーロー画像のクリックイベントを追加（動画が表示されている場合はスキップ）
+            if (!heroVideo) {
+                const heroLink = document.querySelector('.hero-frame .media-overlay .hero-link');
+                if (heroLink) {
+                    heroLink.href = `/event/${heroEventId}/`;
+                    heroLink.setAttribute('aria-label', `${heroEventId} ${heroEventName} の詳細ページへ移動`);
+                    console.log('🔗 Hero link found, adding click event');
+                    heroLink.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log(`🎯 Hero image clicked, navigating to ${heroEventId}`);
+                        window.location.href = `/event/${heroEventId}/`;
+                    });
+                    
+                    // ヒーロー画像全体にもクリックイベントを追加（保険）
+                    const heroFrame = document.querySelector('.hero-frame');
+                    if (heroFrame) {
+                        heroFrame.addEventListener('click', function(e) {
+                            if (e.target.tagName !== 'A') {
+                                console.log(`🎯 Hero frame clicked, navigating to ${heroEventId}`);
+                                window.location.href = `/event/${heroEventId}/`;
+                            }
+                        });
+                        heroFrame.style.cursor = 'pointer';
+                    }
+                } else {
+                    console.warn('⚠️ Hero link not found');
+                }
             }
 
             // ヒーローバンドの背景URL設定機能

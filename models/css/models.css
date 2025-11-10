@@ -61,7 +61,8 @@ body {
     background: white;
     border-radius: 16px;
     padding: 40px;
-    margin-bottom: 40px;
+    margin: 0 auto 40px auto;
+    max-width: 1200px;
     box-shadow: var(--shadow-md);
     text-align: center;
 }
@@ -87,7 +88,8 @@ body {
     background: white;
     border-radius: 16px;
     padding: 40px;
-    margin-bottom: 40px;
+    margin: 0 auto 40px auto;
+    max-width: 1200px;
     box-shadow: var(--shadow-md);
 }
 
@@ -256,6 +258,11 @@ body {
 }
 
 @media (max-width: 480px) {
+    .page-header,
+    .models-section {
+        padding: 20px;
+    }
+    
     .page-title {
         font-size: 24px;
     }

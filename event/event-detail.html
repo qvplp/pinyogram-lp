@@ -248,6 +248,17 @@
             font-family: 'M PLUS Rounded 1c', -apple-system, system-ui, sans-serif;
             background: #f5f7fa;
             color: #2d3748;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            overflow-x: hidden;
+        }
+        
+        html {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            overflow-x: hidden;
         }
         
         /* ヘッダー修正 - ホームページと同じスタイル */
@@ -317,45 +328,47 @@
             transition: 0.3s;
         }
         
-        /* ヒーローセクション修正 - レイアウト調整 */
+        /* ヒーローセクション修正 - About usページのヒーロー動画のように全幅表示・余白なし */
         .event-detail-hero {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            padding: 40px 20px;
-            color: white;
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            position: relative;
+            overflow: hidden;
+            background: #000;
         }
         
-        .event-detail-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+        .event-detail-hero .container {
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+        }
+        
+        .event-detail-header {
+            display: none; /* ヘッダー部分は非表示（画像のみ表示） */
         }
         
         .event-meta {
-            display: flex;
-            gap: 30px;
-            font-size: 1rem;
-            opacity: 0.95;
+            display: none; /* メタ情報も非表示 */
         }
         
-        .event-meta span {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        /* モデルセクション - Gridレイアウトでスマホ1列/PC2列切り替え */
+        /* モデルセクション - Gridレイアウトで画面サイズに応じて横並び */
         .models-section {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
             margin: 20px 0;
             padding: 0 10px;
+            width: 100%;
+            justify-items: center;
         }
         
         /* カード全体をレスポンシブ対応 */
         .model-card {
             width: 100% !important;         /* 親幅にフィット */
-            max-width: 480px;              /* PC時は少し余白を残す */
-            margin: 0 auto 24px auto;      /* 中央揃え */
+            max-width: 100%;                /* 最大幅を100%に */
+            margin: 0 !important;           /* マージンを0に */
             display: flex !important;
             flex-direction: column !important;
             border-radius: 12px;
@@ -370,21 +383,26 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.12);
         }
         
-        /* 画像をカード内で100%幅にする */
+        /* 画像をカード内で100%幅にし、固定アスペクト比で統一 */
         .model-image {
             width: 100% !important;
-            height: auto !important;
+            aspect-ratio: 3 / 4 !important; /* 3:4のアスペクト比（縦長）で統一 */
             display: block !important;
             object-fit: cover !important;
+            object-position: center !important;
             border-radius: 0 !important;
         }
         
-        /* モデル名部分も100%幅に */
+        /* モデル名部分も100%幅に、余白を統一 */
         .model-info {
             width: 100% !important;
-            padding: 12px 0;
+            padding: 12px 0 !important;
             text-align: center;
             background: #f8f9fa;
+            min-height: 48px; /* 最小高さを設定して統一 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .model-name {
@@ -402,16 +420,112 @@
             line-height: 1.2;
         }
         
-        /* タブレット・PCでカードを整える */
+        /* スマートフォンサイズ（480px以下）でのモデルカード - 2列表示 */
+        @media (max-width: 480px) {
+            .models-section {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                padding: 0 8px;
+            }
+            
+            .model-card {
+                max-width: 100%;
+                margin: 0 !important;
+            }
+            
+            .model-image {
+                aspect-ratio: 3 / 4 !important;
+                width: 100% !important;
+            }
+            
+            .model-name {
+                font-size: 13px;
+            }
+            
+            .model-role {
+                font-size: 11px;
+            }
+            
+            .model-info {
+                padding: 8px 0 !important;
+                min-height: 40px;
+            }
+        }
+        
+        /* より小さなスマートフォンサイズ（360px以下）でのモデルカード - 2列表示を維持 */
+        @media (max-width: 360px) {
+            .models-section {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                padding: 0 5px;
+            }
+            
+            .model-card {
+                margin: 0 !important;
+            }
+            
+            .model-name {
+                font-size: 12px;
+            }
+            
+            .model-role {
+                font-size: 10px;
+            }
+            
+            .model-info {
+                padding: 6px 0 !important;
+                min-height: 38px;
+            }
+        }
+        
+        /* タブレットサイズ（481px以上768px以下） - 2-3列表示 */
+        @media (min-width: 481px) and (max-width: 767px) {
+            .models-section {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 20px;
+                padding: 0 15px;
+            }
+            
+            .model-card {
+                max-width: 100%;
+            }
+            
+            .model-name {
+                font-size: 15px;
+            }
+            
+            .model-role {
+                font-size: 13px;
+            }
+        }
+        
+        /* PCサイズ（768px以上） - 複数列表示 */
         @media (min-width: 768px) {
             .models-section {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 30px;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 24px;
                 padding: 0 20px;
             }
             
             .model-card {
-                max-width: 320px;
+                max-width: 100%;
+            }
+            
+            .model-name {
+                font-size: 16px;
+            }
+            
+            .model-role {
+                font-size: 14px;
+            }
+        }
+        
+        /* 大型PCサイズ（1200px以上） - より多くの列を表示 */
+        @media (min-width: 1200px) {
+            .models-section {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 30px;
+                padding: 0 30px;
             }
             
             .model-name {
@@ -428,6 +542,14 @@
         .event-content-section {
             padding: 80px 10px;
             background: #f5f7fa;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        
+        .event-content-section .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
         }
         
         .event-info-column {
@@ -439,31 +561,61 @@
             align-items: center !important;
         }
         
-        .event-gallery {
-            background: transparent !important; /* 背景を透明に */
-            border-radius: 15px !important; /* 角を丸くする */
+        /* ヒーロー画像セクション - About usページのヒーロー動画のように全幅表示・余白なし */
+        .event-hero-image-section {
+            width: 100vw !important;
+            min-width: 100vw !important;
+            max-width: 100vw !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            position: relative;
             overflow: hidden;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin: 0 !important; /* 余白除去 */
-            padding: 0 !important; /* 余白除去 */
-            width: fit-content !important; /* 画像サイズに合わせる */
-            max-width: 100% !important; /* 最大幅制限 */
-            display: inline-block !important; /* インラインブロックでサイズ調整 */
+            background: #000;
+            display: block !important;
+            box-sizing: border-box !important;
+            /* 親要素の幅制限を無視して全幅表示 */
+            margin-left: calc(50% - 50vw) !important;
+            margin-right: calc(50% - 50vw) !important;
+            left: 0 !important;
+            right: 0 !important;
+        }
+        
+        .event-gallery {
+            width: 100% !important;
+            min-width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+            border-radius: 0 !important;
+            overflow: hidden;
+            display: block !important;
+        }
+        
+        .event-image {
+            width: 100% !important;
+            min-width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+            position: relative;
+            display: block !important;
         }
         
         .main-image {
-            width: auto !important; /* 画像の自然なサイズに */
-            height: auto !important; /* 画像の自然なサイズに */
-            max-width: 100% !important; /* 最大幅制限 */
-            max-height: none !important; /* 最大高さ制限を解除 */
-            min-height: auto !important; /* 最小高さ制限を解除 */
-            object-fit: contain !important; /* 画像全体を表示し、余白は背景色で埋める */
-            background: transparent !important; /* 背景を透明に */
-            display: block !important; /* baselineギャップ対策 */
-            margin: 0 !important; /* 余白除去 */
-            padding: 0 !important; /* 余白除去 */
-            border-radius: 15px !important; /* 画像自体の角を丸くする */
+            width: 100% !important;
+            min-width: 100% !important;
+            max-width: 100% !important;
+            height: auto !important;
+            object-fit: cover !important;
+            object-position: center !important;
+            background: transparent !important;
+            display: block !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
+            aspect-ratio: 16 / 9;
         }
         
         .event-description {
@@ -809,6 +961,43 @@
         
         /* スマートフォン対応 - レスポンシブデザイン */
         @media (max-width: 768px) {
+            .event-hero-image-section {
+                width: 100vw !important;
+                min-width: 100vw !important;
+                max-width: 100vw !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                margin-left: calc(50% - 50vw) !important;
+                margin-right: calc(50% - 50vw) !important;
+                left: 0 !important;
+                right: 0 !important;
+            }
+            
+            .event-gallery {
+                width: 100% !important;
+                min-width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .event-image {
+                width: 100% !important;
+                min-width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .main-image {
+                width: 100% !important;
+                min-width: 100% !important;
+                max-width: 100% !important;
+                aspect-ratio: 16 / 9 !important;
+                object-fit: cover !important;
+                height: auto !important;
+            }
+            
             .event-content-section {
                 padding: 40px 5px; /* スマホでは余白を小さく */
             }
@@ -821,30 +1010,6 @@
                 display: flex !important;
                 flex-direction: column !important;
                 align-items: center !important;
-            }
-            
-        .event-gallery {
-            width: fit-content !important;
-            max-width: 100% !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            border-radius: 10px !important; /* スマホでは角丸を少し小さく */
-            display: inline-block !important;
-        }
-            
-            .event-image {
-                width: fit-content !important;
-                max-width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                display: inline-block !important;
-            }
-            
-            .main-image {
-                width: auto !important;
-                height: auto !important;
-                max-width: 100% !important;
-                border-radius: 10px !important; /* スマホでは角丸を少し小さく */
             }
             
             .event-description {
@@ -864,11 +1029,6 @@
             .event-description h3 {
                 font-size: 1.2rem; /* スマホでは文字サイズを小さく */
                 margin: 20px 0 10px;
-            }
-            
-            /* モデルカードのスマートフォン対応 - 新しいレスポンシブスタイルで上書き */
-            .models-section {
-                padding: 0 10px !important;
             }
         }
         
@@ -903,82 +1063,6 @@
             font-size: 1.1rem;
         }
         
-        .event-gallery,
-        .main-image {
-            border-radius: 8px !important;
-        }
-        
-        /* 小型スマートフォン用モデルカード設定 - 新しいレスポンシブスタイルで上書き */
-        /*
-        .models-section {
-            flex-direction: column !important;
-            align-items: center !important;
-            gap: 12px !important;
-            padding: 0 5px !important;
-        }
-        
-        .model-card {
-            width: 100% !important;
-            max-width: 260px !important;
-            min-width: 220px !important;
-            aspect-ratio: 3/4 !important;
-        }
-        
-        .model-image {
-            height: auto !important;
-            flex-grow: 1 !important;
-            object-fit: cover !important;
-            background: #f8f9fa !important;
-            border-radius: 8px 8px 0 0 !important;
-        }
-        
-        .model-info {
-            padding: 10px 8px !important;
-            min-height: 55px !important;
-        }
-        
-        .model-name {
-            font-size: 13px !important;
-        }
-        */
-        
-        /* 最小画面サイズ（360px以下）でのモデルカード対応 - 新しいレスポンシブスタイルで上書き */
-        /*
-        .models-section {
-            flex-direction: column !important;
-            align-items: center !important;
-            gap: 10px !important;
-            padding: 0 3px !important;
-        }
-        
-        .model-card {
-            width: 100% !important;
-            max-width: 240px !important;
-            min-width: 200px !important;
-            aspect-ratio: 3/4 !important;
-        }
-        
-        .model-image {
-            height: auto !important;
-            flex-grow: 1 !important;
-            object-fit: cover !important;
-            background: #f8f9fa !important;
-            border-radius: 6px 6px 0 0 !important;
-        }
-        
-        .model-info {
-            padding: 8px 6px !important;
-            min-height: 50px !important;
-        }
-        
-        .model-name {
-            font-size: 12px !important;
-        }
-        
-        .model-role {
-            font-size: 10px !important;
-        }
-        */
     }
     
     /* 最小画面サイズ（360px以下）での対応 */
@@ -1004,76 +1088,45 @@
             font-size: 1rem;
         }
         
-        .event-gallery,
-        .main-image {
-            border-radius: 6px !important;
-        }
-        
-        /* 最小画面サイズ（360px以下）でのモデルカード対応 - 新しいレスポンシブスタイルで上書き */
-        /*
-        .models-section {
-            flex-direction: column !important;
-            align-items: center !important;
-            gap: 8px !important;
-            padding: 0 2px !important;
-        }
-        
-        .model-card {
-            width: 100% !important;
-            max-width: 220px !important;
-            min-width: 180px !important;
-            aspect-ratio: 3/4 !important;
-        }
-        
-        .model-image {
-            height: auto !important;
-            flex-grow: 1 !important;
-            object-fit: cover !important;
-            background: #f8f9fa !important;
-            border-radius: 6px 6px 0 0 !important;
-        }
-        
-        .model-info {
-            padding: 6px 4px !important;
-            min-height: 45px !important;
-        }
-        
-        .model-name {
-            font-size: 11px !important;
-        }
-        
-        .model-role {
-            font-size: 9px !important;
-        }
-        */
     }
     
     /* 711px以下でのヒーロー画像フレーム調整 */
     @media (max-width: 711px) {
-        .event-gallery {
-            width: fit-content !important; /* 画像サイズに合わせる */
-            max-width: 100% !important;
-            margin: 0 auto !important; /* 中央揃え */
+        .event-hero-image-section {
+            width: 100vw !important;
+            min-width: 100vw !important;
+            max-width: 100vw !important;
+            margin: 0 !important;
             padding: 0 !important;
-            border-radius: 10px !important;
-            display: block !important; /* ブロック要素に変更 */
+            margin-left: calc(50% - 50vw) !important;
+            margin-right: calc(50% - 50vw) !important;
+            left: 0 !important;
+            right: 0 !important;
         }
         
-        .event-image {
-            width: fit-content !important; /* 画像サイズに合わせる */
+        .event-gallery {
+            width: 100% !important;
+            min-width: 100% !important;
             max-width: 100% !important;
             margin: 0 !important;
             padding: 0 !important;
-            display: block !important; /* ブロック要素に変更 */
+        }
+        
+        .event-image {
+            width: 100% !important;
+            min-width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
         
         .main-image {
-            width: auto !important; /* 画像の自然なサイズを維持 */
+            width: 100% !important;
+            min-width: 100% !important;
+            max-width: 100% !important;
+            aspect-ratio: 16 / 9 !important;
+            object-fit: cover !important;
             height: auto !important;
-            max-width: 100% !important; /* 画面幅を超えないように */
-            border-radius: 10px !important;
-            object-fit: contain !important; /* 画像の比率を維持 */
-            display: block !important;
         }
         
         .event-info-column {
@@ -1093,27 +1146,6 @@
             padding: 20px;
             margin-top: 15px;
             border-radius: 10px;
-        }
-        
-        /* 711px以下でのモデルカード設定 */
-        .models-section {
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .model-card {
-            width: 100% !important;
-            max-width: 280px !important;
-            min-width: 250px !important;
-        }
-        
-        .model-image {
-            height: auto !important; /* 高さを自動調整 */
-            flex-grow: 1 !important; /* 画像エリアを拡張 */
-            object-fit: cover !important; /* 画像全体を表示し、余白は背景色で埋める */
-            background: #f8f9fa !important; /* 背景色を設定 */
-            border-radius: 10px 10px 0 0 !important; /* 上部のみ角を丸くする */
         }
     }
         
@@ -1197,24 +1229,41 @@
                 display: none;
             }
             
-            .event-detail-hero {
-                padding: 100px 20px 30px;
+            .event-hero-image-section {
+                width: 100vw !important;
+                min-width: 100vw !important;
+                max-width: 100vw !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                margin-left: calc(50% - 50vw) !important;
+                margin-right: calc(50% - 50vw) !important;
+                left: 0 !important;
+                right: 0 !important;
             }
             
-            .event-detail-header h1 {
-                font-size: 1.8rem;
+            .event-gallery {
+                width: 100% !important;
+                min-width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
             
-            .event-meta {
-                flex-direction: column;
-                gap: 10px;
+            .event-image {
+                width: 100% !important;
+                min-width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
             
             .main-image {
-                max-height: 350px !important; /* 最大高さを調整 */
-                min-height: 250px !important; /* 最小高さを調整 */
-                height: 300px !important; /* 固定高さを調整 */
-                aspect-ratio: 1200/630 !important; /* 1200×630比率を維持 */
+                width: 100% !important;
+                min-width: 100% !important;
+                max-width: 100% !important;
+                aspect-ratio: 16 / 9 !important;
+                object-fit: cover !important;
+                height: auto !important;
             }
             
             .event-content-section {
@@ -1224,62 +1273,7 @@
             .event-description {
                 padding: 30px;
             }
-            
-            /* モデルカードのレスポンシブ設定 - 新しいレスポンシブスタイルで上書き */
-            /*
-            .models-section {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-            }
-            
-            .model-card {
-                width: 100% !important;
-                max-width: 300px !important;
-                min-width: 250px !important;
-                aspect-ratio: 3/4 !important;
-            }
-            
-            .model-image {
-                height: auto !important;
-                flex-grow: 1 !important;
-                object-fit: cover !important;
-                background: #f8f9fa !important;
-                border-radius: 10px 10px 0 0 !important;
-            }
-            */
         }
-        
-        /* タブレットサイズでのモデルカード設定 - 新しいレスポンシブスタイルで上書き */
-        /*
-        @media (max-width: 1024px) and (min-width: 769px) {
-            .models-section {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 20px;
-            }
-            
-            .model-card {
-                width: 200px !important;
-                max-width: 200px !important;
-                min-width: 200px !important;
-                aspect-ratio: 3/4 !important;
-            }
-            
-            .model-image {
-                height: auto !important;
-                flex-grow: 1 !important;
-                object-fit: cover !important;
-                background: #f8f9fa !important;
-                border-radius: 10px 10px 0 0 !important;
-            }
-            
-            .events-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        */
         
         /* モバイル用のレスポンシブ設定 */
         @media (max-width: 480px) {
@@ -1295,10 +1289,41 @@
                 padding: 20px;
             }
             
+            .event-hero-image-section {
+                width: 100vw !important;
+                min-width: 100vw !important;
+                max-width: 100vw !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                margin-left: calc(50% - 50vw) !important;
+                margin-right: calc(50% - 50vw) !important;
+                left: 0 !important;
+                right: 0 !important;
+            }
+            
+            .event-gallery {
+                width: 100% !important;
+                min-width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .event-image {
+                width: 100% !important;
+                min-width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
             .main-image {
-                max-height: 250px !important;
-                min-height: 180px !important;
-                height: 220px !important;
+                width: 100% !important;
+                min-width: 100% !important;
+                max-width: 100% !important;
+                aspect-ratio: 16 / 9 !important;
+                object-fit: cover !important;
+                height: auto !important;
             }
         }
     </style>
@@ -1307,11 +1332,11 @@
     <!-- 共有ヘッダー -->
     <div id="site-header"></div>
 
-    <!-- イベント詳細セクション -->
-    <section class="event-detail-hero">
-        <div class="container">
-            <div class="event-detail-header">
-                <h1 id="eventTitle">ぴにょぐらむ撮影会 - イベント詳細</h1>
+    <!-- ヒーロー画像セクション - About usページのヒーロー動画のように全幅表示・余白なし -->
+    <section class="event-hero-image-section">
+        <div class="event-gallery">
+            <div class="event-image">
+                <img id="eventImage" src="" alt="イベント画像" class="main-image">
             </div>
         </div>
     </section>
@@ -1320,23 +1345,14 @@
     <section class="event-content-section">
         <div class="container">
             <div class="event-info-column">
-                <!-- イベント画像 -->
-                <div class="event-gallery">
-                    <div class="event-image">
-                        <img id="eventImage" src="" alt="イベント画像" class="main-image">
-                    </div>
-                </div>
-                
                 <!-- イベント詳細説明 -->
                 <div class="event-description">
-                    <h2>イベント概要</h2>
+                    <h2 id="eventTitle">イベント概要</h2>
                     <p id="eventDescription">
-                        プロの撮影スタッフが、あなたの最高の瞬間を切り取ります。
-                        スタジオでの本格的な撮影から、屋外でのナチュラルな撮影まで、
-                        お客様のご要望に合わせて対応いたします。
+                    4名が出演する3部性のセッション撮影会です
                     </p>
                     
-                    <h3>出演モデル（全3名が出演予定、後日記載）</h3>
+                    <h3>出演モデル</h3>
                     <div class="models-section" id="modelsSection">
                         <!-- モデル情報がここに挿入されます -->
                     </div>
@@ -1516,10 +1532,22 @@
             }
             
             displayEventInfo() {
-                document.getElementById('eventTitle').textContent = this.eventData.event_name || 'イベント名';
-                // eventDate と eventVenue の要素は削除されたため、参照を削除
-                document.getElementById('venueName').textContent = this.eventData.venue?.venue_name || '会場未定';
-                document.getElementById('venueAddress').textContent = this.eventData.venue?.address || '住所未定';
+                // イベントタイトル（存在する場合のみ更新）
+                const eventTitleEl = document.getElementById('eventTitle');
+                if (eventTitleEl) {
+                    eventTitleEl.textContent = this.eventData.event_name || 'イベント名';
+                }
+                
+                // 会場情報
+                const venueNameEl = document.getElementById('venueName');
+                if (venueNameEl) {
+                    venueNameEl.textContent = this.eventData.venue?.venue_name || '会場未定';
+                }
+                
+                const venueAddressEl = document.getElementById('venueAddress');
+                if (venueAddressEl) {
+                    venueAddressEl.textContent = this.eventData.venue?.address || '住所未定';
+                }
                 
                 if (this.eventData.description) {
                     document.getElementById('eventDescription').textContent = this.eventData.description;
@@ -1551,12 +1579,18 @@
                     }
                 }
                 // タイムテーブル
-                if (Array.isArray(this.eventData.schedule)) {
+                if (Array.isArray(this.eventData.schedule) && this.eventData.schedule.length > 0) {
                     const list = document.getElementById('timeTableList');
                     if (list) {
                         console.log('🔍 スケジュールを表示中:', this.eventData.schedule);
-                        list.innerHTML = this.eventData.schedule.map(s=>`<li>${s}</li>`).join('');
+                        list.innerHTML = this.eventData.schedule.map(s => `<li>${s}</li>`).join('');
                         console.log('🔍 タイムテーブル要素の内容:', list.innerHTML);
+                    }
+                } else {
+                    // スケジュールがない場合は非表示
+                    const scheduleSection = document.querySelector('.schedule-info');
+                    if (scheduleSection) {
+                        scheduleSection.style.display = 'none';
                     }
                 }
                 // 料金
@@ -1564,7 +1598,7 @@
                     const priceTable = document.getElementById('priceTable');
                     if (priceTable) {
                         const p = this.eventData.pricing;
-                        const fmt = (n)=>`¥${Number(n).toLocaleString()}`;
+                        const fmt = (n) => `¥${Number(n).toLocaleString()}`;
                         
                         let priceHTML = '';
                         if (p.perUnit) {
@@ -1577,30 +1611,65 @@
                             priceHTML += `<div class="price-item"><span class="price-label">3部通し</span><span class="price-value">${fmt(p.threeParts)}</span></div>`;
                         }
                         
-                        priceTable.innerHTML = priceHTML;
+                        if (priceHTML) {
+                            priceTable.innerHTML = priceHTML;
+                        } else {
+                            priceTable.innerHTML = '<p>料金情報がありません</p>';
+                        }
+                    }
+                } else {
+                    // 料金情報がない場合
+                    const priceTable = document.getElementById('priceTable');
+                    if (priceTable) {
+                        priceTable.innerHTML = '<p>料金情報がありません</p>';
                     }
                 }
                 // オプション
-                if (Array.isArray(this.eventData.options)) {
+                if (Array.isArray(this.eventData.options) && this.eventData.options.length > 0) {
                     const opt = document.getElementById('optionList');
                     if (opt) {
-                        opt.innerHTML = this.eventData.options.map(o=>`<span class="price-label">${o.name}</span><span class="price-value">${o.price}</span>`).join('');
+                        opt.innerHTML = this.eventData.options.map(o => 
+                            `<div class="price-item"><span class="price-label">${o.name}</span><span class="price-value">${o.price}</span></div>`
+                        ).join('');
+                    }
+                } else {
+                    // オプションがない場合は非表示
+                    const optSection = document.querySelector('.option-section');
+                    if (optSection) {
+                        optSection.style.display = 'none';
                     }
                 }
                 
                 // モデル一覧の描画処理（完全版）
-                const models = (this.eventData.models || []).map((m, i) => ({
-                    name: m.name || `モデル${i + 1}`,
-                    image: m.image || "images/events/placeholder.jpg",
-                    role: m.role || ""
-                }));
+                const models = (this.eventData.models || []).map((m, i) => {
+                    // 画像URLの処理
+                    let imageUrl = m.image || "images/events/placeholder.jpg";
+                    
+                    // 既に完全なURL（httpまたはhttpsで始まる）の場合はそのまま使用
+                    if (imageUrl && (imageUrl.startsWith('http://') || imageUrl.startsWith('https://'))) {
+                        // 完全なURLの場合はそのまま使用
+                    } else if (imageUrl && !imageUrl.startsWith('/')) {
+                        // 相対パスの場合、events.jsonのslugから構築
+                        const eventSlug = this.eventData.slug || '';
+                        if (eventSlug) {
+                            const encodedSlug = encodeURIComponent(eventSlug.replace(/\//g, ':'));
+                            imageUrl = `https://images.pinyogram.com/events/${encodedSlug}/models/${encodeURIComponent(imageUrl)}`;
+                        }
+                    }
+                    
+                    return {
+                        name: m.name || `モデル${i + 1}`,
+                        image: imageUrl,
+                        role: m.role || ""
+                    };
+                });
 
                 console.log("✅ 読み込んだモデル一覧:", models);
 
                 const modelsHTML = models.map(model => {
                     // くりえみとまろのみリンク機能を追加
-                    const isClickableModel = model.name === "くりえみ" || model.name === "（まろ）";
-                    const modelId = model.name === "くりえみ" ? "kuriemi" : model.name === "（まろ）" ? "maro" : null;
+                    const isClickableModel = model.name === "くりえみ" || model.name === "まろ" || model.name === "（まろ）";
+                    const modelId = model.name === "くりえみ" ? "kuriemi" : (model.name === "まろ" || model.name === "（まろ）") ? "maro" : null;
                     
                     if (isClickableModel && modelId) {
                         return `
@@ -1629,7 +1698,7 @@
                         `;
                     } else {
                         return `
-                            <div class="model-card" role="group" aria-label="${model.name}">
+                            <div class="model-card" role="group" aria-label="${model.name}" data-model-name="${model.name}">
                                 <img
                                     src="${model.image}"
                                     alt="${model.name}（出演モデル）"
@@ -1651,15 +1720,28 @@
                     modelsSection.innerHTML = modelsHTML;
                 }
                 
-                // 画像設定（静的サイト最適化: キャッシュバスティングなし）
+                    // ヒーロー画像設定（静的サイト最適化: キャッシュバスティングなし）
                 const eventImage = document.getElementById('eventImage');
                 if (eventImage) {
-                    let imageUrl;
+                    let imageUrl = '';
                     
                     // thumbnail_imageが直接URLの場合はそれを使用
-                    if (this.eventData.thumbnail_image && this.eventData.thumbnail_image.startsWith('http')) {
-                        imageUrl = this.eventData.thumbnail_image;
-                        console.log('🖼️ Using thumbnail_image URL:', imageUrl);
+                    if (this.eventData.thumbnail_image) {
+                        if (this.eventData.thumbnail_image.startsWith('http://') || this.eventData.thumbnail_image.startsWith('https://')) {
+                            // 完全なURLの場合はそのまま使用
+                            imageUrl = this.eventData.thumbnail_image;
+                            console.log('🖼️ Using thumbnail_image URL (full):', imageUrl);
+                        } else {
+                            // 相対パスの場合、slugから構築
+                            const eventSlug = this.eventData.slug || '';
+                            if (eventSlug) {
+                                const encodedSlug = encodeURIComponent(eventSlug.replace(/\//g, ':'));
+                                imageUrl = `https://images.pinyogram.com/events/${encodedSlug}/main/${encodeURIComponent(this.eventData.thumbnail_image)}`;
+                                console.log('🖼️ Using thumbnail_image URL (constructed):', imageUrl);
+                            } else {
+                                imageUrl = this.eventData.thumbnail_image;
+                            }
+                        }
                     } else {
                         // 従来の処理（slugベース）
                         let EVENT_SLUG = this.eventData.slug || this.eventData.event_name;
@@ -1685,8 +1767,13 @@
                         }
                     }
                     
-                    eventImage.src = imageUrl;
-                    eventImage.alt = this.eventData.event_name;
+                    if (imageUrl) {
+                        eventImage.src = imageUrl;
+                        eventImage.alt = this.eventData.event_name || 'イベント画像';
+                        console.log('🖼️ 最終的な画像URL:', imageUrl);
+                    } else {
+                        console.error('❌ 画像URLが取得できませんでした');
+                    }
                     
                     // 画像読み込み成功時のログ
                     eventImage.onload = function() {
@@ -1706,14 +1793,17 @@
                         if (window.__imgFallback) {
                             window.__imgFallback(this);
                         } else {
-                            this.style.display = 'none';
-                            this.parentElement.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
-                            this.parentElement.style.height = '400px';
-                            this.parentElement.style.display = 'flex';
-                            this.parentElement.style.alignItems = 'center';
-                            this.parentElement.style.justifyContent = 'center';
-                            this.parentElement.style.color = 'white';
-                            this.parentElement.innerHTML = '<div style="text-align: center;"><span style="font-size: 48px;">📸</span><p style="margin-top: 10px; font-size: 14px;">画像を準備中です</p></div>';
+                            // エラー時は背景グラデーションを表示
+                            const parent = this.closest('.event-image');
+                            if (parent) {
+                                parent.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+                                parent.style.display = 'flex';
+                                parent.style.alignItems = 'center';
+                                parent.style.justifyContent = 'center';
+                                parent.style.color = 'white';
+                                parent.style.minHeight = '400px';
+                                parent.innerHTML = '<div style="text-align: center;"><span style="font-size: 48px;">📸</span><p style="margin-top: 10px; font-size: 14px;">画像を準備中です</p></div>';
+                            }
                         }
                     };
                 }

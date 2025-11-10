@@ -9,131 +9,39 @@ body {
 
 /* ページ全体のレイアウト */
 .about-page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
     background: #F5F5F5;
     min-height: 100vh;
 }
 
-/* パンくずリスト */
-.breadcrumb {
-    margin-bottom: 30px;
-}
-
-.breadcrumb-list {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-size: 14px;
-    color: #64748b;
-}
-
-.breadcrumb-item {
-    display: flex;
-    align-items: center;
-}
-
-.breadcrumb-item:not(:last-child)::after {
-    content: '>';
-    margin: 0 8px;
-    color: #64748b;
-}
-
-.breadcrumb-link {
-    color: #C67DFF;
-    text-decoration: none;
-    transition: color 0.2s ease;
-    font-weight: 600;
-}
-
-.breadcrumb-link:hover {
-    color: #5856D6;
-}
-
-.breadcrumb-current {
-    color: #0f172a;
-    font-weight: 500;
-}
-
-/* ページヘッダー */
-.page-header {
-    background: white;
-    border-radius: 16px;
-    padding: 40px;
-    margin-bottom: 40px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
-    text-align: center;
-}
-
-.page-header-container {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.page-title {
-    font-size: 36px;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 16px;
-    line-height: 1.2;
-}
-
-.page-description {
-    font-size: 18px;
-    line-height: 1.6;
-    color: #475569;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* 動画セクション */
-.video-section {
-    background: white;
-    border-radius: 16px;
-    padding: 40px;
-    margin-bottom: 40px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
-}
-
-.video-container {
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.video-wrapper {
+/* ヒーロームービーセクション */
+.hero-video-section {
     width: 100%;
+    margin: 0;
+    padding: 0;
     position: relative;
-    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     background: #000;
 }
 
-.about-video {
+.hero-video-wrapper {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-video {
     width: 100%;
     height: auto;
     display: block;
     aspect-ratio: 16 / 9;
-    object-fit: contain;
-}
-
-.video-embed-wrapper {
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%; /* 16:9 アスペクト比 */
-    height: 0;
-    overflow: hidden;
-}
-
-.video-embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
+    object-fit: cover;
+    margin: 0;
+    padding: 0;
 }
 
 /* セクション共通スタイル */
@@ -145,7 +53,8 @@ body {
     background: white;
     border-radius: 16px;
     padding: 40px;
-    margin-bottom: 40px;
+    margin: 40px auto;
+    max-width: 1200px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
 }
 
@@ -301,27 +210,13 @@ body {
 
 /* レスポンシブデザイン */
 @media (max-width: 768px) {
-    .about-page {
-        padding: 16px;
-    }
-    
-    .page-header,
-    .video-section,
     .company-intro-section,
     .mission-section,
     .vision-section,
     .services-section,
     .contact-section {
         padding: 24px;
-        margin-bottom: 24px;
-    }
-    
-    .page-title {
-        font-size: 28px;
-    }
-    
-    .page-description {
-        font-size: 16px;
+        margin: 24px 16px;
     }
     
     .section-title {
@@ -353,26 +248,13 @@ body {
 }
 
 @media (max-width: 480px) {
-    .page-header,
-    .video-section,
     .company-intro-section,
     .mission-section,
     .vision-section,
     .services-section,
     .contact-section {
         padding: 20px;
-    }
-    
-    .video-container {
-        padding: 0;
-    }
-    
-    .video-wrapper {
-        border-radius: 8px;
-    }
-    
-    .page-title {
-        font-size: 24px;
+        margin: 20px 12px;
     }
     
     .section-title {

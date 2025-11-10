@@ -1468,6 +1468,218 @@ nav {
 .hero--md { --hero-max-w: 800px;  --hero-side-vw: 8vw; }  /* 拡大版 */
 .hero--lg { --hero-max-w: 960px;  --hero-side-vw: 10vw; } /* 拡大版 */
 
+/* ヒーロームービーセクション */
+.hero-video-section {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    display: block !important;
+    height: 60vh;
+}
+
+@media (min-width: 768px) {
+    .hero-video-section {
+        height: 80vh;
+    }
+}
+
+.hero-video-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative;
+    overflow: hidden;
+    display: block !important;
+}
+
+.hero-video {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 200px !important;
+    display: block !important;
+    object-fit: cover !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    background: #000 !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 1 !important;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .hero-video-section,
+    .hero-video-wrapper,
+    .hero-video {
+        width: 100% !important;
+        display: block !important;
+    }
+    
+    .hero-video {
+        aspect-ratio: 16 / 9 !important;
+        object-fit: cover !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-video-section,
+    .hero-video-wrapper,
+    .hero-video {
+        width: 100% !important;
+        display: block !important;
+    }
+    
+    .hero-video {
+        aspect-ratio: 16 / 9 !important;
+        object-fit: cover !important;
+    }
+}
+
+/* ヒーロー動画オーバーレイ（読みやすさ用の薄い黒レイヤー） */
+.hero-video-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* テキストオーバーレイ */
+.hero-text-overlay {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    color: white;
+    user-select: none;
+    pointer-events: none;
+}
+
+@media (min-width: 768px) {
+    .hero-text-overlay {
+        left: 3rem;
+    }
+}
+
+/* ヒーロー見出し */
+.hero-title {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-weight: 900;
+    font-size: 3rem;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+@media (min-width: 768px) {
+    .hero-title {
+        font-size: 4.5rem;
+    }
+}
+
+/* ヒーロー説明文 */
+.hero-description {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.75;
+    max-width: 22ch;
+    margin: 1rem 0 0 0;
+    padding: 0;
+    text-align: left;
+}
+
+@media (min-width: 768px) {
+    .hero-description {
+        font-size: 1rem;
+    }
+}
+
+/* スクロールボタン */
+.hero-scroll-button {
+    position: absolute;
+    left: 50%;
+    bottom: 1.5rem;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: saturate(180%) blur(10px);
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.hero-scroll-button:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: translateX(-50%) translateY(4px);
+}
+
+.hero-scroll-button:active {
+    transform: translateX(-50%) translateY(2px);
+}
+
+@media (min-width: 768px) {
+    .hero-scroll-button {
+        width: 3.5rem;
+        height: 3.5rem;
+        bottom: 1.5rem;
+    }
+}
+
+/* スクロール矢印（白い三角形） */
+.scroll-arrow {
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 16px solid white;
+}
+
+@media (min-width: 768px) {
+    .scroll-arrow {
+        border-left-width: 12px;
+        border-right-width: 12px;
+        border-top-width: 18px;
+    }
+}
+
+/* スクリーンリーダー用テキスト（非表示） */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* スムーススクロール */
+html {
+    scroll-behavior: smooth;
+}
+
 /* セクション外枠：横いっぱいにしない／中央寄せ／他セクションに被らない */
 .hero-shell{
   /* 確実に最大幅を適用 */
