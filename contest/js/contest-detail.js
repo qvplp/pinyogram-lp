@@ -85,7 +85,7 @@ class ContestDetailManager {
         document.getElementById('contestEntryPeriod').textContent = `${startDate} - ${endDate}`;
         
         // ページタイトルの更新
-        document.title = `${contest.title} | ぴにょぐらむ撮影会`;
+        document.title = `${contest.title} | ぴにょぐらむphoto session`;
     }
 
     updateContestStatus(contest) {

@@ -2,10 +2,10 @@
   "events": [
     {
       "event_id": "EVT004",
-      "event_name": "セッション撮影会2025/09/16",
+      "event_name": "ぴにょぐらむphoto session 2025/09/16",
       "event_type": "group",
       "event_date": "2025-09-16",
-      "description": "少人数セッション撮影会",
+      "description": "少人数ぴにょぐらむphoto session",
       "venue": {
         "venue_name": "Gスタ",
         "address": "〒111-0053 東京都台東区浅草橋５丁目３−２ 秋葉原スクエアビル ４F"
@@ -39,14 +39,14 @@
         { "name": "くりえみ", "role": "", "image": "くりえみ.png" },
         { "name": "（まろ）", "role": "", "image": "まろ.png" }
       ],
-      "slug": "pinyogramlp/events/セッション撮影会2025:09:16/"
+      "slug": "pinyogramlp/events/ぴにょぐらむphoto session 2025:09:16/"
     },
     {
       "event_id": "EVT005",
-      "event_name": "ぴにょぐらむ撮影会with福島裕二",
+      "event_name": "ぴにょぐらむphoto session 2025/10/21 with福島裕二",
       "event_type": "group",
       "event_date": "2025-10-21",
-      "description": "3名が出演する2部制のセッション撮影会です。\n福島氏の「震える写真」撮影現場を一緒に体感。\n2部より福島氏が参加し、ライティングとライブシュートを行います",
+      "description": "3名が出演する2部制のぴにょぐらむphoto sessionです。\n福島氏の「震える写真」撮影現場を一緒に体感。\n2部より福島氏が参加し、ライティングとライブシュートを行います",
       "venue": {
         "venue_name": "Gスタ",
         "address": "〒111-0053 東京都台東区浅草橋５丁目３−２ 秋葉原スクエアビル ４F"
@@ -79,11 +79,11 @@
         { "name": "くりえみ", "role": "", "image": "https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/models/events_%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A2025_09_16_models_%E3%81%8F%E3%82%8A%E3%81%88%E3%81%BF.png" },
         { "name": "（まろ）", "role": "", "image": "https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/models/events_%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A2025_09_16_models_%E3%81%BE%E3%82%8D.png" }
       ],
-      "slug": "pinyogramlp/events/セッション撮影会2025:10:21/"
+      "slug": "pinyogramlp/events/ぴにょぐらむphoto session 2025:10:21/"
     },
     {
       "event_id": "EVT006",
-      "event_name": "セッション撮影会2025/11/18",
+      "event_name": "ぴにょぐらむphoto session 2025/11/18",
       "event_type": "group",
       "event_date": "2025-11-18",
       "description": "",
@@ -96,7 +96,7 @@
         "twoParts": 19000,
         "threeParts": 28000
       },
-      "thumbnail_image": "https://images.pinyogram.com/events/2025-11-18%20%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A/main/1118.png",
+      "thumbnail_image": "https://images.pinyogram.com/events/2025-11-18%20%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A/main/1118%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A.jpg",
       "is_limited": false,
       "remaining_slots": null,
       "max_participants": 15,
@@ -122,7 +122,7 @@
         { "name": "あーちゃみ", "role": "", "image": "https://images.pinyogram.com/events/2025-11-18%20%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A/models/%E3%81%82%E3%83%BC%E3%81%A1%E3%82%83%E3%81%BF1.jpg" },
         { "name": "くりえみ", "role": "", "image": "https://images.pinyogram.com/events/2025-11-18%20%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A/models/%E3%81%8F%E3%82%8A%E3%81%88%E3%81%BF.png" }
       ],
-      "slug": "pinyogramlp/events/セッション撮影会2025:11:18/"
+      "slug": "pinyogramlp/events/ぴにょぐらむphoto session 2025:11:18/"
     }
   ]
 }

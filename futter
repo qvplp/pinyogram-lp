@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>簡略化フッター - ぴにょぐらむ撮影会</title>
+    <title>簡略化フッター - ぴにょぐらむphoto session</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -270,7 +270,7 @@
             <div class="footer-top">
                 <!-- カラム1: 会社情報 -->
                 <div class="footer-column">
-                    <div class="footer-logo">ぴにょぐらむ撮影会</div>
+                    <div class="footer-logo">ぴにょぐらむphoto session</div>
                     <div class="social-links">
                         <a href="#" class="social-link" aria-label="Twitter">
                             <i class="fab fa-twitter"></i>
@@ -304,7 +304,7 @@
             <div class="footer-bottom">
                 <div class="footer-bottom-content">
                     <div class="copyright">
-                        &copy; 2025 ぴにょぐらむ撮影会. All rights reserved.
+                        &copy; 2025 ぴにょぐらむphoto session. All rights reserved.
                     </div>
                     <ul class="footer-links">
                         <li><a href="#terms">利用規約</a></li>

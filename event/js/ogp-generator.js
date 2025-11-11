@@ -12,7 +12,7 @@ class EventOGPGenerator {
             // EVT005: ご指定のOGP画像に固定
             EVT005: 'https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/main/Frame%2056.png',
             // EVT006: ご指定のOGP画像に固定
-            EVT006: 'https://images.pinyogram.com/events/2025-11-18%20%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A/main/1118.png'
+            EVT006: 'https://images.pinyogram.com/events/2025-11-18%20%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A/main/1118%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A.jpg'
         };
     }
 
@@ -98,28 +98,28 @@ class EventOGPGenerator {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${event_name} | ぴにょぐらむ撮影会</title>
+    <title>${event_name} | ぴにょぐらむphoto session</title>
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="ぴにょぐらむ撮影会">
+    <meta property="og:site_name" content="ぴにょぐらむphoto session">
     <meta property="og:title" content="${event_name}">
-    <meta property="og:description" content="${description || 'ぴにょぐらむ撮影会のイベントです'}">
+    <meta property="og:description" content="${description || 'ぴにょぐらむphoto sessionのイベントです'}">
     <meta property="og:image" content="${eventImageUrl}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="${event_name} - ${description || 'ぴにょぐらむ撮影会のイベントです'}">
+    <meta property="og:image:alt" content="${event_name} - ${description || 'ぴにょぐらむphoto sessionのイベントです'}">
     <meta property="og:url" content="${eventUrl}">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="${event_name}">
-    <meta name="twitter:description" content="${description || 'ぴにょぐらむ撮影会のイベントです'}">
+    <meta name="twitter:description" content="${description || 'ぴにょぐらむphoto sessionのイベントです'}">
     <meta name="twitter:image" content="${eventImageUrl}">
-    <meta name="twitter:image:alt" content="${event_name} - ${description || 'ぴにょぐらむ撮影会のイベントです'}">
+    <meta name="twitter:image:alt" content="${event_name} - ${description || 'ぴにょぐらむphoto sessionのイベントです'}">
 
     <!-- 追加SEOメタタグ -->
-    <meta name="description" content="${description || 'ぴにょぐらむ撮影会のイベントです'}">
+    <meta name="description" content="${description || 'ぴにょぐらむphoto sessionのイベントです'}">
     <meta name="keywords" content="${keywords}">
 
     <noscript>
@@ -203,22 +203,22 @@ class EventOGPGenerator {
         ];
 
         return {
-            title: `${event_name} | ぴにょぐらむ撮影会`,
+            title: `${event_name} | ぴにょぐらむphoto session`,
             ogType: 'website',
-            ogSiteName: 'ぴにょぐらむ撮影会',
+            ogSiteName: 'ぴにょぐらむphoto session',
             ogTitle: event_name,
-            ogDescription: description || 'ぴにょぐらむ撮影会のイベントです',
+            ogDescription: description || 'ぴにょぐらむphoto sessionのイベントです',
             ogImage: eventImageUrl,
             ogImageWidth: '1200',
             ogImageHeight: '630',
-            ogImageAlt: `${event_name} - ${description || 'ぴにょぐらむ撮影会のイベントです'}`,
+            ogImageAlt: `${event_name} - ${description || 'ぴにょぐらむphoto sessionのイベントです'}`,
             ogUrl: eventUrl,
             twitterCard: 'summary_large_image',
             twitterTitle: event_name,
-            twitterDescription: description || 'ぴにょぐらむ撮影会のイベントです',
+            twitterDescription: description || 'ぴにょぐらむphoto sessionのイベントです',
             twitterImage: eventImageUrl,
-            twitterImageAlt: `${event_name} - ${description || 'ぴにょぐらむ撮影会のイベントです'}`,
-            description: description || 'ぴにょぐらむ撮影会のイベントです',
+            twitterImageAlt: `${event_name} - ${description || 'ぴにょぐらむphoto sessionのイベントです'}`,
+            description: description || 'ぴにょぐらむphoto sessionのイベントです',
             keywords: keywords,
             ogImageVariants
         };

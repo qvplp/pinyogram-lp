@@ -2,7 +2,7 @@
 
 ## 概要
 
-このシステムは、ぴにょぐらむ撮影会のイベントページでOGP（Open Graph Protocol）を動的に生成・管理するためのシステムです。新規イベント登録時に自動的にOGPページが生成され、SNSでのシェア時に適切な画像と情報が表示されます。
+このシステムは、ぴにょぐらむphoto sessionのイベントページでOGP（Open Graph Protocol）を動的に生成・管理するためのシステムです。新規イベント登録時に自動的にOGPページが生成され、SNSでのシェア時に適切な画像と情報が表示されます。
 
 ## 実装内容
 
@@ -89,10 +89,10 @@ await eventManager.regenerateAllOGP();
 ```javascript
 const eventData = {
     event_id: 'EVT004',
-    event_name: 'セッション撮影会2025/09/16',
+    event_name: 'ぴにょぐらむphoto session 2025/09/16',
     event_date: '2025-09-16',
-    description: '少人数セッション撮影会',
-    slug: 'セッション撮影会2025:09:16',
+    description: '少人数ぴにょぐらむphoto session',
+    slug: 'ぴにょぐらむphoto session 2025:09:16',
     venue: {
         venue_name: 'Gスタ',
         address: '東京都台東区浅草橋５丁目３−２'
@@ -118,21 +118,21 @@ https://images.pinyogram.com/events/{ENCODED_SLUG}/{TYPE}/{NAME}.{EXT}
 ```
 
 **例**:
-- メイン画像: `https://images.pinyogram.com/events/セッション撮影会2025%3A09%3A16/main/hero.png`
-- モデル画像: `https://images.pinyogram.com/events/セッション撮影会2025%3A09%3A16/models/1.png`
+- メイン画像: `https://images.pinyogram.com/events/ぴにょぐらむphoto session 2025%3A09%3A16/main/hero.png`
+- モデル画像: `https://images.pinyogram.com/events/ぴにょぐらむphoto session 2025%3A09%3A16/models/1.png`
 
 ### スラッグエンコード
 
 - スラッシュ `/` → コロン `:`
 - URLエンコード処理
-- 例: `セッション撮影会2025/09/16` → `セッション撮影会2025%3A09%3A16`
+- 例: `ぴにょぐらむphoto session 2025/09/16` → `ぴにょぐらむphoto session 2025%3A09%3A16`
 
 ## 生成されるOGPメタタグ
 
 ```html
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="ぴにょぐらむ撮影会">
+<meta property="og:site_name" content="ぴにょぐらむphoto session">
 <meta property="og:title" content="イベント名">
 <meta property="og:description" content="イベント説明">
 <meta property="og:image" content="https://images.pinyogram.com/events/.../main/hero.png">

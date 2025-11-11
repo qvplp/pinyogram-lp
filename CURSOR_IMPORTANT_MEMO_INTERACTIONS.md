@@ -1,7 +1,7 @@
 # Cursor重要メモ - pinyogram_lpプロジェクト最適化
 
 ## プロジェクト概要
-- **プロジェクト名**: pinyogram_lp (ぴにょぐらむ撮影会)
+- **プロジェクト名**: pinyogram_lp (ぴにょぐらむphoto session)
 - **技術スタック**: HTML5, CSS3, Vanilla JavaScript
 - **デザインシステム**: Apple Design System準拠
 - **対象**: モダンなWebブラウザ対応
@@ -219,7 +219,7 @@
   - アクセシビリティ対応（aria-expanded、キーボード操作、ESCキー）
   - メニューリンククリック時の自動閉じ機能
   - 画面サイズ変更時の自動メニュー閉じ機能
-- 2025-01-27: EVT005「ぴにょぐらむ撮影会with福島裕二」バナー画像挿入完了
+- 2025-01-27: EVT005「ぴにょぐらむphoto sessionwith福島裕二」バナー画像挿入完了
   - イベントデータのthumbnail_imageフィールドを優先使用するロジックを実装
   - eventDataマッピングにthumbnail_imageプロパティを追加
   - 画像URL処理でthumbnail_imageが設定されている場合はそれを優先使用

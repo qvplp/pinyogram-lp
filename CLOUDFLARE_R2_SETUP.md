@@ -2,7 +2,7 @@
 
 ## 現在の状況
 - R2バケット: `pinyogramlp`
-- 画像パス: `events/セッション撮影会2025:09:16/main/card.png`
+- 画像パス: `events/ぴにょぐらむphoto session 2025:09:16/main/card.png`
 - 画像は存在しているが、公開配信URLが設定されていない
 - **重要**: メインドメイン（pinyogram.com）をR2に設定すると404エラーが発生
 
@@ -103,12 +103,12 @@ window.CDN_EVENTS_BASE = 'https://cdn.pinyogram.com/pinyogramlp/events';
 設定後、以下のようなURLが生成されます：
 
 #### デフォルト配信URLの場合
-- ヒーロー画像: `https://pub-1234567890abcdef1234567890abcdef.r2.dev/pinyogramlp/events/events/セッション撮影会2025:09:16/main/hero.jpg`
-- モデル画像: `https://pub-1234567890abcdef1234567890abcdef.r2.dev/pinyogramlp/events/events/セッション撮影会2025:09:16/models/くりえみ.jpg`
+- ヒーロー画像: `https://pub-1234567890abcdef1234567890abcdef.r2.dev/pinyogramlp/events/events/ぴにょぐらむphoto session 2025:09:16/main/hero.jpg`
+- モデル画像: `https://pub-1234567890abcdef1234567890abcdef.r2.dev/pinyogramlp/events/events/ぴにょぐらむphoto session 2025:09:16/models/くりえみ.jpg`
 
 #### カスタムサブドメインの場合
-- ヒーロー画像: `https://cdn.pinyogram.com/pinyogramlp/events/events/セッション撮影会2025:09:16/main/hero.jpg`
-- モデル画像: `https://cdn.pinyogram.com/pinyogramlp/events/events/セッション撮影会2025:09:16/models/くりえみ.jpg`
+- ヒーロー画像: `https://cdn.pinyogram.com/pinyogramlp/events/events/ぴにょぐらむphoto session 2025:09:16/main/hero.jpg`
+- モデル画像: `https://cdn.pinyogram.com/pinyogramlp/events/events/ぴにょぐらむphoto session 2025:09:16/models/くりえみ.jpg`
 
 ### 6. 動作確認手順
 
@@ -143,8 +143,8 @@ window.CDN_EVENTS_BASE = 'https://cdn.pinyogram.com/pinyogramlp/events';
    - バケットの公開設定が有効になっているか確認
 
 2. **パスが正しいか確認**
-   - オブジェクトキー: `events/セッション撮影会2025:09:16/main/card.png`
-   - 生成URL: `{配信URL}/pinyogramlp/events/events/セッション撮影会2025:09:16/main/card.png`
+   - オブジェクトキー: `events/ぴにょぐらむphoto session 2025:09:16/main/card.png`
+   - 生成URL: `{配信URL}/pinyogramlp/events/events/ぴにょぐらむphoto session 2025:09:16/main/card.png`
 
 3. **CORS設定の確認**
    - R2バケットのCORS設定で適切なドメインが許可されているか確認

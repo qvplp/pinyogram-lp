@@ -388,7 +388,7 @@ function updateOGP() {
     const photoId = urlParams.get('photo');
     
     let ogImage = currentModel.profile_image;
-    let ogTitle = `${currentModel.name}のギャラリー | ぴにょぐらむ撮影会`;
+    let ogTitle = `${currentModel.name}のギャラリー | ぴにょぐらむphoto session`;
     
     if (photoId) {
         const photo = galleryPhotos.find(p => p.id === photoId);

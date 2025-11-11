@@ -66,17 +66,17 @@ window.getEventAssetUrl = function(eventSlug, subdir, fileName){
   
   // スラッグの正規化
   if (eventSlug.startsWith('pinyogramlp/events/')) {
-    // 新しい形式: pinyogramlp/events/セッション撮影会2025:09:16/ から events/ 部分を抽出
+    // 新しい形式: pinyogramlp/events/ぴにょぐらむphoto session 2025:09:16/ から events/ 部分を抽出
     urlSlug = eventSlug.replace('pinyogramlp/events/', '');
   } else if (eventSlug.includes('/')) {
-    // 古い形式: セッション撮影会2025:09:16 をそのまま使用
+    // 古い形式: ぴにょぐらむphoto session 2025:09:16 をそのまま使用
     urlSlug = eventSlug.replace(/\//g, ':');
   } else {
     // その他の形式: そのまま使用
     urlSlug = eventSlug;
   }
   
-  // 実際のパス形式: セッション撮影会2025:09:16/main/hero.png
+  // 実際のパス形式: ぴにょぐらむphoto session 2025:09:16/main/hero.png
   const path = `${urlSlug}/${subdir}/${fileName}`;
   const url = `${window.CDN_EVENTS_BASE}/${path}`;
   

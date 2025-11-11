@@ -1,5 +1,5 @@
 /**
- * ぴにょぐらむ撮影会 予約システム
+ * ぴにょぐらむphoto session 予約システム
  */
 
 class ReservationSystem {

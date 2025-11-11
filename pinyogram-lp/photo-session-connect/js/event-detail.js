@@ -168,7 +168,7 @@ class EventDetailPage {
         }
         
         // ページタイトル更新
-        document.title = `${this.eventData.event_name} | ぴにょぐらむ撮影会`;
+        document.title = `${this.eventData.event_name} | ぴにょぐらむphoto session`;
     }
     
     // 日付フォーマット

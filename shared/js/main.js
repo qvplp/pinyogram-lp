@@ -1,5 +1,5 @@
 /**
- * ぴにょぐらむ撮影会 - メインアプリケーション
+ * ぴにょぐらむphoto session - メインアプリケーション
  * モジュラー設計、パフォーマンス最適化、セキュリティ強化
  */
 
@@ -356,4 +356,4 @@ if ('PerformanceObserver' in window) {
     performanceObserver.observe({ entryTypes: ['navigation'] });
 }
 
-console.log('ぴにょぐらむ撮影会サイトが読み込まれました！📸');
+console.log('ぴにょぐらむphoto sessionサイトが読み込まれました！📸');

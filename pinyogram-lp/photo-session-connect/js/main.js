@@ -1,5 +1,5 @@
 /**
- * ぴにょぐらむ撮影会 - メインJavaScript
+ * ぴにょぐらむphoto session - メインJavaScript
  * 全ページ共通の機能を管理
  */
 
@@ -7,7 +7,7 @@
 // グローバル設定
 // ===================================
 const APP_CONFIG = {
-    name: 'ぴにょぐらむ撮影会',
+    name: 'ぴにょぐらむphoto session',
     version: '1.0.0',
     api: {
         baseUrl: '/api', // 将来のAPI用
@@ -620,7 +620,7 @@ class PhotoSessionApp {
         // ページ固有の初期化
         this.initPageSpecific();
         
-        console.log('ぴにょぐらむ撮影会 initialized');
+        console.log('ぴにょぐらむphoto session initialized');
     }
 
     initPageSpecific() {
