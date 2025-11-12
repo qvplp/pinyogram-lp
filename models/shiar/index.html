@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>モデル詳細 | ぴにょぐらむphoto session</title>
+    
+    <!-- OGPメタタグ（JavaScriptで動的に更新） -->
+    <meta property="og:title" content="モデル詳細 | ぴにょぐらむphoto session">
+    <meta property="og:description" content="ぴにょぐらむphoto sessionのモデル詳細ページです。">
+    <meta property="og:image" content="https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/models/events_%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A2025_09_16_models_%E3%81%8F%E3%82%8A%E3%81%88%E3%81%BF.png">
+    <meta property="og:url" content="https://pinyogram.com/models/shiar">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ぴにょぐらむphoto session">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="モデル詳細 | ぴにょぐらむphoto session">
+    <meta name="twitter:description" content="ぴにょぐらむphoto sessionのモデル詳細ページです。">
+    <meta name="twitter:image" content="https://images.pinyogram.com/events/2025%3A10%3A21%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9Awith%E7%A6%8F%E5%B3%B6%E8%A3%95%E4%BA%8C/models/events_%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%92%AE%E5%BD%B1%E4%BC%9A2025_09_16_models_%E3%81%8F%E3%82%8A%E3%81%88%E3%81%BF.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/images/logo/pinyologo.webp">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/shared/css/style.css?v=20241016">
+    <link rel="stylesheet" href="/models/css/models.css?v=20241016-remove-background">
+    
+    <!-- インラインCSS（キャッシュ問題の解決） -->
+    <style>
+        .upload-section {
+            margin-top: 30px !important;
+            text-align: center !important;
+            padding: 20px !important;
+            display: flex !important;
+            justify-content: center !important;
+            width: 100% !important;
+        }
+        
+        .upload-section h3 {
+            margin-bottom: 15px !important;
+            color: #333 !important;
+            font-size: 1.2rem !important;
+        }
+        
+        .upload-button {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            padding: 15px 30px !important;
+            background: linear-gradient(135deg, #007bff 0%, #6f42c1 100%) !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 50px !important;
+            font-size: 1.1rem !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+            min-width: fit-content !important;
+            width: auto !important;
+            max-width: none !important;
+            justify-content: center !important;
+            white-space: nowrap !important;
+        }
+        
+        .upload-button:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3) !important;
+        }
+        
+        .upload-button i {
+            font-size: 1.2rem !important;
+        }
+        
+        .upload-section p {
+            margin-top: 10px !important;
+            font-size: 0.9rem !important;
+            color: #666 !important;
+        }
+        
+    </style>
+    
+    <!-- プリロード -->
+    <link rel="preload" href="/models/data/models.json?v=20241016-remove-bio" as="fetch" crossorigin>
+    <link rel="preload" href="/data/events.json?v=20241016" as="fetch" crossorigin>
+</head>
+<body>
+    <!-- 共有ヘッダー -->
+    <div id="site-header"></div>
+    
+    <!-- メインコンテンツ -->
+    <main class="model-detail-page">
+        <!-- パンくずリスト -->
+        <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol class="breadcrumb-list">
+                <li class="breadcrumb-item">
+                    <a href="/" class="breadcrumb-link">ホーム</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/models/index.html" class="breadcrumb-link">Models</a>
+                </li>
+                <li class="breadcrumb-item breadcrumb-current" aria-current="page">
+                    <span id="breadcrumb-model-name">モデル名</span>
+                </li>
+            </ol>
+        </nav>
+        
+        <!-- プロフィールセクション -->
+        <section class="profile-section" id="profile-section">
+            <div class="profile-header">
+                <div class="profile-image-container">
+                    <img id="profile-image" src="" alt="プロフィール画像" class="profile-image">
+                </div>
+                <div class="profile-info">
+                    <h1 id="model-name" class="profile-name"></h1>
+                    
+                    <!-- モデルからのコメント（条件付き表示） -->
+                    <div id="model-comment-container" class="info-section" style="display: none;">
+                        <h3 class="section-title">💬 モデルからのコメント</h3>
+                        <p id="model-comment" class="section-content"></p>
+                    </div>
+                    
+                    <!-- SNSリンクとアップロードボタン -->
+                    <div class="profile-actions">
+                        <div class="sns-links" id="sns-links">
+                            <!-- JavaScriptで動的に生成 -->
+                        </div>
+                        <div class="upload-section">
+                            <button class="upload-button" id="upload-button" onclick="handleUploadClick()">
+                                <i class="fas fa-camera"></i>
+                                <span id="upload-button-text">画像を投稿する</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ギャラリーセクション -->
+        <section class="gallery-section" id="gallery-section">
+            <h2 class="gallery-title">ギャラリー</h2>
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- JavaScriptで動的に生成 -->
+            </div>
+        </section>
+        
+        <!-- 出演予定イベントセクション -->
+        <section class="events-section" id="events-section">
+            <h2 class="events-title">出演予定イベント</h2>
+            <div class="events-grid" id="events-grid">
+                <!-- JavaScriptで動的に生成 -->
+            </div>
+        </section>
+    </main>
+    
+    <!-- ライトボックス -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightbox-close" aria-label="閉じる">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <!-- 左側ナビゲーションボタン -->
+            <button class="lightbox-nav lightbox-nav-left" id="lightbox-prev" aria-label="前の画像">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            
+            <!-- 右側ナビゲーションボタン -->
+            <button class="lightbox-nav lightbox-nav-right" id="lightbox-next" aria-label="次の画像">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            
+            <div class="lightbox-image-container">
+                <img id="lightbox-image" src="" alt="" class="lightbox-image">
+            </div>
+            
+            <div class="lightbox-info">
+                <div class="lightbox-counter">
+                    <span id="lightbox-counter">1/10</span>
+                </div>
+                <button class="lightbox-share" id="lightbox-share" aria-label="URLをコピー">
+                    <i class="fas fa-link"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- フッター -->
+    <div id="footer-container"></div>
+    
+    <!-- JavaScript -->
+    <script src="/shared/js/main.js?v=20241016"></script>
+    <script defer src="/shared/header.js"></script>
+    <script defer src="/shared/footer.js"></script>
+    <script src="/models/js/model-detail.js?v=20241016-remove-bio"></script>
+</body>
+</html>
+
