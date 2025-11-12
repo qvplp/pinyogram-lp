@@ -13,5 +13,11 @@
       "destination": "/event/index.html",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/models/:modelId",
+      "destination": "/models/detail.html"
+    }
   ]
 }

@@ -137,7 +137,7 @@ class ModelsIndexPage {
         
         filteredModels.forEach(model => {
             const modelCard = document.createElement('a');
-            modelCard.href = `/models/detail.html?id=${model.model_id}`;
+            modelCard.href = `/models/${model.model_id}`;
             modelCard.className = 'model-card';
             
             const categoryLabels = this.getCategoryLabels();

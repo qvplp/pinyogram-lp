@@ -1928,8 +1928,8 @@
         function navigateToModelDetail(modelId) {
             console.log('🔗 モデル詳細ページへ遷移:', modelId);
             
-            // モデル詳細ページのURLを構築
-            const modelDetailUrl = `/models/detail.html?id=${modelId}`;
+            // モデル詳細ページのURLを構築（新しいURL形式）
+            const modelDetailUrl = `/models/${modelId}`;
             
             // 新しいタブで開く
             window.open(modelDetailUrl, '_blank');

@@ -13,10 +13,28 @@ document.addEventListener('DOMContentLoaded', async function() {
     console.log('ページ読み込み開始');
     
     try {
-        // URLパラメータからモデルIDと写真IDを取得
-        const urlParams = new URLSearchParams(window.location.search);
-        const modelId = urlParams.get('id');
-        const photoId = urlParams.get('photo');
+        // URLパスまたはパラメータからモデルIDと写真IDを取得
+        let modelId = null;
+        let photoId = null;
+        
+        // まずURLパスから取得を試みる（/models/shiar のような形式）
+        const pathParts = window.location.pathname.split('/').filter(part => part);
+        if (pathParts.length >= 2 && pathParts[0] === 'models') {
+            modelId = pathParts[1];
+            // 写真IDもパスから取得（/models/shiar/photo123 のような形式）
+            if (pathParts.length >= 3) {
+                photoId = pathParts[2];
+            }
+        }
+        
+        // パスから取得できなかった場合は、URLパラメータから取得
+        if (!modelId) {
+            const urlParams = new URLSearchParams(window.location.search);
+            modelId = urlParams.get('id');
+            if (!photoId) {
+                photoId = urlParams.get('photo');
+            }
+        }
         
         console.log('モデルID:', modelId);
         console.log('写真ID:', photoId);
@@ -384,26 +402,37 @@ function renderEvents() {
 
 // OGPメタタグの更新
 function updateOGP() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const photoId = urlParams.get('photo');
+    // URLパスまたはパラメータから写真IDを取得
+    let photoId = null;
+    const pathParts = window.location.pathname.split('/').filter(part => part);
+    if (pathParts.length >= 3 && pathParts[0] === 'models') {
+        photoId = pathParts[2];
+    } else {
+        const urlParams = new URLSearchParams(window.location.search);
+        photoId = urlParams.get('photo');
+    }
     
     let ogImage = currentModel.profile_image;
     let ogTitle = `${currentModel.name}のギャラリー | ぴにょぐらむphoto session`;
+    let ogUrl = `${window.location.origin}/models/${currentModel.model_id}`;
     
     if (photoId) {
         const photo = galleryPhotos.find(p => p.id === photoId);
         if (photo) {
             ogImage = photo.url;
+            ogUrl = `${window.location.origin}/models/${currentModel.model_id}/${photoId}`;
         }
     }
     
     const ogImageMeta = document.querySelector('meta[property="og:image"]');
     const ogTitleMeta = document.querySelector('meta[property="og:title"]');
+    const ogUrlMeta = document.querySelector('meta[property="og:url"]');
     const twitterImageMeta = document.querySelector('meta[name="twitter:image"]');
     const twitterTitleMeta = document.querySelector('meta[name="twitter:title"]');
     
     if (ogImageMeta) ogImageMeta.setAttribute('content', ogImage);
     if (ogTitleMeta) ogTitleMeta.setAttribute('content', ogTitle);
+    if (ogUrlMeta) ogUrlMeta.setAttribute('content', ogUrl);
     if (twitterImageMeta) twitterImageMeta.setAttribute('content', ogImage);
     if (twitterTitleMeta) twitterTitleMeta.setAttribute('content', ogTitle);
     
