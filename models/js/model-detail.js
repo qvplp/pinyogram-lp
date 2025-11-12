@@ -67,16 +67,23 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('読み込んだモデルデータ:', modelsData);
         console.log('読み込んだイベントデータ:', eventsData);
         
-        // モデルを検索
-        currentModel = modelsData.models.find(m => m.model_id === modelId);
+        // モデルを検索（大文字小文字を区別しない比較）
+        const normalizedModelId = modelId.toLowerCase();
+        console.log('正規化されたモデルID:', normalizedModelId);
+        console.log('利用可能なモデルID:', modelsData.models.map(m => m.model_id));
+        
+        currentModel = modelsData.models.find(m => m.model_id.toLowerCase() === normalizedModelId);
         allEvents = eventsData.events || [];
         
         if (!currentModel) {
-            console.error('モデルが見つかりません:', modelId);
+            console.error('モデルが見つかりません:', modelId, '(正規化後:', normalizedModelId + ')');
+            console.log('利用可能なモデルID:', modelsData.models.map(m => m.model_id));
             console.log('モデル一覧ページにリダイレクトします');
             window.location.href = '/models/index.html';
             return;
         }
+        
+        console.log('モデルが見つかりました:', currentModel.model_id, currentModel.name);
         
         console.log('現在のモデル:', currentModel);
         

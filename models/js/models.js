@@ -19,17 +19,20 @@ class ModelsIndexPage {
             const modelId = urlParams.get('id');
             
             if (modelId) {
-                // モデルIDが指定されている場合、モデルが存在するか確認
+                // モデルIDが指定されている場合、モデルが存在するか確認（大文字小文字を区別しない比較）
                 console.log('モデルIDが指定されているため、モデル詳細ページにリダイレクトします:', modelId);
-                const model = this.modelsData.models.find(m => m.model_id === modelId);
+                const normalizedModelId = modelId.toLowerCase();
+                const model = this.modelsData.models.find(m => m.model_id.toLowerCase() === normalizedModelId);
                 
                 if (model) {
-                    // モデルが存在する場合、モデル詳細ページにリダイレクト
-                    window.location.href = `/models/${modelId}`;
+                    // モデルが存在する場合、モデル詳細ページにリダイレクト（実際のmodel_idを使用）
+                    console.log('モデルが見つかりました:', model.model_id, model.name);
+                    window.location.href = `/models/${model.model_id}`;
                     return;
                 } else {
                     // モデルが存在しない場合、エラーメッセージを表示して続行
-                    console.warn('指定されたモデルIDが見つかりません:', modelId);
+                    console.warn('指定されたモデルIDが見つかりません:', modelId, '(正規化後:', normalizedModelId + ')');
+                    console.log('利用可能なモデルID:', this.modelsData.models.map(m => m.model_id));
                 }
             }
             
