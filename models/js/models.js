@@ -15,11 +15,26 @@ class ModelsIndexPage {
             const pathname = window.location.pathname;
             const pathParts = pathname.split('/').filter(part => part);
             
-            // /models/ または /models/index.html でない場合（特定のモデルページにアクセスしている場合）は何もしない
-            if (pathParts.length > 2 || (pathParts.length === 2 && pathParts[0] === 'models' && pathParts[1] !== 'index.html' && pathParts[1] !== '')) {
+            console.log('=== models.js: 初期化開始 ===');
+            console.log('パス名:', pathname);
+            console.log('パスパーツ:', pathParts);
+            
+            // 厳密なチェック: /models/ または /models/index.html でない場合は即座にリターン
+            const isModelsIndexPage = (
+                pathname === '/models/' || 
+                pathname === '/models' || 
+                pathname === '/models/index.html' ||
+                (pathParts.length === 1 && pathParts[0] === 'models') ||
+                (pathParts.length === 2 && pathParts[0] === 'models' && (pathParts[1] === '' || pathParts[1] === 'index.html'))
+            );
+            
+            if (!isModelsIndexPage) {
                 console.log('モデル一覧ページではないため、初期化をスキップします:', pathname);
+                console.log('isModelsIndexPage:', isModelsIndexPage);
                 return;
             }
+            
+            console.log('モデル一覧ページとして処理を続行します');
             
             // まずデータを読み込む
             await this.loadData();

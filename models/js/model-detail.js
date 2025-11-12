@@ -79,19 +79,30 @@ document.addEventListener('DOMContentLoaded', async function() {
         const normalizedModelId = modelId.toLowerCase();
         console.log('正規化されたモデルID:', normalizedModelId);
         console.log('利用可能なモデルID:', modelsData.models.map(m => m.model_id));
+        console.log('モデルデータの数:', modelsData.models.length);
         
-        currentModel = modelsData.models.find(m => m.model_id.toLowerCase() === normalizedModelId);
+        // 大文字小文字を区別しない検索
+        currentModel = modelsData.models.find(m => {
+            const modelIdLower = m.model_id.toLowerCase();
+            const match = modelIdLower === normalizedModelId;
+            if (match) {
+                console.log('モデルマッチ:', m.model_id, '===', normalizedModelId);
+            }
+            return match;
+        });
         allEvents = eventsData.events || [];
         
         if (!currentModel) {
-            console.error('モデルが見つかりません:', modelId, '(正規化後:', normalizedModelId + ')');
+            console.error('❌ モデルが見つかりません:', modelId, '(正規化後:', normalizedModelId + ')');
             console.log('利用可能なモデルID:', modelsData.models.map(m => m.model_id));
+            console.log('利用可能なモデルID（小文字）:', modelsData.models.map(m => m.model_id.toLowerCase()));
+            console.log('検索対象（正規化後）:', normalizedModelId);
             console.log('モデル一覧ページにリダイレクトします');
             window.location.href = '/models/index.html';
             return;
         }
         
-        console.log('モデルが見つかりました:', currentModel.model_id, currentModel.name);
+        console.log('✅ モデルが見つかりました:', currentModel.model_id, currentModel.name);
         
         console.log('現在のモデル:', currentModel);
         
