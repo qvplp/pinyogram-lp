@@ -20,10 +20,15 @@ document.addEventListener('DOMContentLoaded', async function() {
         // まずURLパスから取得を試みる（/models/shiar のような形式）
         const pathParts = window.location.pathname.split('/').filter(part => part);
         if (pathParts.length >= 2 && pathParts[0] === 'models') {
-            modelId = pathParts[1];
-            // 写真IDもパスから取得（/models/shiar/photo123 のような形式）
-            if (pathParts.length >= 3) {
-                photoId = pathParts[2];
+            const potentialModelId = pathParts[1];
+            // 予約語（detail, index, data, css, jsなど）の場合はモデルIDとして扱わない
+            const reservedWords = ['detail', 'index', 'data', 'css', 'js', 'admin'];
+            if (!reservedWords.includes(potentialModelId)) {
+                modelId = potentialModelId;
+                // 写真IDもパスから取得（/models/shiar/photo123 のような形式）
+                if (pathParts.length >= 3) {
+                    photoId = pathParts[2];
+                }
             }
         }
         
@@ -39,9 +44,10 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('モデルID:', modelId);
         console.log('写真ID:', photoId);
         
+        // モデルIDが指定されていない、または予約語の場合はモデル一覧ページにリダイレクト
         if (!modelId) {
-            console.error('モデルIDが指定されていません');
-            showError('モデルIDが指定されていません');
+            console.log('モデルIDが指定されていないため、モデル一覧ページにリダイレクトします');
+            window.location.href = '/models/index.html';
             return;
         }
         
@@ -67,7 +73,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         
         if (!currentModel) {
             console.error('モデルが見つかりません:', modelId);
-            showError('モデルが見つかりません');
+            console.log('モデル一覧ページにリダイレクトします');
+            window.location.href = '/models/index.html';
             return;
         }
         

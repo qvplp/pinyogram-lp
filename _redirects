@@ -1,2 +1,4 @@
 / /event/index.html 301
 /contest/* /event/index.html 302
+/models/detail /models/index.html 301
+/models/detail.html /models/index.html 301
