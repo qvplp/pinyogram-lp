@@ -5,12 +5,14 @@
 class ModelsIndexPage {
     constructor() {
         this.modelsData = null;
+        this.selectedCategory = 'ALL';
         this.init();
     }
     
     async init() {
         try {
             await this.loadData();
+            this.renderCategoryFilter();
             this.renderModels();
             this.setupEventListeners();
         } catch (error) {
@@ -32,26 +34,133 @@ class ModelsIndexPage {
         }
     }
     
+    getCategoryCounts() {
+        const counts = {
+            'ALL': this.modelsData.models.length,
+            'IDOL': 0,
+            'MODEL': 0,
+            'COSPLAYER': 0,
+            'GRAVURE': 0,
+            'TALENT': 0
+        };
+        
+        this.modelsData.models.forEach(model => {
+            if (model.category) {
+                // 配列の場合は各カテゴリをカウント、文字列の場合は後方互換性のためそのままカウント
+                const categories = Array.isArray(model.category) ? model.category : [model.category];
+                categories.forEach(cat => {
+                    if (counts.hasOwnProperty(cat)) {
+                        counts[cat]++;
+                    }
+                });
+            }
+        });
+        
+        return counts;
+    }
+    
+    getCategoryLabels() {
+        return {
+            'ALL': 'All',
+            'IDOL': 'Idol',
+            'MODEL': 'Model',
+            'COSPLAYER': 'Cosplayer',
+            'GRAVURE': 'Gravure',
+            'TALENT': 'Talent'
+        };
+    }
+    
+    renderCategoryFilter() {
+        const categoryFilter = document.getElementById('category-filter');
+        if (!categoryFilter || !this.modelsData) return;
+        
+        const counts = this.getCategoryCounts();
+        const labels = this.getCategoryLabels();
+        const categories = ['ALL', 'IDOL', 'MODEL', 'COSPLAYER', 'GRAVURE', 'TALENT'];
+        
+        categoryFilter.innerHTML = '';
+        
+        categories.forEach(category => {
+            const button = document.createElement('button');
+            button.className = 'category-filter-button';
+            if (this.selectedCategory === category) {
+                button.classList.add('active');
+            }
+            button.textContent = `${labels[category]} `;
+            
+            const countSpan = document.createElement('span');
+            countSpan.className = 'count';
+            countSpan.textContent = counts[category];
+            button.appendChild(countSpan);
+            
+            button.addEventListener('click', () => {
+                this.selectedCategory = category;
+                this.renderCategoryFilter();
+                this.renderModels();
+            });
+            
+            categoryFilter.appendChild(button);
+        });
+    }
+    
+    getFilteredModels() {
+        if (!this.modelsData) return [];
+        
+        if (this.selectedCategory === 'ALL') {
+            return this.modelsData.models;
+        }
+        
+        return this.modelsData.models.filter(model => {
+            if (!model.category) return false;
+            // 配列の場合は含まれているかチェック、文字列の場合は後方互換性のためそのまま比較
+            const categories = Array.isArray(model.category) ? model.category : [model.category];
+            return categories.includes(this.selectedCategory);
+        });
+    }
+    
     renderModels() {
         const modelsGrid = document.getElementById('models-grid');
         if (!modelsGrid || !this.modelsData) return;
         
         modelsGrid.innerHTML = '';
         
-        this.modelsData.models.forEach(model => {
+        const filteredModels = this.getFilteredModels();
+        
+        if (filteredModels.length === 0) {
+            modelsGrid.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
+                    <p style="font-size: 18px; color: var(--gray-600);">該当するモデルが見つかりませんでした</p>
+                </div>
+            `;
+            return;
+        }
+        
+        filteredModels.forEach(model => {
             const modelCard = document.createElement('a');
             modelCard.href = `/models/detail.html?id=${model.model_id}`;
             modelCard.className = 'model-card';
             
+            const categoryLabels = this.getCategoryLabels();
+            // 配列の場合はすべてのカテゴリを表示、文字列の場合は後方互換性のためそのまま表示
+            const categories = model.category 
+                ? (Array.isArray(model.category) ? model.category : [model.category])
+                : [];
+            
+            const categoryTags = categories.map(cat => {
+                const label = categoryLabels[cat] || cat;
+                return `<span class="model-card-category">${label}</span>`;
+            }).join('');
+            
             modelCard.innerHTML = `
-                <img src="${model.profile_image}" 
-                     alt="${model.name}のプロフィール画像" 
-                     class="model-card-image"
-                     onerror="this.src='/assets/images/common/placeholder.jpg'">
-                <h2 class="model-card-name">${model.name}</h2>
-                <div class="model-card-button">
-                    <i class="fas fa-user"></i>
-                    詳細を見る
+                <div class="model-card-image-wrapper">
+                    <img src="${model.profile_image}" 
+                         alt="${model.name}のプロフィール画像" 
+                         class="model-card-image"
+                         onerror="this.src='/assets/images/common/placeholder.jpg'">
+                    ${categoryTags ? `<div class="model-card-categories">${categoryTags}</div>` : ''}
+                </div>
+                <div class="model-card-content">
+                    <h2 class="model-card-name">${model.name}</h2>
                 </div>
             `;
             
