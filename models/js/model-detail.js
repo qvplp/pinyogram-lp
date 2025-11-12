@@ -10,7 +10,9 @@ let galleryPhotos = [];
 
 // ページ読み込み時の初期化
 document.addEventListener('DOMContentLoaded', async function() {
-    console.log('ページ読み込み開始');
+    console.log('=== model-detail.js: ページ読み込み開始 ===');
+    console.log('現在のURL:', window.location.href);
+    console.log('パス名:', window.location.pathname);
     
     try {
         // URLパスまたはパラメータからモデルIDと写真IDを取得
@@ -19,16 +21,22 @@ document.addEventListener('DOMContentLoaded', async function() {
         
         // まずURLパスから取得を試みる（/models/shiar のような形式）
         const pathParts = window.location.pathname.split('/').filter(part => part);
+        console.log('パスパーツ:', pathParts);
+        
         if (pathParts.length >= 2 && pathParts[0] === 'models') {
             const potentialModelId = pathParts[1];
+            console.log('潜在的なモデルID:', potentialModelId);
             // 予約語（detail, index, data, css, jsなど）の場合はモデルIDとして扱わない
             const reservedWords = ['detail', 'index', 'data', 'css', 'js', 'admin'];
-            if (!reservedWords.includes(potentialModelId)) {
+            if (!reservedWords.includes(potentialModelId.toLowerCase())) {
                 modelId = potentialModelId;
+                console.log('モデルIDをパスから取得:', modelId);
                 // 写真IDもパスから取得（/models/shiar/photo123 のような形式）
                 if (pathParts.length >= 3) {
                     photoId = pathParts[2];
                 }
+            } else {
+                console.log('予約語のため、モデルIDとして扱いません:', potentialModelId);
             }
         }
         

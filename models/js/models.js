@@ -11,6 +11,16 @@ class ModelsIndexPage {
     
     async init() {
         try {
+            // URLパスをチェックして、モデル一覧ページ（/models/ または /models/index.html）でない場合は何もしない
+            const pathname = window.location.pathname;
+            const pathParts = pathname.split('/').filter(part => part);
+            
+            // /models/ または /models/index.html でない場合（特定のモデルページにアクセスしている場合）は何もしない
+            if (pathParts.length > 2 || (pathParts.length === 2 && pathParts[0] === 'models' && pathParts[1] !== 'index.html' && pathParts[1] !== '')) {
+                console.log('モデル一覧ページではないため、初期化をスキップします:', pathname);
+                return;
+            }
+            
             // まずデータを読み込む
             await this.loadData();
             
