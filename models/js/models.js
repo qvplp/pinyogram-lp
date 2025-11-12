@@ -11,7 +11,29 @@ class ModelsIndexPage {
     
     async init() {
         try {
+            // まずデータを読み込む
             await this.loadData();
+            
+            // URLパラメータからモデルIDを取得して、存在する場合はモデル詳細ページにリダイレクト
+            const urlParams = new URLSearchParams(window.location.search);
+            const modelId = urlParams.get('id');
+            
+            if (modelId) {
+                // モデルIDが指定されている場合、モデルが存在するか確認
+                console.log('モデルIDが指定されているため、モデル詳細ページにリダイレクトします:', modelId);
+                const model = this.modelsData.models.find(m => m.model_id === modelId);
+                
+                if (model) {
+                    // モデルが存在する場合、モデル詳細ページにリダイレクト
+                    window.location.href = `/models/${modelId}`;
+                    return;
+                } else {
+                    // モデルが存在しない場合、エラーメッセージを表示して続行
+                    console.warn('指定されたモデルIDが見つかりません:', modelId);
+                }
+            }
+            
+            // モデルIDが指定されていない、またはモデルが見つからない場合は通常通りモデル一覧を表示
             this.renderCategoryFilter();
             this.renderModels();
             this.setupEventListeners();
