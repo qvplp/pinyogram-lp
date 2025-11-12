@@ -268,6 +268,10 @@
     - vercel.json を削除（Vercel 未使用のため不要設定を除去）
     - _redirects に `/models/:modelId /models/:modelId/ 301` を追加し、末尾スラッシュ無しリクエストを正規化
   - 結果: `/models/shiar` など末尾スラッシュ無しアクセスでも静的詳細ページへ確実に遷移することを確認
+- 2025-01-27: モデル詳細ページOGP個別最適化完了
+  - 問題: モデル詳細ページの静的OGPが共通イベント画像を指し示していた
+  - 修正内容: models/kuriemi/index.html, models/maro/index.html, models/shiar/index.html のtitle/OGP/Twitterメタタグをモデル固有の名称・プロフィール画像に更新
+  - 結果: 各モデルの詳細URLを共有した際に正しいプロフィール画像とタイトルが表示されることを確認
 
 ## 次のアクション
 1. モデル詳細ページの動作確認
