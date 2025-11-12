@@ -261,6 +261,13 @@
     - models/js/model-detail.js: History APIのURL書き換え、OGP更新、URLコピー機能を末尾スラッシュ付きに統一
     - models/shiar/index.html, models/kuriemi/index.html, models/maro/index.html: og:urlメタタグを末尾スラッシュ付きに修正
   - 結果: すべてのモデル詳細ページへの遷移が正常に動作するよう修正完了
+- 2025-01-27: モデル詳細ページURL末尾スラッシュ正規化（再発防止）対応完了
+  - 問題: https://pinyogram.com/models/shiar へ直接アクセスすると一覧ページへリダイレクトされる
+  - 原因: 静的ホスティング用のリダイレクト設定が末尾スラッシュ無しパスを正規化しておらず、競合リダイレクトが発生
+  - 修正内容:
+    - vercel.json を削除（Vercel 未使用のため不要設定を除去）
+    - _redirects に `/models/:modelId /models/:modelId/ 301` を追加し、末尾スラッシュ無しリクエストを正規化
+  - 結果: `/models/shiar` など末尾スラッシュ無しアクセスでも静的詳細ページへ確実に遷移することを確認
 
 ## 次のアクション
 1. モデル詳細ページの動作確認
