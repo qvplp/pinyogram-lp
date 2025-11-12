@@ -63,7 +63,7 @@ class ModelsIndexPage {
                 if (model) {
                     // モデルが存在する場合、モデル詳細ページにリダイレクト（実際のmodel_idを使用）
                     console.log('モデルが見つかりました:', model.model_id, model.name);
-                    window.location.href = `/models/${model.model_id}`;
+                    window.location.href = `/models/${model.model_id}/`;
                     return;
                 } else {
                     // モデルが存在しない場合、エラーメッセージを表示して続行
@@ -198,7 +198,7 @@ class ModelsIndexPage {
         
         filteredModels.forEach(model => {
             const modelCard = document.createElement('a');
-            modelCard.href = `/models/${model.model_id}`;
+            modelCard.href = `/models/${model.model_id}/`;
             modelCard.className = 'model-card';
             
             const categoryLabels = this.getCategoryLabels();

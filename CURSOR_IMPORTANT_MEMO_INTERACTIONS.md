@@ -253,6 +253,14 @@
   - アップロードフォーム: https://forms.gle/twK3aAZ43KgTfJHRA
   - 出演予定イベント: EVT004, EVT005, EVT006
   - 既存のJavaScriptコードで自動的にモデル一覧・詳細ページに表示される
+- 2025-01-27: モデル詳細ページURL末尾スラッシュ統一修正完了
+  - 問題: モデル一覧ページからSHIAr（shiar）の詳細ページに遷移できない不具合
+  - 原因: URLの末尾スラッシュ不統一により、S3等のホスティング環境でindex.htmlが正しく解決されない
+  - 修正内容:
+    - models/js/models.js: モデルカードリンクとリダイレクトURLを末尾スラッシュ付きに統一（`/models/${model_id}/`）
+    - models/js/model-detail.js: History APIのURL書き換え、OGP更新、URLコピー機能を末尾スラッシュ付きに統一
+    - models/shiar/index.html, models/kuriemi/index.html, models/maro/index.html: og:urlメタタグを末尾スラッシュ付きに修正
+  - 結果: すべてのモデル詳細ページへの遷移が正常に動作するよう修正完了
 
 ## 次のアクション
 1. モデル詳細ページの動作確認

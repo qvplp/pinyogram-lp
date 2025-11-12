@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             window.history.replaceState({modelId, photoId}, '', newUrl);
             highlightPhoto(photoId);
         } else {
-            const newUrl = `/models/${modelId}`;
+            const newUrl = `/models/${modelId}/`;
             window.history.replaceState({modelId}, '', newUrl);
         }
         
@@ -447,7 +447,7 @@ function updateOGP() {
     
     let ogImage = currentModel.profile_image;
     let ogTitle = `${currentModel.name}のギャラリー | ぴにょぐらむphoto session`;
-    let ogUrl = `${window.location.origin}/models/${currentModel.model_id}`;
+    let ogUrl = `${window.location.origin}/models/${currentModel.model_id}/`;
     
     if (photoId) {
         const photo = galleryPhotos.find(p => p.id === photoId);
@@ -474,7 +474,9 @@ function updateOGP() {
 
 // URLコピー機能（改善版）
 async function copyPhotoUrl(photoId, buttonElement) {
-    const url = `${window.location.origin}/models/${currentModel.model_id}/${photoId}`;
+    const url = photoId 
+        ? `${window.location.origin}/models/${currentModel.model_id}/${photoId}`
+        : `${window.location.origin}/models/${currentModel.model_id}/`;
     
     try {
         await navigator.clipboard.writeText(url);
