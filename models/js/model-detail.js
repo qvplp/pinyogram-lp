@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         // モデルIDが指定されていない、または予約語の場合はモデル一覧ページにリダイレクト
         if (!modelId) {
             console.log('モデルIDが指定されていないため、モデル一覧ページにリダイレクトします');
-            window.location.href = '/models/index.html';
+            window.location.href = '/models/';
             return;
         }
         
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             console.log('利用可能なモデルID（小文字）:', modelsData.models.map(m => m.model_id.toLowerCase()));
             console.log('検索対象（正規化後）:', normalizedModelId);
             console.log('モデル一覧ページにリダイレクトします');
-            window.location.href = '/models/index.html';
+            window.location.href = '/models/';
             return;
         }
         
@@ -721,7 +721,7 @@ function showError(message) {
             <div class="error-message">
                 <i class="fas fa-exclamation-triangle"></i>
                 <p>${message}</p>
-                <a href="/models/index.html" class="btn-back">モデル一覧に戻る</a>
+                <a href="/models/" class="btn-back">モデル一覧に戻る</a>
             </div>
         `;
     }

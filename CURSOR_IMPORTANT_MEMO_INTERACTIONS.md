@@ -272,6 +272,15 @@
   - 問題: モデル詳細ページの静的OGPが共通イベント画像を指し示していた
   - 修正内容: models/kuriemi/index.html, models/maro/index.html, models/shiar/index.html のtitle/OGP/Twitterメタタグをモデル固有の名称・プロフィール画像に更新
   - 結果: 各モデルの詳細URLを共有した際に正しいプロフィール画像とタイトルが表示されることを確認
+- 2025-01-27: モデル一覧ページ末尾スラッシュ正規化対応完了
+  - 問題: https://pinyogram.com/models/index.html/ にアクセスするとイベントページへリダイレクトされる
+  - 原因: _redirects の /models/:modelId ルールが index.html をヒットし、末尾スラッシュ付与後に想定外の遷移が発生
+  - 修正内容: /models/index.html/ → /models/index.html の301リダイレクトを追加し、一覧ページ表示を保証
+  - 結果: モデル一覧ページへのアクセスが常に index.html を表示することを確認
+- 2025-01-27: Modelsナビゲーションの直リンク修正
+  - 問題: ヘッダーやパンくずのリンクが /models/index.html を指し、環境によって /models/index.html/ 経由の不要なリダイレクトが発生
+  - 修正内容: ヘッダー、パンくず、戻るボタンをすべて /models/ に統一
+  - 結果: 不必要なリダイレクトを発生させずに一覧ページへ遷移できることを確認
 
 ## 次のアクション
 1. モデル詳細ページの動作確認
