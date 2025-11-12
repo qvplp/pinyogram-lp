@@ -20,6 +20,7 @@ class ModelsIndexPage {
             console.log('パスパーツ:', pathParts);
             
             // 厳密なチェック: /models/ または /models/index.html でない場合は即座にリターン
+            // pathParts.length === 2 で pathParts[1] が 'index.html' または空文字でない場合は、特定のモデルページ
             const isModelsIndexPage = (
                 pathname === '/models/' || 
                 pathname === '/models' || 
@@ -28,9 +29,19 @@ class ModelsIndexPage {
                 (pathParts.length === 2 && pathParts[0] === 'models' && (pathParts[1] === '' || pathParts[1] === 'index.html'))
             );
             
-            if (!isModelsIndexPage) {
+            // 追加チェック: pathParts.length === 2 で pathParts[1] が予約語でない場合は、特定のモデルページと判断
+            const isSpecificModelPage = (
+                pathParts.length === 2 && 
+                pathParts[0] === 'models' && 
+                pathParts[1] !== '' && 
+                pathParts[1] !== 'index.html' &&
+                !['detail', 'data', 'css', 'js', 'admin'].includes(pathParts[1].toLowerCase())
+            );
+            
+            if (!isModelsIndexPage || isSpecificModelPage) {
                 console.log('モデル一覧ページではないため、初期化をスキップします:', pathname);
                 console.log('isModelsIndexPage:', isModelsIndexPage);
+                console.log('isSpecificModelPage:', isSpecificModelPage);
                 return;
             }
             
