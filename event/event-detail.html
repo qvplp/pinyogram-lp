@@ -152,6 +152,91 @@
             text-align: left !important;
         }
         
+        /* タイムスケジュールのリスト（箇条書きの点を2文字分右にずらす） */
+        #timeTableList {
+            padding-left: 2em !important; /* 2文字分（約2em）右にずらす */
+            list-style-position: outside !important; /* 箇条書きの点を外側に配置 */
+            margin-left: 0 !important;
+        }
+        
+        #timeTableList li {
+            padding-left: 0 !important;
+            margin-left: 0 !important;
+        }
+        
+        /* 参加費セクションの価格テーブル（箇条書きの点を追加してタイムスケジュールと揃える） */
+        .price-table {
+            list-style: none !important; /* デフォルトのリストスタイルを無効化（::beforeで点を追加） */
+            padding-left: 2em !important; /* タイムスケジュールと同じ2文字分右にずらす */
+            margin-left: 0 !important;
+        }
+        
+        .price-table .price-item {
+            display: block !important; /* ブロック要素として表示（左揃えの1文） */
+            padding-left: 0 !important;
+            margin-left: 0 !important;
+            list-style: none !important; /* デフォルトのリストスタイルを無効化 */
+            position: relative !important;
+        }
+        
+        /* ラベルと価格を左揃えで1文として表示 */
+        .price-table .price-label,
+        .price-table .price-value {
+            display: inline !important;
+        }
+        
+        .price-table .price-label::after {
+            content: " " !important; /* ラベルと価格の間にスペースを追加 */
+        }
+        
+        /* 箇条書きの点を::before疑似要素で追加（タイムスケジュールと揃える） */
+        .price-table .price-item::before {
+            content: "•" !important;
+            position: absolute !important;
+            left: -2em !important; /* タイムスケジュールと同じ位置に配置 */
+            color: #2d3748 !important;
+            font-weight: bold !important;
+        }
+        
+        /* オプションセクションのリスト（箇条書きの点を追加してタイムスケジュールと揃える） */
+        #optionList {
+            list-style: none !important; /* デフォルトのリストスタイルを無効化（::beforeで点を追加） */
+            padding-left: 2em !important; /* タイムスケジュールと同じ2文字分右にずらす */
+            margin-left: 0 !important;
+        }
+        
+        #optionList .price-item {
+            display: block !important; /* ブロック要素として表示（左揃えの1文） */
+            padding-left: 0 !important;
+            margin-left: 0 !important;
+            list-style: none !important; /* デフォルトのリストスタイルを無効化 */
+            position: relative !important;
+        }
+        
+        /* ラベルと価格を左揃えで1文として表示 */
+        #optionList .price-label,
+        #optionList .price-value {
+            display: inline !important;
+        }
+        
+        #optionList .price-label::after {
+            content: " " !important; /* ラベルと価格の間にスペースを追加 */
+        }
+        
+        /* 箇条書きの点を::before疑似要素で追加（タイムスケジュールと揃える） */
+        #optionList .price-item::before {
+            content: "•" !important;
+            position: absolute !important;
+            left: -2em !important; /* タイムスケジュールと同じ位置に配置 */
+            color: #2d3748 !important;
+            font-weight: bold !important;
+        }
+        
+        /* オプションセクションの上に改行を追加 */
+        .option-section {
+            margin-top: 1em !important; /* オプションの上に改行を追加 */
+        }
+        
         /* タイムスケジュールの見出しも左揃えに */
         .schedule-info h3 {
             text-align: left !important;
@@ -520,6 +605,24 @@
             .model-role {
                 font-size: 14px;
             }
+            
+            /* PCサイズでは注意事項セクションの幅を広げる（両端を広げる） */
+            .event-info-column {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 0 20px; /* PCサイズでは適度な余白を維持 */
+            }
+            
+            .event-description {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 40px; /* PCサイズでは現状維持 */
+            }
+            
+            .notice-list {
+                width: 100%;
+                max-width: 100%;
+            }
         }
         
         /* 大型PCサイズ（1200px以上） - より多くの列を表示 */
@@ -554,13 +657,26 @@
             padding: 0 30px;
         }
         
+        /* スマートフォンサイズではコンテナの余白を大幅に削減 */
+        @media (max-width: 480px) {
+            .event-content-section .container {
+                padding: 0 5px !important; /* スマホでは余白を最小限に */
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .event-content-section .container {
+                padding: 0 3px !important; /* 最小画面ではさらに削減 */
+            }
+        }
+        
         .event-info-column {
             max-width: none !important; /* 最大幅制限を解除 */
             margin: 0 auto;
-            width: fit-content !important; /* 画像サイズに合わせる */
+            width: 100% !important; /* 幅を100%に設定して両端を広げる */
             display: flex !important;
             flex-direction: column !important;
-            align-items: center !important;
+            align-items: stretch !important; /* 子要素を幅いっぱいに広げる */
         }
         
         /* ヒーロー画像セクション - About usページのヒーロー動画のように全幅表示・余白なし */
@@ -634,7 +750,7 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             margin-top: 20px; /* hero画像との間隔を調整 */
             max-width: none !important; /* 最大幅制限を解除 */
-            width: fit-content !important; /* 画像サイズに合わせる */
+            width: 100% !important; /* 幅を100%に設定して両端を広げる */
             min-width: 100% !important; /* 最小幅は100% */
         }
         
@@ -674,6 +790,8 @@
         .notice-list {
             list-style: none;
             padding: 0;
+            width: 100%; /* 幅を100%に設定 */
+            max-width: 100%; /* 最大幅を100%に設定 */
         }
         
         .notice-list li {
@@ -681,6 +799,7 @@
             color: #718096;
             position: relative;
             padding-left: 25px;
+            width: 100%; /* 幅を100%に設定 */
         }
         
         .notice-list li:before {
@@ -1008,24 +1127,24 @@
             }
             
             .event-content-section {
-                padding: 40px 5px; /* スマホでは余白を小さく */
+                padding: 40px 2px !important; /* スマホでは余白を最小限に削減 */
             }
             
             .event-info-column {
                 max-width: none !important;
                 margin: 0 auto;
-                width: fit-content !important;
-                padding: 0 10px; /* 左右に少し余白 */
+                width: 100% !important; /* 幅を100%に設定 */
+                padding: 0 2px !important; /* スマホでは余白を最小限に削減 */
                 display: flex !important;
                 flex-direction: column !important;
-                align-items: center !important;
+                align-items: stretch !important; /* 子要素を幅いっぱいに広げる */
             }
             
             .event-description {
-                width: fit-content !important;
+                width: 100% !important; /* 幅を100%に設定 */
                 max-width: 100% !important;
                 min-width: 100% !important;
-                padding: 20px; /* スマホでは余白を小さく */
+                padding: 12px !important; /* スマホでは余白をさらに削減して視認性を向上 */
                 margin-top: 15px;
                 border-radius: 10px; /* スマホでは角丸を少し小さく */
             }
@@ -1044,22 +1163,22 @@
     /* より小さなスマートフォン対応 */
     @media (max-width: 480px) {
         .event-content-section {
-            padding: 20px 5px;
+            padding: 20px 2px !important; /* スマホでは余白を最小限に削減 */
         }
         
         .event-info-column {
-            padding: 0 5px;
-            width: fit-content !important;
+            padding: 0 2px !important; /* スマホでは余白を最小限に削減 */
+            width: 100% !important; /* 幅を100%に設定 */
             display: flex !important;
             flex-direction: column !important;
-            align-items: center !important;
+            align-items: stretch !important; /* 子要素を幅いっぱいに広げる */
         }
         
         .event-description {
-            width: fit-content !important;
+            width: 100% !important; /* 幅を100%に設定 */
             max-width: 100% !important;
             min-width: 100% !important;
-            padding: 15px;
+            padding: 12px !important; /* スマホでは余白をさらに削減して視認性を向上 */
             margin-top: 10px;
             border-radius: 8px;
         }
@@ -1077,16 +1196,25 @@
     /* 最小画面サイズ（360px以下）での対応 */
     @media (max-width: 360px) {
         .event-content-section {
-            padding: 15px 3px;
+            padding: 15px 1px !important; /* 最小画面では余白を最小限に */
         }
         
         .event-info-column {
-            padding: 0 3px;
+            padding: 0 1px !important; /* 最小画面では余白を最小限に */
         }
         
         .event-description {
-            padding: 12px;
+            padding: 10px !important; /* 最小画面では余白を最小限に */
             border-radius: 6px;
+        }
+        
+        .notice-list {
+            padding: 0;
+            width: 100%; /* 幅を100%に設定 */
+        }
+        
+        .notice-list li {
+            padding: 8px 0; /* スマホではパディングを少し減らす */
         }
         
         .event-description h2 {
@@ -1139,20 +1267,20 @@
         }
         
         .event-info-column {
-            width: fit-content !important; /* 画像サイズに合わせる */
+            width: 100% !important; /* 幅を100%に設定 */
             max-width: 100% !important;
             margin: 0 auto !important; /* 中央揃え */
-            padding: 0 10px;
+            padding: 0 2px !important; /* スマホでは余白を最小限に削減 */
             display: flex !important;
             flex-direction: column !important;
-            align-items: center !important;
+            align-items: stretch !important; /* 子要素を幅いっぱいに広げる */
         }
         
         .event-description {
-            width: fit-content !important; /* 画像サイズに合わせる */
+            width: 100% !important; /* 幅を100%に設定 */
             max-width: 100% !important;
             min-width: 100% !important; /* 最小幅は画面幅 */
-            padding: 20px;
+            padding: 12px !important; /* スマホでは余白をさらに削減して視認性を向上 */
             margin-top: 15px;
             border-radius: 10px;
         }
@@ -1380,11 +1508,11 @@
                     
                     <h3>参加費（税込）</h3>
                     <div class="pricing-info">
-                        <div class="price-table" id="priceTable"></div>
+                        <ul class="price-table" id="priceTable"></ul>
                         
                         <div class="option-section">
                             <p><strong>■オプション（税込）</strong></p>
-                            <div class="price-item" id="optionList"></div>
+                            <ul id="optionList"></ul>
                         </div>
                     </div>
                     
@@ -1611,13 +1739,13 @@
                         
                         let priceHTML = '';
                         if (p.perUnit) {
-                            priceHTML += `<div class="price-item"><span class="price-label">各部</span><span class="price-value">${fmt(p.perUnit)}</span></div>`;
+                            priceHTML += `<li class="price-item"><span class="price-label">各部</span><span class="price-value">${fmt(p.perUnit)}</span></li>`;
                         }
                         if (p.twoParts) {
-                            priceHTML += `<div class="price-item"><span class="price-label">2部通し</span><span class="price-value">${fmt(p.twoParts)}</span></div>`;
+                            priceHTML += `<li class="price-item"><span class="price-label">2部通し</span><span class="price-value">${fmt(p.twoParts)}</span></li>`;
                         }
                         if (p.threeParts) {
-                            priceHTML += `<div class="price-item"><span class="price-label">3部通し</span><span class="price-value">${fmt(p.threeParts)}</span></div>`;
+                            priceHTML += `<li class="price-item"><span class="price-label">3部通し</span><span class="price-value">${fmt(p.threeParts)}</span></li>`;
                         }
                         
                         if (priceHTML) {
@@ -1638,8 +1766,8 @@
                     const opt = document.getElementById('optionList');
                     if (opt) {
                         opt.innerHTML = this.eventData.options.map(o => 
-                            `<div class="price-item"><span class="price-label">${o.name}</span><span class="price-value">${o.price}</span></div>`
-                        ).join('');
+                            `<li class="price-item"><span class="price-label">${o.name}</span><span class="price-value">${o.price}</span></li>`
+                        ).join(''); /* 改行を削除して結合 */
                     }
                 } else {
                     // オプションがない場合は非表示
