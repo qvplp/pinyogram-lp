@@ -124,6 +124,116 @@
       ],
       "upcoming_events": ["EVT004", "EVT005", "EVT006"],
       "upload_link": "https://forms.gle/twK3aAZ43KgTfJHRA"
+    },
+    {
+      "model_id": "osakanahakushaku",
+      "name": "おさかな伯爵",
+      "name_en": "Osakana Hakushaku",
+      "category": ["COSPLAYER"],
+      "profile_image": "https://images.pinyogram.com/models/osakanahakushaku/osakana0001.jpg",
+      "photo_notes": "【撮影時のご注意】\n\n・自然体での撮影をお願いします\n・コミュニケーションを楽しみながら進めましょう\n・リクエストがあれば遠慮なくお伝えください\n・安全を最優先に、心地よい距離感で撮影をお願いします",
+      "model_comment": "いつも応援ありがとうございます！楽しくてちょっと不思議な世界観を一緒に切り取っていただけたら嬉しいです。これからもよろしくお願いします。",
+      "sns": {
+        "twitter": "",
+        "instagram": ""
+      },
+      "gallery": [
+        {
+          "id": "osakanahakushaku0001",
+          "url": "https://images.pinyogram.com/models/osakanahakushaku/osakana0001.jpg",
+          "title": "ポートレート"
+        }
+      ],
+      "upcoming_events": [],
+      "upload_link": "https://forms.gle/Xp6TmzYR4Xmw7c5K8"
+    },
+    {
+      "model_id": "uki_arisa",
+      "name": "宇城ありさ",
+      "name_en": "Arisa Uki",
+      "category": ["COSPLAYER"],
+      "profile_image": "https://images.pinyogram.com/models/uki_arisa/uki0001.jpg",
+      "photo_notes": "【撮影時のご注意】\n\n・リラックスした雰囲気での撮影を心掛けています\n・衣装やポージングはお気軽にご相談ください\n・自然光・ライティング問わず柔らかい表情を大切にしています",
+      "model_comment": "宇城ありさです。みなさんと一緒に温度のある写真が撮れたら嬉しいです。これからもよろしくお願いします！",
+      "sns": {
+        "twitter": "",
+        "instagram": ""
+      },
+      "gallery": [
+        {
+          "id": "uki_arisa0001",
+          "url": "https://images.pinyogram.com/models/uki_arisa/uki0001.jpg",
+          "title": "ナチュラルショット"
+        }
+      ],
+      "upcoming_events": [],
+      "upload_link": "https://forms.gle/8TNKmC5rmfd4wjSs6"
+    },
+    {
+      "model_id": "a-chami",
+      "name": "あーちゃみ",
+      "name_en": "A-Chami",
+      "category": ["COSPLAYER"],
+      "profile_image": "https://images.pinyogram.com/models/a-chami/a-chami0001.jpg",
+      "photo_notes": "【撮影時のご注意】\n\n・ポップで明るい雰囲気を大切にしています\n・小物やアイデアを持ち込んでいただくのも大歓迎です\n・撮影前にイメージを共有していただけるとスムーズです",
+      "model_comment": "撮影会でお会いできる皆さんに感謝しています！笑顔いっぱいの時間を一緒に作れたら嬉しいです！",
+      "sns": {
+        "twitter": "",
+        "instagram": ""
+      },
+      "gallery": [
+        {
+          "id": "achami0001",
+          "url": "https://images.pinyogram.com/models/a-chami/a-chami0001.jpg",
+          "title": "カジュアルポートレート"
+        }
+      ],
+      "upcoming_events": [],
+      "upload_link": "https://forms.gle/pJtLgzCqHcMbGdTYA"
+    },
+    {
+      "model_id": "kagura_yuria",
+      "name": "神楽ユリア",
+      "name_en": "Yuria Kagura",
+      "category": ["COSPLAYER"],
+      "profile_image": "https://images.pinyogram.com/models/kagura_yuria/kaguya0001.jpg",
+      "photo_notes": "【撮影時のご注意】\n\n・世界観づくりを一緒に楽しみましょう\n・動きのあるポーズにも挑戦しますのでお気軽にご相談ください\n・衣装のディテールがわかる構図も得意です",
+      "model_comment": "神楽ユリアです。皆さんと一緒に物語の1ページのような写真を残せたら嬉しいです！",
+      "sns": {
+        "twitter": "",
+        "instagram": ""
+      },
+      "gallery": [
+        {
+          "id": "kagurayuria0001",
+          "url": "https://images.pinyogram.com/models/kagura_yuria/kaguya0001.jpg",
+          "title": "ドラマティックシーン"
+        }
+      ],
+      "upcoming_events": [],
+      "upload_link": "https://forms.gle/K73xGVhPTBKKMLwQ8"
+    },
+    {
+      "model_id": "motimotimotti",
+      "name": "もちもちもっち",
+      "name_en": "Motimotimotti",
+      "category": ["COSPLAYER"],
+      "profile_image": "https://images.pinyogram.com/models/motimotimotti/mochi0001.jpg",
+      "photo_notes": "【撮影時のご注意】\n\n・ふんわりした空気感を大切にしています\n・自然光・スタジオ問わず柔らかいトーンの撮影が得意です\n・お気軽に話しかけていただけると嬉しいです",
+      "model_comment": "もちもちもっちです。皆さんと楽しく撮影できる時間を心から楽しみにしています！",
+      "sns": {
+        "twitter": "",
+        "instagram": ""
+      },
+      "gallery": [
+        {
+          "id": "motimotimotti0001",
+          "url": "https://images.pinyogram.com/models/motimotimotti/mochi0001.jpg",
+          "title": "ソフトポートレート"
+        }
+      ],
+      "upcoming_events": [],
+      "upload_link": "https://forms.gle/qfw9VXnVbjtyhGa78"
     }
   ]
 }
