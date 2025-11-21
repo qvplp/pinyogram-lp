@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "live-server . --port=8081 --open=/",
     "start": "live-server . --port=8081",
-    "build": "rm -rf public && mkdir -p public && for item in * .[!.]*; do [ \"$item\" != \"public\" ] && [ \"$item\" != \"node_modules\" ] && [ \"$item\" != \".git\" ] && [ \"$item\" != \".vercel\" ] && cp -r \"$item\" public/ 2>/dev/null || true; done && echo 'Build process completed'"
+    "build": "echo 'Static site - no build required'"
   },
   "keywords": [],
   "author": "",
