@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "live-server . --port=8081 --open=/",
     "start": "live-server . --port=8081",
-    "build": "echo 'Build process completed'"
+    "build": "rm -rf public && mkdir -p public && (shopt -s dotglob && cp -r * public/ 2>/dev/null || find . -maxdepth 1 -not -name '.' -not -name 'public' -not -name 'node_modules' -not -name '.git' -not -name '.vercel' -exec cp -r {} public/ \\;) && echo 'Build process completed'"
   },
   "keywords": [],
   "author": "",
