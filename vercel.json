@@ -99,7 +99,34 @@
       ]
     },
     {
-      "source": "/(.*\\.(js|css|jpg|jpeg|png|gif|webp|svg|ico|woff|woff2|ttf|eot))",
+      "source": "/(.*)\\.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.css",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.(jpg|jpeg|png|gif|webp|svg|ico)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.(woff|woff2|ttf|eot)",
       "headers": [
         {
           "key": "Cache-Control",
