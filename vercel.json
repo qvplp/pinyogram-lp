@@ -7,10 +7,6 @@
   "devCommand": "npm run dev",
   "rewrites": [
     {
-      "source": "/",
-      "destination": "/index.html"
-    },
-    {
       "source": "/event",
       "destination": "/event/index.html"
     },
@@ -136,6 +132,6 @@
     }
   ],
   "trailingSlash": false,
-  "cleanUrls": true
+  "cleanUrls": false
 }
 
