@@ -31,26 +31,22 @@
     {
       "source": "/contest/:path*",
       "destination": "/event/index.html",
-      "permanent": false,
-      "statusCode": 302
+      "permanent": false
     },
     {
       "source": "/models/detail",
       "destination": "/models/index.html",
-      "permanent": true,
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/models/detail.html",
       "destination": "/models/index.html",
-      "permanent": true,
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/models/index.html/",
       "destination": "/models/index.html",
-      "permanent": true,
-      "statusCode": 301
+      "permanent": true
     }
   ],
   "headers": [
