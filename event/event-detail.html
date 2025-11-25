@@ -2015,8 +2015,43 @@
             
             setupGoogleFormLink() {
                 const button = document.getElementById('reservationButton');
-                if (button && this.eventData && this.eventData.reservationUrl) {
-                    button.href = this.eventData.reservationUrl;
+                if (button && this.eventData) {
+                    // イベントが過去のものかどうかを判定
+                    const eventDate = new Date(this.eventData.event_date);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    eventDate.setHours(0, 0, 0, 0);
+                    
+                    const isPastEvent = eventDate < today;
+                    
+                    if (isPastEvent) {
+                        // 過去のイベントの場合
+                        button.innerHTML = '📚<br>イベントは終了しています';
+                        button.style.backgroundColor = '#666';
+                        button.style.cursor = 'not-allowed';
+                        button.style.opacity = '0.7';
+                        button.removeAttribute('href');
+                        button.onclick = (e) => {
+                            e.preventDefault();
+                            return false;
+                        };
+                        
+                        // 予約セクションのタイトルと説明も変更
+                        const reservationTitle = document.querySelector('.reservation-card h2');
+                        const reservationDescription = document.querySelector('.reservation-card p');
+                        
+                        if (reservationTitle) {
+                            reservationTitle.textContent = 'このイベントについて';
+                        }
+                        if (reservationDescription) {
+                            reservationDescription.innerHTML = 'このイベントは既に終了しています。<br>過去のイベント情報として掲載しています。';
+                        }
+                    } else {
+                        // 未来のイベントの場合（従来の処理）
+                        if (this.eventData.reservationUrl) {
+                            button.href = this.eventData.reservationUrl;
+                        }
+                    }
                 }
             }
             

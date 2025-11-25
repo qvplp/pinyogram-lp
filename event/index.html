@@ -85,7 +85,7 @@
     <link rel="canonical" href="https://pinyogram.com/event/">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="css/shared/style.css?v=11.1.0">
+    <link rel="stylesheet" href="/event/css/shared/style.css?v=11.1.0">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -111,7 +111,7 @@
                 loop
                 playsinline
                 preload="metadata"
-                poster="../assets/images/common/placeholder.jpg"
+                poster="/assets/images/common/placeholder.jpg"
                 aria-label="ぴにょぐらむイベント紹介動画"
                 controlslist="nodownload noplaybackrate nofullscreen noremoteplayback"
                 disablepictureinpicture
@@ -406,6 +406,12 @@
             <div class="events-grid" id="eventsGrid">
                 <!-- イベントカードは動的に生成されます -->
             </div>
+            
+            <!-- 過去のイベントセクション -->
+            <h2 class="section-title" style="margin-top: 60px;">📚 ぴにょぐらむphoto session - 過去のイベント</h2>
+            <div class="events-grid" id="pastEventsGrid">
+                <!-- 過去のイベントカードは動的に生成されます -->
+            </div>
         </div>
         
         <!-- 右側：月間カレンダー（1/3） -->
@@ -468,6 +474,18 @@
                 return eventDate >= today;
             });
         }
+
+        // 過去のイベントのみを取得
+        function getPastEvents(events) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            return events.filter(event => {
+                const eventDate = new Date(event.date);
+                eventDate.setHours(0, 0, 0, 0);
+                return eventDate < today;
+            }).sort((a, b) => new Date(b.date) - new Date(a.date)); // 新しい順にソート
+        }
         
         // イベントカードを生成
         function generateEventCards() {
@@ -478,7 +496,7 @@
             const futureEvents = filterPastEvents(eventData);
             
             if (futureEvents.length === 0) {
-                html = '<div class="no-events-message" style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #666;">開催予定のイベントはありません</div>';
+                html = '<div class="no-events-message" style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #666;">Coming Soon</div>';
             } else {
                 futureEvents.forEach(event => {
                 const date = new Date(event.date);
@@ -551,6 +569,83 @@
                 card.style.cursor = 'pointer';
             });
         }
+
+        // 過去のイベントカードを生成
+        function generatePastEventCards() {
+            const pastEventsGrid = document.getElementById('pastEventsGrid');
+            let html = '';
+            
+            // 過去のイベントを取得
+            const pastEvents = getPastEvents(eventData);
+            
+            if (pastEvents.length === 0) {
+                html = '<div class="no-events-message" style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #666;">過去のイベントはありません</div>';
+            } else {
+                pastEvents.forEach(event => {
+                const date = new Date(event.date);
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'][date.getDay()];
+                
+                // 過去のイベントには「終了」バッジを表示
+                const badgeHtml = '<span class="event-badge badge-ended" style="background: #666; color: white;">終了</span>';
+                
+                const gradient = event.type === 'individual' 
+                    ? 'linear-gradient(135deg, #10b981, #3b82f6)'
+                    : 'linear-gradient(135deg, #ff6ec7, #3b82f6)';
+                
+                html += `
+                    <div class="event-card past-event" data-id="${event.id}" role="button" tabindex="0" aria-label="${event.name}の詳細ページへ移動" style="opacity: 0.8;">
+                        <figure class="media-frame is-40x21 fill-gradient" data-focal="center" style="--bg: url('${event.image}')">
+                            <img src="${event.image}" alt="${event.name}の画像" loading="lazy" decoding="async" ${event.id === 'EVT004' || event.event_id === 'EVT004' ? 'onload="console.log(\'✅ EVT004 image loaded successfully:\', this.src)" onerror="console.error(\'❌ EVT004 image failed to load:\', this.src); this.style.display=\'none\'; this.parentElement.className=\'media-frame is-40x21 fill-gradient\'; this.parentElement.innerHTML=\'<div style=\\\'color: white; text-align: center;\\\'>📷<br/>画像読み込み中...</div>\'"' : 'onerror="window.__imgFallback(this)"'} data-fallbacks="${event.__cardFallbacks ? event.__cardFallbacks.join(',') : ''}">
+                            <div class="media-overlay">
+                                ${badgeHtml}
+                            </div>
+                        </figure>
+                        <div class="event-content">
+                            <h3 class="event-title">${event.name}</h3>
+                            <div class="event-info">📅 ${month}月${day}日(${dayOfWeek})</div>
+                            <div class="event-info">📍 ${event.venue}</div>
+                        </div>
+                        <div class="event-footer">
+                            <span class="event-price">${event.priceText ? event.priceText : `¥${(event.price||0).toLocaleString()}${event.type === 'individual' ? '/30分' : '〜'}`}</span>
+                            <span style="color: #666; font-size: 0.85rem;">
+                                開催済み
+                            </span>
+                        </div>
+                        ${event.pricing ? `
+                        <div class=\"price-breakdown\" style=\"padding:6px 12px; color:#555; font-size:0.85rem;\">
+                            各部 ${'¥'+Number(event.pricing.perUnit).toLocaleString()} / 2部通し ${'¥'+Number(event.pricing.twoParts).toLocaleString()}${event.pricing.threeParts ? ' / 3部通し ¥'+Number(event.pricing.threeParts).toLocaleString() : ''}
+                        </div>` : ''}
+                        <div class="card-actions">
+                            <a href="/event/${event.id}/" class="btn-detail">詳細を見る</a>
+                        </div>
+                    </div>
+                `;
+                });
+            }
+            
+            pastEventsGrid.innerHTML = html;
+            
+            // 過去のイベントカード全体にクリックイベントを追加
+            document.querySelectorAll('.event-card.past-event').forEach(card => {
+                const handleCardClick = (e) => {
+                    if (e.target.classList.contains('btn-detail') || e.target.closest('.btn-detail')) {
+                        return;
+                    }
+                    const eventId = card.dataset.id;
+                    window.location.href = `/event/${eventId}/`;
+                };
+                card.addEventListener('click', handleCardClick);
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleCardClick(e);
+                    }
+                });
+                card.style.cursor = 'pointer';
+            });
+        }
         
         // イベントリストを生成
         function generateEventList() {
@@ -558,11 +653,11 @@
             const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
             let html = `<h4 class="event-list-title">🗓 ${currentYear}年${monthNames[currentMonth - 1]}のスケジュール</h4>`;
             
-            // カレンダーと同じ月のイベントのみをフィルタリング（過去のイベントを除外）
-            const currentMonthEvents = filterPastEvents(eventData.filter(event => {
+            // カレンダーと同じ月のイベントのみをフィルタリング（過去のイベントも含む）
+            const currentMonthEvents = eventData.filter(event => {
                 const eventDate = new Date(event.date);
                 return eventDate.getFullYear() === currentYear && eventDate.getMonth() + 1 === currentMonth;
-            }));
+            });
             
             if (currentMonthEvents.length === 0) {
                 html += '<div class="event-list-item no-events">この月のイベントはありません</div>';
@@ -663,8 +758,8 @@
             const today = new Date();
             for (let day = 1; day <= monthLength; day++) {
                 const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                // 過去のイベントを除外
-                const dayEvents = filterPastEvents(eventData.filter(e => e.date === dateStr));
+                // 過去のイベントも含めてすべてのイベントを表示
+                const dayEvents = eventData.filter(e => e.date === dateStr);
                 const isToday = today.getFullYear() === year && today.getMonth() + 1 === month && today.getDate() === day;
                 
                 let dayClass = 'calendar-day';
@@ -679,7 +774,10 @@
                 
                 displayEvents.forEach(event => {
                     const shortName = event.name.length > 6 ? event.name.substring(0, 6) + '...' : event.name;
-                    html += `<div class="calendar-event ${event.type}">${shortName}</div>`;
+                    const eventDate = new Date(event.date);
+                    const isPastEvent = eventDate < today;
+                    const pastClass = isPastEvent ? ' past-event' : '';
+                    html += `<div class="calendar-event ${event.type}${pastClass}" ${isPastEvent ? 'style="opacity: 0.6; text-decoration: line-through;"' : ''}>${shortName}</div>`;
                 });
                 
                 if (dayEvents.length > maxEvents) {
@@ -949,6 +1047,7 @@
             });
 
             generateEventCards();
+            generatePastEventCards();
             
             // 最も近いイベントがある月を取得してカレンダーを初期化
             const nearestEventMonth = getNearestEventMonth();
@@ -970,10 +1069,10 @@
     <div id="site-footer"></div>
 
     <!-- JavaScript (ES6 Modules) -->
-    <script src="../shared/js/config.js"></script>
-    <script type="module" src="js/shared/main.js"></script>
-    <script defer src="../shared/header.js"></script>
-    <script defer src="../shared/footer.js"></script>
+    <script src="/shared/js/config.js"></script>
+    <script type="module" src="/event/js/shared/main.js"></script>
+    <script defer src="/shared/header.js"></script>
+    <script defer src="/shared/footer.js"></script>
     
     <!-- 自動2色抽出JS -->
     <script>
